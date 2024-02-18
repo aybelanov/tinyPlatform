@@ -2,7 +2,7 @@
 Free and open source simple Web IoT platform for data acquisition, remote control and online monitoring, where you can register devices, creates widgets and monitors and share them to other users.
 
 ## Demo video
-[Short video presentation](https://www.youtube.com/)
+[Short video presentation](https://youtu.be/jkAjIlBb3UU)
 
 ## Demo version
 [Demo tinyPlaform](https://demo.tinyplat.com)
