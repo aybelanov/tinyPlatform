@@ -1,0 +1,220 @@
+﻿@if (SensorId < 1)
+{
+   <PageTitle>@T["Sensor.Create.PageTitle"]</PageTitle>
+   <h3>@T["Sensor.Create.PageTitle"]</h3>
+}
+else
+{
+   <PageTitle>@T["Sensor.Edit.PageTitle", systemnameTitle ?? string.Empty]</PageTitle>
+   <h3 class="mb-3 mr-1 d-inline-block">@T["Sensor.Edit.PageTitle", systemnameTitle ?? string.Empty]</h3>
+}
+
+
+@if (Model == null || Model.Device == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <SensorLinks Model="@Model" />
+
+   <RadzenCard class="mb-5" style="min-width: 540px;">
+      <CreateOrEditForm TItem="SensorModel" ItemNameForNotification="@Model.Name" Model="Model" OnCancel=@(async model => { await OnInitializedAsync(); StateHasChanged();})
+                        OnDelete=@SensorService.DeleteAsync OnSubmitCreate=@SensorService.InsertAsync OnSubmitUpdate=@SensorService.UpdateAsync Context="model" Submit="@OnSubmit"
+                        @bind-DisableButtons=@isLoading AfterDelete="@OnAfterSave" AfterSave="@OnAfterSave">
+
+         <div class="row row-cols-2 justify-content-md-center d-flex">
+            <div class="col mb-3" style="min-width: 420px; margin-bottom:25px;">
+               <RadzenFieldset Text=@T["Sensor.CreateOrEdit.Fieldset.Common"]>
+                  @if (Model.Id > 0)
+                  {
+                     <div class="row mb-3 align-items-center">
+                        <div class="col-md-3 d-flex justify-content-md-end">
+                           <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.ID"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           @Model.Id
+                        </div>
+                     </div>
+                  }
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.Device"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenLink Text="@Model.Device.Name" Path=@($"configuration/device/edit/{Model.DeviceId}") />
+                        <DeviceStatusBadge DeviceId="@Model.DeviceId" class="d-inline-block position-relative" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.SensorType"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenDropDown AllowClear="true" Name="SensorType" TValue="string" class="w-100" Style="display: block" AllowFiltering="true" 
+                        Data=@(Enum.GetNames<SensorType>()) Count=@(Enum.GetValues<SensorType>().Count()) Placeholder=@T["Select"] @bind-Value=@Model.SensorTypeString />
+                        <RadzenRequiredValidator Component="SensorType" Text=@T["Validation.RequireValue"] DefaultValue="0" Style="position:absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.MeasureUnit"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="MeasureUnit" style="width: 100%; display:block;" @bind-Value=@Model.MeasureUnit Placeholder="@T["Sensor.CreateOrEdit.MeasureUnit.Placeholder"]" />
+                        <RadzenLengthValidator Component="MeasureUnit" Max="10" Text="@T["Validation.Length.Max", T["Sensor.CreateOrEdit.Label.MeasureUnit"], 10]" Style="position: absolute" />
+                        <RadzenRequiredValidator Component="MeasureUnit" Text=@T["Validation.RequireValue"] DefaultValue="0" Style="position:absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.SystemName"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="SystemName" style="width: 100%; display:block;" @bind-Value=@Model.SystemName Placeholder="@T["Sensor.CreateOrEdit.SystemName.Placeholder"]" />
+                        <SensorSystemNameValidator Component="SystemName" @bind-IsValidating=@isLoading Style="position: absolute"/>
+                        @* <RadzenLengthValidator Component="SystemName" Min="5" Text="@T["Validation.Length.Min", T["Sensor.CreateOrEdit.Label.SystemName"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="SystemName" Max="100" Text="@T["Validation.Length.Max", T["Sensor.CreateOrEdit.Label.SystemName"], 100]" Style="position: absolute" /> *@
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.Name"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="Name" style="width: 100%; display:block;" @bind-Value=@Model.Name Placeholder="@T["Sensor.CreateOrEdit.Name.Placeholder"]" />
+                        <RadzenLengthValidator Component="Name" Min="5" Text="@T["Validation.Length.Min", T["Sensor.CreateOrEdit.Label.Name"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="Name" Max="100" Text="@T["Validation.Length.Max", T["Sensor.CreateOrEdit.Label.Name"], 100]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-2 align-items-start">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.Description"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextArea Rows="4" Name="Description" @bind-Value=@Model.Description style="width: 100%;" Class="w-100" Placeholder="@T["Sensor.CreateOrEdit.Description.Placeholder"]" />
+                        <RadzenLengthValidator Component="Description" Max="1000" Text="@T["Validation.Length.Max", T["Watcher.CreateOrEdit.Label.Description"], 1000]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.PriorityType"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenDropDown AllowClear="true" Name="PriorityType" TValue="string" class="w-100" Style="display: block" AllowFiltering="true" 
+                        Data=@(Enum.GetNames<PriorityType>()) Count=@(Enum.GetValues<PriorityType>().Count()) Placeholder=@T["Select"] @bind-Value=@Model.PriorityTypeString />
+                        <RadzenRequiredValidator Component="PriorityType" Text=@T["Validation.RequireValue"] DefaultValue="0" Style="position:absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-0 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                     </div>
+                     <div class="col-md-9">
+                        <nobr>
+                           <div class="d-inline-block">
+                              <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.Enabled"]" class="text-right" />
+                           </div>
+                           <div class="d-inline-block mr-3">
+                              <RadzenCheckBox @bind-Value=Model.Enabled TValue="bool" Name="Enabled" Style="text-decoration:none;"></RadzenCheckBox>
+                           </div>
+                        </nobr>
+                        <nobr>
+                           <div class="d-inline-block">
+                              <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.InCommonLog"]" class="text-right" />
+                           </div>
+                           <div class="d-inline-block">
+                              <RadzenCheckBox @bind-Value=Model.ShowInCommonLog TValue="bool" Name="ShowInCommonLog" Style="text-decoration:none;"></RadzenCheckBox>
+                           </div>
+                        </nobr>
+                     </div>
+                  </div>
+                  @if (Model.Id > 0)
+                  {
+                     <div class="row align-items-center mt-3 mb-0">
+                        <div class="col-md-3 justify-content-md-end d-flex">
+                           <TinyLabel Text="@T["Sensor.CreateOrEdit.Label.Icon"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           <TinyImageUpload Accept="image/jpeg, image/png, image/gif" Multiple="false" PictureUrl="@Model.PictureUrl" UploadUrl="@($"sensor/uploadicon/{Model.Id}")"
+                                            Height="50" ErrorCallback=@IconUploadError SuccessCallback="@IconUploadSuccess" @bind-Disabled=@isLoading />
+                        </div>
+                     </div>
+                  }
+               </RadzenFieldset>
+            </div>
+            <div class="col mb-3" style="min-width: 420px;">
+               <RadzenFieldset Text=@T["Sensor.CreateOrEdit.Fieldset.Configuration"] class="h-100">
+                  <RadzenTextArea Rows="@(Model.Id > 0 ? 25 : 20)" Name="Configuration" @bind-Value:get=@Model.Configuration @bind-Value:set=@OnConfigurationSet class="w-100 h-100" Style="display: block" />
+                  <JsonFormatValidator Component="Configuration" Text=@T["Validation.RequireJsonFormat"] Style="position: absolute" />
+               </RadzenFieldset>
+            </div>
+         </div>
+      </CreateOrEditForm>
+   </RadzenCard>
+}
+
+
+@code {
+
+
+   [Parameter] public long SensorId { get; set; }
+   [Parameter] public long DeviceId { get; set; }
+
+   [Inject] ISensorService SensorService { get; set; }
+   [Inject] HubService Hub { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] NotificationService Notification { get; set; }
+   [Inject] private IHelperService Helper { get; set; }
+
+   SensorModel Model;
+   bool isLoading;
+   string systemnameTitle;
+
+   protected override async Task OnInitializedAsync()
+   {
+      try
+      {
+         if (SensorId > 0)
+         {
+            Model = await PrepareSensorModelAsync(SensorId);
+         }
+         else
+         {
+            Model = await PrepareSensorModelAsync(new SensorModel() { DeviceId = DeviceId });
+         }
+
+         systemnameTitle = Model.SystemName;
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+
+   async Task OnConfigurationSet(string value)
+   {
+      Model.Configuration = value.Trim();
+      await Task.CompletedTask;
+   }
+
+   private void IconUploadError(string message) => Notification.Notify(NotificationSeverity.Error, message, duration: -1d);
+
+   private async void IconUploadSuccess(string newPictureUrl)
+   {
+      var sensor = await SensorService.GetSensorByIdAsync(Model.Id);
+      sensor.PictureUrl = Model.PictureUrl = newPictureUrl;
+      Notification.Notify(NotificationSeverity.Success, T["Sensor.Icon.Upload.Success"]);
+   }
+
+   async Task OnSubmit(SensorModel model)
+   {
+      systemnameTitle = model.SystemName;
+      await Task.CompletedTask;
+   }
+
+   private async Task OnAfterSave()
+   {
+      Navigation.NavigateTo("configuration/sensors");
+      await Task.CompletedTask;
+   }
+}

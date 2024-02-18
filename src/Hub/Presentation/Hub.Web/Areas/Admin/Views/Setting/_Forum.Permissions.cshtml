@@ -1,0 +1,98 @@
+@model ForumSettingsModel
+
+<div class="card-body">
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="AllowGuestsToCreatePosts" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowGuestsToCreatePosts" />
+            <span asp-validation-for="AllowGuestsToCreatePosts"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="AllowGuestsToCreateTopics" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowGuestsToCreateTopics" />
+            <span asp-validation-for="AllowGuestsToCreateTopics"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="AllowUsersToEditPosts" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowUsersToEditPosts" />
+            <span asp-validation-for="AllowUsersToEditPosts"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="AllowUsersToDeletePosts" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowUsersToDeletePosts" />
+            <span asp-validation-for="AllowUsersToDeletePosts"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="AllowUsersToManageSubscriptions" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowUsersToManageSubscriptions" />
+            <span asp-validation-for="AllowUsersToManageSubscriptions"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="AllowPostVoting" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowPostVoting" />
+            <span asp-validation-for="AllowPostVoting"></span>
+        </div>
+    </div>
+    <app-nested-setting asp-for="AllowPostVoting">
+        <div class="form-group row advanced-setting">
+            <div class="col-md-3">
+                <app-label asp-for="MaxVotesPerDay" />
+            </div>
+            <div class="col-md-9">
+                <app-editor asp-for="MaxVotesPerDay" />
+                <span asp-validation-for="MaxVotesPerDay"></span>
+            </div>
+        </div>
+    </app-nested-setting>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="AllowPrivateMessages" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowPrivateMessages" />
+            <span asp-validation-for="AllowPrivateMessages"></span>
+        </div>
+    </div>
+    <app-nested-setting asp-for="AllowPrivateMessages">
+        <div class="form-group row advanced-setting">
+            <div class="col-md-3">
+                <app-label asp-for="ShowAlertForPM" />
+            </div>
+            <div class="col-md-9">
+                <app-editor asp-for="ShowAlertForPM" />
+                <span asp-validation-for="ShowAlertForPM"></span>
+            </div>
+        </div>
+        <div class="form-group row advanced-setting" id="pnlNotifyAboutPrivateMessages">
+            <div class="col-md-3">
+                <app-label asp-for="NotifyAboutPrivateMessages" />
+            </div>
+            <div class="col-md-9">
+                <app-editor asp-for="NotifyAboutPrivateMessages" />
+                <span asp-validation-for="NotifyAboutPrivateMessages"></span>
+            </div>
+        </div>
+    </app-nested-setting>
+</div>

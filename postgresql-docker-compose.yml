@@ -1,0 +1,18 @@
+version: "3.4"
+services:
+    tinyhub:
+        build: .
+        container_name: tinyhub
+        ports:
+            - "80:80"
+        depends_on:
+            - tinyhub_database
+    nopcommerce_database:
+        image: "postgres:latest"
+        container_name: tinyhub_postgres_server
+        restart: "always"
+        environment:
+          POSTGRES_PASSWORD: "tinyhub_db_password"
+
+volumes:
+  tinyhub_data:            

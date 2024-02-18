@@ -1,0 +1,68 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustCommonWidget
+
+<div class="row justify-content-md-center w-100">
+   <div class="col pr-0">
+      <RadzenChart class="w-100">
+         @if (_adjustment.ShowAsAreachart)
+         {
+            <RadzenAreaSeries Smooth=@_adjustment.SmothHistoryChart TItem="HistoryItemModel" Data="@HistoryData" CategoryProperty="TimeAgo" ValueProperty="Value" LineType="LineType.Solid">
+               <RadzenMarkers MarkerType="@(_adjustment.ShowHistoryAnnotations ? MarkerType.Circle : MarkerType.None)" />
+               <RadzenSeriesDataLabels Visible="false" />
+               @if (HistoryData.Count > 2)
+               {
+                  <RadzenSeriesTrendLine Visible="@_adjustment.ShowHistoryTrends" Stroke="var(--rz-danger-dark)" LineType="LineType.Dashed" />
+                  <RadzenSeriesMedianLine Visible="@ShowMedian" Stroke="var(--rz-success-dark)" LineType="LineType.Dotted" />
+                  <RadzenSeriesMeanLine Visible="@ShowMean" Stroke="var(--rz-info-dark)" LineType="LineType.Dotted" />
+                  <RadzenSeriesModeLine Visible="@ShowMode" Stroke="var(--rz-warning-darker)" LineType="LineType.Dotted" />
+               }
+            </RadzenAreaSeries>
+         }
+         else
+         {
+            <RadzenLineSeries Smooth=@_adjustment.SmothHistoryChart TItem="HistoryItemModel" Data="@HistoryData" CategoryProperty="TimeAgo" ValueProperty="Value" LineType="LineType.Solid">
+               <RadzenMarkers MarkerType="@(_adjustment.ShowHistoryAnnotations ? MarkerType.Circle : MarkerType.None)" />
+               <RadzenSeriesDataLabels Visible="false" />
+               @if (HistoryData.Count > 2)
+               {
+                  <RadzenSeriesTrendLine Visible="@_adjustment.ShowHistoryTrends" Stroke="var(--rz-danger-dark)" LineType="LineType.Dashed" />
+                  <RadzenSeriesMedianLine Visible="@ShowMedian" Stroke="var(--rz-success-dark)" LineType="LineType.Dotted" />
+                  <RadzenSeriesMeanLine Visible="@ShowMean" Stroke="var(--rz-info-dark)" LineType="LineType.Dotted" />
+                  <RadzenSeriesModeLine Visible="@ShowMode" Stroke="var(--rz-warning-darker)" LineType="LineType.Dotted" />
+               }
+            </RadzenLineSeries>
+         }
+         <RadzenLegend Position=LegendPosition.Top Visible=false />
+         <RadzenCategoryAxis Max=0 Min=@(-_adjustment.HistoryPointsCount) Step=@(_adjustment.HistoryPointsCount/4) Visible=true>
+            <RadzenGridLines Visible="true" Stroke="#ccc" LineType="LineType.Dashed" />
+         </RadzenCategoryAxis>
+         <RadzenValueAxis Max=@_adjustment.MaxValue Min=@_adjustment.MinValue Step=@((_adjustment.MaxValue - _adjustment.MinValue) / 2) Visible=true>
+            <RadzenGridLines Visible="true" />
+            @if (!HideMeasureUnit)
+            {
+               <RadzenAxisTitle Text="@Presentation.Sensor.MeasureUnit" />
+            }
+         </RadzenValueAxis>
+      </RadzenChart>
+   </div>
+</div>
+
+@code {
+   [CascadingParameter] PresentationViewModel Presentation { get; set; }
+   [Parameter] public IList<HistoryItemModel> HistoryData { get; set; }
+   [Parameter] public bool HideMeasureUnit { get; set; }
+   [Parameter] public bool ShowMedian { get; set; }
+   [Parameter] public bool ShowMean { get; set; }
+   [Parameter] public bool ShowMode { get; set; }
+
+   CommonWidgetAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+      ? new CommonWidgetAdjustment()
+      : JsonSerializer.Deserialize<CommonWidgetAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+}

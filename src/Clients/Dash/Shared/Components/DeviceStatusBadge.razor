@@ -1,0 +1,67 @@
+﻿@implements IAsyncDisposable
+@if (_device != null)
+{
+   var style = Helper.GetBadgeStatus(_device.ConnectionStatus);
+   <RadzenBadge BadgeStyle=@style.Item1 Shade=Shade.Lighter Text=@style.Item2 Style="top:-1px; margin-left:1px;" @attributes=@Attributes />
+}
+
+@code {
+   [Parameter, EditorRequired] 
+   public long DeviceId { get; set; }
+
+   [Parameter(CaptureUnmatchedValues = true)]
+   public Dictionary<string, object> Attributes { get; set; }
+
+   [Inject] private HubService Hub { get; set; }
+   [Inject] private IHelperService Helper { get; set; }
+   [Inject] private IDeviceService DeviceService { get; set; }
+
+   private Device _device;
+
+   protected override async Task OnInitializedAsync()
+   {
+      if (DeviceId > 0)
+      {
+         try
+         {
+            _device = await DeviceService.GetByIdAsync(DeviceId);
+
+            if (_device is not null)
+            {
+               Hub.DeviceStatusChanged += OnDeviceStatusChanged;
+               await Hub.SubscribeToDeviceStatus(this, [DeviceId]);
+            }
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+         }
+      }
+   }
+
+   async Task OnDeviceStatusChanged(DeviceConnectionStatus status)
+   {
+      if (status.DeviceId == DeviceId)
+      {
+         if (string.IsNullOrEmpty(status.IPAddress))
+         {
+            _device.ConnectionStatus = OnlineStatus.BeenRecently;
+         }
+         else
+         {
+            _device.ConnectionStatus = OnlineStatus.Online;
+            _device.LastIpAddress = status.IPAddress;
+         }
+
+         StateHasChanged();
+      }
+
+      await Task.CompletedTask;
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Hub.DeviceStatusChanged -= OnDeviceStatusChanged;
+      await Hub.UnsubscribeFromDeviceStatus(this, [DeviceId]);
+   }
+}

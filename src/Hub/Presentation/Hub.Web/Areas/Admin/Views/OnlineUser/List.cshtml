@@ -1,0 +1,244 @@
+﻿@using Hub.Core.Domain.Users;
+@model OnlineUserSearchModel
+@inject UserSettings _userSettings
+
+@{
+   //page title
+   ViewBag.PageTitle = T("Admin.Users.OnlineUsers").Text;
+   //active menu item (system name)
+   AppHtml.SetActiveMenuItemSystemName("Online users");
+
+   const string hideSearchBlockAttributeName = "OnlineUserPage.HideSearchBlock";
+   var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentUserAsync(), hideSearchBlockAttributeName, defaultValue: false);
+}
+
+<div class="content-header clearfix">
+   <h1 class="float-left">
+      @T("Admin.Users.OnlineUsers")
+   </h1>
+   <div class="float-right">
+      &nbsp;
+      @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.OnlineUserListButtons, additionalData = Model })
+   </div>
+</div>
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="form-horizontal">
+         <div class="cards-group">
+            <div class="card card-default card-search">
+               <div class="card-body">
+                  <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                     <div class="search-text">@T("Admin.Common.Search")</div>
+                     <div class="icon-search"><i class="fas fa-search" aria-hidden="true"></i></div>
+                     <div class="icon-collapse"><i class="far fa-angle-@(!hideSearchBlock ? "up" : "down")" aria-hidden="true"></i></div>
+                  </div>
+                  <div class="search-body @(hideSearchBlock ? "closed" : "")">
+                     <div class="row">
+                        <div class="col-md-5">
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchEmail" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchEmail" />
+                              </div>
+                           </div>
+                           @if (_userSettings.CompanyEnabled)
+                           {
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchCompany" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchCompany" />
+                                 </div>
+                              </div>
+                           }
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchIpAddress" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchIpAddress" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SelectedUserRoleIds" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-select asp-for="SelectedUserRoleIds" asp-items="Model.AvailableUserRoles" asp-multiple="true" />
+                                 <script>
+                                    $(document).ready(function () {
+                                       var rolesIdsInput =
+                                          $('#@Html.IdFor(model => model.SelectedUserRoleIds)')
+                                             .data("kendoMultiSelect");
+                                       rolesIdsInput.setOptions({
+                                          autoClose: false,
+                                          filter: "contains"
+                                       });
+
+                                    @if (Model.AvailableUserRoles.Count == 0)
+                                    {
+                                       <text>
+                                             rolesIdsInput.setOptions({
+                                                enable: false,
+                                                placeholder:
+                                                   '@T("Admin.Catalog.Products.UserRoles.NoUserRolesAvailable")'
+                                             });
+                                          rolesIdsInput._placeholder();
+                                          rolesIdsInput._enable();
+                                       </text>
+                                    }});
+                                 </script>
+                              </div>
+                           </div>
+
+                        </div>
+                        <div class="col-md-7">
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchLastActivityFrom" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchLastActivityFrom" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchLastActivityTo" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchLastActivityTo" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchOnline" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchOnline" />
+                              </div>
+                              <div class="col-md-2" style="min-width: 5rem;">
+                                 <app-label asp-for="SearchOffline" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchOffline" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchBeenRecently" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchBeenRecently" />
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="text-center col-12">
+                           <button type="button" id="search-users" class="btn btn-primary btn-search">
+                              <i class="fas fa-search"></i>
+                              @T("Admin.Common.Search")
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="card card-default">
+               <div class="card-body">
+                  <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.OnlineUsers", Docs.OnlineUsers + Utm.OnAdmin)" />
+                  <p>
+                     <i>@(string.Format(T("Admin.Common.Online.Status.BeenRecently.Users.Hint").Text, _userSettings.BeenRecentlyMinutes))</i>
+                  </p>
+                  @await Html.PartialAsync("Table", new DataTablesModel
+                  {
+                      Name = "onlineusers-grid",
+                      UrlRead = new DataUrl("List", "OnlineUser", null),
+                      Length = Model.PageSize,
+                      LengthMenu = Model.AvailablePageSizes,
+                      SearchButtonId = "search-users",
+                      Filters = new List<FilterParameter>
+                      {
+                          new FilterParameter(nameof(Model.SearchIpAddress)),
+                          new FilterParameter(nameof(Model.SearchLastActivityFrom)),
+                          new FilterParameter(nameof(Model.SearchLastActivityTo)),
+                          new FilterParameter(nameof(Model.SearchBeenRecently), Model.SearchBeenRecently),
+                          new FilterParameter(nameof(Model.SearchOffline), Model.SearchOffline),
+                          new FilterParameter(nameof(Model.SearchOnline), Model.SearchOnline),
+                          new FilterParameter(nameof(Model.SelectedUserRoleIds)),
+                          new FilterParameter(nameof(Model.SearchCompany)),
+                          new FilterParameter(nameof(Model.SearchEmail)),
+                      },
+                      ColumnCollection = new List<ColumnProperty>
+                      {
+                          new ColumnProperty(nameof(OnlineUserModel.UserInfo))
+                          {
+                              Title = T("Admin.Users.Online.Fields.UserInfo").Text,
+                              Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(UserModel.Id)))
+                          },
+                          new ColumnProperty(nameof(OnlineUserModel.LastIpAddress))
+                          {
+                              Title = T("Admin.Users.Online.Fields.IPAddress").Text,
+                              ClassName = AppColumnClassDefaults.CenterAll,
+                              Width = "100"
+                          },
+                          new ColumnProperty(nameof(OnlineUserModel.Location))
+                          {
+                              Title = T("Admin.Users.Online.Fields.Location").Text,
+                              Width = "100"
+                          },
+                          new ColumnProperty(nameof(OnlineUserModel.Status))
+                          {
+                              Title = T("Admin.Users.Online.Fields.Status").Text,
+                              ClassName = $"online-status {AppColumnClassDefaults.CenterAll}",
+                              Width = "120",
+                              Render = new RenderCustom("rendedStatusColor")
+                          },
+                          new ColumnProperty(nameof(OnlineUserModel.LastActivityDate))
+                          {
+                              Title = T("Admin.Users.Online.Fields.LastActivityDate").Text,
+                              Width = "180",
+                              ClassName = AppColumnClassDefaults.CenterAll,
+                              Render = new RenderDate()
+                          },
+                          new ColumnProperty(nameof(OnlineUserModel.LastVisitedPage))
+                          {
+                              Title = T("Admin.Users.Online.Fields.LastVisitedPage").Text,
+                              Width = "150"
+                          }
+                      }
+                  })
+                  <script>
+                     function rendedStatusColor(data, type, row, meta) {
+                        if (row.Status == '@T("Admin.Common.Online.Status.Online")') {
+                           return '<span style="color: #4caf50">' + row.Status + '</span>';
+                        }
+                        if (row.Status == '@T("Admin.Common.Online.Status.BeenRecently")') {
+                        return '<span style="color: #ffa707">' + row.Status + '</span>';
+                        }
+                        if (row.Status == '@T("Admin.Common.Online.Status.Offline")') {
+                           return '<span style="color: darkgray">' + row.Status + '</span>';
+                        }
+                        return '<span>' + row.Status +'</span>';
+                     };
+                     function cellColor() {
+                        var cells = document.getElementsByClassName("online-status");
+                        for (let i = 0; i < cells.length; i++) {
+                           var cell = cells[i];
+                           if (cell.innerHTML == "online") {
+                              cell.style.color = "#009688";
+                           }
+                        }
+                     };
+                  </script>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>

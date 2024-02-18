@@ -1,0 +1,326 @@
+﻿@using Hub.Web.Framework.Models.AdminAreaTour
+@inject Hub.Services.Messages.IEmailAccountService emailAccountService
+@inject Hub.Services.Topics.ITopicService topicService
+
+@{
+   var showTour = ViewBag.ShowTour ?? false;
+}
+
+@if (showTour)
+{
+   <link rel="stylesheet" href="~/lib_npm/shepherd.js/css/shepherd.css" />
+   <script src="~/lib_npm/shepherd.js/js/shepherd.min.js"></script>
+   <script src="~/js/admintour/admin.tour.common.js"></script>
+
+   long? entityId = null;
+   var tourStep = (TourStep)ViewBag.TourStep;
+   switch (tourStep)
+   {
+      case TourStep.AppSettings:
+
+         <script asp-exclude-from-bundle="true" asp-location="Footer" src="~/js/admintour/admin.tour.appsettings.js"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               PersonalizeStoreIntroTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Intro.Title")',
+               PersonalizeStoreIntroText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Intro.Text")',
+
+               PersonalizeStoreBasicAdvancedTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.BasicAdvanced.Title")',
+               PersonalizeStoreBasicAdvancedText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.BasicAdvanced.Text")',
+
+               ConfigureHubHostingTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubHostingTitle")',
+               ConfigureHubHostingText: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubHostingText")',
+
+               ConfigureHubProxyTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubProxyTitle")',
+               ConfigureHubProxyText: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubProxyText", Docs.PlatformInstallation + Utm.OnAdminTourDocs)',
+
+               ConfigureHubSecurityTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubSecurityTitle")',
+               ConfigureHubSecurityText: '@T("Admin.ConfigurationSteps.ConfigureHub.ConfigureHubSecurityText")',
+
+               ConfigureHubSaveTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Title")',
+               ConfigureHubSaveText: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.UserSettings:
+         <script asp-exclude-from-bundle="true" asp-location="Footer" src="~/js/admintour/admin.tour.usersettings.js"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               UserSettingsCommonTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsCommonTitle")',
+               UserSettingsCommonText: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsCommonText")',
+
+               UserSettingsAccountTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsAccountTitle")',
+               UserSettingsAccountText: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsAccountText")',
+
+               UserSettingsSecurityTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsSecurityTitle")',
+               UserSettingsSecurityText: '@T("Admin.ConfigurationSteps.ConfigureHub.UserSettingsSecurityText")',
+
+               ConfigureHubSaveTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Title")',
+               ConfigureHubSaveText: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Text")'
+            };
+         </script>
+         break;
+
+      case TourStep.DeviceSettings:
+         <script asp-exclude-from-bundle="true" asp-location="Footer" src="~/js/admintour/admin.tour.devicesettings.js"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               Done: '@T("Admin.ConfigurationSteps.Done")',
+
+               DeviceSettingsCommonTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsCommonTitle")',
+               DeviceSettingsCommonText: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsCommonText")',
+
+               DeviceSettingsAccountTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsAccountTitle")',
+               DeviceSettingsAccountText: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsAccountText")',
+
+               DeviceSettingsSecurityTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsSecurityTitle")',
+               DeviceSettingsSecurityText: '@T("Admin.ConfigurationSteps.ConfigureHub.DeviceSettingsSecurityText")',
+
+               ConfigureHubSaveTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Title")',
+               ConfigureHubSaveText: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Text")',
+
+               LearnUsersDevicesTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.LearnUsersDevices.Title")',
+               LearnUsersDevicesText: '@T("Admin.ConfigurationSteps.ConfigureHub.LearnUsersDevices.Text")'
+            };
+         </script>
+         break;
+
+
+      case TourStep.EmailAccountList:
+         entityId = (await emailAccountService.GetAllEmailAccountsAsync()).FirstOrDefault()?.Id ?? 0;
+
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.emailaccountlist.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               EmailAccountListEmailAccounts1Title: '@T("Admin.ConfigurationSteps.EmailAccountList.EmailAccounts1.Title")',
+               EmailAccountListEmailAccounts1Text: '@T("Admin.ConfigurationSteps.EmailAccountList.EmailAccounts1.Text")',
+
+               EmailAccountListEmailAccounts2Title: '@T("Admin.ConfigurationSteps.EmailAccountList.EmailAccounts2.Title")',
+               EmailAccountListEmailAccounts2Text: '@T("Admin.ConfigurationSteps.EmailAccountList.EmailAccounts2.Text")',
+
+               EmailAccountListDefaultEmailAccountTitle: '@T("Admin.ConfigurationSteps.EmailAccountList.DefaultEmailAccount.Title")',
+               EmailAccountListDefaultEmailAccountText: '@T("Admin.ConfigurationSteps.EmailAccountList.DefaultEmailAccount.Text")',
+
+               EmailAccountListEditTitle: '@T("Admin.ConfigurationSteps.EmailAccountList.Edit.Title")',
+               EmailAccountListEditText: '@T("Admin.ConfigurationSteps.EmailAccountList.Edit.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.EmailAccount:
+
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.emailaccount.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               Done: '@T("Admin.ConfigurationSteps.Done")',
+               
+               EmailAccountEmailAddressTitle: '@T("Admin.ConfigurationSteps.EmailAccount.EmailAddress.Title")',
+               EmailAccountEmailAddressText: '@T("Admin.ConfigurationSteps.EmailAccount.EmailAddress.Text")',
+
+               EmailAccountTestEmailTitle: '@T("Admin.ConfigurationSteps.EmailAccount.TestEmail.Title")',
+               EmailAccountTestEmailText: '@T("Admin.ConfigurationSteps.EmailAccount.TestEmail.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.GeneralSettings:
+
+         <script asp-exclude-from-bundle="true" asp-location="Footer" src="~/js/admintour/admin.tour.generalsettings.js"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+
+               PersonalizeFooterItemsTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.FooterItems.Title")',
+               PersonalizeFooterItemsText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.FooterItems.Text")',
+
+               PersonalizeSocialMediaTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.SocialMedia.Title")',
+               PersonalizeSocialMediaText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.SocialMedia.Text")',
+
+               PersonalizeCaptchaTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Captcha.Title")',
+               PersonalizeCaptchaText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Captcha.Text")',
+
+               PersonalizeDesignTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Design.Title")',
+               PersonalizeDesignText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Design.Text")',
+
+               PersonalizeIconsTitle: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Icons.Title")',
+               PersonalizeIconsText: '@T("Admin.ConfigurationSteps.PersonalizePlatform.Icons.Text")',
+
+               ConfigureHubSaveTitle: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Title")',
+               ConfigureHubSaveText: '@T("Admin.ConfigurationSteps.ConfigureHub.Save.Text")'
+            };
+         </script>
+         break;
+
+      case TourStep.TopicList:
+         entityId = (await topicService.GetTopicBySystemNameAsync("ConditionsOfUse"))?.Id ?? 0;
+
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.topiclist.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               Done: '@T("Admin.ConfigurationSteps.Done")',
+
+               TopicListTopics1Title: '@T("Admin.ConfigurationSteps.TopicList.Topics1.Title")',
+               TopicListTopics1Text: '@T("Admin.ConfigurationSteps.TopicList.Topics1.Text")',
+
+               TopicListTopics2Title: '@T("Admin.ConfigurationSteps.TopicList.Topics2.Title")',
+               TopicListTopics2Text: '@T("Admin.ConfigurationSteps.TopicList.Topics2.Text")',
+
+               TopicListShippingTitle: '@T("Admin.ConfigurationSteps.TopicList.ConditionsOfUse.Title")',
+               TopicListShippingText: '@T("Admin.ConfigurationSteps.TopicList.ConditionsOfUse.Text")',
+
+               TopicListLocationTitle: '@T("Admin.ConfigurationSteps.TopicList.Location.Title")',
+               TopicListLocationText: '@T("Admin.ConfigurationSteps.TopicList.Location.Text")',
+
+               TopicListEditTitle: '@T("Admin.ConfigurationSteps.TopicList.Edit.Title")',
+               TopicListEditText: '@T("Admin.ConfigurationSteps.TopicList.Edit.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.Topic:
+
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.topic.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               Done: '@T("Admin.ConfigurationSteps.Done")',
+
+               TopicTitleContentTitle: '@T("Admin.ConfigurationSteps.Topic.TitleContent.Title")',
+               TopicTitleContentText: '@T("Admin.ConfigurationSteps.Topic.TitleContent.Text")',
+
+               TopicPreviewTitle: '@T("Admin.ConfigurationSteps.Topic.Preview.Title")',
+               TopicPreviewText: '@T("Admin.ConfigurationSteps.Topic.Preview.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.BlogSettings:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.blogsettings.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               
+               BlogCommonSettingsTitle: '@T("Admin.ConfigurationSteps.BlogCommonSettings.Title")',
+               BlogCommonSettingsText: '@T("Admin.ConfigurationSteps.BlogCommonSettings.Text")',
+
+               BlogSettingsCommentsTitle: '@T("Admin.ConfigurationSteps.BlogSettingsComments.Title")',
+               BlogSettingsCommentsText: '@T("Admin.ConfigurationSteps.BlogSettingsComments.Text")'
+            };
+         </script>
+         break;
+
+      case TourStep.Blog:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.blogposts.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+              
+               BlogPostsListTitle: '@T("Admin.ConfigurationSteps.BlogPostsList.Title")',
+               BlogPostsListText: '@T("Admin.ConfigurationSteps.BlogPostsList.Text")',
+
+               BlogPostsCommentTitle: '@T("Admin.ConfigurationSteps.BlogPostsComment.Title")',
+               BlogPostsCommentText: '@T("Admin.ConfigurationSteps.BlogPostsComment.Text")',
+
+               BlogPostsAddNewTitle: '@T("Admin.ConfigurationSteps.BlogPostsAddNew.Title")',
+               BlogPostsAddNewText: '@T("Admin.ConfigurationSteps.BlogPostsAddNew.Text")',
+
+               BlogPostsEditTitle: '@T("Admin.ConfigurationSteps.BlogPostsEdit.Title")',
+               BlogPostsEditText: '@T("Admin.ConfigurationSteps.BlogPostsEdit.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.NewsSettings:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.newssettings.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+
+               NewsCommonSettingsTitle: '@T("Admin.ConfigurationSteps.NewsCommonSettings.Title")',
+               NewsCommonSettingsText: '@T("Admin.ConfigurationSteps.NewsCommonSettings.Text")',
+
+               NewsSettingsCommentsTitle: '@T("Admin.ConfigurationSteps.NewsSettingsComments.Title")',
+               NewsSettingsCommentsText: '@T("Admin.ConfigurationSteps.NewsSettingsComments.Text")'
+            };
+         </script>
+         break;
+
+      case TourStep.News:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.news.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               NewsListTitle: '@T("Admin.ConfigurationSteps.NewsList.Title")',
+               NewsListText: '@T("Admin.ConfigurationSteps.NewsList.Text")',
+
+               NewsCommentTitle: '@T("Admin.ConfigurationSteps.NewsComment.Title")',
+               NewsCommentText: '@T("Admin.ConfigurationSteps.NewsComment.Text")',
+
+               NewsAddNewTitle: '@T("Admin.ConfigurationSteps.NewsAddNew.Title")',
+               NewsAddNewText: '@T("Admin.ConfigurationSteps.NewsAddNew.Text")',
+
+               NewsEditTitle: '@T("Admin.ConfigurationSteps.NewsEdit.Title")',
+               NewsEditText: '@T("Admin.ConfigurationSteps.NewsEdit.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.BoardSettings:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.boardsettings.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               ForumSettingsCommonTitle: '@T("Admin.ConfigurationSteps.ForumSettings.Common.Title")',
+               ForumSettingsCommonText: '@T("Admin.ConfigurationSteps.ForumSettings.Common.Text")',
+
+               ForumSettingsPermissionsTitle: '@T("Admin.ConfigurationSteps.ForumSettings.Permissions.Title")',
+               ForumSettingsPermissionsText: '@T("Admin.ConfigurationSteps.ForumSettings.Permissions.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.Boards:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.boards.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+
+               ForumAddTitle: '@T("Admin.ConfigurationSteps.Forum.Add.Title")',
+               ForumAddText: '@T("Admin.ConfigurationSteps.Forum.Add.Text")',
+
+               ForumSubTableTitle: '@T("Admin.ConfigurationSteps.Forum.SubtableOpen.Title")',
+               ForumSubTableText: '@T("Admin.ConfigurationSteps.Forum.SubtableOpen.Text")',
+
+               ForumTableTitle: '@T("Admin.ConfigurationSteps.Forum.Table.Title")',
+               ForumTableText: '@T("Admin.ConfigurationSteps.Forum.Table.Text")',
+
+               ForumEditTitle: '@T("Admin.ConfigurationSteps.Forum.Edit.Title")',
+               ForumEditText: '@T("Admin.ConfigurationSteps.Forum.Edit.Text")',
+            };
+         </script>
+         break;
+
+      case TourStep.Polls:
+         <script asp-exclude-from-bundle="true" src="~/js/admintour/admin.tour.polls.js" asp-location="Footer"></script>
+         <script asp-location="Footer">
+            var localized_data = {
+               Done: '@T("Admin.ConfigurationSteps.Done")',
+
+               PollsTableTitle: '@T("Admin.ConfigurationSteps.Polls.Table.Title")',
+               PollsTableText: '@T("Admin.ConfigurationSteps.Polls.Table.Text")',
+
+               PollsAddTitle: '@T("Admin.ConfigurationSteps.Polls.Add.Title")',
+               PollsAddText: '@T("Admin.ConfigurationSteps.Polls.Add.Text")',
+
+               PollsEditTitle: '@T("Admin.ConfigurationSteps.Polls.Edit.Title")',
+               PollsEditText: '@T("Admin.ConfigurationSteps.Polls.Edit.Text")',
+            };
+         </script>
+         break;
+
+
+      default:
+         break;
+   }
+
+   <script asp-location="Footer">
+      localized_data.Back = '@T("Admin.ConfigurationSteps.Back")';
+      localized_data.NextStep = '@T("Admin.ConfigurationSteps.NextStep")';
+      localized_data.NextPage = '@T("Admin.ConfigurationSteps.NextPage")';
+
+      AdminTourDataProvider.init(localized_data, @entityId);
+   </script>
+}
+

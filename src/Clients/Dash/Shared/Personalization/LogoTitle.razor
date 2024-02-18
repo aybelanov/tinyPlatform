@@ -1,0 +1,28 @@
+﻿@using System.Text;
+
+<img src=@($"data:image/svg+xml;base64, {logoSvgBase64Data}") alt="logo" style="max-width:30px; max-height:30px;" class="mr-2" />
+<RadzenLabel Text="@T["Header.MainTitle"]" class="d-none d-lg-block" />
+
+@code {
+
+   [Inject] IJSRuntime JS { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+
+   string logoSvgBase64Data;
+
+   protected override void OnInitialized()
+   {
+      var color = Defaults.Theme switch
+      {
+         "default" => "#3a474d",
+         "dark" => "#ffffff",
+         "software" => "#3a474d",
+         "humanistic" => "#30445f",
+         "standard" => "#494849",
+         "material" => "#ffffff",
+         _ => "#3a474d"
+      };
+
+      logoSvgBase64Data = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format(Defaults.LogoSvgTemplate, color)));
+   }
+}

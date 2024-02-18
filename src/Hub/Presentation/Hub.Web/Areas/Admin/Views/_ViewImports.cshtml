@@ -1,0 +1,58 @@
+﻿@inherits Hub.Web.Framework.Mvc.Razor.AppRazorPage<TModel>
+
+@inject IGenericAttributeService genericAttributeService
+@inject IAppHtmlHelper AppHtml 
+@inject IWorkContext workContext
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Hub.Web.Framework
+
+@using System.Globalization;
+@using System.Net;
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Routing
+@using Microsoft.Extensions.Primitives
+@using Hub.Core
+@using Hub.Core.Domain.Common
+@using Hub.Core.Events
+@using Hub.Core.Infrastructure
+@using Hub.Data.Extensions
+@using Hub.Services.Common
+@using static Hub.Services.Common.AppLinksDefaults
+@using Hub.Web.Areas.Admin.Models.Blogs
+@using Hub.Web.Areas.Admin.Models.Cms
+@using Hub.Web.Areas.Admin.Models.Common
+@using Hub.Web.Areas.Admin.Models.Gdpr
+@using Hub.Web.Areas.Admin.Models.Users
+@using Hub.Web.Areas.Admin.Models.Devices
+@using Hub.Web.Areas.Admin.Models.Directory
+@using Hub.Web.Areas.Admin.Models.ExternalAuthentication
+@using Hub.Web.Areas.Admin.Models.Forums
+@using Hub.Web.Areas.Admin.Models.Home
+@using Hub.Web.Areas.Admin.Models.Localization
+@using Hub.Web.Areas.Admin.Models.Logging
+@using Hub.Web.Areas.Admin.Models.Messages
+@using Hub.Web.Areas.Admin.Models.MultiFactorAuthentication
+@using Hub.Web.Areas.Admin.Models.News
+@using Hub.Web.Areas.Admin.Models.Plugins
+@using Hub.Web.Areas.Admin.Models.Plugins.Marketplace
+@using Hub.Web.Areas.Admin.Models.Polls
+@using Hub.Web.Areas.Admin.Models.Reports
+@using Hub.Web.Areas.Admin.Models.Security
+@using Hub.Web.Areas.Admin.Models.Settings
+@using Hub.Web.Areas.Admin.Models.Tasks
+@using Hub.Web.Areas.Admin.Models.Templates
+@using Hub.Web.Areas.Admin.Models.Topics
+@using Hub.Web.Extensions
+@using Hub.Web.Framework
+@using Hub.Web.Framework.Menu
+@using Hub.Web.Framework.Models
+@using Hub.Web.Framework.Events
+@using Hub.Web.Framework.Extensions
+@using Hub.Web.Framework.Infrastructure
+@using Hub.Web.Framework.Models.DataTables
+@using Hub.Web.Framework.Security.Captcha
+@using Hub.Web.Framework.Security.Honeypot
+@using Hub.Web.Framework.Themes
+@using Hub.Web.Framework.UI

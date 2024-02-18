@@ -1,0 +1,247 @@
+﻿@using Hub.Services;
+@model DeviceSearchModel
+
+@{
+   Layout = "_AdminPopupLayout";
+
+   //page title
+   ViewBag.PageTitle = @Context.Request.Query["btnId"] == "btnRefresUserSharedDevices" 
+   ? T("Admin.Users.Users.SharedDevices.Title").Text 
+   : T("Admin.Users.Users.OwnDevices.Title").Text;
+}
+
+@if (ViewBag.RefreshPage == true)
+{
+   <script>
+      try { window.opener.document.forms['@(Context.Request.Query["formId"])'].@(Context.Request.Query["btnId"]).click(); }
+      catch (e) { }
+      window.close();
+   </script>
+}
+else
+{
+   <form asp-controller="User" asp-action="DevicesAddPopup"
+         asp-route-userId="@Context.Request.Query["userId"]"
+         asp-route-btnId="@Context.Request.Query["btnId"]"
+         asp-route-formId="@Context.Request.Query["formId"]">
+      <div class="content-header clearfix">
+         <h1 class="float-left">
+            @T("Admin.Devices.Devices.SharedUsers.Add")
+         </h1>
+         <div class="pull-right">
+            &nbsp;
+         </div>
+      </div>
+      <section class="content">
+         <div class="container-fluid">
+            <div class="form-horizontal">
+               <div class="cards-group">
+                  <div class="card card-default card-search">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col-md-5">
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceSystemName" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchDeviceSystemName" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceName" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchDeviceName" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchUserEmail" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchUserEmail" />
+                                 </div>
+                              </div>
+                              @if (Model.UsernamesEnabled)
+                              {
+                                 <div class="form-group row">
+                                    <div class="col-md-4">
+                                       <app-label asp-for="SearchUsername" />
+                                    </div>
+                                    <div class="col-md-8">
+                                       <app-editor asp-for="SearchUsername" />
+                                    </div>
+                                 </div>
+                              }
+                              @if (Model.UserCompanyEnabled)
+                              {
+                                 <div class="form-group row">
+                                    <div class="col-md-4">
+                                       <app-label asp-for="SearchUserCompany" />
+                                    </div>
+                                    <div class="col-md-8">
+                                       <app-editor asp-for="SearchUserCompany" />
+                                    </div>
+                                 </div>
+                              }
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchIpAddress" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchIpAddress" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceActive" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-select asp-for="SearchDeviceActive" asp-items="@(await Model.SearchDeviceActive.ToSelectListAsync())" />
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-7">
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="CreatedFrom" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="CreatedFrom" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="CreatedTo" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="CreatedTo" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="UpdatedFrom" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="UpdatedFrom" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="UpdatedTo" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="UpdatedTo" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceEnabled" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-select asp-for="SearchDeviceEnabled" asp-items="@(await Model.SearchDeviceEnabled.ToSelectListAsync())" style="max-width: 300px;" />
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="row">
+                              <div class="text-center col-12">
+                                 <button type="button" id="search-devices" class="btn btn-primary btn-search">
+                                    <i class="fas fa-search"></i>
+                                    @T("Admin.Common.Search")
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="card card-default">
+                     <div class="card-body">
+                        @{
+                           var gridModel = new DataTablesModel
+                            {
+                               Name = "devices-grid",
+                               UrlRead = new DataUrl("DeviceList", "Device", null),
+                               SearchButtonId = "search-devices",
+                               Length = Model.PageSize,
+                               LengthMenu = Model.AvailablePageSizes,
+                               Filters = new List<FilterParameter>
+                                {
+                                new FilterParameter(nameof(Model.SearchUserEmail)),
+                                new FilterParameter(nameof(Model.SearchUsername)),
+                                new FilterParameter(nameof(Model.SearchDeviceName)),
+                                new FilterParameter(nameof(Model.SearchDeviceSystemName)),
+                                new FilterParameter(nameof(Model.SearchDeviceActive)),
+                                new FilterParameter(nameof(Model.SearchDeviceEnabled)),
+                                new FilterParameter(nameof(Model.CreatedFrom)),
+                                new FilterParameter(nameof(Model.CreatedTo)),
+                                new FilterParameter(nameof(Model.UpdatedFrom)),
+                                new FilterParameter(nameof(Model.UpdatedTo)),
+                                },
+                                ColumnCollection = new List<ColumnProperty>
+                                {
+                                    new ColumnProperty(nameof(DeviceModel.Id))
+                                    {
+                                        IsMasterCheckBox = true,
+                                        //Render = new RenderCheckBox("checkbox_devices"),
+                                        Render = new RenderCheckBox(nameof(UserDevicesModel.SelectedDeviceIds)),
+                                        ClassName = AppColumnClassDefaults.CenterAll,
+                                        Width = "30"
+                                    },
+                                    new ColumnProperty(nameof(DeviceModel.SystemName))
+                                    {
+                                        Title = T("Admin.Devices.Devices.Fields.SystemName").Text,
+                                        //Render = new RenderLink(new DataUrl("~/Admin/Device/Edit", nameof(DeviceModel.Id)))
+                                    },
+
+                                    new ColumnProperty(nameof(DeviceModel.OwnerName))
+                                    {
+                                        Title = T("Admin.Devices.Devices.Fields.OwnerName").Text,
+                                        Width = "150",
+                                        //Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(DeviceModel.OwnerId)))
+                                    },
+
+                                    new ColumnProperty(nameof(DeviceModel.IsActive))
+                                    {
+                                        Title = T("Admin.Devices.Devices.Fields.IsActive").Text,
+                                        Width = "80",
+                                        ClassName = AppColumnClassDefaults.CenterAll,
+                                        Render = new RenderBoolean()
+                                    },
+
+                                    new ColumnProperty(nameof(DeviceModel.Enabled))
+                                    {
+                                        Title = T("Admin.Devices.Devices.Fields.Enabled").Text,
+                                        Width = "80",
+                                        ClassName = AppColumnClassDefaults.CenterAll,
+                                        Render = new RenderBoolean()
+                                    },
+
+                                    //new ColumnProperty(nameof(DeviceModel.Id))
+                                    //{
+                                    //   Title = T("Admin.Common.Edit").Text,
+                                    //   Width = "100",
+                                    //   ClassName = AppColumnClassDefaults.Button,
+                                    //   Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                    //}
+                                }
+                            };
+                        }
+                        @await Html.PartialAsync("Table", gridModel)
+                     </div>
+                     <div class="card-footer">
+                        <button type="submit" name="save" class="btn btn-primary">
+                           <i class="far fa-save"></i>
+                           @T("Admin.Common.Save")
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </form>
+}

@@ -1,0 +1,70 @@
+﻿@inject MenuService MenuService
+@implements IDisposable
+
+@if (sharedMonitorMenu != null && (sharedMonitorMenu.Children?.Any() ?? false))
+{
+   <NavigationItem @bind-Expanded=@sharedMonitorMenu.Expanded Category=@sharedMonitorMenu>
+
+      @if (sharedMonitorMenu.Children != null)
+      {
+         <Virtualize Items=@sharedMonitorMenu.Children Context="subCat1">
+            @if (subCat1.Children != null)
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1>
+
+                  @foreach (var subCat2 in subCat1.Children)
+                  {
+                     <NavigationItem @bind-Expanded=@subCat2.Expanded Category=@subCat2 />
+                  }
+
+               </NavigationItem>
+            }
+            else
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1 />
+            }
+         </Virtualize>
+      }
+
+   </NavigationItem>
+}
+
+
+@code {
+   CategoryMenuModel sharedMonitorMenu;
+   EventHandler<MonitorMenuEventArg> monitorMenuChanged;
+
+   protected override async Task OnInitializedAsync()
+   {
+      await GetMonitors();
+      monitorMenuChanged = async (o, e) =>
+      {
+         if (e.Category != "shared")
+            return;
+
+         await MenuService.ClearmonitorMenuCache(e.Category);
+         await GetMonitors();
+      };
+      MenuService.MonitorMenuChanged += monitorMenuChanged;
+   }
+
+
+   private async Task GetMonitors()
+   {
+      try
+      {
+         sharedMonitorMenu = await MenuService.GetSharedMonitorMenuAsync();
+         StateHasChanged();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+
+
+   public void Dispose()
+   {
+      MenuService.MonitorMenuChanged -= monitorMenuChanged;
+   }
+}

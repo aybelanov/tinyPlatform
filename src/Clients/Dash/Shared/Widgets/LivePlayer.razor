@@ -1,0 +1,102 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using System.Text.Json.Nodes
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustLivePlayer
+@using static Clients.Widgets.VideoPlayer
+
+
+<div class="row my-3">
+   <div class="col">
+      <VideoPlayer @ref=_player IsLive=true Culture="@CultureInfo.CurrentUICulture.Name[..2]" Theme="@Defaults.Theme" TokenKey=@Defaults.TokenKey Endpoint="@(Singleton<ServerConfig>.Instance.HubHost + "/ipcam")"
+                   style="height:350px; width:100%;" preload="auto" controls autoplay muted />
+   </div>
+</div>
+
+@code {
+   [CascadingParameter] PresentationViewModel Presentation { get; set; }
+
+   [Inject] ISensorRecordService SensorRecordService { get; set; }
+
+   VideoPlayer _player;
+   List<Segment> _segments = new();
+   bool _needStartPlay;
+
+   LivePlayerAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+      ? new LivePlayerAdjustment()
+      : JsonSerializer.Deserialize<LivePlayerAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   protected override async Task OnAfterRenderAsync(bool firstRender)
+   {
+      await base.OnAfterRenderAsync(firstRender);
+      if (firstRender)
+      {
+         await GetLastSegments();
+         _needStartPlay = !_segments.Any();
+        
+         if (!_needStartPlay)
+         {
+            await _player.Play(_segments);
+         }
+      }
+   }
+
+   public override async Task Update(IEnumerable<SensorRecord> records)
+   {
+      if (_player is null)
+         return;
+
+      if (records?.Any() != true)
+         return;
+
+      try
+      {
+         var newSegments = records.Select(x =>
+         {
+            var json = JsonNode.Parse(x.Metadata);
+            var file = json["FileName"].ToString();
+            var extinf = double.Parse(json["Extinf"].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture);
+            //var resolution = json["Resolution"].ToString();
+
+            var segment = new Segment()
+               {
+                  Id = x.Id,
+                  Extinf = extinf,
+                  IpcamId = x.SensorId,
+                  OnCreatedUtc = new DateTime(x.EventTimestamp, DateTimeKind.Utc),
+                  SegmentName = file,
+               };
+
+            return segment;
+         });
+
+
+         _segments.AddRange(newSegments);
+         _segments = _segments.DistinctBy(x => x.SegmentName).OrderBy(x => x.OnCreatedUtc).ToList();
+
+         if (_needStartPlay) await _player.Play(_segments);
+         else await _player.Update(_segments);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex);
+      }
+   }
+
+   private async Task GetLastSegments()
+   {
+      _segments = (await SensorRecordService.GetVideoSegmentsAsync(new()
+      {
+         SensorId = Presentation.Sensor.Id,
+         From = DateTime.UtcNow.AddMinutes(-_adjustment.HistoryPointsCount),
+
+      })).ToList();
+
+      _segments = _segments.OrderBy(x => x.OnCreatedUtc).ToList();
+   }
+}

@@ -1,0 +1,9 @@
+//this file should be in the root of the archive
+[
+  //"Default clean" theme for version 4.50
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.50",
+    "DirectoryPath": "DefaultTheme/"
+  }
+]

@@ -1,0 +1,36 @@
+# sudo journalctl -u device
+
+#filter
+# sudo journalctl -p 3 -u device
+
+[Unit]
+Description=tinyDispatcher net app running on XUbuntu
+
+[Service]
+Type=notify
+# target self-contained for linux-64
+# WorkingDirectory=/home/ayblinux/shared/dev/device/debug/linux64sc/
+# ExecStart=/home/ayblinux/shared/dev/device/debug/linux64sc/Hub.Web
+
+# target framework-dependent for linux-64
+WorkingDirectory=/home/ayblinux/shared/dev/devicemini/debug/linux64fd/
+ExecStart=/home/ayblinux/shared/dev/devicemini/debug/linux64fd/tinyDispatcher
+
+# target framework-dependent portable
+#WorkingDirectory=/home/ayblinux/shared/dev/device/debug/portablefd/
+#ExecStart=/usr/bin/dotnet  /home/ayblinux/shared/dev/device/debug/portablefd/tinyDispatcher
+
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=aspnetcore-device
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+# The default value is 90 seconds for most distributions.
+# TimeoutStopSec=90
+
+[Install]
+WantedBy=multi-user.target

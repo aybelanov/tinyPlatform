@@ -1,0 +1,17 @@
+﻿@using static Clients.Widgets.Core.OpenLayerBase
+
+<div class="row mt-3">
+   <div class="col mb-2">
+      <nobr>
+         <RadzenButton Icon="fullscreen" ButtonStyle="ButtonStyle.Light" class="mr-2" title="@T["Map.Button.All"]"  Click=@(_=> _map?.Fit())/>
+         <RadzenDropDown @bind-Value=@_mapView.LayerType TValue=@LayerTypes Data="@_mapSelectItems" ValueProperty="MapType" TextProperty="Locale" AllowClear=false
+                         AllowFiltering=false AllowSelectAll=false Multiple=false Change="@MapOnChange" class="mr-2" style="width:100px;" />
+      </nobr>
+   </div>
+</div>
+<div class="row mb-1">
+   <div class="col">
+      <OpenMap @ref=@_map BingKey="@Config["ApiKeys:BingMap"]" View=@_mapView Class="mb-3" style="height:350px; width:100%;" />
+   </div>
+</div>
+

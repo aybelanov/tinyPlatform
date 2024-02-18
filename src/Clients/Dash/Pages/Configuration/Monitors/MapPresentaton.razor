@@ -1,0 +1,77 @@
+﻿@using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
+
+<RadzenTemplateForm TItem="PresentationModel" Data="@Model" Submit="@OnSubmit">
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 d-flex justify-content-md-end">
+         <TinyLabel Text="@T["Presentation.Map.SensorWidget"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <PresentationDropDown Name="SensorWidget" @bind-Presentation=@sensorWidget AllowClear=true Placeholder="@T["Presentation.Map.SensorWidget.PlaceHolder"]" @bind-IsLoading=@isLoading style="display:block;" class="w-100" />
+         <RadzenRequiredValidator Component="SensorWidget" DefaultValue="null" Text="@T["Presentation.Map.SensorWidget.Required"]" Style="position: absolute" />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 d-flex justify-content-md-end">
+         <TinyLabel Text="@T["Presentation.Map.Name"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenTextBox Trim=true Name="Name" style="width: 100%; display:block;" @bind-Value=@Model.Name Placeholder="@T["Presentation.Map.Name.Placeholder"]" />
+         <RadzenLengthValidator Component="Name" Min="5" Text="@T["Validation.Length.Min", T["Presentation.Map.Name"], 5]" Style="position: absolute" />
+         <RadzenLengthValidator Component="Name" Max="100" Text="@T["Validation.Length.Max", T["Presentation.Map.Name"], 100]" Style="position: absolute" />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-start">
+      <div class="col-md-3 d-flex justify-content-md-end">
+         <TinyLabel Text="@T["Presentation.Map.Description"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenTextArea Rows="4" Name="Description" @bind-Value=@Model.Description style="display:block;" class="w-100" Placeholder="@T["Presentation.Map.Description.Placeholder"]" />
+         <RadzenLengthValidator Component="Description" Max="500" Text="@T["Validation.Length.Max", T["Presentation.Map.Description"], 500]" Style="position: absolute" />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 d-flex justify-content-md-end">
+         <TinyLabel Text="@T["Presentation.Map.DisplayOrder"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenNumeric Name="DisplayOrder" TValue="int" @bind-Value=@Model.DisplayOrder class="w-100" />
+      </div>
+   </div>
+   <div class="row mt-4 row-cols-1 align-items-center">
+      <div class="col d-flex justify-content-center">
+         <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Disabled=@isLoading Text="@T["Button.Ok"]" />
+      </div>
+   </div>
+</RadzenTemplateForm>
+
+@code {
+   [Parameter] public long MonitorId { get; set; }
+   [Parameter] public PresentationModel Model { get; set; }
+   [Parameter] public DialogService Dialog { get; set; }
+
+   [Inject] IPresentationService PresentationService { get; set; }
+
+   PresentationSelectItem sensorWidget;
+   bool isLoading;
+
+   protected override void OnInitialized()
+   {
+      if (Model.Id > 0)
+         sensorWidget = new PresentationSelectItem()
+         {
+            Id = Model.SensorWidgetId,
+            DeviceId = Model.DeviceId,
+            DeviceName = Model.DeviceName,
+            SensorId = Model.SensorId,
+            SensorName = Model.SensorName,
+            WidgetId = Model.WidgetId,
+            WidgetName = Model.WidgetName
+         };//await PresentationService.GetPresentationSelectItemAsync(Model.SensorWidgetId);
+   }
+
+   void OnSubmit(PresentationModel model)
+   {
+      model.SensorWidgetId = sensorWidget.Id;
+      Dialog.Close(model);
+   }
+}

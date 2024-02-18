@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Description>This Hub.Service project contains a set of core services, business logic, validations or calculations related with the data, if needed. Some people call it Business Access Layer (BAL).</Description>
+		<RepositoryType>Git</RepositoryType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Clients\Caching\DashDeviceCacheEventConsumer.cs" />
+	  <Compile Remove="Clients\CommonService.cs" />
+	  <Compile Remove="Clients\ICommonService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+		<PackageReference Include="ClosedXML" Version="0.102.2" />
+		<PackageReference Include="CsvHelper" Version="30.0.1" />
+		<PackageReference Include="EPPlus" Version="7.0.6" />
+		<PackageReference Include="iTextSharp.LGPLv2.Core" Version="3.4.15" />
+		<PackageReference Include="MailKit" Version="4.3.0" />
+		<PackageReference Include="MaxMind.GeoIP2" Version="5.2.0" />
+		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.2.0" />
+		<PackageReference Include="SkiaSharp" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.7" />
+		<PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.1" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.60.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.60.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Hub.Core\Hub.Core.csproj" />
+		<ProjectReference Include="..\Hub.Data\Hub.Data.csproj" />
+	</ItemGroup>
+
+</Project>

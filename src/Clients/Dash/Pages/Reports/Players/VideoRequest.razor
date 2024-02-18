@@ -1,0 +1,89 @@
+﻿@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <RadzenTemplateForm TItem="VideoRequestModel" Data="Model" Submit="@Submit" InvalidSubmit=@InvalidSubmit>
+      <div class="row my-3 justify-content-center">
+         <div class="mr-2 mb-3">
+            <div class="d-block" style="width:200px;">
+               <DeviceDropDown Name="Devices" @bind-Device=@Model.SelectedDevice AllowClear=false Placeholder="@T["Select.Device"]" @bind-IsLoading=@isLoading Style="width: 100%; display:block;" />
+               <RadzenRequiredValidator Component="Devices" DefaultValue="default(long)" Style="position: absolute" />
+            </div>
+         </div>
+         <div class="mr-3">
+            <div class="d-block" style="width:200px;">
+               <SensorDropDown Name="Sensors" @bind-Sensor=@Model.SelectedSensor Device="@Model.SelectedDevice" @bind-IsLoading=@isLoading Placeholder="@T["Select.IpCam"]"
+                               Query="query=>query.Where(x=>x.SensorType == SensorType.MediaStream)" Style="width: 100%; display:block;" />
+               <RadzenRequiredValidator Component="Sensors" DefaultValue="default(long)" Style="position: absolute" />
+            </div>
+         </div>
+         <div class="mr-3">
+            <nobr>
+               <RadzenDatePicker Name="From" @bind-Value:get=@Model.From @bind-Value:set=@FromChange Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true"
+                                 ShowSeconds=false MinutesStep=1 AllowInput=false Max=@Model.To Disabled=@isLoading Style="width:145px;" />
+               <span>—</span>
+               <RadzenDatePicker Name="To" @bind-Value:get=@Model.To @bind-Value:set="@ToChange" Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true" ShowSeconds=false
+                                 AllowInput=false MinutesStep=1 Min=Model.From.AddDays(-1) Disabled=@isLoading Style="width:145px" />
+            </nobr>
+         </div>
+         <div class="mb-3">
+            <RadzenButton ButtonType="ButtonType.Submit" Text=@T["Button.Play"] ButtonStyle="ButtonStyle.Primary" Icon="play_circle" Disabled=@isLoading />
+         </div>
+      </div>
+   </RadzenTemplateForm>
+}
+
+@code {
+   [Parameter] public Func<VideoRequestModel, Task> Play { get; set; }
+
+   VideoRequestModel Model;
+   IEnumerable<SensorSelectItem> defaultValue = new List<SensorSelectItem>();
+   bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareFileRequestModelAsync();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex);
+      }
+   }
+
+   async Task Submit(VideoRequestModel model)
+   {
+      if (Play != null)
+      {
+         isLoading = true;
+         await Play(model);
+         isLoading = false;
+      }
+   }
+
+   async Task InvalidSubmit(FormInvalidSubmitEventArgs args)
+   {
+      await Task.CompletedTask;
+   }
+
+   void FromChange(DateTime from)
+   {
+      Model.From = from.AddMinutes(2) >= Model.To ? Model.To.AddMinutes(-1) : from;
+   }
+
+   void ToChange(DateTime to)
+   {
+      Model.To = to <= Model.From ? Model.From.AddMinutes(1) : to;
+   }
+
+   // async Task SensorChange(SensorSelectItem sensor)
+   // {
+   //    Model.SelectedSensor = sensor;
+   //    // if (Play is not null)
+   //    //    await Play(Model);
+   // }
+}

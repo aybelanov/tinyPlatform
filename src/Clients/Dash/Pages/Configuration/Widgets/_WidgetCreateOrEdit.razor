@@ -1,0 +1,27 @@
+﻿@page "/configuration/widget/create"
+@page "/configuration/widget/edit/{widgetId:long}"
+@attribute [Authorize]
+
+<WidgetForm WidgetId="@WidgetId" />
+
+@if (WidgetId > 0)
+{
+   <RadzenAccordion Multiple=true class="table-content">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Sensors.WidgetMapping"]" Icon="&#xe241" class="py-2" Style="cursor:pointer;">
+            <WidgetSensorsTable WidgetId="@WidgetId" Hint="@T["Table.Sensors.WidgetMapping.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+   <RadzenAccordion class="table-content">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Widgets.MonitorTable"]" Icon="&#xeaf5" class="py-2 mt-3" Style="cursor:pointer">
+            <MonitorTable WidgetId="WidgetId" Hint="@T["Table.Widgets.MonitorTable.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+}
+
+@code{
+    [Parameter] public long WidgetId { get; set; }
+}

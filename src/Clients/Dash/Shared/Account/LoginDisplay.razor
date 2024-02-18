@@ -1,0 +1,74 @@
+﻿@using System.Security.Claims
+
+<div class="d-md-inline-flex align-items-center">
+   <AuthorizeView>
+      <Authorized>
+         <AuthorizeView Roles="@UserDefaults.AdministratorsRoleName">
+            <Authorized Context="adminContext">
+               <span class="d-none d-sm-inline-block mr-1" title="@T["LoginDisplay.AdminMode.Hint"]">@T["LoginDisplay.AdminMode"]:</span>
+               <RadzenCheckBox @bind-Value=@isAdminMode Change=@(async (bool arg) => await AdminModeChanged(arg)) title="@T["LoginDisplay.AdminMode.Hint"]" 
+                               Disabled=@checkBoxDisabled class="d-none d-sm-inline-block mr-2 mr-xl-3" />
+            </Authorized>
+         </AuthorizeView>
+         <RadzenLink Path="@(Singleton<ServerConfig>.Instance.HubHost + "/user/info")" Text="@(context.User.Identity?.Name)" class="d-none d-md-block mx-2 mx-xl-3 external" 
+             MouseEnter="@(el => ShowTooltip(el, context.User))" MouseLeave="@CloseTooltip" />
+      </Authorized>
+      <NotAuthorized>
+         @*uses <a> for login/logout without main layer*@
+         <a class="mx-2 mx-xl-3" href="/register">@T["LoginDisplay.Registration"]</a>
+         <a class="mx-2 mx-xl-3" href="authentication/login">@T["LoginDisplay.Login"]</a>
+      </NotAuthorized>
+   </AuthorizeView>
+</div>
+
+@code {
+
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] TooltipService TooltipService { get; set; }
+   [Inject] PermissionService AdminService { get; set; }
+
+   bool isAdminMode;
+   bool checkBoxDisabled;
+
+   protected override async Task OnInitializedAsync()
+   {
+      isAdminMode = await AdminService.IsAdminModeAsync();
+   }
+
+   private async Task AdminModeChanged(bool arg)
+   {
+      await Task.Yield();
+      checkBoxDisabled = true;
+      await AdminService.SetModeAsync(arg);
+      checkBoxDisabled = false;
+   }
+
+   private string GetDashUserRole(ClaimsPrincipal user)
+   {
+      if (user is null)
+         return string.Empty;
+
+      var dashRoles = new string[]
+      {
+        UserDefaults.AdministratorsRoleName,
+        UserDefaults.OwnersRoleName,
+        UserDefaults.OperatorsRoleName
+      };
+      var roles = user.Claims.Where(x => x.Type == "role" && dashRoles.Contains(x.Value)).Select(x => T[$"LoginDisplay.Role.{x.Value}"].Value);
+
+      var result = string.Join(", ", roles.ToArray());
+
+      return result;
+   }
+
+   void ShowTooltip(ElementReference elRef, ClaimsPrincipal user)
+   {
+      var options = new TooltipOptions() { Duration = 10_000, Position = TooltipPosition.Bottom };
+      TooltipService.Open(elRef, GetDashUserRole(user), options);
+   }
+
+   void CloseTooltip(ElementReference elRef)
+   {
+      TooltipService.Close();
+   }
+}

@@ -1,0 +1,26 @@
+﻿@model LanguageModel
+
+@{
+    const string hideInfoBlockAttributeName = "LanguagePage.HideInfoBlock";
+    var user = await workContext.GetCurrentUserAsync();
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideInfoBlockAttributeName);
+
+    const string hideResourcesBlockAttributeName = "LanguagePage.HideResourcesBlock";
+    var hideResourcesBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideResourcesBlockAttributeName, defaultValue: true);
+}
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <app-cards id="language-cards">
+                <app-card asp-name="language-info" asp-icon="fas fa-info" asp-title="@T("Admin.Configuration.Languages.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+                <app-card asp-name="language-resources" asp-icon="fas fa-database" asp-title="@T("Admin.Configuration.Languages.Resources")" asp-hide-block-attribute-name="@hideResourcesBlockAttributeName" asp-hide="@hideResourcesBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Resources", Model)</app-card>
+
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.LanguageDetailsBlock, additionalData = Model })
+            </app-cards>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,218 @@
+﻿@if (!string.IsNullOrEmpty(Title))
+{
+   <h3>@Title</h3>
+}
+@if (!string.IsNullOrEmpty(Hint))
+{
+   <p>@Hint</p>
+}
+<div class="col mt-3">
+   <div class="row mb-2 align-items-center d-flex">
+      <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@OnMapPresentation" Disabled=@isLoading />
+      <RadzenButton Click=@OnUpdateAsync Icon="refresh" ButtonStyle="ButtonStyle.Light" Style="margin-right: 10px;" Disabled=@isLoading />
+   </div>
+</div>
+<RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                TItem="PresentationModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" ExpandMode="DataGridExpandMode.Single" Responsive=true>
+
+   <Columns>
+      <RadzenDataGridColumn @ref=@idColumn TItem="PresentationModel" Property="Id" Filterable=true Sortable=true Title=@T["DataGrid.Column.Id"] Width="90px" TextAlign="TextAlign.Center" />
+
+      <RadzenDataGridColumn @ref=@nameColumn TItem="PresentationModel" Property="Name" Title=@T["DataGrid.Column.Name"] Filterable=true Sortable=true MinWidth="150px" />
+
+      <RadzenDataGridColumn @ref=@widgetNameColumn TItem="PresentationModel" Property="WidgetName" Title=@T["DataGrid.Column.Widget"] Filterable=true Sortable=true Width="150px">
+         <Template Context="item">
+            <RadzenLink Text=@item.WidgetName Path=@($"configuration/widget/edit/{item.WidgetId}") />
+         </Template>
+      </RadzenDataGridColumn>
+
+      <RadzenDataGridColumn @ref=@deviceNameColumn TItem="PresentationModel" Property="DeviceName" Title=@T["DataGrid.Column.Device"] Filterable=true Sortable=true Width="150px">
+         <Template Context="item">
+            <RadzenLink Text=@item.DeviceName Path=@($"configuration/device/edit/{item.DeviceId}") />
+         </Template>
+      </RadzenDataGridColumn>
+
+      <RadzenDataGridColumn @ref=@sensorNameColumn TItem="PresentationModel" Property="SensorName" Title=@T["DataGrid.Column.Sensor"] Filterable=true Sortable=true Width="150px">
+         <Template Context="item">
+            <RadzenLink Text=@item.SensorName Path=@($"configuration/sensor/edit/{item.SensorId}") />
+         </Template>
+      </RadzenDataGridColumn>
+
+      <RadzenDataGridColumn @ref=@displayOrderColumn TItem="PresentationModel" Property="DisplayOrder" Sortable=true Filterable=false Title=@T["DataGrid.Column.DisplayOrder"] Width="80px" TextAlign="TextAlign.Center" Resizable=false />
+
+      <RadzenDataGridColumn TItem="PresentationModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center">
+         <Template Context="item">
+            <RadzenButton Click="@(async () => await EditPresentation(item))" Icon="edit" ButtonStyle="ButtonStyle.Info" title="@T["DataGrid.Edit"]" class="m-0" Size="ButtonSize.Small" @onclick:stopPropagation="true" />
+         </Template>
+      </RadzenDataGridColumn>
+
+      <RadzenDataGridColumn TItem="PresentationModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false Groupable=false>
+         <Template Context="item">
+            <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@(async () => await OnUnmapPresentation(item))" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" class="m-0" @onclick:stopPropagation="true">
+            </RadzenButton>
+         </Template>
+      </RadzenDataGridColumn>
+   </Columns>
+</RadzenDataGrid>
+
+
+@code {
+   [Parameter] public long MonitorId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] IPresentationService PresentationService { get; set; }
+
+   IFilterableList<PresentationModel> Model;
+   DynamicFilter filter = new();
+
+   RadzenDataGrid<PresentationModel> grid;
+   RadzenDataGridColumn<PresentationModel> idColumn;
+   RadzenDataGridColumn<PresentationModel> nameColumn;
+   RadzenDataGridColumn<PresentationModel> widgetNameColumn;
+   RadzenDataGridColumn<PresentationModel> deviceNameColumn;
+   RadzenDataGridColumn<PresentationModel> sensorNameColumn;
+   RadzenDataGridColumn<PresentationModel> displayOrderColumn;
+
+   bool isLoading;
+
+   async Task OnUpdateAsync()
+   {
+      isLoading = true;
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Presentation>.Prefix);
+      await grid.Reload();
+      isLoading = false;
+   }
+
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      try
+      {
+         isLoading = true;
+         PrepareFilter(args);
+         await Task.Yield();
+
+
+         Model = await PreparePresentationModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnMapPresentation()
+   {
+      var options = new DialogOptions()
+         {
+            ShowClose = true,
+            ShowTitle = true,
+            CloseDialogOnOverlayClick = true,
+            CloseDialogOnEsc = true,
+            Width = "480px"
+         };
+
+      PresentationModel selectedItem = await DialogService.OpenAsync(@T["Presentation.Map.Create.Title"], 
+        ds =>@<MapPresentaton Model="@(new PresentationModel() { MonitorId = MonitorId })" Dialog="@ds" /> , options);
+
+      if (selectedItem is null)
+         return;
+
+      try
+      {
+         isLoading = true;
+         await PresentationService.MapPresentationToMonitorAsync(selectedItem);
+         await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Presentation>.ByDynamicFilterPrefix, "all");
+         await OnUpdateAsync();
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Presentation.Map.Create.Success"], selectedItem.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Presentation.Map.Create.Error", selectedItem.Name]);
+         StateHasChanged();
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task EditPresentation(PresentationModel item)
+   {
+      var options = new DialogOptions()
+         {
+            ShowClose = true,
+            ShowTitle = true,
+            CloseDialogOnOverlayClick = true,
+            CloseDialogOnEsc = true,
+            Width = "480px"
+         };
+
+      PresentationModel selectedWidget = await DialogService.OpenAsync(@T["Presentation.Map.Update.Title"], ds =>@<MapPresentaton Dialog="@ds" Model="@item" /> , options);
+
+      if (selectedWidget is null)
+         return;
+
+      try
+      {
+         isLoading = true;
+         await PresentationService.UpdateMapPresentationToMonitorAsync(selectedWidget);
+         await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Presentation>.ByDynamicFilterPrefix, "all");
+         await OnUpdateAsync();
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Presentation.Map.Update.Success"], selectedWidget.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Presentation.Map.Update.Error", selectedWidget.Name]);
+         StateHasChanged();
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnUnmapPresentation(PresentationModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Presentation.Unmap.Confirm.Message"], item.SensorName), T["Presentation.Unmap.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.Value == true)
+      {
+         try
+         {
+            isLoading = true;
+            await PresentationService.UnmapPresentaionFromMonitorAsync(item);
+            await OnUpdateAsync();
+            NotificationService.Notify(NotificationSeverity.Success, T["Presentation.Unmap.Success", item.SensorName]);
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, T["Presentation.Unmap.Error", item.SensorName]);
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.MonitorId = MonitorId;
+      filter = Auto.Mapper.Map(args, filter);
+      filter.Filter = new List<RadzenDataGridColumn<PresentationModel>>() { idColumn, nameColumn, widgetNameColumn, sensorNameColumn, deviceNameColumn, displayOrderColumn }.ToFilterString();
+   }
+}

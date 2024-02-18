@@ -1,0 +1,39 @@
+﻿@model TemplatesModel
+
+@inject IEventPublisher eventPublisher
+
+@{
+    //page title
+    ViewBag.PageTitle = T("Admin.System.Templates").Text;
+    //active menu item (system name)
+    AppHtml.SetActiveMenuItemSystemName("Templates");
+}
+
+@{
+    var user = await workContext.GetCurrentUserAsync();
+
+    const string hideTopicBlockAttributeName = "Templates.HideTopicBlock";
+    var hideTopicBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideTopicBlockAttributeName);
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="content-header clearfix">
+                    <h3 class="float-left">
+                        @T("Admin.System.Templates")
+                    </h3>
+                </div>
+            </div>
+
+            @* <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.Templates", Docs.Templates + Utm.OnAdmin)" /> *@
+
+            <app-cards id="templates-cards">
+                <app-card asp-name="templates-topic" asp-icon="fas fa-book" asp-title="@T("Admin.System.Templates.Topic")" asp-hide-block-attribute-name="@hideTopicBlockAttributeName" asp-hide="@hideTopicBlock">@await Html.PartialAsync("_List.Topic", Model)</app-card>
+
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.TemplatesDetailsBlock, additionalData = Model })
+            </app-cards>
+        </div>
+    </div>
+</section>

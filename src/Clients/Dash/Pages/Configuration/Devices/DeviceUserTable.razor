@@ -1,0 +1,80 @@
+﻿@using static Clients.Dash.Pages.Configuration.Users.UserTable
+
+<UserTable @ref=@table DeviceId="@DeviceId" AddClick="@OnMapUser" DeleteClick="@OnUnmapUser" Hint="@T["Table.Devices.UserMapping.Hint"]" />
+
+@code {
+   [Parameter] public long DeviceId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] IDeviceService DeviceService { get; set; }
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+
+   UserTable table;
+   private bool _isLoading;
+
+   async Task OnMapUser()
+   {
+      var options = new DialogOptions()
+         {
+            ShowClose = true,
+            ShowTitle = true,
+            CloseDialogOnOverlayClick = true,
+            CloseDialogOnEsc = true,
+            Width = "480px"
+         };
+
+      string selectedUser = await DialogService.OpenAsync(@T["SelectUser.Title"], ds =>@<MapUser Dialog="@ds" /> , options);
+
+      if (string.IsNullOrWhiteSpace(selectedUser))
+         return;
+
+      try
+      {
+         _isLoading = true;
+         await DeviceService.ShareDeviceAsync(selectedUser, DeviceId);
+         await table.OnUpdate();
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["User.Map.Success"], selectedUser));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["User.Map.Error", selectedUser]);
+         StateHasChanged();
+      }
+      finally
+      {
+         _isLoading = false;
+      }
+   }
+
+   async Task OnUnmapUser(UserModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["User.Unmap.Confirm.Message"], item.Username), T["User.Unmap.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            _isLoading = true;
+            await DeviceService.UnshareDeviceAsync(item.Username, DeviceId);
+            await table.OnUpdate();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["User.Unmap.Success"], item.Username));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["User.Unmap.Error"], item.Username));
+            StateHasChanged();
+         }
+         finally
+         {
+            _isLoading = false;
+         }
+      }
+   }
+}

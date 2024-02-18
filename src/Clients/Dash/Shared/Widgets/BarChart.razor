@@ -1,0 +1,49 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustCommonWidget
+
+<div class="row justify-content-md-center mb-3">
+   <div class="col-12 px-0 align-items-center">
+      <RadzenChart Style="min-width:150px;">
+         <RadzenBarSeries Data=@values CategoryProperty="Category" LineType="LineType.Dashed" ValueProperty="Value">
+            <RadzenSeriesDataLabels Visible="true" />
+         </RadzenBarSeries>
+         <RadzenLegend Position=LegendPosition.Top Visible=false />
+         <RadzenValueAxis Max=@_adjustment.MaxValue Min=@_adjustment.MinValue Step=@((_adjustment.MaxValue - _adjustment.MinValue) / 4)>
+            <RadzenGridLines Visible="true" />
+            @* <RadzenAxisTitle Text=@Presentation.Sensor.MeasureUnit /> *@
+         </RadzenValueAxis>
+         <RadzenBarOptions Radius="5" Height="20" />
+      </RadzenChart>
+   </div>
+</div>
+
+@code {
+   [CascadingParameter] public PresentationViewModel Presentation { get; set; }
+
+   ValueHelper[] values = [new()];
+
+   CommonWidgetAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+     ? new CommonWidgetAdjustment()
+     : JsonSerializer.Deserialize<CommonWidgetAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   public override async Task Update(IEnumerable<SensorRecord> records)
+   {
+      values = new[]
+      {
+          new ValueHelper()
+          {
+              Category = Presentation.Sensor.MeasureUnit,
+              Value = records.FirstOrDefault()?.Value ?? _adjustment.MinValue
+          }
+      };
+      StateHasChanged();
+      await Task.CompletedTask;
+   }
+}

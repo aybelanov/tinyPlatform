@@ -1,0 +1,160 @@
+﻿@if (WidgetId < 1)
+{
+   <PageTitle>@T["Widget.Create.PageTitle"]</PageTitle>
+   <h3>@T["Widget.Create.PageTitle"]</h3>
+}
+else
+{
+   <PageTitle>@T["Widget.Edit.PageTitle", Model?.Name ?? string.Empty]</PageTitle>
+   <h3 class="mb-3 mr-1 d-inline-block">@T["Widget.Edit.PageTitle", Model?.Name ?? string.Empty]</h3>
+}
+
+@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <WidgetLinks WidgetId="@WidgetId" />
+
+   <RadzenCard class="mb-4">
+      <CreateOrEditForm TItem="WidgetModel" ItemNameForNotification="@Model.Name" Model="Model" OnCancel=@(async model => { await OnInitializedAsync(); StateHasChanged();})
+                        OnDelete=@WidgetService.DeleteAsync OnSubmitCreate=@WidgetService.InsertAsync OnSubmitUpdate=@WidgetService.UpdateAsync Context="Model"
+                        @bind-DisableButtons=@isLoading AfterDelete="@OnAfterSave" AfterSave="@OnAfterSave">
+
+         <div class="row row-cols-2 justify-content-center">
+            <div class="col-xl-6 mb-3" style="min-width:480px">
+               <RadzenFieldset Text=@T["Widget.CreateOrEdit.Fieldset.Common"] class="h-100">
+                  @if (WidgetId > 0)
+                  {
+                     <div class="row mb-2 align-items-center">
+                        <div class="col-md-3 d-flex justify-content-md-end">
+                           <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ID"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           @Model.Id
+                        </div>
+                     </div>
+                  }
+                  <div class="row mb-3 align-items-center ">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Widget.CreateOrEdit.Label.Name"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="Name" style="width: 100%; display:block;" @bind-Value=@Model.Name Placeholder="@T["Widget.CreateOrEdit.Name.Placeholder"]" Disabled=@isLoading />
+                        <RadzenLengthValidator Component="Name" Min="5" Text="@T["Validation.Length.Min", T["Widget.CreateOrEdit.Label.Name"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="Name" Max="100" Text="@T["Validation.Length.Max", T["Widget.CreateOrEdit.Label.Name"], 100]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-2 align-items-start">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Widget.CreateOrEdit.Label.Description"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextArea Rows="4" Name="Description" @bind-Value=@Model.Description style="width: 100%;" Class="w-100" Placeholder="@T["Widget.CreateOrEdit.Description.Placeholder"]" Disabled=@isLoading />
+                        <RadzenLengthValidator Component="Description" Max="1000" Text="@T["Validation.Length.Max", T["Widget.CreateOrEdit.Label.Description"], 1000]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row align-items-center mb-2">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Widget.CreateOrEdit.Label.WidgetType"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenDropDown @bind-Value=@Model.WidgetTypeId AllowClear="false" Name="WidgetType" TValue="int" class="w-100" Style="display: block" AllowFiltering="true"
+                                        Data=@presentationTypes Count=@presentationTypes.Count TextProperty="Value" ValueProperty="Key" Placeholder=@T["Select"] Disabled=@isLoading />
+                        <RadzenRequiredValidator Component="WidgetType" Text=@T["Validation.RequireValue"] DefaultValue="0" Style="position:absolute" />
+                     </div>
+                  </div>
+                  @if (Model.Id > 0)
+                  {
+                     <div class="row align-items-center mt-3 mb-0">
+                        <div class="col-md-3 justify-content-md-end d-flex">
+                           <TinyLabel Text="@T["Widget.CreateOrEdit.Label.Icon"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           <TinyImageUpload Accept="image/jpeg, image/png, image/gif" Multiple="false" PictureUrl="@Model.PictureUrl" UploadUrl="@($"widget/uploadicon/{Model.Id}")"
+                                            ErrorCallback=@IconUploadError SuccessCallback="@IconUploadSuccess" @bind-Disabled=@isLoading />
+                        </div>
+                     </div>
+                  }
+               </RadzenFieldset>
+            </div>
+            @if (Model.WidgetType > 0)
+            {
+               <div class="col mb-3" style="min-width:480px">
+                  <RadzenFieldset Text=@T["Widget.CreateOrEdit.Fieldset.Visualization"] class="h-100">
+
+                     @if (Model.WidgetType == WidgetType.ArcGauge
+                    || Model.WidgetType == WidgetType.BarChart
+                    || Model.WidgetType == WidgetType.ColunmChart
+                    || Model.WidgetType == WidgetType.RadialGauge)
+                     {
+                        <AdjustCommonWidget Model="@Model" IsLoading=@isLoading />
+                     }
+                     else if (Model.WidgetType == WidgetType.Map)
+                     {
+                        <AdjustLiveTracker Model="@Model" IsLoading=@isLoading />
+                     }
+                     else if (Model.WidgetType == WidgetType.Video)
+                     {
+                        <AdjustLivePlayer Model="@Model" IsLoading=@isLoading />
+                     }
+                     else if (Model.WidgetType == WidgetType.LiveChart)
+                     {
+                        <AdjustLiveChart Model="@Model" IsLoading=@isLoading />
+                     }
+                     else if (Model.WidgetType == WidgetType.TextConsole)
+                     {
+                        <AdjustConsoleWidget Model="@Model" IsLoading=@isLoading />
+                     }
+                     else if (Model.WidgetType == WidgetType.LiveScheme)
+                     {
+                        <AdjustLiveScheme Model="@Model" IsLoading=@isLoading />
+                     }
+                  </RadzenFieldset>
+               </div>
+            }
+         </div>
+      </CreateOrEditForm>
+   </RadzenCard>
+}
+
+@code {
+   [Parameter] public long WidgetId { get; set; }
+
+   [Inject] private NotificationService Notification { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+
+   private WidgetModel Model;
+
+   private Dictionary<int, LocalizedString> presentationTypes;
+   private bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      presentationTypes = Enum.GetValues(typeof(WidgetType)).Cast<WidgetType>().ToDictionary(t => (int)t, t => T[$"Enum.WidgetType.{t.ToString()}"]);
+      try
+      {
+         Model = WidgetId > 0 ? await PrepareWidgetModelAsync(WidgetId) : await PrepareWidgetModelAsync();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+
+   private void IconUploadError(string message) => Notification.Notify(NotificationSeverity.Error, message, duration: -1d);
+
+   private async void IconUploadSuccess(string newPictureUrl)
+   {
+      var widget = await WidgetService.GetByIdAsync(Model.Id);
+      widget.PictureUrl = Model.PictureUrl = newPictureUrl;
+      Notification.Notify(NotificationSeverity.Success, T["Widgets.Icon.Upload.Success"]);
+   }
+
+   private async Task OnAfterSave()
+   {
+      Navigation.NavigateTo("configuration/widgets");
+      await Task.CompletedTask;
+   }
+}

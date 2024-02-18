@@ -1,0 +1,37 @@
+﻿<AuthorizeView Roles="@UserDefaults.AdministratorsRoleName">
+   <Authorized Context="auth">
+      @if (PermissionService.IsAdminMode(auth))
+      {
+         <RadzenDropDown @ref=@_selectedDropDown
+                         AllowVirtualization=true
+                         LoadData="LoadUsers"
+                         TValue="UserSelectItem"
+                         AllowClear=@AllowClear
+                         AllowFiltering=true
+                         AllowSelectAll=false
+                         Data=@_availableUsers
+                         Count="@(_availableUsers?.TotalCount ?? 0)"
+                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                         FilterDelay="1000"
+                         Name="Users" 
+                         @bind-Value:get=@_selectedUser
+                         @bind-Value:set=@UserChange
+                         TextProperty="Username"
+                         Placeholder=@Placeholder
+                         Style=@Style
+                         Disabled=@(Disabled || IsLoading)
+                         VirtualizationOverscanCount="50"
+                         @attributes=@Attributes>
+            <Template>
+               <nobr>
+                  <img src="@context.AvatarUrl" class="d-inline mr-2"  height="36" /><span class="d-inline">@context.Username</span>
+               </nobr>
+            </Template>
+            <ValueTemplate>
+               @context.Username
+            </ValueTemplate>
+         </RadzenDropDown>
+      }
+   </Authorized>
+</AuthorizeView>
+

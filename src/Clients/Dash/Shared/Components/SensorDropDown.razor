@@ -1,0 +1,18 @@
+﻿@* sample *@
+@*<SensorDropDown @bind-SensorId=@selectedSensorId DeviceId="@Model.SelectedDeviceId" Disabled=@isLoading Style="width: 100%; display:block;"  />*@
+
+<RadzenDropDown @ref=@_sensorDropDown
+                @bind-Value:get=@_selectedSensor
+                @bind-Value:set=@SensorChange
+                Name=@Name 
+                Data="_availableSensors"
+                AllowVirtualization=true
+                AllowClear=true 
+                AllowFiltering=true
+                AllowSelectAll=false 
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                TextProperty="Name"
+                Placeholder=@Placeholder
+                Style=@Style
+                Disabled=@(Disabled || Device is null || IsLoading)
+                @attributes=@Attributes/>

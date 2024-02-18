@@ -1,0 +1,173 @@
+﻿@using Hub.Core.Domain.Users
+@using Hub.Services
+@model UserUserSettingsModel
+
+<div class="card-body">
+   <div id="tour-usersettings-account">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.UsernamesEnabled" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.UsernamesEnabled" />
+            <span asp-validation-for="UserSettings.UsernamesEnabled"></span>
+         </div>
+      </div>
+      <app-nested-setting asp-for="UserSettings.UsernamesEnabled" disable-auto-generation="true">
+         <div class="form-group row advanced-setting" id="pnlUsernameMinLenght">
+            <div class="col-md-3">
+               <app-label asp-for="UserSettings.UsernameMinLenght" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="UserSettings.UsernameMinLenght" />
+               <span asp-validation-for="UserSettings.UsernameMinLenght"></span>
+            </div>
+         </div>
+         <div class="form-group row advanced-setting" id="pnlAllowUsersToChangeUsernames">
+            <div class="col-md-3">
+               <app-label asp-for="UserSettings.AllowUsersToChangeUsernames" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="UserSettings.AllowUsersToChangeUsernames" />
+               <span asp-validation-for="UserSettings.AllowUsersToChangeUsernames"></span>
+            </div>
+         </div>
+         <div class="form-group row advanced-setting" id="pnlCheckUsernameAvailability">
+            <div class="col-md-3">
+               <app-label asp-for="UserSettings.CheckUsernameAvailabilityEnabled" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="UserSettings.CheckUsernameAvailabilityEnabled" />
+               <span asp-validation-for="UserSettings.CheckUsernameAvailabilityEnabled"></span>
+            </div>
+         </div>
+         <div id="pnlUsernameValidationEnabled">
+            <div class="form-group row advanced-setting">
+               <div class="col-md-3">
+                  <app-label asp-for="UserSettings.UsernameValidationEnabled" />
+               </div>
+               <div class="col-md-9">
+                  <app-editor asp-for="UserSettings.UsernameValidationEnabled" />
+                  <span asp-validation-for="UserSettings.UsernameValidationEnabled"></span>
+               </div>
+            </div>
+            <app-nested-setting asp-for="UserSettings.UsernameValidationEnabled" disable-auto-generation="true">
+               <div class="form-group row advanced-setting" id="pnlUsernameValidationRule">
+                  <div class="col-md-3">
+                     <app-label asp-for="UserSettings.UsernameValidationRule" />
+                  </div>
+                  <div class="col-md-9">
+                     <app-editor asp-for="UserSettings.UsernameValidationRule" />
+                     <span asp-validation-for="UserSettings.UsernameValidationRule"></span>
+                  </div>
+               </div>
+               <div class="form-group row advanced-setting" id="pnlUsernameValidationUseRegex">
+                  <div class="col-md-3">
+                     <app-label asp-for="UserSettings.UsernameValidationUseRegex" />
+                  </div>
+                  <div class="col-md-9">
+                     <app-editor asp-for="UserSettings.UsernameValidationUseRegex" />
+                     <span asp-validation-for="UserSettings.UsernameValidationUseRegex"></span>
+                  </div>
+               </div>
+            </app-nested-setting>
+         </div>
+      </app-nested-setting>
+   </div>
+   <div class="form-group row advanced-setting">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.UserNameFormat" />
+      </div>
+      <div class="col-md-9">
+         <app-select asp-for="UserSettings.UserNameFormat" asp-items="@await (((UserNameFormat)Model.UserSettings.UserNameFormat).ToSelectListAsync())" />
+         <span asp-validation-for="UserSettings.UserNameFormat"></span>
+      </div>
+   </div>
+   <div id="pnlPhoneNumberValidationEnabled">
+      <div class="form-group row advanced-setting">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PhoneNumberValidationEnabled" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PhoneNumberValidationEnabled" />
+            <span asp-validation-for="UserSettings.PhoneNumberValidationEnabled"></span>
+         </div>
+      </div>
+      <app-nested-setting asp-for="UserSettings.PhoneNumberValidationEnabled" disable-auto-generation="true">
+         <div class="form-group row advanced-setting" id="pnlPhoneNumberValidationRule">
+            <div class="col-md-3">
+               <app-label asp-for="UserSettings.PhoneNumberValidationRule" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="UserSettings.PhoneNumberValidationRule" />
+               <span asp-validation-for="UserSettings.PhoneNumberValidationRule"></span>
+            </div>
+         </div>
+         <div class="form-group row advanced-setting" id="pnlPhoneNumberValidationUseRegex">
+            <div class="col-md-3">
+               <app-label asp-for="UserSettings.PhoneNumberValidationUseRegex" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="UserSettings.PhoneNumberValidationUseRegex" />
+               <span asp-validation-for="UserSettings.PhoneNumberValidationUseRegex"></span>
+            </div>
+         </div>
+      </app-nested-setting>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.AllowUsersToUploadAvatars" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.AllowUsersToUploadAvatars" />
+         <span asp-validation-for="UserSettings.AllowUsersToUploadAvatars"></span>
+      </div>
+   </div>
+   <app-nested-setting asp-for="UserSettings.AllowUsersToUploadAvatars" disable-auto-generation="true">
+      <div class="form-group row" id="pnlDefaultAvatarEnabled">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.DefaultAvatarEnabled" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.DefaultAvatarEnabled" />
+            <span asp-validation-for="UserSettings.DefaultAvatarEnabled"></span>
+         </div>
+      </div>
+   </app-nested-setting>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.HideNewsletterBlock" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.HideNewsletterBlock" />
+         <span asp-validation-for="UserSettings.HideNewsletterBlock"></span>
+      </div>
+   </div>
+   <div class="form-group row" id="pnlNewsletterBlockAllowToUnsubscribe">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.NewsletterBlockAllowToUnsubscribe" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.NewsletterBlockAllowToUnsubscribe" />
+         <span asp-validation-for="UserSettings.NewsletterBlockAllowToUnsubscribe"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.StoreLastVisitedPage" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.StoreLastVisitedPage" />
+         <span asp-validation-for="UserSettings.StoreLastVisitedPage"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.StoreIpAddresses" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.StoreIpAddresses" />
+         <span asp-validation-for="UserSettings.StoreIpAddresses"></span>
+      </div>
+   </div>
+</div>

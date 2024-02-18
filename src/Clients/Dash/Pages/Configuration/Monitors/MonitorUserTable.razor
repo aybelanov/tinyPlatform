@@ -1,0 +1,80 @@
+﻿@using static Clients.Dash.Pages.Configuration.Users.UserTable
+
+<UserTable @ref=@table MonitorId="@MonitorId" AddClick="@OnMapUser" DeleteClick="@OnUnmapUser" Hint="@Hint" Title="@Title" />
+
+@code {
+   [Parameter] public long MonitorId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] IMonitorService MonitorService { get; set; }
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+
+   UserTable table;
+   private bool _isLoading;
+
+   async Task OnMapUser()
+   {
+      var options = new DialogOptions()
+      {
+         ShowClose = true,
+         ShowTitle = true,
+         CloseDialogOnOverlayClick = true,
+         CloseDialogOnEsc = true,
+         Width = "480px"
+      };
+
+      string selectedUser = await DialogService.OpenAsync(@T["SelectUser.Title"], ds =>@<MapUser Dialog="@ds" /> , options);
+
+      if (string.IsNullOrWhiteSpace(selectedUser))
+         return;
+
+      try
+      {
+         _isLoading = true;
+         await MonitorService.ShareMonitorAsync(selectedUser, MonitorId);
+         await table.OnUpdate();
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["User.Map.Success"], selectedUser));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["User.Map.Error", selectedUser]);
+         StateHasChanged();
+      }
+      finally
+      {
+         _isLoading = false;
+      }
+   }
+
+   async Task OnUnmapUser(UserModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["User.Unmap.Confirm.Message"], item.Username), T["User.Unmap.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            _isLoading = true;
+            await MonitorService.UnshareMonitorAsync(item.Username, MonitorId);
+            await table.OnUpdate();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["User.Unmap.Success"], item.Username));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["User.Unmap.Error"], item.Username));
+            StateHasChanged();
+         }
+         finally
+         {
+            _isLoading = false;
+         }
+      }
+   }
+}

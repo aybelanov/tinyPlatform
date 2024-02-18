@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<!--<BaseOutputPath>..\WorkerService1\bin\</BaseOutputPath>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Libraries\Hub.Data\Hub.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
+</Project>

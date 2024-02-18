@@ -1,0 +1,13 @@
+﻿@*localization service for installation service
+    we do not use standard tinyPlatform localization because database is not installed yet
+    locale resources for installation process are stored into \App_Data\Localization\Installation directory*@
+@inject IInstallationLocalizationService ILS
+
+@removeTagHelper *, Hub.Web.Framework
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Hub.Data
+@using Hub.Services.Common
+@using static Hub.Services.Common.AppLinksDefaults
+@using Hub.Web.Models.Install
+@using Hub.Web.Infrastructure.Installation

@@ -1,0 +1,115 @@
+﻿@using static Clients.Widgets.Core.OpenLayerBase;
+<h3 class="mb-3">@T["Home.DeviceMap"]</h3>
+
+<div class="row mb-3">
+   <div class="col">
+      <RadzenFieldset class="mb-3">
+          <HeaderTemplate>
+              <AuthorizeView>
+                  <Authorized>
+                     <span>@T[$"Home.DeviceMap.Location.{(PermissionService.IsAdminMode(context) ? "All" : "Own")}"]</span>
+                  </Authorized>
+              </AuthorizeView>
+          </HeaderTemplate>
+         <ChildContent>
+            <div class="row align-items-center justify-content-xl-start justify-content-center" style="padding: 0 1rem;">
+               <div class="mb-3">
+                  <UserDropDown @bind-UserId:get=@Model.UserId @bind-UserId:set=@OnUpdateWithCache @bind-IsLoading=@isLoading AllowClear=true Placeholder="@T["UserDropDown.Placeholder"]" 
+                                class="mr-3" />
+               </div>
+               <div class="mb-3">
+                  <nobr>
+                     <RadzenButton Click=@(args => OnUpdateWithCache(Model.UserId)) Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mr-2" title="@T["Button.Update"]" Disabled=@isLoading />
+                     <RadzenButton Click=@(args => ShowAllOnMap()) Icon="fullscreen" ButtonStyle="ButtonStyle.Light" class="mr-2" title="@T["Map.Button.All"]" Disabled=@isLoading />
+                     <RadzenDropDown @bind-Value=@_mapView.LayerType TValue=@LayerTypes Data="@_mapSelectItems" ValueProperty="MapType" TextProperty="Locale" AllowClear=false
+                                     AllowFiltering=false AllowSelectAll=false Multiple=false Change="@MapOnChange" class="mr-5" />
+                  </nobr>
+               </div>
+               <div class="mb-3">
+                  <nobr>
+                     <RadzenIcon Icon="factory" Style="vertical-align: text-bottom;" />
+                     <RadzenLabel Text=@T["Device.Types.Stationary"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowStationary class="mr-2" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                     <RadzenIcon Icon="airport_shuttle" Style="vertical-align: middle;" />
+                     <RadzenLabel Text=@T["Device.Types.Mobile"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowMobile class="mr-5" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                  </nobr>
+               </div>
+               <div class="device-status mb-3">
+                  <nobr>
+                     <RadzenLabel Text=@T["OnlineStatus.Online"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowOnline class="mr-2 device-status-online" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                     <RadzenLabel Text=@T["OnlineStatus.BeenRecently"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowBeenRecently class="mr-2 device-status-beencently" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                     <RadzenLabel Text=@T["OnlineStatus.Offline"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowOffline class="mr-2 device-status-offline" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                     <RadzenLabel Text=@T["OnlineStatus.NoActivities"] />:
+                     <RadzenCheckBox @bind-Value=@Model.ShowNoActivities class="device-status-noactivities" Change="@((bool val) => OnUpdate())" Disabled=@isLoading />
+                  </nobr>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col">
+                  <OpenMap @ref=@map BingKey="@Config["ApiKeys:BingMap"]" View=@_mapView IsLoading=@(isLoading && isMapLoading) style="height:450px; width:100%;" />
+               </div>
+            </div>
+         </ChildContent>
+      </RadzenFieldset>
+   </div>
+</div>
+
+@code {
+   [Inject] WebAssemblyHostConfiguration Config { get; set; }
+   OpenMap map;
+   bool isLoading;
+   bool isMapLoading;
+
+   private async Task LoadMarkers(bool showMapLoadingIcon = true)
+   {
+      isLoading = true;
+      isMapLoading = showMapLoadingIcon;
+      await Task.Yield();
+
+      try
+      {
+         Model.Markers = await PrepareMarkersAsync();
+         await map.ShowMarkers(Model.Markers);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+         isMapLoading = showMapLoadingIcon;
+      }
+   }
+
+   protected override async Task OnAfterRenderAsync(bool firstRender)
+   {
+      if (firstRender)
+      {
+         if (map != null)
+         {
+            await LoadMarkers();
+            await map.Fit();
+         }
+      }
+
+      await base.OnAfterRenderAsync(firstRender);
+   }
+
+   void MapOnChange(object newLayer) => map.ChangeMapLayer((LayerTypes)newLayer);
+
+   async Task ShowAllOnMap() => await map.Fit();
+
+   async Task OnUpdate() => await LoadMarkers(false);
+
+   async Task OnUpdateWithCache(long? userId)
+   {
+      Model.UserId = userId;
+      await CacheManager.RemoveByPrefixAsync(CacheDefaults<DeviceMapItem>.Prefix);
+      await LoadMarkers();
+   }
+}

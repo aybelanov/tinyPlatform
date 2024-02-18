@@ -1,0 +1,49 @@
+@model NewsSettingsModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Enabled" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="Enabled" />
+            <span asp-validation-for="Enabled"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="ShowNewsOnMainPage" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="ShowNewsOnMainPage" />
+            <span asp-validation-for="ShowNewsOnMainPage"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="MainPageNewsCount" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="MainPageNewsCount" />
+            <span asp-validation-for="MainPageNewsCount"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="NewsArchivePageSize" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="NewsArchivePageSize" />
+            <span asp-validation-for="NewsArchivePageSize"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="ShowHeaderRssUrl" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="ShowHeaderRssUrl" />
+            <span asp-validation-for="ShowHeaderRssUrl"></span>
+        </div>
+    </div>
+</div>

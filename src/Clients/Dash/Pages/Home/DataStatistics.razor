@@ -1,0 +1,50 @@
+﻿<h3>@T["Home.DataSctatistics"]</h3>
+
+<div class="row">
+   <div class="col">
+      <RadzenFieldset class="mb-3">
+         <HeaderTemplate>
+            <div class="col">
+               <div class="row align-items-center">
+                  <UserDropDown @bind-UserId:get=@_filter.UserId @bind-UserId:set=@OnUserChange AllowClear=true @bind-IsLoading=@isLoading Placeholder="@T["UserDropDown.Placeholder"]" class="mr-3  mt-2" />
+                  <DeviceDropDown @bind-Device:get=@selectedDevice @bind-Device:set=@OnDeviceChange UserId=@_filter.UserId Placeholder="@T["DeviceDropDown.Placeholder"]" AllowClear=true
+                                  @bind-IsLoading=@isLoading class="mr-3 mt-2" />
+                  @* <span class="mr-2 mt-2">@T["Home.DataSctatistics.Label"]:</span> *@
+                  <RadzenDropDown @bind-Value=@_filter.TimeInterval Data="@_intervals" AllowClear=false AllowFiltering=false Change=@(async obj=> await chart.Clear())
+                                  AllowSelectAll=false ValueProperty="Key" TextProperty="Value" Disabled=@isLoading class="mr-3  mt-2" />
+                  <RadzenButton Click=@(async args => await OnUpdate()) Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mt-2" Disabled=@isLoading />
+               </div>
+            </div>
+         </HeaderTemplate>
+         <ChildContent>
+            <TimelineChart @ref=chart Culture="@CultureInfo.CurrentUICulture.Name[..2]" IsLoading=@isLoading Type="TimelineChart.ChartType.Area" class="w-100" style="height: 320px;" Theme="@Defaults.Theme" />
+         </ChildContent>
+      </RadzenFieldset>
+   </div>
+</div> 
+
+@code {
+
+   TimelineChart chart;
+   DeviceSelectItem selectedDevice;
+   bool isLoading;
+
+   async Task OnUpdate()
+   {
+      await chart.Clear();
+      await ChartUpdate();
+   }
+
+   async Task OnUserChange(long? userId)
+   {
+      _filter.UserId = userId;
+      await chart.Clear();
+   }
+
+   async Task OnDeviceChange(DeviceSelectItem device)
+   {
+      selectedDevice = device;
+      _filter.DeviceId = selectedDevice?.Id;
+      await chart.Clear();
+   }
+}

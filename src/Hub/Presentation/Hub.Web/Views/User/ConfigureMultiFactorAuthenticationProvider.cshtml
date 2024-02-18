@@ -1,0 +1,42 @@
+﻿@model MultiFactorAuthenticationProviderModel
+
+@using Hub.Core
+@using Hub.Services.Users
+@inject IWorkContext workContext
+@inject IUserService userService
+
+@{
+   var isRegisterUser = await userService.IsRegisteredAsync(await workContext.GetCurrentUserAsync());
+   Layout = isRegisterUser ? "_ColumnsTwo" : "_ColumnsOne";
+
+   //title
+   AppHtml.AddTitleParts(T("PageTitle.MultiFactorAuthentication").Text);
+   //page class
+   AppHtml.AppendPageCssClassParts("html-account-page");
+}
+
+@if (isRegisterUser)
+{
+   @section left
+   {
+   @await Component.InvokeAsync("UserNavigation", new { selectedTabId = UserNavigationEnum.MultiFactorAuthentication })
+    }
+}
+
+<div class="page account-page multi-factor-authentication-config-page">
+   <div class="page-title">
+      @if (isRegisterUser)
+      {
+         <h2>@T("PageTitle.MultiFactorAuthentication") - @Model.Name</h2>
+      }
+      else
+      {
+         <h2>@T("PageTitle.MultiFactorAuthentication")</h2>
+      }
+   </div>
+   <div class="page-body">
+      <div class="configure-provider">
+         @(await Component.InvokeAsync(Model.ViewComponentName))
+      </div>
+   </div>
+</div>

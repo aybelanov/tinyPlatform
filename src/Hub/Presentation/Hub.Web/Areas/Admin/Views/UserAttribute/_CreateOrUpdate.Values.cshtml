@@ -1,0 +1,78 @@
+@model UserAttributeModel
+
+@if (Model.Id > 0)
+{
+    <div class="card-body">
+        @await Html.PartialAsync("Table", new DataTablesModel
+        {
+            Name = "userattributevalues-grid",
+            UrlRead = new DataUrl("ValueList", "UserAttribute", new RouteValueDictionary { [nameof(Model.UserAttributeValueSearchModel.UserAttributeId)] = Model.UserAttributeValueSearchModel.UserAttributeId }),
+            UrlDelete = new DataUrl("ValueDelete", "UserAttribute", null),
+            Length = Model.UserAttributeValueSearchModel.PageSize,
+            LengthMenu = Model.UserAttributeValueSearchModel.AvailablePageSizes,
+            ColumnCollection = new List<ColumnProperty>
+            {
+                new ColumnProperty(nameof(UserAttributeValueModel.Name))
+                {
+                    Title = T("Admin.Users.UserAttributes.Values.Fields.Name").Text
+                },
+                new ColumnProperty(nameof(UserAttributeValueModel.IsPreSelected))
+                {
+                    Title = T("Admin.Users.UserAttributes.Values.Fields.IsPreSelected").Text,
+                    Width = "100",
+                    ClassName = AppColumnClassDefaults.CenterAll,
+                    Render = new RenderBoolean()
+                },
+                new ColumnProperty(nameof(UserAttributeValueModel.DisplayOrder))
+                {
+                    Title = T("Admin.Users.UserAttributes.Values.Fields.DisplayOrder").Text,
+                    Width = "100",
+                    ClassName =  AppColumnClassDefaults.CenterAll
+                },
+                new ColumnProperty(nameof(UserAttributeValueModel.Id))
+                {
+                    Title = T("Admin.Common.Edit").Text,
+                    Width = "100",
+                    ClassName =  AppColumnClassDefaults.Button,
+                    Render = new RenderCustom("renderColumnEdit")
+                },
+                new ColumnProperty(nameof(UserAttributeValueModel.Id))
+                {
+                    Title = T("Admin.Common.Delete").Text,
+                    Width = "100",
+                    Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                    ClassName =  AppColumnClassDefaults.Button
+                }
+            }
+        })
+    
+        <script>
+            function renderColumnEdit(data, type, row, meta) {
+                return '<button onclick=\"javascript:OpenWindow(\'@Url.Content("~/Admin/UserAttribute/ValueEditPopup/")' + data + '?btnId=btnRefresh&formId=userattribute-form\', 800, 400, true); return false;\" class="btn btn-default"><i class="fas fa-pencil-alt"></i>@T("Admin.Common.Edit").Text</button>';
+            }
+        </script>    
+    </div>
+    <div class="card-footer">
+        <button type="submit" id="btnAddNewValue" onclick="javascript:OpenWindow('@(Url.Action("ValueCreatePopup", "UserAttribute", new { userAttributeId = Model.Id, btnId = "btnRefresh", formId = "userattribute-form" }))', 800, 400, true); return false;" class="btn btn-primary">
+            @T("Admin.Users.UserAttributes.Values.AddNew")
+        </button>
+        <button type="submit" id="btnRefresh" style="display: none"></button>
+        <script>
+            $(document).ready(function () {
+                $('#btnRefresh').click(function () {
+                    //refresh grid
+                    updateTable('#userattributevalues-grid');
+
+                    //return false to don't reload a page
+                    return false;
+                });
+            });
+        </script>
+    </div>
+}
+else
+{
+    <div class="card-body">
+        @T("Admin.Users.UserAttributes.Values.SaveBeforeEdit")
+    </div>
+}

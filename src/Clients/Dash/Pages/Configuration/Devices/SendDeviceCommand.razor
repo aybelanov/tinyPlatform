@@ -1,0 +1,65 @@
+﻿@implements IDisposable
+
+<CommandConsole @ref=_console Model="Model" />
+
+@code {
+   [Parameter] public DeviceModel Model { get; set; }
+   [Parameter] public DialogService Dialog { get; set; }
+
+   [Inject] HubService Hub { get; set; }
+
+   CommandConsole _console;
+   bool _isConnected;
+
+   protected override void OnInitialized()
+   {
+      Hub.ClientMessageReceived += OnClientMessage;
+      Hub.DeviceStatusChanged += OnDeviceStatusChanged;
+      Hub.Disconnected += OnHubDiscionnected;
+   }
+
+   Task OnHubDiscionnected(Exception exception)
+   {
+      _isConnected = false;
+      StateHasChanged();
+      _console.Write(T["Hub.Disconnected"]);
+      return Task.CompletedTask;
+   }
+
+   Task OnDeviceStatusChanged(DeviceConnectionStatus status)
+   {
+      if (Model != null && status != null && Model.Id == status.DeviceId)
+      {
+         if (status != null)
+         {
+            Model.LastIpAddress = status.IPAddress;
+            _isConnected = !string.IsNullOrEmpty(status.IPAddress);
+            StateHasChanged();
+
+            if (string.IsNullOrEmpty(status.IPAddress))
+               _console.Write(T["Device.Status.Disconnected", Model.Name]);
+            else
+               _console.Write(T["Device.Status.Connected", Model.Name, status.IPAddress]);
+         }
+      }
+
+      return Task.CompletedTask;
+   }
+
+   async Task OnClientMessage(int deviceId, string message)
+   {
+      if (!string.IsNullOrWhiteSpace(message) && deviceId == Model.Id)
+      {
+         _console.Write(message);
+      }
+
+      await Task.CompletedTask;
+   }
+
+   public void Dispose()
+   {
+      Hub.DeviceStatusChanged -= OnDeviceStatusChanged;
+      Hub.Disconnected -= OnHubDiscionnected;
+      Hub.ClientMessageReceived -= OnClientMessage;
+   }
+}

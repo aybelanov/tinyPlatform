@@ -1,0 +1,12 @@
+﻿@inherits ChartjsBase
+
+<div class="row row-col1">
+   <div class="col mb-1 d-flex align-items-center justify-content-center">
+      <input name="timelinechart" type="checkbox" class="mr-2" value="@_isCumulative" onchange="@(async (ChangeEventArgs args) => await Update(args))" />
+      <label class="mr-1">@T["Cumulative.Sum"]</label>
+   </div>
+</div>
+<div class="comp-chart @(this.Class)" style=@Style data-wrapperId="@Id" @attributes=@Attributes>
+   <canvas @ref=Element id="@Id" style="width:100%; height:100%" />
+   @LoadingStub
+</div>

@@ -1,0 +1,17 @@
+﻿@using Hub.Core
+@using Hub.Services.Helpers
+@using Hub.Web.Framework.UI
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@{
+   Layout = "";
+   var themeName = await themeContext.GetWorkingThemeNameAsync();
+   var supportRtl = await Html.ShouldUseRtlThemeAsync();
+
+   //add main CSS file
+   AppHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/styles{(supportRtl ? ".rtl" : "")}.css");
+
+   //add jQuery UI css file
+   AppHtml.AppendCssFileParts("~/lib_npm/jquery-ui-dist/jquery-ui.min.css");
+
+}

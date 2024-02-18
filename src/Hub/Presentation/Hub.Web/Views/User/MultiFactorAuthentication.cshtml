@@ -1,0 +1,83 @@
+﻿@model MultiFactorAuthenticationModel
+
+@using Hub.Core
+@using Hub.Services.Users
+@inject IWorkContext workContext
+@inject IUserService userService
+
+@{
+   var isRegisterUser = await userService.IsRegisteredAsync(await workContext.GetCurrentUserAsync());
+   Layout = isRegisterUser ? "_ColumnsTwo" : "_ColumnsOne";
+
+   //title
+   AppHtml.AddTitleParts(T("PageTitle.MultiFactorAuthentication").Text);
+   //page class
+   AppHtml.AppendPageCssClassParts("html-account-page");
+}
+
+@if (isRegisterUser)
+{
+   @section left
+   {
+   @await Component.InvokeAsync("UserNavigation", new { selectedTabId = UserNavigationEnum.MultiFactorAuthentication })
+    }
+}
+
+<div class="page account-page multi-factor-authentication-page">
+   <div class="page-title">
+      @if (isRegisterUser)
+      {
+         <h2>@T("Account.MyAccount") - @T("PageTitle.MultiFactorAuthentication")</h2>
+      }
+      else
+      {
+         <h2>@T("PageTitle.MultiFactorAuthentication")</h2>
+      }
+   </div>
+   <div class="page-body">
+      <div class="description">
+         @T("Account.MultiFactorAuthentication.Description")
+      </div>
+      <form asp-route="MultiFactorAuthenticationSettings" method="post">
+         <div class="fieldset">
+            <div class="title">
+               <strong>@T("Account.MultiFactorAuthentication.Settings")</strong>
+            </div>
+            <div class="form-fields">
+               @if (!string.IsNullOrEmpty(Model.Message))
+               {
+                  <div class="message-error">
+                     @Model.Message
+                  </div>
+               }
+               <div class="inputs">
+                  <label asp-for="IsEnabled" asp-postfix=":"></label>
+                  <input asp-for="IsEnabled" />
+                  <span asp-validation-for="IsEnabled"></span>
+               </div>
+            </div>
+         </div>
+         <div class="fieldset">
+            <div class="title">
+               <strong>@T("Account.MultiFactorAuthentication.Providers")</strong>
+            </div>
+            <div class="form-fields">
+               <div class="section payment-method">
+                  @if (Model.Providers.Count > 0)
+                  {
+                     @await Html.PartialAsync("_MultiFactorAuthenticationProviders", Model.Providers)
+                  }
+                  else
+                  {
+                     @T("Account.MultiFactorAuthentication.Providers.NoActive")
+                  }
+               </div>
+            </div>
+         </div>
+
+         <div class="buttons">
+            <button type="submit" id="save-mfa-settings-button" name="save-mfa-settsing-button" class="button-1 save-user-mfa-button">@T("Common.Save")</button>
+         </div>
+      </form>
+   </div>
+</div>

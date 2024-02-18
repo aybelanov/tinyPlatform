@@ -1,0 +1,1 @@
+﻿This folder is used only for system logging by ASP.NET (could be enabled in web.config file)

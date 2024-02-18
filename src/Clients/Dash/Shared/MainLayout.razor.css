@@ -1,0 +1,8 @@
+﻿.page-content {
+    min-height: 100%;
+    margin: 0 auto -23px;
+}
+
+.push-footer, .footer-content {
+    height: 23px;
+}

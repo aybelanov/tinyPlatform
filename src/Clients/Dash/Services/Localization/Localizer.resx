@@ -1,0 +1,1917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Button.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Button.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Button.Save&amp;Continue" xml:space="preserve">
+    <value>Save&amp;Continue</value>
+  </data>
+  <data name="Button.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Connection.Closed" xml:space="preserve">
+    <value>Connection has lost</value>
+  </data>
+  <data name="Connection.Connected" xml:space="preserve">
+    <value>Connection has set.</value>
+  </data>
+  <data name="Connection.Reconnected" xml:space="preserve">
+    <value>Connection has rectored</value>
+  </data>
+  <data name="Connection.Status" xml:space="preserve">
+    <value>Connection status</value>
+  </data>
+  <data name="ConsoleLog" xml:space="preserve">
+    <value>Console log</value>
+  </data>
+  <data name="ConsoleLog.Common" xml:space="preserve">
+    <value>Common log</value>
+  </data>
+  <data name="DataFetch.Success" xml:space="preserve">
+    <value>Data has received from server</value>
+  </data>
+  <data name="DataGrid.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="DataGrid.Column.DisplayOrder" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="DataGrid.Column.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="DataGrid.Column.Guid" xml:space="preserve">
+    <value>GUID</value>
+  </data>
+  <data name="DataGrid.Column.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="DataGrid.Column.LastActivity" xml:space="preserve">
+    <value>Last activity</value>
+  </data>
+  <data name="DataGrid.Column.SensorType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName" xml:space="preserve">
+    <value>Monitor name</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName.EditTitle" xml:space="preserve">
+    <value>edit monitor</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName.ShowTitle" xml:space="preserve">
+    <value>show monitor</value>
+  </data>
+  <data name="DataGrid.Column.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DataGrid.Column.Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="DataGrid.Column.SensorName" xml:space="preserve">
+    <value>Sensor name</value>
+  </data>
+  <data name="DataGrid.Column.Widget" xml:space="preserve">
+    <value>Widget</value>
+  </data>
+  <data name="DataGrid.Column.SystemName" xml:space="preserve">
+    <value>System name</value>
+  </data>
+  <data name="DataGrid.Column.Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="DataGrid.Column.DeviceName" xml:space="preserve">
+    <value>Device name</value>
+  </data>
+  <data name="DataGrid.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="DataGrid.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DataGrid.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DataGrid.EmptyText" xml:space="preserve">
+    <value>No Items to display!</value>
+  </data>
+  <data name="DataGrid.GroupPanelText" xml:space="preserve">
+    <value>Drag a column header here and drop it to group by that column</value>
+  </data>
+  <data name="DataGrid.Device.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DataGrid.Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Disconnected</value>
+  </data>
+  <data name="Enum.WidgetType.ArcGauge" xml:space="preserve">
+    <value>Arc gauge</value>
+  </data>
+  <data name="Enum.WidgetType.AreaChart" xml:space="preserve">
+    <value>Area chart</value>
+  </data>
+  <data name="Enum.WidgetType.BarChart" xml:space="preserve">
+    <value>Bar chart</value>
+  </data>
+  <data name="Enum.WidgetType.ColunmChart" xml:space="preserve">
+    <value>Column chart</value>
+  </data>
+  <data name="Enum.WidgetType.DonutChart" xml:space="preserve">
+    <value>Donut chart</value>
+  </data>
+  <data name="Enum.WidgetType.LineChart" xml:space="preserve">
+    <value>Line chart</value>
+  </data>
+  <data name="Enum.WidgetType.Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="Enum.WidgetType.PieChart" xml:space="preserve">
+    <value>Pie chart</value>
+  </data>
+  <data name="Enum.WidgetType.RadialGauge" xml:space="preserve">
+    <value>Radial gauge</value>
+  </data>
+  <data name="Enum.WidgetType.TextConsole" xml:space="preserve">
+    <value>Text console</value>
+  </data>
+  <data name="Enum.WidgetType.Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Error.DataFetch" xml:space="preserve">
+    <value>Data fetch error.</value>
+  </data>
+  <data name="Error.HttpResponse.500EntityAlreadyExists" xml:space="preserve">
+    <value>The element already exists 500.</value>
+  </data>
+  <data name="Error.HttpResponse.500NotImplemented" xml:space="preserve">
+    <value>Method is not implemented on the server 500.</value>
+  </data>
+  <data name="Error.HttpResponse.FailedFetch" xml:space="preserve">
+    <value>Sever is unavaible.</value>
+  </data>
+  <data name="Error.HttpResponse.Forbidden" xml:space="preserve">
+    <value>Forbidden 403.</value>
+  </data>
+  <data name="Error.HttpResponse.MethodNotAllowed" xml:space="preserve">
+    <value>Method is not allowed 405.</value>
+  </data>
+  <data name="Error.HttpResponse.NoContent" xml:space="preserve">
+    <value>Empty response 204.</value>
+  </data>
+  <data name="Error.HttpResponse.NotAcceptable" xml:space="preserve">
+    <value>Method is not acceptable 406.</value>
+  </data>
+  <data name="Error.HttpResponse.NotFound" xml:space="preserve">
+    <value>Resource is not found 404.</value>
+  </data>
+  <data name="Error.HttpResponse.OperationCanceled" xml:space="preserve">
+    <value>The operation was canceled by the server.</value>
+  </data>
+  <data name="Error.HttpResponse.Unauthorized" xml:space="preserve">
+    <value>Authorization is required 401.</value>
+  </data>
+  <data name="Header.Links.Documentation" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Header.Links.Documentation.Title" xml:space="preserve">
+    <value>Documentation and FAQs</value>
+  </data>
+  <data name="Header.Links.Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="Header.Links.Support.Title" xml:space="preserve">
+    <value>Support service</value>
+  </data>
+  <data name="Header.MainTitle" xml:space="preserve">
+    <value>Tiny dashboard</value>
+  </data>
+  <data name="Hub.Connected" xml:space="preserve">
+    <value>Hub has connected</value>
+  </data>
+  <data name="Hub.Disconnected" xml:space="preserve">
+    <value>Hub connection has lost</value>
+  </data>
+  <data name="Index.HelloWorld" xml:space="preserve">
+    <value>Hello, World!</value>
+  </data>
+  <data name="LoadingStub.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="LoginDisplay.Login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LoginDisplay.Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="LoginDisplay.Profile" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="LoginDisplay.Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="LoginDisplay.Role" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="LoginDisplay.Role.Administrators" xml:space="preserve">
+    <value>admin</value>
+  </data>
+  <data name="LoginDisplay.Role.Operators" xml:space="preserve">
+    <value>operator</value>
+  </data>
+  <data name="LoginDisplay.Role.Owners" xml:space="preserve">
+    <value>owner</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Monitor.Create.PageTitle" xml:space="preserve">
+    <value>Create a monitor</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common info</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Fieldset.Sensors" xml:space="preserve">
+    <value>Monitor sensors</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>In menu</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.MenuItem" xml:space="preserve">
+    <value>Menu item</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.MenuItem.Placeholder" xml:space="preserve">
+    <value>Enter the menu item name here...</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Enter a monitor name here...</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Enter a description here...</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.ToMonitorList" xml:space="preserve">
+    <value>To the monitor list</value>
+  </data>
+  <data name="Monitor.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete the monitor "{0}"?</value>
+  </data>
+  <data name="Monitor.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the monitor</value>
+  </data>
+  <data name="Monitor.Delete.Error" xml:space="preserve">
+    <value>Error of deletting the monitor "{0}".</value>
+  </data>
+  <data name="Monitor.Delete.Success" xml:space="preserve">
+    <value>Monitor "{0}" is deleted successfully.</value>
+  </data>
+  <data name="Monitor.Edit.PageTitle" xml:space="preserve">
+    <value>Edit the monitor</value>
+  </data>
+  <data name="Monitor.Insert.Error" xml:space="preserve">
+    <value>Error of adding the monitor "{0}".</value>
+  </data>
+  <data name="Monitor.Insert.Success" xml:space="preserve">
+    <value>Monitor "{0}" is added successfully.</value>
+  </data>
+  <data name="Monitor.Update.Error" xml:space="preserve">
+    <value>Error of updating the monitor "{0}".</value>
+  </data>
+  <data name="Monitor.Update.Success" xml:space="preserve">
+    <value>Monitor "{0}" is updated successfully.</value>
+  </data>
+  <data name="MonitorMapping.Create.PageTitle" xml:space="preserve">
+    <value>Create mapping the widget to the sensor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Presentation" xml:space="preserve">
+    <value>Widget</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.ToMonitor" xml:space="preserve">
+    <value>To monitor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToMonitor" xml:space="preserve">
+    <value>To the monitor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToMonitorList" xml:space="preserve">
+    <value>To the monitor list</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToSensor" xml:space="preserve">
+    <value>To the sensor</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToWidget" xml:space="preserve">
+    <value>To the widget</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>To the widget list</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>To the device</value>
+  </data>
+  <data name="MonitorMapping.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete the mapping the monitor to the sensor "{0}"?</value>
+  </data>
+  <data name="MonitorMapping.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the mapping the monitor to the sensor</value>
+  </data>
+  <data name="MonitorMapping.Delete.Error" xml:space="preserve">
+    <value>Error of deletting the mapping of the sensor "{0}" to the monitor.</value>
+  </data>
+  <data name="MonitorMapping.Delete.Success" xml:space="preserve">
+    <value>Mapping "{0}" the monitor to the sensor was deleted successfully.</value>
+  </data>
+  <data name="MonitorMapping.Edit.PageTitle" xml:space="preserve">
+    <value>Edit mapping the monitor to the sensor</value>
+  </data>
+  <data name="MonitorMapping.Insert.Error" xml:space="preserve">
+    <value>Error of adding the mapping the monitor to the sensor.</value>
+  </data>
+  <data name="MonitorMapping.Insert.Success" xml:space="preserve">
+    <value>Map the sensor to the monitor "{0}" was added successfully.</value>
+  </data>
+  <data name="MonitorMapping.Update.Error" xml:space="preserve">
+    <value>Error of deletting the mapping the monitor to the sensor.</value>
+  </data>
+  <data name="MonitorMapping.Update.Success" xml:space="preserve">
+    <value>Mapping the monitor to the sensor was updated successfully.</value>
+  </data>
+  <data name="MonitorPresentationMapping.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Monitors" xml:space="preserve">
+    <value>Monitors</value>
+  </data>
+  <data name="Page.AccessDenied.Message" xml:space="preserve">
+    <value>The request is denied or not found.</value>
+  </data>
+  <data name="Page.Index.NotAuthorized.Demo" xml:space="preserve">
+    <value>For demo login, use login: &lt;span class="span-dotted"&gt;demo@skywell.net&lt;/span&gt; password: &lt;span class="span-dotted"&gt;Mnbvcxz1&lt;/span&gt;</value>
+  </data>
+  <data name="Page.Index.NotAuthorized.Message" xml:space="preserve">
+    <value>Authorize to use service.</value>
+  </data>
+  <data name="Pages.Configuration.Monitors" xml:space="preserve">
+    <value>Monitors</value>
+  </data>
+  <data name="Pages.Configuration.Widgets" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="Pages.Configuration.Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="PermissionDenied" xml:space="preserve">
+    <value>Permission denied.</value>
+  </data>
+  <data name="PresentationMapping.Create.PageTitle" xml:space="preserve">
+    <value>Create mapping the widget to the sensor</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Presentation" xml:space="preserve">
+    <value>Widget</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToSensor" xml:space="preserve">
+    <value>To the sensor</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToWidget" xml:space="preserve">
+    <value>To the widget</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>To the widget list</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>To the device</value>
+  </data>
+  <data name="PresentationMapping.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete the mapping the widget to the sensor "{0}"?</value>
+  </data>
+  <data name="PresentationMapping.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the mapping the widget to the sensor</value>
+  </data>
+  <data name="PresentationMapping.Delete.Error" xml:space="preserve">
+    <value>Error of deletting the mapping "{0}" the widget to the sensor</value>
+  </data>
+  <data name="PresentationMapping.Delete.Success" xml:space="preserve">
+    <value>Mapping "{0}" the widget to the sensor was deleted successfully.</value>
+  </data>
+  <data name="PresentationMapping.Edit.PageTitle" xml:space="preserve">
+    <value>Edit mapping the widget to the sensor</value>
+  </data>
+  <data name="PresentationMapping.Insert.Error" xml:space="preserve">
+    <value>Error of adding the mapping the widget to the sensor.</value>
+  </data>
+  <data name="PresentationMapping.Insert.Success" xml:space="preserve">
+    <value>Map the sensor to the widget "{0}" was added successfully.</value>
+  </data>
+  <data name="PresentationMapping.Update.Error" xml:space="preserve">
+    <value>Error of deletting the mapping the widget to the sensor.</value>
+  </data>
+  <data name="PresentationMapping.Update.Success" xml:space="preserve">
+    <value>Mapping the widget to the sensor was updated successfully.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select...</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="Sensor.Create.PageTitle" xml:space="preserve">
+    <value>Register a sensor</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Fieldset.Configuration" xml:space="preserve">
+    <value>JSON Configuration file</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.InCommonLog" xml:space="preserve">
+    <value>Common Log</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SensorType" xml:space="preserve">
+    <value>Sensor type</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.MeasureUnit" xml:space="preserve">
+    <value>Measure device</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.PriorityType" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>System name</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SystemName.PlaceHolder" xml:space="preserve">
+    <value>Enter a sensor system name...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.MeasureUnit.Placeholder" xml:space="preserve">
+    <value>Enter a measure device of the sensor value...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Enter a sensor name...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Enter a short description of the sensor...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.SystemName.Placeholder" xml:space="preserve">
+    <value>Enter a sensor system name...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToSensorList" xml:space="preserve">
+    <value>To the sensor list</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>To the device</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToDeviceList" xml:space="preserve">
+    <value>To the device list</value>
+  </data>
+  <data name="Sensor.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete sensor "{0}"?</value>
+  </data>
+  <data name="Sensor.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the sensor</value>
+  </data>
+  <data name="Sensor.Delete.Error" xml:space="preserve">
+    <value>Error of deleting sensor "{0}".</value>
+  </data>
+  <data name="Sensor.Delete.Success" xml:space="preserve">
+    <value>Sensor "{0}" was deleted successfully.</value>
+  </data>
+  <data name="Sensor.Edit.PageTitle" xml:space="preserve">
+    <value>Edit the sensor: {0}</value>
+  </data>
+  <data name="Sensor.Insert.Error" xml:space="preserve">
+    <value>Error of adding the sensor "{0}".</value>
+  </data>
+  <data name="Sensor.Insert.Success" xml:space="preserve">
+    <value>Sensor "{0}" is added successfully.</value>
+  </data>
+  <data name="Sensor.Update.Error" xml:space="preserve">
+    <value>Error of updating sensor "{0}".</value>
+  </data>
+  <data name="Sensor.Update.Success" xml:space="preserve">
+    <value>Sensor "{0}" is updated successfully.</value>
+  </data>
+  <data name="Widget" xml:space="preserve">
+    <value>Widget</value>
+  </data>
+  <data name="Widget.Create.PageTitle" xml:space="preserve">
+    <value>Create a widget</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.Visualization" xml:space="preserve">
+    <value>Visualization</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryPointsCount" xml:space="preserve">
+    <value>History points</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MaxCriticalValue" xml:space="preserve">
+    <value>Max critical value</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MaxValue" xml:space="preserve">
+    <value>Maximal value</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MinCriticalValue" xml:space="preserve">
+    <value>Min critical value</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MinValue" xml:space="preserve">
+    <value>Minimal value</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.WidgetType" xml:space="preserve">
+    <value>Presentation type</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowAsAreachart" xml:space="preserve">
+    <value>Show as Area chart</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowCriticalValueNotification" xml:space="preserve">
+    <value>Сritical notification</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistory" xml:space="preserve">
+    <value>Show history</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistoryAnnotations" xml:space="preserve">
+    <value>Show annotations</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistoryTrends" xml:space="preserve">
+    <value>Show trends</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.SmothHistoryChart" xml:space="preserve">
+    <value>Smoth history</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>System name</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Enter a widget name...</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Enter a short description of the widget...</value>
+  </data>
+  <data name="Widget.CreateOrEdit.ToSensorList" xml:space="preserve">
+    <value>To the widget list</value>
+  </data>
+  <data name="Widget.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>To the widget list</value>
+  </data>
+  <data name="Widget.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete widget "{0}"?</value>
+  </data>
+  <data name="Widget.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the widget</value>
+  </data>
+  <data name="Widget.Delete.Error" xml:space="preserve">
+    <value>Error of deleting widget "{0}".</value>
+  </data>
+  <data name="Widget.Delete.Success" xml:space="preserve">
+    <value>Widget "{0}" was deleted successfully.</value>
+  </data>
+  <data name="Widget.Edit.PageTitle" xml:space="preserve">
+    <value>Widget {0}</value>
+  </data>
+  <data name="Widget.Insert.Error" xml:space="preserve">
+    <value>Error of adding the widget "{0}".</value>
+  </data>
+  <data name="Widget.Insert.Success" xml:space="preserve">
+    <value>Widget "{0}" is added successfully.</value>
+  </data>
+  <data name="Widget.Update.Error" xml:space="preserve">
+    <value>Error of updating widget "{0}".</value>
+  </data>
+  <data name="Widget.Update.Success" xml:space="preserve">
+    <value>Widget "{0}" is updated successfully.</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="SensorWidget.Insert.Success" xml:space="preserve">
+    <value>Mapping the widget to the sensor is added successfully.</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Description" xml:space="preserve">
+    <value>App configuration and settings</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Monitors.Description" xml:space="preserve">
+    <value>Additional monitoring screens</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Monitors.Name" xml:space="preserve">
+    <value>Monitors</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Name" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Records.Description" xml:space="preserve">
+    <value>Records from the device sensors</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Records.Name" xml:space="preserve">
+    <value>Sensor records</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widgets.Description" xml:space="preserve">
+    <value>Widget for the monitors</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widgets.Name" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Sensors.Description" xml:space="preserve">
+    <value>Settings of the device sensors</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Sensors.Name" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Devices.Description" xml:space="preserve">
+    <value>Settings of the devices</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Devices.Name" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Sidebar.Menu.OwnMonitors.Description" xml:space="preserve">
+    <value>My telemetry monitoring screen</value>
+  </data>
+  <data name="Sidebar.Menu.OwnMonitors.Name" xml:space="preserve">
+    <value>My monitors</value>
+  </data>
+  <data name="Sidebar.Menu.SharedMonitors.Description" xml:space="preserve">
+    <value>Shared telemetry monitoring screen</value>
+  </data>
+  <data name="Sidebar.Menu.SharedMonitors.Name" xml:space="preserve">
+    <value>Shared monitors</value>
+  </data>
+  <data name="Sidebar.Menu.Overview.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Sidebar.Menu.Overview.Name" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Description" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Name" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Sidebar.Menu.Search.Placeholder" xml:space="preserve">
+    <value>Find item ...</value>
+  </data>
+  <data name="ThemeSelector.dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeSelector.default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ThemeSelector.humanistic" xml:space="preserve">
+    <value>Humanistic</value>
+  </data>
+  <data name="ThemeSelector.Label" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThemeSelector.material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="ThemeSelector.software" xml:space="preserve">
+    <value>Software</value>
+  </data>
+  <data name="ThemeSelector.standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Device.Create.PageTitle" xml:space="preserve">
+    <value>Register a device</value>
+  </data>
+  <data name="Device.CreateOrEdit.Command.Send" xml:space="preserve">
+    <value>Command {0} has sent to the device {1}.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.Creating" xml:space="preserve">
+    <value>Creating</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.DeviceConnected" xml:space="preserve">
+    <value>Status: connected with IP {0}</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.DeviceDisconnected" xml:space="preserve">
+    <value>Status: disconnected.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Guid.Placeholder" xml:space="preserve">
+    <value>Enter the device GUID...</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Command" xml:space="preserve">
+    <value>Send command</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Guid" xml:space="preserve">
+    <value>GUID</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>System name</value>
+  </data>
+  <data name="Device.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Enter the device name...</value>
+  </data>
+  <data name="Device.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Enter the device description...</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Placeholder" xml:space="preserve">
+    <value>Enter the device system name...</value>
+  </data>
+  <data name="Device.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>Open the device</value>
+  </data>
+  <data name="Device.CreateOrEdit.ToDeviceList" xml:space="preserve">
+    <value>To the device list</value>
+  </data>
+  <data name="Device.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete device "{0}"?</value>
+  </data>
+  <data name="Device.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deletting the device</value>
+  </data>
+  <data name="Device.Delete.Error" xml:space="preserve">
+    <value>Error of deleting device "{0}".</value>
+  </data>
+  <data name="Device.Delete.Success" xml:space="preserve">
+    <value>Device "{0}" was deleted successfully.</value>
+  </data>
+  <data name="Device.Edit.PageTitle" xml:space="preserve">
+    <value>Device {0}</value>
+  </data>
+  <data name="Device.Insert.Error" xml:space="preserve">
+    <value>Error of adding the device "{0}".</value>
+  </data>
+  <data name="Device.Insert.Success" xml:space="preserve">
+    <value>Device "{0}" is added successfully.</value>
+  </data>
+  <data name="Device.Message" xml:space="preserve">
+    <value>From "{0}": {1}</value>
+  </data>
+  <data name="Device.Status.Connected" xml:space="preserve">
+    <value>Device "{0}" has connected with IP {1}.</value>
+  </data>
+  <data name="Device.Status.Disconnected" xml:space="preserve">
+    <value>Device "{0}" has disconnected.</value>
+  </data>
+  <data name="Device.Update.Error" xml:space="preserve">
+    <value>Error updating the device "{0}".</value>
+  </data>
+  <data name="Device.Update.Success" xml:space="preserve">
+    <value>Device "{0}" is updated successfully.</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Validation.Length.Max" xml:space="preserve">
+    <value>The {0} should be at most {1} characters.</value>
+  </data>
+  <data name="Validation.Length.Min" xml:space="preserve">
+    <value>The {0} should be at least {1} characters.</value>
+  </data>
+  <data name="Validation.RequireValue" xml:space="preserve">
+    <value>The value is required.</value>
+  </data>
+  <data name="LoginDisplay.AdminPanel" xml:space="preserve">
+    <value>Admin panel</value>
+  </data>
+  <data name="LoginDisplay.HubHomePage" xml:space="preserve">
+    <value>Hub</value>
+  </data>
+  <data name="DataGrid.Column.Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="DataGrid.Column.Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="DataGrid.Column.ShowInMenu" xml:space="preserve">
+    <value>In menu</value>
+  </data>
+  <data name="Pages.Configuration.OwnMonitors" xml:space="preserve">
+    <value>My monitors</value>
+  </data>
+  <data name="Pages.Configuration.SharedMonitors" xml:space="preserve">
+    <value>Shared monitors</value>
+  </data>
+  <data name="Sidebar.Menu.Admin.Name" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Users.Description" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Users.Name" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="DataGrid.Column.Avatar" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="DataGrid.Column.IsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="DataGrid.Column.OnlineStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="OnlineStatus.BeenRecently" xml:space="preserve">
+    <value>been recently</value>
+  </data>
+  <data name="OnlineStatus.NoActivities" xml:space="preserve">
+    <value>no activities</value>
+  </data>
+  <data name="OnlineStatus.Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="OnlineStatus.Online" xml:space="preserve">
+    <value>online</value>
+  </data>
+  <data name="Table.Admin.Users" xml:space="preserve">
+    <value>Dashbord users</value>
+  </data>
+  <data name="Exception.Rpc.Aborted" xml:space="preserve">
+    <value>Request has been aborted by the server. {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.InvalidArgument" xml:space="preserve">
+    <value>Invalid argument. {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.NotFound" xml:space="preserve">
+    <value>Method not found. {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.PermissionDenied" xml:space="preserve">
+    <value>Permission denied. {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.Unauthenticated" xml:space="preserve">
+    <value>User is not authenticated.  {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.Unknown" xml:space="preserve">
+    <value>Error: {0} For more details see browser console.</value>
+  </data>
+  <data name="Exception.Application.Message" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Exception.Rpc.Internal" xml:space="preserve">
+    <value>Internal error. {0} See browser console for details.</value>
+  </data>
+  <data name="Exception.Rpc.Unavailable" xml:space="preserve">
+    <value>Server is unavailable. {0} </value>
+  </data>
+  <data name="Pages.Admin.Devices" xml:space="preserve">
+    <value>All devices</value>
+  </data>
+  <data name="Pages.Admin.Monitors" xml:space="preserve">
+    <value>All monitors</value>
+  </data>
+  <data name="Pages.Admin.Users" xml:space="preserve">
+    <value>All dashboard users</value>
+  </data>
+  <data name="Pages.Admin.Widgets" xml:space="preserve">
+    <value>All widgets</value>
+  </data>
+  <data name="DataGrid.Column.IpAddress" xml:space="preserve">
+    <value>IP address</value>
+  </data>
+  <data name="Table.Admin.Devices" xml:space="preserve">
+    <value>All devices</value>
+  </data>
+  <data name="Filter.DeviceTable.ShowOwnOnly" xml:space="preserve">
+    <value>my owns only</value>
+  </data>
+  <data name="DataGrid.Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Pages.Configuration.Users" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="Table.Devices.ActivityTable" xml:space="preserve">
+    <value>Device activity log</value>
+  </data>
+  <data name="Table.Devices.ActivityTable.Hint" xml:space="preserve">
+    <value>Device activity log.</value>
+  </data>
+  <data name="Table.Devices.AdminMode" xml:space="preserve">
+    <value>The devices that have been registered in the system.</value>
+  </data>
+  <data name="Table.Devices.All" xml:space="preserve">
+    <value>All devices</value>
+  </data>
+  <data name="Table.Devices.MonitorTable" xml:space="preserve">
+    <value>Device monitors</value>
+  </data>
+  <data name="Table.Devices.MonitorTable.Hint" xml:space="preserve">
+    <value>The monitors which display the sensors of this device.</value>
+  </data>
+  <data name="Table.Devices.Own" xml:space="preserve">
+    <value>My devices</value>
+  </data>
+  <data name="Table.Devices.Own.Hint" xml:space="preserve">
+    <value>The devices that have been registered by the user.</value>
+  </data>
+  <data name="Table.Devices.SensorTable" xml:space="preserve">
+    <value>Device sensors</value>
+  </data>
+  <data name="Table.Devices.SensorTable.Hint" xml:space="preserve">
+    <value>The registered sensors that are serviced by this device</value>
+  </data>
+  <data name="Table.Devices.Shared" xml:space="preserve">
+    <value>Shared devices</value>
+  </data>
+  <data name="Table.Devices.Shared.Hint" xml:space="preserve">
+    <value>The devices of other users to which they have granted access to this user.</value>
+  </data>
+  <data name="Table.Devices.UserTable" xml:space="preserve">
+    <value>Shared users</value>
+  </data>
+  <data name="Table.Devices.UserTable.Hint" xml:space="preserve">
+    <value>The users to whom the user-owner of this device has provided shared access to this device.</value>
+  </data>
+  <data name="Table.Monitors.AdminMode" xml:space="preserve">
+    <value>The monitors that have been registered in the system.</value>
+  </data>
+  <data name="Table.Monitors.All" xml:space="preserve">
+    <value>All monitors</value>
+  </data>
+  <data name="Table.Monitors.MonitorMappingTable" xml:space="preserve">
+    <value>Monitor details</value>
+  </data>
+  <data name="Table.Monitors.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Widgets and sensors that are displayed on this monitor.</value>
+  </data>
+  <data name="Table.Monitors.Own" xml:space="preserve">
+    <value>My monitors</value>
+  </data>
+  <data name="Table.Monitors.Own.Hint" xml:space="preserve">
+    <value>The monitors which have been registered by this users.</value>
+  </data>
+  <data name="Table.Monitors.Shared" xml:space="preserve">
+    <value>Shared monitors</value>
+  </data>
+  <data name="Table.Monitors.Shared.Hint" xml:space="preserve">
+    <value>The monitors of other users to which they have granted access to this user.</value>
+  </data>
+  <data name="Table.Monitors.UserTable" xml:space="preserve">
+    <value>Shared users</value>
+  </data>
+  <data name="Table.Monitors.UserTable.Hint" xml:space="preserve">
+    <value>The users to whom the user-owner of this monitor has shared access to this monitor.</value>
+  </data>
+  <data name="Table.Sensors.MonitorMappingTable" xml:space="preserve">
+    <value>Monitors to widgets and sensors mappings</value>
+  </data>
+  <data name="Table.Sensors.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Monitors to widgets and sensors mappings.</value>
+  </data>
+  <data name="Table.Sensors.WidgetMappingTable" xml:space="preserve">
+    <value>Sensors to widgets mappings</value>
+  </data>
+  <data name="Table.Sensors.WidgetMappingTable.Hint" xml:space="preserve">
+    <value>Sensors to widgets mappings.</value>
+  </data>
+  <data name="Table.Users" xml:space="preserve">
+    <value>All users</value>
+  </data>
+  <data name="Table.Users.DeviceTable" xml:space="preserve">
+    <value>User devices</value>
+  </data>
+  <data name="Table.Users.DeviceTable.Hint" xml:space="preserve">
+    <value>The devices which have been registered by the user.</value>
+  </data>
+  <data name="Table.Users.Hint" xml:space="preserve">
+    <value>All registered users of the telemetry dashboard.</value>
+  </data>
+  <data name="Table.Users.MonitorTable" xml:space="preserve">
+    <value>User monitors</value>
+  </data>
+  <data name="Table.Users.MonitorTable.Hint" xml:space="preserve">
+    <value>The monitors which have been created by the user.</value>
+  </data>
+  <data name="Table.Users.SharedDeviceTable" xml:space="preserve">
+    <value>Shared devices</value>
+  </data>
+  <data name="Table.Users.SharedDeviceTable.Hint" xml:space="preserve">
+    <value>The devices of other users to which they have granted access to this user.</value>
+  </data>
+  <data name="Table.Users.SharedMonitorTable" xml:space="preserve">
+    <value>Shared monitors</value>
+  </data>
+  <data name="Table.Users.SharedMonitorTable.Hint" xml:space="preserve">
+    <value>The monitors of other users to which they have granted access for  this user.</value>
+  </data>
+  <data name="Table.Widgets.AdminMode" xml:space="preserve">
+    <value>All widgets that have been created in the system.</value>
+  </data>
+  <data name="Table.Widgets.All" xml:space="preserve">
+    <value>All widgets</value>
+  </data>
+  <data name="Table.Widgets.Own" xml:space="preserve">
+    <value>My widgets</value>
+  </data>
+  <data name="Table.Widgets.Own.Hint" xml:space="preserve">
+    <value>Widgets which have been created by this user.</value>
+  </data>
+  <data name="LoginDisplay.AdminMode" xml:space="preserve">
+    <value>Admin mode</value>
+  </data>
+  <data name="LoginDisplay.AdminMode.Hint" xml:space="preserve">
+    <value>Enables viewing of all entities and users of the telemetry dashboard.</value>
+  </data>
+  <data name="DownloadTask.Request.Compression.Label" xml:space="preserve">
+    <value>Compression</value>
+  </data>
+  <data name="DownloadTask.Request.Device.Label" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="DownloadTask.Request.Device.SearchText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="DownloadTask.Request.FileFormat.Label" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="DownloadTask.Request.From.Label" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="DownloadTask.Request.Sensors.Label" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="DownloadTask.Request.Sensors.SearchText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="DownloadTask.Request.To.Label" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="ExportFileType.CSV" xml:space="preserve">
+    <value>.csv</value>
+  </data>
+  <data name="ExportFileType.JSON" xml:space="preserve">
+    <value>.json</value>
+  </data>
+  <data name="ExportFileType.TXT" xml:space="preserve">
+    <value>.txt</value>
+  </data>
+  <data name="ExportFileType.XLSX" xml:space="preserve">
+    <value>.xlsx</value>
+  </data>
+  <data name="ExportFileType.XML" xml:space="preserve">
+    <value>.xml</value>
+  </data>
+  <data name="FileCompressionType.GZIP" xml:space="preserve">
+    <value>.gzip</value>
+  </data>
+  <data name="FileCompressionType.None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="FileCompressionType.SevenZip" xml:space="preserve">
+    <value>.7zip</value>
+  </data>
+  <data name="FileCompressionType.ZIP" xml:space="preserve">
+    <value>.zip</value>
+  </data>
+  <data name="Reports.DownloadTask.Request" xml:space="preserve">
+    <value>Download request</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Charts" xml:space="preserve">
+    <value>Charts</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Export" xml:space="preserve">
+    <value>Data export</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Player" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="DataGrid.Column.EndDateTime" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="DataGrid.Column.FileName" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="DataGrid.Column.FileSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="DataGrid.Column.FileState" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="DataGrid.Column.StartDateTime" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="DataGrid.Column.User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="DownloadFileState.Canceled" xml:space="preserve">
+    <value>cancelled</value>
+  </data>
+  <data name="DownloadFileState.Expired" xml:space="preserve">
+    <value>link expired</value>
+  </data>
+  <data name="DownloadFileState.InTheQueue" xml:space="preserve">
+    <value>in the queue</value>
+  </data>
+  <data name="DownloadFileState.Processing" xml:space="preserve">
+    <value>processsing...</value>
+  </data>
+  <data name="DownloadFileState.Ready" xml:space="preserve">
+    <value>ready</value>
+  </data>
+  <data name="Reports.DownloadTasks" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="ExportDataPage.Title" xml:space="preserve">
+    <value>Data export</value>
+  </data>
+  <data name="Button.Get" xml:space="preserve">
+    <value>Get</value>
+  </data>
+  <data name="Button.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Charts.Request.Device.Label" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Charts.Request.From.Label" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Charts.Request.Sensors.Label" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="Charts.Request.To.Label" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="DownloadTasks.Delete.Confirm.Message" xml:space="preserve">
+    <value>Delete the download task  {0}?</value>
+  </data>
+  <data name="DownloadTasks.Delete.Confirm.Title" xml:space="preserve">
+    <value>Deleting a download task</value>
+  </data>
+  <data name="DownloadTasks.Delete.Error" xml:space="preserve">
+    <value>Error of deleting the download task {0}.</value>
+  </data>
+  <data name="DownloadTasks.Delete.Success" xml:space="preserve">
+    <value>The download task {0} has been deleted successfully.</value>
+  </data>
+  <data name="Charts.Title" xml:space="preserve">
+    <value>Charts</value>
+  </data>
+  <data name="ComparisonChart.EmptyText" xml:space="preserve">
+    <value>no data</value>
+  </data>
+  <data name="Charts.PageHint" xml:space="preserve">
+    <value>Select one or two sensors to compare and analize data. You can add a second sensor from any available device from the list.</value>
+  </data>
+  <data name="Charts.PageTitle" xml:space="preserve">
+    <value>Comparison charts</value>
+  </data>
+  <data name="Charts.Request.Sensors.MultiselectValidator" xml:space="preserve">
+    <value>Select only {0} or {1} sensors</value>
+  </data>
+  <data name="ComparisonChart.InitText" xml:space="preserve">
+    <value>No loaded data yet. Click "Build" to load.</value>
+  </data>
+  <data name="Reports.Charts.Request" xml:space="preserve">
+    <value>Devices and date range</value>
+  </data>
+  <data name="Device.Types.Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Device.Types.Stationary" xml:space="preserve">
+    <value>Stationary</value>
+  </data>
+  <data name="DeviceMap.Types.Layer" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="DeviceMap.Types.Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="DeviceMap.Types.Sat" xml:space="preserve">
+    <value>Satellite</value>
+  </data>
+  <data name="Home.DataSctatistics" xml:space="preserve">
+    <value>Data statistics</value>
+  </data>
+  <data name="Home.DataSctatistics.Label" xml:space="preserve">
+    <value>Range</value>
+  </data>
+  <data name="Home.DeviceMap" xml:space="preserve">
+    <value>Device map</value>
+  </data>
+  <data name="Map.Button.All" xml:space="preserve">
+    <value>Show all devices on the map window</value>
+  </data>
+  <data name="Button.Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Home.DeviceMap.Location.Own" xml:space="preserve">
+    <value>Device location: user own and shared devices</value>
+  </data>
+  <data name="TimeIntervalType.Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="TimeIntervalType.Decade" xml:space="preserve">
+    <value>Decade</value>
+  </data>
+  <data name="TimeIntervalType.Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="TimeIntervalType.Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="TimeIntervalType.Quarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="TimeIntervalType.Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="TimeIntervalType.Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="UserDropDown.Placeholder" xml:space="preserve">
+    <value>Users: all</value>
+  </data>
+  <data name="DeviceDropDown.Placeholder" xml:space="preserve">
+    <value>Devices: all</value>
+  </data>
+  <data name="Home.DeviceMap.Location.All" xml:space="preserve">
+    <value>Device location: all registered devices</value>
+  </data>
+  <data name="Button.Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="Player.Request.Device.Label" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Player.Request.From.Label" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Player.Request.Sensors.Label" xml:space="preserve">
+    <value>IP camera</value>
+  </data>
+  <data name="Player.Request.To.Label" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Player.Title" xml:space="preserve">
+    <value>Video player</value>
+  </data>
+  <data name="Player.Videoplayer" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Reports.Player.Request" xml:space="preserve">
+    <value>Request video</value>
+  </data>
+  <data name="Button.Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Reports.Tracker.Request" xml:space="preserve">
+    <value>Track request</value>
+  </data>
+  <data name="Tracker.Device.Label" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Tracker.From.Label" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Tracker.Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="Tracker.Sensors.Label" xml:space="preserve">
+    <value>Tracker</value>
+  </data>
+  <data name="Tracker.Title" xml:space="preserve">
+    <value>GNSS Tracker</value>
+  </data>
+  <data name="Tracker.To.Label" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Tracker" xml:space="preserve">
+    <value>Tracker</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="Select.IpCam" xml:space="preserve">
+    <value>IP Cam...</value>
+  </data>
+  <data name="Select.Device" xml:space="preserve">
+    <value>Device...</value>
+  </data>
+  <data name="Select.Sensor" xml:space="preserve">
+    <value>Sensor...</value>
+  </data>
+  <data name="Connection.AccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="Connection.AccessDenied.Message" xml:space="preserve">
+    <value>Current user was already connected. The allowed number of connections per user has been exceeded. Contact the system administrator.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Device.Password.Change.Link" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Device.Password.Change.Hint" xml:space="preserve">
+    <value>Change the password</value>
+  </data>
+  <data name="Device.CreateOrEdit.Password.Placeholder" xml:space="preserve">
+    <value>Enter a password...</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Check.Hint" xml:space="preserve">
+    <value>Check  new system name's avalability</value>
+  </data>
+  <data name="Device.Password.NotChanged" xml:space="preserve">
+    <value>Entered password has already set.</value>
+  </data>
+  <data name="Device.Password.HasChanged" xml:space="preserve">
+    <value>Password has changed successfully.</value>
+  </data>
+  <data name="Exception.Rpc.Cancelled" xml:space="preserve">
+    <value>Operation was cancelled: {0}</value>
+  </data>
+  <data name="Button.Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Device.Command.Send.Link" xml:space="preserve">
+    <value>Send command</value>
+  </data>
+  <data name="Device.Command.Title" xml:space="preserve">
+    <value>Sending commands</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.IsMobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.IsMobile.Hint" xml:space="preserve">
+    <value>Set "true" if the device is installed on a mobile object &lt;br/&gt; to get the location of the device.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ShowOnMain" xml:space="preserve">
+    <value>On the main map</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ShowOnMain.Hint" xml:space="preserve">
+    <value>Show the device location on the main  map on "Overview" page.&lt;br/&gt; For mobile devices, the location of the installation place is displayed.&lt;br/&gt; To track mobile devices, use monitors or "Tracker" in the "Reports" section.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.SystemName.Hint" xml:space="preserve">
+    <value>Device system name. Must be unique.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Lat.Label" xml:space="preserve">
+    <value>Lat</value>
+  </data>
+  <data name="Device.CreateOrEdit.Lon.Label" xml:space="preserve">
+    <value>Lon</value>
+  </data>
+  <data name="Device.CreateOrEdit.LonLat.Label" xml:space="preserve">
+    <value>Lon/Lat</value>
+  </data>
+  <data name="Device.DeviceMap.Title" xml:space="preserve">
+    <value>Device location</value>
+  </data>
+  <data name="Device.Onmap.Link" xml:space="preserve">
+    <value>Show location</value>
+  </data>
+  <data name="Device.Password.Change" xml:space="preserve">
+    <value>Сhanging the device password</value>
+  </data>
+  <data name="Device.Password.New.Placeholder" xml:space="preserve">
+    <value>Enter a new password...</value>
+  </data>
+  <data name="CommonMenu.CahceHasCleared" xml:space="preserve">
+    <value>Appliaction cache has been cleared</value>
+  </data>
+  <data name="CommonMenu.ClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="CommonMenu.Title" xml:space="preserve">
+    <value>Additionally</value>
+  </data>
+  <data name="Submit.NoChanges" xml:space="preserve">
+    <value>The data has not been changed.</value>
+  </data>
+  <data name="DataGrid.Column.ActivityType" xml:space="preserve">
+    <value>Activity type</value>
+  </data>
+  <data name="DataGrid.Column.Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="DataGrid.Column.CreatedOnUtc" xml:space="preserve">
+    <value>Created UTC</value>
+  </data>
+  <data name="DataGrid.Column.Entity" xml:space="preserve">
+    <value>Entity</value>
+  </data>
+  <data name="DataGrid.Column.SubjectName" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Table.DeviceActivity.Title" xml:space="preserve">
+    <value>Activity log</value>
+  </data>
+  <data name="Table.Sensors.Title" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="Table.UserActivity.Title" xml:space="preserve">
+    <value>User log</value>
+  </data>
+  <data name="Table.UserActivity.Title.Hint" xml:space="preserve">
+    <value>User activity log</value>
+  </data>
+  <data name="Validation.RequireJsonFormat" xml:space="preserve">
+    <value>JSON format is required</value>
+  </data>
+  <data name="Device.Icon.Upload.Success" xml:space="preserve">
+    <value>Device icon has upload successfully</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.InCommonLog.Hint" xml:space="preserve">
+    <value>Show sensor message in the common log on the main page</value>
+  </data>
+  <data name="Sensor.Icon.Upload.Success" xml:space="preserve">
+    <value>Sensor icon has upload successfully</value>
+  </data>
+  <data name="Validation.RequireLength" xml:space="preserve">
+    <value>Length must be from {0} to {1} characters</value>
+  </data>
+  <data name="ConsoleLog.Sensor" xml:space="preserve">
+    <value>Sensor log</value>
+  </data>
+  <data name="DataGrid.Column.WidgetType" xml:space="preserve">
+    <value>Widget type</value>
+  </data>
+  <data name="Enum.WidgetType.LiveScheme" xml:space="preserve">
+    <value>Live scheme</value>
+  </data>
+  <data name="Table.Widgets.MonitorMappingTable" xml:space="preserve">
+    <value>Widget monitors</value>
+  </data>
+  <data name="Table.Widgets.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Monitors that are using ths widget</value>
+  </data>
+  <data name="Table.Widgets.SensorTable" xml:space="preserve">
+    <value>Widget sensors</value>
+  </data>
+  <data name="Table.Widgets.SensorTable.Hint" xml:space="preserve">
+    <value>Sensors that are using this widget</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Table.Widgets.SensorMapping" xml:space="preserve">
+    <value>Sensor widgets</value>
+  </data>
+  <data name="Table.Widgets.SensorMapping.Hint" xml:space="preserve">
+    <value>Widgets that visualize data of this sensor.</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SelectSensor.Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="SelectSensor.Device.PlaceHolder" xml:space="preserve">
+    <value>Select a device...</value>
+  </data>
+  <data name="SelectSensor.Sensor" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="SelectSensor.Sensor.PlaceHolder" xml:space="preserve">
+    <value>Select a sensor...</value>
+  </data>
+  <data name="SelectSensor.Title" xml:space="preserve">
+    <value>Select sensor</value>
+  </data>
+  <data name="SelectWidget.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="SelectWidget.FieldSet" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectWidget.PlaceHolder" xml:space="preserve">
+    <value>Selec a widget...</value>
+  </data>
+  <data name="SelectWidget.Title" xml:space="preserve">
+    <value>Widget select</value>
+  </data>
+  <data name="SelectWidget.Widget" xml:space="preserve">
+    <value>Widget</value>
+  </data>
+  <data name="Sensor.Map.Error" xml:space="preserve">
+    <value>Error of mapping widget to the sensor {0}.</value>
+  </data>
+  <data name="Sensor.Map.Success" xml:space="preserve">
+    <value>Sensor {0} has been mapped to the widget successfully.</value>
+  </data>
+  <data name="Sensor.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Unmap sensor {0} from the widget?</value>
+  </data>
+  <data name="Sensor.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Sensor unmapping</value>
+  </data>
+  <data name="Sensor.Unmap.Error" xml:space="preserve">
+    <value>Error of unmapping widget from the sensor {0}.</value>
+  </data>
+  <data name="Sensor.Unmap.Success" xml:space="preserve">
+    <value>Widget has been unmapped from the sensor {0} successfully.</value>
+  </data>
+  <data name="Table.Sensors.WidgetMapping" xml:space="preserve">
+    <value>Widget sensors</value>
+  </data>
+  <data name="Table.Sensors.WidgetMapping.Hint" xml:space="preserve">
+    <value>Sensors that are visualized by this widget.</value>
+  </data>
+  <data name="Widget.Map.Error" xml:space="preserve">
+    <value>Error of mapping widget {0} to the sensor</value>
+  </data>
+  <data name="Widget.Map.Success" xml:space="preserve">
+    <value>Widget {0} has been mapped to the sensor successfully</value>
+  </data>
+  <data name="Widget.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Unmap widget {0} from the sensor?</value>
+  </data>
+  <data name="Widget.Unmap.Confirm.Tilte" xml:space="preserve">
+    <value>Widget unmapping</value>
+  </data>
+  <data name="Widget.Unmap.Error" xml:space="preserve">
+    <value>Error of unmapping widget {0} from the sensor</value>
+  </data>
+  <data name="Widget.Unmap.Success" xml:space="preserve">
+    <value>Widget {0} has been unmapped from the sensor successfully</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.DisplayOrder.Hint" xml:space="preserve">
+    <value>Display order in the side menu</value>
+  </data>
+  <data name="Montor.Map.UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Montor.Map.UserName.Placeholder" xml:space="preserve">
+    <value>Enter a username...</value>
+  </data>
+  <data name="Presentation.Map.Create.Error" xml:space="preserve">
+    <value>Error of presentation {0} creation.</value>
+  </data>
+  <data name="Presentation.Map.Create.Success" xml:space="preserve">
+    <value>Ppresentation {0} has been created successfully.</value>
+  </data>
+  <data name="Presentation.Map.Create.Title" xml:space="preserve">
+    <value>Create a presentation</value>
+  </data>
+  <data name="Presentation.Map.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Presentation.Map.Description.Placeholder" xml:space="preserve">
+    <value>Enter a description...</value>
+  </data>
+  <data name="Presentation.Map.DisplayOrder" xml:space="preserve">
+    <value>Display order</value>
+  </data>
+  <data name="Presentation.Map.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Presentation.Map.Name.Placeholder" xml:space="preserve">
+    <value>Enter a name...</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget" xml:space="preserve">
+    <value>Presentation</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget.PlaceHolder" xml:space="preserve">
+    <value>Select presentation...</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget.Required" xml:space="preserve">
+    <value>Presentation required</value>
+  </data>
+  <data name="Presentation.Map.Update.Error" xml:space="preserve">
+    <value>Error of presentation {0} updating.</value>
+  </data>
+  <data name="Presentation.Map.Update.Success" xml:space="preserve">
+    <value>Ppresentation {0} has been updated successfully.</value>
+  </data>
+  <data name="Presentation.Map.Update.Title" xml:space="preserve">
+    <value>Update presentation</value>
+  </data>
+  <data name="Presentation.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Unmap presentation {0} from the monitor?</value>
+  </data>
+  <data name="Presentation.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Presentation unmapping</value>
+  </data>
+  <data name="Presentation.Unmap.Error" xml:space="preserve">
+    <value>Error of unmapping presentation {0} from the monitor.</value>
+  </data>
+  <data name="Presentation.Unmap.Success" xml:space="preserve">
+    <value>Presentation {0} has been unmapped successfully.</value>
+  </data>
+  <data name="SelectUser.Title" xml:space="preserve">
+    <value>Select user</value>
+  </data>
+  <data name="Table.Devices.UserMapping" xml:space="preserve">
+    <value>Device's users</value>
+  </data>
+  <data name="Table.Devices.UserMapping.Hint" xml:space="preserve">
+    <value>The users to whom you granted access to the device.</value>
+  </data>
+  <data name="Table.Monitors.UserMapping" xml:space="preserve">
+    <value>Monitor's users</value>
+  </data>
+  <data name="Table.Monitors.UserMapping.Hint" xml:space="preserve">
+    <value>The users to whom you granted access to the monitor.</value>
+  </data>
+  <data name="Table.Presentations.Hint" xml:space="preserve">
+    <value>The composition of the monitor. Presentations that monitor shows.</value>
+  </data>
+  <data name="Table.Presentations.Title" xml:space="preserve">
+    <value>Presentations</value>
+  </data>
+  <data name="User.Map.Error" xml:space="preserve">
+    <value>Error granting access for the user {0}.</value>
+  </data>
+  <data name="User.Map.Success" xml:space="preserve">
+    <value>Access for user has been successfully granted.</value>
+  </data>
+  <data name="User.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Revoke access for the user {0}?</value>
+  </data>
+  <data name="User.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Revoking access</value>
+  </data>
+  <data name="User.Unmap.Error" xml:space="preserve">
+    <value>Access revoking error for user {0}.</value>
+  </data>
+  <data name="User.Unmap.Success" xml:space="preserve">
+    <value>Access for user {0} has been revoked successfully.</value>
+  </data>
+  <data name="Validation.NotAuthenticated" xml:space="preserve">
+    <value>You are not authenticated</value>
+  </data>
+  <data name="Validation.TheSameUser" xml:space="preserve">
+    <value>It is you. Enter other username.</value>
+  </data>
+  <data name="Validation.UserName.NotExist" xml:space="preserve">
+    <value>User does not exist or not active (blocked).</value>
+  </data>
+  <data name="Table.Sensors.MonitorTable" xml:space="preserve">
+    <value>Sensor's monitors</value>
+  </data>
+  <data name="Table.Sensors.MonitorTable.Hint" xml:space="preserve">
+    <value>The monitors which display the sensor.</value>
+  </data>
+  <data name="Table.Widgets.MonitorTable" xml:space="preserve">
+    <value>Widget's monitors</value>
+  </data>
+  <data name="Table.Widgets.MonitorTable.Hint" xml:space="preserve">
+    <value>The monitors which display the widget.</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.ShowMonitor" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Enum.WidgetType.LiveChart" xml:space="preserve">
+    <value>Live chart</value>
+  </data>
+  <data name="Validation.RequireRange" xml:space="preserve">
+    <value>Range must be from {0} to {1}</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryTrack" xml:space="preserve">
+    <value>History points</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryTrack.Hint" xml:space="preserve">
+    <value>Count of the last points</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.PreloadVideo" xml:space="preserve">
+    <value>Preload, min</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.QueueVolume" xml:space="preserve">
+    <value>Message queue</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.QueueVolume.Hint" xml:space="preserve">
+    <value>Size of saved messages in the console queue</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.SvgSchemeConfig" xml:space="preserve">
+    <value>SVG scheme configuration</value>
+  </data>
+  <data name="Widget.AdjustLiveScheme.BeforeSaveHint" xml:space="preserve">
+    <value>Save the widget before continuing</value>
+  </data>
+  <data name="Widgets.SvgScheme.Upload.Success" xml:space="preserve">
+    <value>Svg scheme for widget {0} has been upload successfully.</value>
+  </data>
+  <data name="Exception.Rpc.Demo" xml:space="preserve">
+    <value>It is a demo account. Demo user cannot change data.</value>
+  </data>
+</root>

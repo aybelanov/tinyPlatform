@@ -1,0 +1,62 @@
+@model GeneralCommonSettingsModel
+
+
+<div class="card-body">
+   <p style="text-indent: 2rem; margin: 0px 15px 15px;">
+      <i>@T("Admin.Configuration.Settings.GeneralCommon.DisplayDefaultFooterItemSettingsModel.Notice", "/Admin/Security/Permissions")</i>
+   </p>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplaySitemapFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplaySitemapFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplaySitemapFooterItem"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplayContactUsFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplayContactUsFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayContactUsFooterItem"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplayNewsFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplayNewsFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayNewsFooterItem"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplayBlogFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplayBlogFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayBlogFooterItem"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplayForumsFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplayForumsFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayForumsFooterItem"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayDefaultFooterItemSettings.DisplayUserInfoFooterItem" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayDefaultFooterItemSettings.DisplayUserInfoFooterItem" />
+         <span asp-validation-for="DisplayDefaultFooterItemSettings.DisplayUserInfoFooterItem"></span>
+      </div>
+   </div>
+</div>

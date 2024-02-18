@@ -1,0 +1,62 @@
+﻿@implements IAsyncDisposable
+
+<EventConsole @ref=@console  Height="400" Capacity="100" />
+
+@code {
+
+   [Parameter] public long SensorId { get; set; }
+
+   [Inject] HubService Hub { get; set; }
+   [Inject] IDeviceService DeviceService { get; set; }
+   [Inject] ISensorService SensorService { get; set; }
+
+   EventConsole console;
+
+   protected override async Task OnInitializedAsync()
+   {
+      Hub.SensorDataReceived += OnSensorDataReceived;
+      Hub.Disconnected += OnHubDisconnected;
+
+      await Hub.SubscribeToSensorDataStream(this, [SensorId]);
+   }
+
+   async Task OnHubConnected(string connectionId)
+   {
+      await Hub.SubscribeToCommonLog(this);
+   }
+
+   async Task OnHubDisconnected(Exception ex)
+   {
+      Hub.Connected -= OnHubConnected;
+      Hub.Connected += OnHubConnected;
+      console.Log("Hub has been disconnected.");
+      await Task.CompletedTask;
+   }
+
+   async Task OnSensorDataReceived(IEnumerable<SensorRecord> records)
+   {
+      if (records is null)
+         return;
+
+      List<string> messages = new();
+      foreach (var record in records)
+      {
+         if (record.SensorId != SensorId)
+            continue;
+
+         var sensor = await SensorService.GetSensorByIdAsync(record.SensorId);
+         messages.Add($"Sensor: {sensor.SystemName} Value: {record.Value} {sensor.MeasureUnit}, Event UTC: {new DateTime(record.EventTimestamp):yyyy.MM.dd HH:mm:ss:FFFFFFF}");
+      }
+
+      console.Log(messages);
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Hub.SensorDataReceived -= OnSensorDataReceived;
+      Hub.Disconnected -= OnHubDisconnected;
+      Hub.Connected -= OnHubConnected;
+
+      await Hub.UnsubscribeFromSensorDataStream(this, [SensorId]);
+   }
+}

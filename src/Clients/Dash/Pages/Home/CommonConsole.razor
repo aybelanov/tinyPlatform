@@ -1,0 +1,85 @@
+﻿@implements IAsyncDisposable
+
+<EventConsole @ref=@console class="mt-3" Title=@T["ConsoleLog.Common"] Height="400" Capacity="100" />
+
+@code {
+   [Inject] HubService Hub { get; set; }
+   [Inject] IDeviceService DeviceService { get; set; }
+   [Inject] ISensorService SensorService { get; set; }
+
+   EventConsole console;
+
+   protected override async Task OnInitializedAsync()
+   {
+      Hub.DeviceStatusChanged += OnDeviceStatusMessage;
+      Hub.ClientMessageReceived += OnClientMessage;
+      Hub.SensorDataReceived += OnSensorDataReceived;
+      Hub.Disconnected += OnHubDisconnected;
+
+      await Hub.SubscribeToCommonLog(this);
+   }
+
+   async Task OnHubConnected(string connectionId)
+   {
+      await Hub.SubscribeToCommonLog(this);
+   }
+
+   async Task OnHubDisconnected(Exception ex)
+   {
+      Hub.Connected -= OnHubConnected;
+      Hub.Connected += OnHubConnected;
+      console.Log("Hub has been disconnected.");
+      await Task.CompletedTask;
+   }
+
+   async Task OnDeviceStatusMessage(DeviceConnectionStatus status)
+   {
+      if (status != null)
+      {
+         var device = await DeviceService.GetByIdAsync(status.DeviceId);
+
+         if (string.IsNullOrEmpty(status.IPAddress))
+            console.Log(T["Device.Status.Disconnected", device.Name]);
+         else
+            console.Log(T["Device.Status.Connected", device.Name, status.IPAddress]);
+      }
+   }
+
+   async Task OnClientMessage(int deviceId, string message)
+   {
+      if (!string.IsNullOrWhiteSpace(message))
+      {
+         var device = await DeviceService.GetByIdAsync(deviceId);
+         if (device != null)
+         {
+            console.Log(T["Device.Message", device.Name, message]);
+         }
+      }
+   }
+
+   async Task OnSensorDataReceived(IEnumerable<SensorRecord> records)
+   {
+      if (records is null)
+         return;
+
+      List<string> messages = new();
+      foreach (var record in records)
+      {
+         var sensor = await SensorService.GetSensorByIdAsync(record.SensorId);
+         messages.Add($"Sensor: {sensor.SystemName} Value: {record.Value} {sensor.MeasureUnit}, Event UTC: {new DateTime(record.EventTimestamp):yyyy.MM.dd HH:mm:ss:FFFFFFF}");
+      }
+
+      console.Log(messages);
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Hub.DeviceStatusChanged -= OnDeviceStatusMessage;
+      Hub.ClientMessageReceived -= OnClientMessage;
+      Hub.SensorDataReceived -= OnSensorDataReceived;
+      Hub.Disconnected -= OnHubDisconnected;
+      Hub.Connected -= OnHubConnected;
+
+      await Hub.UnsubscribeFromCommonLog(this);
+   }
+}

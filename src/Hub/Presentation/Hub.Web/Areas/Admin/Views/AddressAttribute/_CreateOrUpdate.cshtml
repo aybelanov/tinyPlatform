@@ -1,0 +1,26 @@
+﻿@model AddressAttributeModel
+
+@{
+    const string hideInfoBlockAttributeName = "AddressAttributePage.HideInfoBlock";
+    var user = await workContext.GetCurrentUserAsync();
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideInfoBlockAttributeName);
+
+    const string hideValuesBlockAttributeName = "AddressAttributePage.HideValuesBlock";
+    var hideValuesBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideValuesBlockAttributeName, defaultValue: true);
+}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div asp-validation-summary="All"></div>
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-horizontal">
+                <app-cards id="addressattribute-cards">
+                    <app-card asp-name="address-info" asp-icon="fas fa-info" asp-title="@T("Admin.Address.AddressAttributes.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+                    <app-card asp-name="address-values" asp-icon="fas fa-check-square" asp-title="@T("Admin.Address.AddressAttributes.Values")" asp-hide-block-attribute-name="@hideValuesBlockAttributeName" asp-hide="@hideValuesBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Values", Model)</app-card>
+
+                    @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.AddressAttributeDetailsBlock, additionalData = Model })
+                </app-cards>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,186 @@
+﻿<AuthorizeView>
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p class="mt-3">@Hint</p>
+      }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@AddButton" Disabled=IsLoading />
+            <RadzenButton Click=@(async args => await OnUpdate()) Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mr-3" Disabled=IsLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="WidgetModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@IsLoading Count="@(Model?.TotalCount ?? 0)" ExpandMode="DataGridExpandMode.Single">
+
+         <Template Context="item">
+            <RadzenAccordion class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Widgets.MonitorTable"]" Icon="&#xeaf5" class="py-1" Style="cursor:pointer">
+                     <MonitorTable WidgetId="item.Id" Hint="@T["Table.Widgets.MonitorTable.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Widgets.SensorTable"]" Icon="&#xe51e" class="py-1" Style="cursor:pointer">
+                     <SensorTable WidgetId="item.Id" Hint="@T["Table.Widgets.SensorTable.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+         </Template>
+
+         <Columns>
+           
+             <RadzenDataGridColumn @ref=idColumn TItem="WidgetModel" Property="Id" Filterable=true Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center"
+                                  Resizable=false Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) />
+            
+            <RadzenDataGridColumn TItem="WidgetModel" Property="PictureUrl" Sortable=false Filterable=false Title=@T["DataGrid.Column.Icon"] Width="70px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenImage Path="@item.PictureUrl" Style="height:32px;" />
+               </Template>
+            </RadzenDataGridColumn>
+
+            <RadzenDataGridColumn TItem="WidgetModel" @ref=nameColumn Property="Name" Title=@T["DataGrid.Column.Name"] MinWidth="180px" TextAlign="TextAlign.Start">
+               <Template Context="item">
+                  <RadzenLink Path=@($"configuration/widget/edit/{item.Id}") Text="@item.Name" />
+               </Template>
+            </RadzenDataGridColumn>
+            
+            <RadzenDataGridColumn TItem="WidgetModel" @ref=widgetTypeColumn Property="WidgetType" Title=@T["DataGrid.Column.WidgetType"] Width="200px" TextAlign="TextAlign.Start">
+                <Template Context="item">
+                    @T[$"Enum.WidgetType.{item.WidgetType}"]
+                </Template>
+            </RadzenDataGridColumn>
+           
+            <RadzenDataGridColumn TItem="WidgetModel" @ref=ownerNameColumn Property="OwnerName" Filterable=true Title=@T["DataGrid.Column.Owner"] Width="220px" TextAlign="TextAlign.Center"
+                                  Resizable=true Visible=@(!UserId.HasValue && PermissionService.IsAdminMode(context)) />
+
+            <RadzenDataGridColumn TItem="WidgetModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@(async () => await DeleteButton(item))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+   [Parameter] public long? UserId { get; set; }
+   [Parameter] public long? SensorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public long? MonitorId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+   [Parameter] public Func<Task> AddButton { get; set; }
+   [Parameter] public Func<WidgetModel, Task> DeleteButton { get; set; }
+   [Parameter] public bool IsLoading { get; set; }   
+
+   IFilterableList<WidgetModel> Model;
+   private DynamicFilter filter = new();
+
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] IStaticCacheManager StaticCacheManager{ get; set; }
+   [Inject] PermissionService PermissionService { get; set; }
+
+   RadzenDataGrid<WidgetModel> grid;
+   RadzenDataGridColumn<WidgetModel> idColumn;
+   RadzenDataGridColumn<WidgetModel> nameColumn;
+   RadzenDataGridColumn<WidgetModel> widgetTypeColumn;
+   RadzenDataGridColumn<WidgetModel> ownerNameColumn;
+
+   //bool isLoading;
+
+   async Task LoadDataAsync(LoadDataArgs args)
+   {
+      IsLoading = true;
+      PrepareFilter(args);
+      await Task.Yield();
+
+      try
+      {
+         Model = await PrepareWidgetModelsAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         IsLoading = false;
+      }
+   }
+
+   async Task OnDeleteItemAsync(WidgetModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Widget.Delete.Confirm.Message"], item.Name), T["Widget.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            IsLoading = true;
+            await WidgetService.DeleteAsync(item);
+            await grid.Reload();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Widget.Delete.Success"], item.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Widget.Delete.Error"], item.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            IsLoading = false;
+         }
+      }
+   }
+
+   public async Task OnUpdate()
+   {
+      IsLoading = true;
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Widget>.ByDynamicFilterPrefix, "all");
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Widget>.ByDynamicFilterPrefix, "own");
+      await grid.Reload();
+      IsLoading = false;
+   }
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.UserId = UserId;
+      filter.SensorId = SensorId;
+      filter.WidgetId = WidgetId;
+      filter.WidgetId = MonitorId;
+
+      filter = Auto.Mapper.Map(args, filter);
+
+      filter.Filter = new List<RadzenDataGridColumn<WidgetModel>>() { idColumn, nameColumn, widgetTypeColumn }.ToFilterString();
+
+      var nameColumnFilter = new List<RadzenDataGridColumn<WidgetModel>>() { nameColumn }.ToFilterString();
+      if (!filter.AdditionalQueries.TryAdd("LocalizedProperty", nameColumnFilter))
+         filter.AdditionalQueries["LocalizedProperty"] = nameColumnFilter;
+
+      if (ownerNameColumn != null)
+      {
+         var ownerColumnFilter = new List<RadzenDataGridColumn<WidgetModel>>() { ownerNameColumn }.ToFilterString();
+         if (!filter.AdditionalQueries.TryAdd("User", ownerColumnFilter))
+            filter.AdditionalQueries["User"] = ownerColumnFilter;
+      }
+   }
+}

@@ -1,0 +1,28 @@
+﻿@if (_showStub)
+{
+   <RadzenDropDown TValue="object" Disabled=true Placeholder=@Placeholder Style=@Style @attributes=@Attributes />
+}
+else
+{
+   <RadzenDropDown @ref=@_dropDown
+                   @bind-Value:get=@_selectedDevice
+                   @bind-Value:set=@DeviceChange
+                   TValue="DeviceSelectItem"
+                   AllowVirtualization=true
+                   LoadData=@LoadDevices
+                   AllowClear=@AllowClear 
+                   AllowFiltering=true
+                   AllowSelectAll=false
+                   Name=@Name 
+                   Data=@_availableDevices
+                   Count="@(_availableDevices?.TotalCount ?? 0)"
+                   Multiple=false
+                   FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                   FilterDelay="1000"
+                   TextProperty="ItemName"
+                   Placeholder=@Placeholder
+                   Style=@Style
+                   Disabled=@(Disabled || IsLoading)
+                   VirtualizationOverscanCount="50"
+                   @attributes=@Attributes />
+}

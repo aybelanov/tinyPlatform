@@ -1,0 +1,80 @@
+﻿
+<WidgetTable @ref=@table SensorId="@SensorId" Title="@Title" IsLoading=@_isLoading Hint="@Hint" AddButton="@OnMapWidget" DeleteButton="@OnUnmapWidget" />
+
+@code {
+   [Parameter] public long SensorId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] IPresentationService PresentationService { get; set; }
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+
+   WidgetTable table;
+   private bool _isLoading;
+
+   async Task OnMapWidget()
+   {
+      var options = new DialogOptions()
+      {
+         ShowClose = true,
+         ShowTitle = true,
+         CloseDialogOnOverlayClick = true,
+         CloseDialogOnEsc = true,
+         Width = "480px"
+      };
+
+      WidgetSelectItem selectedWidget = await DialogService.OpenAsync(@T["SelectWidget.Title"], ds =>@<MapWidget Dialog="@ds" /> , options);
+
+      if (selectedWidget is null)
+         return;
+
+      try
+      {
+         _isLoading = true;
+         await PresentationService.MapSensorToWidgetAsync(SensorId, selectedWidget.Id);
+         await table.OnUpdate();
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Widget.Map.Success"], selectedWidget.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Widget.Map.Error", selectedWidget.Name]);
+         StateHasChanged();
+      }
+      finally
+      {
+         _isLoading = false;  
+      }
+   }
+
+   async Task OnUnmapWidget(WidgetModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Widget.Unmap.Confirm.Message"], item.Name), T["Widget.Unmap.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            _isLoading = true;
+            await PresentationService.UnmapSensorFromWidgetAsync(SensorId, item.Id);
+            await table.OnUpdate();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Widget.Unmap.Success"], item.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Widget.Unmap.Error"], item.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            _isLoading = false;
+         }
+      }
+   }
+}

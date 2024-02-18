@@ -1,0 +1,89 @@
+﻿@using Hub.Core.Domain.Users;
+@using Hub.Services;
+@model DeviceSettingsModel
+
+<div class="card-body">
+   <div id="tour-devicesettings-security">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="PasswordMinLength" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="PasswordMinLength" />
+            <span asp-validation-for="PasswordMinLength"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="PasswordRequireLowercase" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="PasswordRequireLowercase" />
+            <span asp-validation-for="PasswordRequireLowercase"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="PasswordRequireUppercase" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="PasswordRequireUppercase" />
+            <span asp-validation-for="PasswordRequireUppercase"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="PasswordRequireNonAlphanumeric" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="PasswordRequireNonAlphanumeric" />
+            <span asp-validation-for="PasswordRequireNonAlphanumeric"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="PasswordRequireDigit" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="PasswordRequireDigit" />
+            <span asp-validation-for="PasswordRequireDigit"></span>
+         </div>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UnduplicatedPasswordNumber" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UnduplicatedPasswordNumber" />
+         <span asp-validation-for="UnduplicatedPasswordNumber"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DefaultPasswordFormat" />
+      </div>
+      <div class="col-md-9">
+         <app-select asp-for="DefaultPasswordFormat" asp-items="@await (((PasswordFormat)Model.DefaultPasswordFormat).ToSelectListAsync())" />
+         <span asp-validation-for="DefaultPasswordFormat"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="FailedPasswordAllowedAttempts" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="FailedPasswordAllowedAttempts" />
+         <span asp-validation-for="FailedPasswordAllowedAttempts"></span>
+      </div>
+   </div>
+   <div class="form-group row" id="pnlFailedPasswordLockoutMinutes">
+      <div class="col-md-3">
+         <app-label asp-for="FailedPasswordLockoutMinutes" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="FailedPasswordLockoutMinutes" />
+         <span asp-validation-for="FailedPasswordLockoutMinutes"></span>
+      </div>
+   </div>
+</div>

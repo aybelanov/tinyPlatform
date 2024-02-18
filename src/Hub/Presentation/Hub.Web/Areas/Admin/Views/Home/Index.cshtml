@@ -1,0 +1,80 @@
+﻿@model DashboardModel
+@inject IPermissionService permissionService
+@using Hub.Services.Security
+@{
+   //page title
+   ViewBag.PageTitle = T("Admin.Dashboard").Text;
+
+   //close configuration steps value
+   const string closeCardAttributeName = "CloseConfigurationSteps";
+   var closeConfigurationStepsCard = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentUserAsync(), closeCardAttributeName);
+
+   //active menu item (system name)
+   AppHtml.SetActiveMenuItemSystemName("Dashboard");
+}
+
+<link rel="stylesheet" href="~/lib_npm/ionicons/css/ionicons.min.css" />
+
+<div class="content-header">
+   <h1>
+      @T("Admin.Dashboard")
+   </h1>
+</div>
+<section class="content">
+   <div class="container-fluid">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-12">
+               @if (!closeConfigurationStepsCard)
+               {
+                  <div class="row">
+                     <div class="col-md-12">
+                        @await Html.PartialAsync("_ConfigurationSteps")
+                     </div>
+                  </div>
+               }
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardTop, additionalData = Model })
+               @*<div class="row">
+               <div class="col-md-12">
+               @await Component.InvokeAsync("TinyPlatformNews")
+               </div>
+               </div>*@
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardNewsAfter, additionalData = Model })
+               <div class="row">
+                  <div class="col-md-12">
+                     @await Component.InvokeAsync("CommonStatistics")
+                  </div>
+               </div>
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardCommonstatisticsAfter, additionalData = Model })
+               <div class="row">
+                  <div class="col-md-6">
+                     @await Html.PartialAsync("_UserStatistics")
+                  </div>
+                  <div class="col-md-6">
+                     @await Html.PartialAsync("_DeviceStatistics")
+                  </div>
+               </div>
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardUserDeviceChartsAfter, additionalData = Model })
+               <div class="row">
+                  <div class="col-md-12">
+                     @await Html.PartialAsync("_DataRecordsStatistics")
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-6">
+                     @await Html.PartialAsync("_DeviceActivityLog")
+                  </div>
+                  <div class="col-md-6">
+                     @await Html.PartialAsync("_UserActivityLog")
+                  </div>
+               </div>
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DashboardBottom, additionalData = Model })
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<app-alert asp-alert-id="loadUserStatisticsAlert" asp-alert-message="@T("Admin.Reports.Users.UserStatistics.Alert.FailedLoad")" />
+<app-alert asp-alert-id="loadDeviceStatisticsAlert" asp-alert-message="@T("Admin.Reports.DeviceStatistics.Alert.FailedLoad")" />
+<app-alert asp-alert-id="loadDataStatisticsAlert" asp-alert-message="@T("Admin.Reports.Users.DataStatistics.Alert.FailedLoad")" />
+

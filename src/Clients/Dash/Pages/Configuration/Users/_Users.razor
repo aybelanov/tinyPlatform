@@ -1,0 +1,26 @@
+﻿@page "/configuration/users"
+@attribute [Authorize(Roles = UserDefaults.AdministratorsRoleName)]
+
+<PageTitle>@T["Pages.Configuration.Users"]</PageTitle>
+
+<AuthorizeView>
+   <Authorized>
+      @if (AdminService.IsAdminMode(context))
+      {
+         <RadzenCard>
+            <h3>@T["Table.Users"]</h3>
+            <p>@T["Table.Users.Hint"]</p>
+            <UserTable />
+         </RadzenCard>
+      }
+      else
+      {
+        <p>Admin mode if off.</p>  
+      }
+   </Authorized>
+</AuthorizeView>
+
+
+@code {
+   [Inject] PermissionService AdminService { get; set; }
+}

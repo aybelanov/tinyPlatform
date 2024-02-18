@@ -1,0 +1,7 @@
+﻿<p>
+   <RadzenLink Text="@T["Device.CreateOrEdit.ToDeviceList"]" Path="configuration/devices" class="mr-3"></RadzenLink>
+   <RadzenLink Text="@T["Device.CreateOrEdit.ToDevice"]" Path=@($"configuration/device/edit/{Model.DeviceId}") Visible=@(Model.Device.Id > 0) class="mr-3"></RadzenLink>
+</p>
+@code {
+   [Parameter] public SensorModel Model { get; set; }
+}

@@ -1,0 +1,58 @@
+@using Shared.Clients.Configuration
+@model GeneralCommonSettingsModel
+
+@{
+   var isDemoUser = Context.User.IsInRole(UserDefaults.DemoRoleName);
+}
+
+<div class="card-body">
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecuritySettings.AdminAreaAllowedIpAddresses" />
+      </div>
+      <div class="col-md-9">
+         @if (isDemoUser)
+         {
+            <input class="form-control text-box single-line" type="text" value="*******">
+         }
+         else
+         {
+            <app-editor asp-for="SecuritySettings.AdminAreaAllowedIpAddresses" />
+            <span asp-validation-for="SecuritySettings.AdminAreaAllowedIpAddresses"></span>
+         }
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecuritySettings.HoneypotEnabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="SecuritySettings.HoneypotEnabled" />
+         <span asp-validation-for="SecuritySettings.HoneypotEnabled"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecuritySettings.EncryptionKey" />
+      </div>
+      <div class="col-md-9">
+         @if (isDemoUser)
+         {
+            <input class="form-control text-box single-line" type="text" value="*******">
+         }
+         else
+         {
+            <div class="input-group input-group-short">
+               <app-editor asp-for="SecuritySettings.EncryptionKey" />
+               <span class="input-group-append">
+                  <button type="submit" name="changeencryptionkey" id="changeencryptionkey" class="btn btn-info">
+                     @T("Admin.Common.Change")
+                  </button>
+                  <app-action-confirmation asp-button-id="changeencryptionkey" />
+               </span>
+            </div>
+            <span asp-validation-for="SecuritySettings.EncryptionKey"></span>
+         }
+      </div>
+   </div>
+</div>

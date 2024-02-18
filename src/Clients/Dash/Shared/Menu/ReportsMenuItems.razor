@@ -1,0 +1,39 @@
+﻿@if (ReportMenuItem != null)
+{
+   <NavigationItem @bind-Expanded=@ReportMenuItem.Expanded Category=@ReportMenuItem>
+
+      @if (ReportMenuItem.Children != null)
+      {
+         @foreach (var subCat1 in ReportMenuItem.Children)
+         {
+            if (subCat1.Children != null)
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1>
+
+                  @foreach (var subCat2 in subCat1.Children)
+                  {
+                     <NavigationItem @bind-Expanded=@subCat2.Expanded Category=@subCat2 />
+                  }
+
+               </NavigationItem>
+            }
+            else
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1 />
+            }
+         }
+      }
+   </NavigationItem>
+}
+
+@code {
+
+   [Inject] private MenuService MenuService { get; set; }
+
+   CategoryMenuModel ReportMenuItem { get; set; }
+
+   protected override async Task OnInitializedAsync()
+   {
+      ReportMenuItem = await MenuService.GetReportMenuItemAsync();
+   }
+}

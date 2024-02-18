@@ -1,0 +1,88 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustCommonWidget
+@using static Clients.Dash.Shared.Widgets.HistoryChart
+
+<div class="row justify-content-md-center mb-3">
+   <div class="col-2 px-0 align-items-center" >
+      <RadzenChart class="w-100" Style="min-width:100px;">
+         <RadzenColumnSeries Data=@values CategoryProperty="Category" LineType="LineType.Dashed" ValueProperty="Value">
+            <RadzenSeriesDataLabels Visible="true" />
+         </RadzenColumnSeries>
+         <RadzenLegend Position=LegendPosition.Top Visible=false />
+         <RadzenColumnOptions Radius="5" Width="20" />
+         <RadzenCategoryAxis Padding="20" />
+         <RadzenValueAxis Max=@_adjustment.MaxValue Min=@_adjustment.MinValue Step=@((_adjustment.MaxValue - _adjustment.MinValue) / 4)>
+            <RadzenGridLines Visible="true" />
+            @* <RadzenAxisTitle Text="@Presentation.Sensor.MeasureUnit" /> *@
+         </RadzenValueAxis>
+      </RadzenChart>
+   </div>
+   @if (_adjustment.ShowHistory)
+   {
+      <div class="col-10 px-0 align-items-center">
+         <HistoryChart @ref=historyChart HistoryData=@historyItems HideMeasureUnit=true  />
+      </div>
+   }
+</div>
+
+@code {
+   [CascadingParameter] public PresentationViewModel Presentation { get; set; }
+   ValueHelper[] values = [new()];
+   HistoryChart historyChart;
+   List<HistoryItemModel> historyItems = new();
+  
+   CommonWidgetAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+     ? new CommonWidgetAdjustment()
+     : JsonSerializer.Deserialize<CommonWidgetAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   public override Task Update(IEnumerable<SensorRecord> records)
+   {
+      values = new[]
+      {
+          new ValueHelper()
+          {
+              Category = Presentation.Sensor.MeasureUnit,
+              Value = records.FirstOrDefault()?.Value ?? _adjustment.MinValue
+          }
+      };
+
+      if (historyChart is not null)
+         historyItems = PrepapreHistoryItems(records);
+
+      StateHasChanged();
+      return Task.CompletedTask;
+   }
+
+   private List<HistoryItemModel> PrepapreHistoryItems(IEnumerable<SensorRecord> records)
+   {
+      var now = DateTime.UtcNow;
+
+      foreach (var item in historyItems)
+         item.TimeAgo = TimeSpan.FromTicks(item.EventTimestamp - now.Ticks).TotalSeconds;
+
+      var newItems = records
+      .Where(x => x.EventTimestamp >= now.AddSeconds(-_adjustment.HistoryPointsCount).Ticks)
+      .Select(x => new HistoryItemModel()
+      {
+         EventTimestamp = x.EventTimestamp,
+         TimeAgo = TimeSpan.FromTicks(x.EventTimestamp - now.Ticks).TotalSeconds,
+         Value = x.Value
+      });
+
+      historyItems = historyItems
+      .Union(newItems)
+      .Where(x => x.EventTimestamp >= DateTime.UtcNow.AddSeconds(-_adjustment.HistoryPointsCount).Ticks)
+      .DistinctBy(x=>x.EventTimestamp)
+      .OrderByDescending(x => x.EventTimestamp)
+      .ToList();
+
+      return historyItems;
+   }
+}

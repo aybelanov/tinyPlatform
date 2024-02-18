@@ -1,0 +1,34 @@
+@model UserModel
+
+<div class="card-body">
+    @await Html.PartialAsync("Table", new DataTablesModel
+    {
+        Name = "activitylog-grid",
+        UrlRead = new DataUrl("ListActivityLog", "User", new RouteValueDictionary { [nameof(Model.UserActivityLogSearchModel.UserId)] = Model.UserActivityLogSearchModel.UserId }),
+        Length = Model.UserActivityLogSearchModel.PageSize,
+        LengthMenu = Model.UserActivityLogSearchModel.AvailablePageSizes,
+        ColumnCollection = new List<ColumnProperty>
+        {
+            new ColumnProperty(nameof(UserActivityLogModel.ActivityLogTypeName))
+            {
+                Title = T("Admin.Users.Users.ActivityLog.ActivityLogType").Text,
+                Width = "300"
+            },
+            new ColumnProperty(nameof(UserActivityLogModel.IpAddress))
+            {
+                Title = T("Admin.Users.Users.ActivityLog.IpAddress").Text,
+                Width = "100"
+            },
+            new ColumnProperty(nameof(UserActivityLogModel.Comment))
+            {
+                Title = T("Admin.Users.Users.ActivityLog.Comment").Text
+            },
+            new ColumnProperty(nameof(UserActivityLogModel.CreatedOn))
+            {
+                Title = T("Admin.Users.Users.ActivityLog.CreatedOn").Text,
+                Width = "200",
+                Render = new RenderDate()
+            }
+        }
+    })   
+</div>

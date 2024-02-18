@@ -1,0 +1,152 @@
+﻿@if (MonitorId < 1)
+{
+   <PageTitle>@T["Monitor.Create.PageTitle"]</PageTitle>
+   <h3>@T["Monitor.Create.PageTitle"]</h3>
+}
+else
+{
+   <PageTitle>@T["Monitor.Edit.PageTitle"]</PageTitle>
+   <h3>@T["Monitor.Edit.PageTitle"]</h3>
+}
+
+@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <MonitorLinks MonitorId="@MonitorId" />
+
+   <RadzenCard class="mb-5">
+      <CreateOrEditForm TItem="MonitorModel" Model="Model" ItemNameForNotification="@Model.Name" OnCancel=@OnCancel OnDelete=@OnDelete OnSubmitCreate=@OnCreate OnSubmitUpdate=@OnUpdate
+                        AfterDelete=@OnAfterSave AfterSave=@OnAfterSave >
+
+         <div class="row justify-content-md-center">
+            <div class="col-lg-8 col-xl-6">
+               <RadzenFieldset Text="@T["Monitor.CreateOrEdit.Fieldset.Common"]">
+                  @if (MonitorId > 0)
+                  {
+                     <div class="row mb-2 align-items-center">
+                        <div class="col-md-3 d-flex justify-content-md-end">
+                           <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.ID"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           @Model.Id                           
+                        </div>
+                     </div>
+                  }
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.MenuItem"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="Title" style="width: 100%; display:block;" @bind-Value=@Model.MenuItem Placeholder="@T["Monitor.CreateOrEdit.MenuItem.Placeholder"]"></RadzenTextBox>
+                        <RadzenLengthValidator Component="Title" Min="5" Text="@T["Validation.Length.Min", T["Monitor.CreateOrEdit.Label.MenuItem"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="Title" Max="50" Text="@T["Validation.Length.Max", T["Monitor.CreateOrEdit.Label.MenuItem"], 50]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.Name"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="Name" style="width: 100%; display:block;" @bind-Value=@Model.Name Placeholder="@T["Monitor.CreateOrEdit.Name.Placeholder"]" />
+                        <RadzenLengthValidator Component="Name" Min="5" Text="@T["Validation.Length.Min", T["Monitor.CreateOrEdit.Label.Name"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="Name" Max="100" Text="@T["Validation.Length.Max", T["Monitor.CreateOrEdit.Label.Name"], 100]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-start">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.Description"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextArea Rows="4" Name="Description" @bind-Value=@Model.Description style="width: 100%;" Class="w-100" Placeholder="@T["Monitor.CreateOrEdit.Description.Placeholder"]" />
+                        <RadzenLengthValidator Component="Description" Max="1000" Text="@T["Validation.Length.Max", T["Monitor.CreateOrEdit.Label.Description"], 1000]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.DisplayOrder"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenNumeric Name="DisplayOrder" TValue="int" @bind-Value=@Model.DisplayOrder class="w-100" ></RadzenNumeric>
+                     </div>
+                  </div>
+                  <div class="row align-items-center">
+                     <div class="col-md-3 d-flex justify-content-md-end">
+                        <TinyLabel Text="@T["Monitor.CreateOrEdit.Label.Enabled"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenCheckBox @bind-Value=Model.ShowInMenu TValue="bool" Name="Enabled" Style="text-decoration:none;"></RadzenCheckBox>
+                     </div>
+                  </div>
+               </RadzenFieldset>
+            </div>
+         </div>
+      </CreateOrEditForm>
+   </RadzenCard>
+}
+
+@code {
+
+   [Parameter] public long MonitorId { get; set; }
+
+   [Inject] private MenuService MenuService { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+
+   MonitorModel Model;
+
+   protected override async Task OnInitializedAsync()
+   {
+      if (MonitorId > 0)
+      {
+         try
+         {
+            Model = await PrepareMonitorModelAsync(MonitorId);
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, "Error data fetch.");
+         }
+      }
+      else
+      {
+         Model = await PrepareMonitorModelAsync();
+      }
+   }
+
+
+   private async Task OnCancel(MonitorModel model)
+   {
+      await OnInitializedAsync();
+      MenuService.OnMonitorMenuHasChanged("own", new() { Monitors = [model], Category = "own" });
+      StateHasChanged();
+   }
+
+
+   private async Task OnDelete(MonitorModel model)
+   {
+      await MonitorService.DeleteAsync(model);
+      MenuService.OnMonitorMenuHasChanged("own", new() { Monitors = [model], Category = "own" });
+   }
+
+
+   private async Task OnCreate(MonitorModel model)
+   {
+      await MonitorService.InsertAsync(model);
+      MenuService.OnMonitorMenuHasChanged("own", new() { Monitors = [model], Category = "own" });
+   }
+
+
+   private async Task OnUpdate(MonitorModel model)
+   {
+      await MonitorService.UpdateAsync(model);
+      MenuService.OnMonitorMenuHasChanged("own", new() { Monitors = [model], Category = "own" });
+   }
+
+   private async Task OnAfterSave()
+   {
+      Navigation.NavigateTo("configuration/monitors");
+      await Task.CompletedTask;
+   }
+}

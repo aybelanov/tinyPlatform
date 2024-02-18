@@ -1,0 +1,1926 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Button.Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Button.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Button.Save&amp;Continue" xml:space="preserve">
+    <value>Сохранить и продолжить</value>
+  </data>
+  <data name="Button.Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="DataGrid.Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="DataGrid.Column.DisplayOrder" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="DataGrid.Column.Enabled" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="DataGrid.Column.Guid" xml:space="preserve">
+    <value>GUID</value>
+  </data>
+  <data name="DataGrid.Column.Id" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="DataGrid.Column.LastActivity" xml:space="preserve">
+    <value>Посл. активность</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName" xml:space="preserve">
+    <value>Имя монитора</value>
+  </data>
+  <data name="DataGrid.Column.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="DataGrid.Column.SensorName" xml:space="preserve">
+    <value>Имя сенсора</value>
+  </data>
+  <data name="DataGrid.Column.SystemName" xml:space="preserve">
+    <value>Системное имя</value>
+  </data>
+  <data name="DataGrid.Column.DeviceName" xml:space="preserve">
+    <value>Имя устройства</value>
+  </data>
+  <data name="DataGrid.Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="DataGrid.Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DataGrid.Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="DataGrid.EmptyText" xml:space="preserve">
+    <value>Нет данных для отображения!</value>
+  </data>
+  <data name="DataGrid.Device.Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="DataGrid.Update" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Error.DataFetch" xml:space="preserve">
+    <value>Ошибка загрузки данных.</value>
+  </data>
+  <data name="Header.Links.Documentation" xml:space="preserve">
+    <value>Документация</value>
+  </data>
+  <data name="Header.Links.Documentation.Title" xml:space="preserve">
+    <value>Документация и Форум</value>
+  </data>
+  <data name="Header.Links.Support" xml:space="preserve">
+    <value>Поддержка</value>
+  </data>
+  <data name="Header.Links.Support.Title" xml:space="preserve">
+    <value>Служба поддержки</value>
+  </data>
+  <data name="Header.MainTitle" xml:space="preserve">
+    <value>Tiny панель</value>
+  </data>
+  <data name="Index.HelloWorld" xml:space="preserve">
+    <value>Привет, мир!</value>
+  </data>
+  <data name="LoginDisplay.Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LoginDisplay.Logout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="LoginDisplay.Profile" xml:space="preserve">
+    <value>Профиль пользователя</value>
+  </data>
+  <data name="LoginDisplay.Registration" xml:space="preserve">
+    <value>Ригстрация</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Монитор</value>
+  </data>
+  <data name="Monitor.Create.PageTitle" xml:space="preserve">
+    <value>Создать монитор</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.ToMonitorList" xml:space="preserve">
+    <value>К списку мониторов</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Fieldset.Sensors" xml:space="preserve">
+    <value>Сенсоры монитора</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>В меню</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.MenuItem" xml:space="preserve">
+    <value>Пункт меню</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.MenuItem.Placeholder" xml:space="preserve">
+    <value>Введите имя пункта меню...</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Введите имя монитора...</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Введите описание...</value>
+  </data>
+  <data name="Monitor.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить монитор "{0}"?</value>
+  </data>
+  <data name="Monitor.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление монитора</value>
+  </data>
+  <data name="Monitor.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления монитора "{0}".</value>
+  </data>
+  <data name="Monitor.Delete.Success" xml:space="preserve">
+    <value>Монитор "{0}" успешно удалён.</value>
+  </data>
+  <data name="Monitor.Edit.PageTitle" xml:space="preserve">
+    <value>Редактировать монитор</value>
+  </data>
+  <data name="Monitor.Insert.Error" xml:space="preserve">
+    <value>Ошибка добавления монитора "{0}".</value>
+  </data>
+  <data name="Monitor.Insert.Success" xml:space="preserve">
+    <value>Монитор "{0}" успешно добавлен.</value>
+  </data>
+  <data name="Monitor.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления монитора "{0}".</value>
+  </data>
+  <data name="Monitor.Update.Success" xml:space="preserve">
+    <value>Монитор "{0}" обновлён.</value>
+  </data>
+  <data name="Monitors" xml:space="preserve">
+    <value>Мониторы</value>
+  </data>
+  <data name="Page.AccessDenied.Message" xml:space="preserve">
+    <value>Доступ запрещён.</value>
+  </data>
+  <data name="Page.Index.NotAuthorized.Message" xml:space="preserve">
+    <value>Атворизуйтесь, чтобы использовать сервис.</value>
+  </data>
+  <data name="Pages.Configuration.Monitors" xml:space="preserve">
+    <value>Мониторы</value>
+  </data>
+  <data name="Pages.Configuration.Devices" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Найти...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать...</value>
+  </data>
+  <data name="Sensor" xml:space="preserve">
+    <value>Сенсор</value>
+  </data>
+  <data name="Sensor.Create.PageTitle" xml:space="preserve">
+    <value>Регистрация сенсора</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок отображения</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>Системное имя</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Введите имя сенсора...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Введите краткое описание сенсора</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToSensorList" xml:space="preserve">
+    <value>К списку сенсоров</value>
+  </data>
+  <data name="Sensor.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить сенсор "{0}"?</value>
+  </data>
+  <data name="Sensor.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление сенсора</value>
+  </data>
+  <data name="Sensor.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления вотчера "{0}".</value>
+  </data>
+  <data name="Sensor.Delete.Success" xml:space="preserve">
+    <value>Сенсор "{0}" успешно удалён.</value>
+  </data>
+  <data name="Sensor.Edit.PageTitle" xml:space="preserve">
+    <value>Редактирование сенсора {0}</value>
+  </data>
+  <data name="Sensor.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления сенсора "{0}".</value>
+  </data>
+  <data name="Sensor.Update.Success" xml:space="preserve">
+    <value>Серсор "{0}" успешно обновлён.</value>
+  </data>
+  <data name="Widget" xml:space="preserve">
+    <value>Представление сенсора</value>
+  </data>
+  <data name="Widget.Create.PageTitle" xml:space="preserve">
+    <value>Создание представления сенсора</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок отображения</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>Системное имя</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Введите имя представления...</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Введите краткое описание представления</value>
+  </data>
+  <data name="Widget.CreateOrEdit.ToSensorList" xml:space="preserve">
+    <value>К списку сенсоров</value>
+  </data>
+  <data name="Widget.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить представление сенсора "{0}"?</value>
+  </data>
+  <data name="Widget.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление представления сенсора</value>
+  </data>
+  <data name="Widget.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления представления сенсора "{0}".</value>
+  </data>
+  <data name="Widget.Delete.Success" xml:space="preserve">
+    <value>Представление сенсора "{0}" успешно удалено.</value>
+  </data>
+  <data name="Widget.Edit.PageTitle" xml:space="preserve">
+    <value>Виджет {0}</value>
+  </data>
+  <data name="Widget.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления представления сенсора "{0}".</value>
+  </data>
+  <data name="Widget.Update.Success" xml:space="preserve">
+    <value>Представление сенсора "{0}" успешно обновлено.</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>Виджеты</value>
+  </data>
+  <data name="Sensors" xml:space="preserve">
+    <value>Сенсоры</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Description" xml:space="preserve">
+    <value>Найстройки приложения</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Monitors.Description" xml:space="preserve">
+    <value>Экраны мониторинга</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Monitors.Name" xml:space="preserve">
+    <value>Мониторы</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Name" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Records.Description" xml:space="preserve">
+    <value>Записи сенсоров устройств</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Records.Name" xml:space="preserve">
+    <value>Записи серсоров</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Sensors.Description" xml:space="preserve">
+    <value>Настройки сенсоров</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Sensors.Name" xml:space="preserve">
+    <value>Сенсоры</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Devices.Description" xml:space="preserve">
+    <value>Найтстройки юритов</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Devices.Name" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Sidebar.Menu.OwnMonitors.Description" xml:space="preserve">
+    <value>Мои мониторы телеметрии</value>
+  </data>
+  <data name="Sidebar.Menu.OwnMonitors.Name" xml:space="preserve">
+    <value>Мои мониторы</value>
+  </data>
+  <data name="Sidebar.Menu.SharedMonitors.Description" xml:space="preserve">
+    <value>Совместные мониторы телеметрии</value>
+  </data>
+  <data name="Sidebar.Menu.SharedMonitors.Name" xml:space="preserve">
+    <value>Совместные мониторы</value>
+  </data>
+  <data name="Sidebar.Menu.Overview.Description" xml:space="preserve">
+    <value>Главный экран</value>
+  </data>
+  <data name="Sidebar.Menu.Overview.Name" xml:space="preserve">
+    <value>Главный экран</value>
+  </data>
+  <data name="Sidebar.Menu.Search.Placeholder" xml:space="preserve">
+    <value>Найти пункт ...</value>
+  </data>
+  <data name="ThemeSelector.dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="ThemeSelector.default" xml:space="preserve">
+    <value>По-умолчанию</value>
+  </data>
+  <data name="ThemeSelector.humanistic" xml:space="preserve">
+    <value>Гуманистическая</value>
+  </data>
+  <data name="ThemeSelector.Label" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="ThemeSelector.software" xml:space="preserve">
+    <value>Мягкая</value>
+  </data>
+  <data name="ThemeSelector.standard" xml:space="preserve">
+    <value>Стандартная</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Device.Create.PageTitle" xml:space="preserve">
+    <value>Регистрация устройства</value>
+  </data>
+  <data name="Device.CreateOrEdit.ToDeviceList" xml:space="preserve">
+    <value>К списку устройств</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Device.CreateOrEdit.Guid.Placeholder" xml:space="preserve">
+    <value>Введите GUID устройства...</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок отображения</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Enabled" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Guid" xml:space="preserve">
+    <value>GUID</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.SystemName" xml:space="preserve">
+    <value>Системное имя</value>
+  </data>
+  <data name="Device.CreateOrEdit.Name.Placeholder" xml:space="preserve">
+    <value>Введите имя устройства...</value>
+  </data>
+  <data name="Device.CreateOrEdit.Description.Placeholder" xml:space="preserve">
+    <value>Введите краткое описание устройства...</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Placeholder" xml:space="preserve">
+    <value>Введите системное имя устройства...</value>
+  </data>
+  <data name="Device.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить устройство "{0}"?</value>
+  </data>
+  <data name="Device.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление устройства</value>
+  </data>
+  <data name="Device.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления устройства "{0}".</value>
+  </data>
+  <data name="Device.Delete.Success" xml:space="preserve">
+    <value>Устройство "{0}" успешно удалёно.</value>
+  </data>
+  <data name="Device.Edit.PageTitle" xml:space="preserve">
+    <value>Устройство {0}</value>
+  </data>
+  <data name="Device.Insert.Error" xml:space="preserve">
+    <value>Ошибка обновления устройства "{0}".</value>
+  </data>
+  <data name="Device.Insert.Success" xml:space="preserve">
+    <value>Устройство "{0}" успешно добавлено.</value>
+  </data>
+  <data name="Device.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления устройства "{0}".</value>
+  </data>
+  <data name="Device.Update.Success" xml:space="preserve">
+    <value>Устройство "{0}" успешно обновлёно.</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Устройства</value>
+  </data>
+  <data name="Validation.Length.Max" xml:space="preserve">
+    <value>Значение {0} должно быть не более {1} знаков.</value>
+  </data>
+  <data name="Validation.Length.Min" xml:space="preserve">
+    <value>Значение {0} должно быть не менее {1} знаков.</value>
+  </data>
+  <data name="Validation.RequireValue" xml:space="preserve">
+    <value>Требуется значение.</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SystemName.Placeholder" xml:space="preserve">
+    <value>Введите системное имя сенсора...</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.PriorityType" xml:space="preserve">
+    <value>Приоритет передачи</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.SensorType" xml:space="preserve">
+    <value>Тип сенсора</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.SystemName.Placeholder" xml:space="preserve">
+    <value>Введите системное имя сенсора...</value>
+  </data>
+  <data name="Sensor.Insert.Error" xml:space="preserve">
+    <value>Ошибка добавления сенсора "{0}".</value>
+  </data>
+  <data name="Sensor.Insert.Success" xml:space="preserve">
+    <value>Сенсор "{0}" успешно добавлен.</value>
+  </data>
+  <data name="Widget.Insert.Error" xml:space="preserve">
+    <value>Ошибка добавления представления сенсора "{0}".</value>
+  </data>
+  <data name="Widget.Insert.Success" xml:space="preserve">
+    <value>Представление сенсора "{0}" успешно добавлено.</value>
+  </data>
+  <data name="DataGrid.Column.SensorType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.MeasureUnit" xml:space="preserve">
+    <value>Ед. изм.</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.MeasureUnit.Placeholder" xml:space="preserve">
+    <value>Введите единицу измерения значений сенсора...</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widget.Description" xml:space="preserve">
+    <value>Визализация данных сенсоров для отображения в мониторах</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widget.Name" xml:space="preserve">
+    <value>Виджеты</value>
+  </data>
+  <data name="Device.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>Открыть устройство</value>
+  </data>
+  <data name="Pages.Configuration.Widgets" xml:space="preserve">
+    <value>Представления</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.Visualization" xml:space="preserve">
+    <value>Визуализация</value>
+  </data>
+  <data name="Widget.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>К списку виджетов</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.WidgetType" xml:space="preserve">
+    <value>Тип представления</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryPointsCount" xml:space="preserve">
+    <value>Точек истории</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistory" xml:space="preserve">
+    <value>Показывать историю</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.SmothHistoryChart" xml:space="preserve">
+    <value>Сглаживать историю</value>
+  </data>
+  <data name="Enum.WidgetType.ArcGauge" xml:space="preserve">
+    <value>Арочный индикатор</value>
+  </data>
+  <data name="Enum.WidgetType.AreaChart" xml:space="preserve">
+    <value>Диаграмма областей</value>
+  </data>
+  <data name="Enum.WidgetType.BarChart" xml:space="preserve">
+    <value>Столбчатая диаграмма</value>
+  </data>
+  <data name="Enum.WidgetType.ColunmChart" xml:space="preserve">
+    <value>Гистограмма</value>
+  </data>
+  <data name="Enum.WidgetType.DonutChart" xml:space="preserve">
+    <value>Кольцевая диаграмма</value>
+  </data>
+  <data name="Enum.WidgetType.LineChart" xml:space="preserve">
+    <value>Линейный график</value>
+  </data>
+  <data name="Enum.WidgetType.Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="Enum.WidgetType.PieChart" xml:space="preserve">
+    <value>Круговая диаграмма</value>
+  </data>
+  <data name="Enum.WidgetType.RadialGauge" xml:space="preserve">
+    <value>Радиальный индикатор</value>
+  </data>
+  <data name="Enum.WidgetType.TextConsole" xml:space="preserve">
+    <value>Консоль</value>
+  </data>
+  <data name="LoadingStub.Text" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MaxCriticalValue" xml:space="preserve">
+    <value>Макс критическое занчение</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MaxValue" xml:space="preserve">
+    <value>Максимальное значение</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MinCriticalValue" xml:space="preserve">
+    <value>Мин критическое значение</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.MinValue" xml:space="preserve">
+    <value>Минимальное значения</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowCriticalValueNotification" xml:space="preserve">
+    <value>Критические уведомления</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistoryAnnotations" xml:space="preserve">
+    <value>Показывать аннотации</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowHistoryTrends" xml:space="preserve">
+    <value>Показывать тренды</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>Открыть устройство</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.ToDeviceList" xml:space="preserve">
+    <value>К списку устройств</value>
+  </data>
+  <data name="PresentationMapping.Create.PageTitle" xml:space="preserve">
+    <value>Создание привязки представления к сенсору</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToSensor" xml:space="preserve">
+    <value>Открыть сенсор</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToWidget" xml:space="preserve">
+    <value>Открыть представление</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>К списку представлений</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>Открыть устройство</value>
+  </data>
+  <data name="PresentationMapping.Edit.PageTitle" xml:space="preserve">
+    <value>Редактирование привязки представления к сенсору</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Presentation" xml:space="preserve">
+    <value>Представление</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Sensor" xml:space="preserve">
+    <value>Сенсор</value>
+  </data>
+  <data name="PresentationMapping.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="PresentationMapping.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить привязку представления и сенсора "{0}"?</value>
+  </data>
+  <data name="PresentationMapping.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление привязки представления и сенсора</value>
+  </data>
+  <data name="PresentationMapping.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления привязки представления и сенсора "{0}". </value>
+  </data>
+  <data name="PresentationMapping.Delete.Success" xml:space="preserve">
+    <value>Привязка представления и сенсора "{0}" успешно удалёна.</value>
+  </data>
+  <data name="PresentationMapping.Insert.Error" xml:space="preserve">
+    <value>Ошибка добавления привязки представления и сенсора. </value>
+  </data>
+  <data name="PresentationMapping.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления привязки представлеия и сенсора. </value>
+  </data>
+  <data name="PresentationMapping.Update.Success" xml:space="preserve">
+    <value>Привязка представления и сенсора успешно обновлена. </value>
+  </data>
+  <data name="SensorWidget.Insert.Success" xml:space="preserve">
+    <value>Привязка представления и сенсора успешно добавлена.</value>
+  </data>
+  <data name="DataGrid.Column.Sensor" xml:space="preserve">
+    <value>Сенсор</value>
+  </data>
+  <data name="DataGrid.Column.Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="DataGrid.GroupPanelText" xml:space="preserve">
+    <value>Для группировки перетащите сюда заголовок столбца</value>
+  </data>
+  <data name="MonitorMapping.Create.PageTitle" xml:space="preserve">
+    <value>Создание привязки монитора к сенсору</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Fieldset.Common" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.DisplayOrder" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.ID" xml:space="preserve">
+    <value>Ид.</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Monitor" xml:space="preserve">
+    <value>Монитор</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Presentation" xml:space="preserve">
+    <value>Представление</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Sensor" xml:space="preserve">
+    <value>Сенсор</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.ToMonitor" xml:space="preserve">
+    <value>Открыть монитор</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.Label.Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToSensor" xml:space="preserve">
+    <value>Открыть сенсор</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToWidget" xml:space="preserve">
+    <value>Открыть представление</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToDevice" xml:space="preserve">
+    <value>Открыть устройство</value>
+  </data>
+  <data name="MonitorMapping.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление привязки монитор и сенсора</value>
+  </data>
+  <data name="MonitorMapping.Delete.Success" xml:space="preserve">
+    <value>Привязка монитора и сенсора "{0}" успешно удалёна.</value>
+  </data>
+  <data name="MonitorMapping.Edit.PageTitle" xml:space="preserve">
+    <value>Редактирование привязки монитора к сенсору</value>
+  </data>
+  <data name="MonitorMapping.Insert.Error" xml:space="preserve">
+    <value>Ошибка добавления привязки монитора и сенсора.</value>
+  </data>
+  <data name="MonitorMapping.Insert.Success" xml:space="preserve">
+    <value>Привязка сенсора к монитору"{0}" успешно добавлена.</value>
+  </data>
+  <data name="MonitorMapping.Update.Success" xml:space="preserve">
+    <value>Привязка монитора и сенсора "{0}" успешно обновлена </value>
+  </data>
+  <data name="MonitorPresentationMapping.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>К списку представлений</value>
+  </data>
+  <data name="MonitorPresentationMapping.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить привязку монитора и сенсора "{0}"?</value>
+  </data>
+  <data name="MonitorPresentationMapping.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления привязки мониора и сенсора "{0}".</value>
+  </data>
+  <data name="MonitorPresentationMapping.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления привязки монитора и сенсора.</value>
+  </data>
+  <data name="PresentationMapping.Insert.Success" xml:space="preserve">
+    <value>Привязка сенсора к пердставлению "{0}" успешно добавлена.</value>
+  </data>
+  <data name="DataGrid.Column.Widget" xml:space="preserve">
+    <value>Виджет</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToMonitor" xml:space="preserve">
+    <value>Открыть монитор</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToMonitorList" xml:space="preserve">
+    <value>К списку мониторов</value>
+  </data>
+  <data name="MonitorMapping.CreateOrEdit.ToWidgetList" xml:space="preserve">
+    <value>К списку представлений</value>
+  </data>
+  <data name="ThemeSelector.material" xml:space="preserve">
+    <value>Материальная</value>
+  </data>
+  <data name="Enum.WidgetType.Video" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Connection.Status" xml:space="preserve">
+    <value>Статус соединения</value>
+  </data>
+  <data name="Connection.Closed" xml:space="preserve">
+    <value>Соеднинение с сервером потеряно.</value>
+  </data>
+  <data name="Connection.Reconnected" xml:space="preserve">
+    <value>Соединенние восстановлено.</value>
+  </data>
+  <data name="Connection.Connected" xml:space="preserve">
+    <value>Соединнение с сервреом установлено.</value>
+  </data>
+  <data name="Device.Status.Connected" xml:space="preserve">
+    <value>Устройство "{0}" подключёно с IP {1}.</value>
+  </data>
+  <data name="Device.Status.Disconnected" xml:space="preserve">
+    <value>Устройство "{0}" отключёно.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.DeviceConnected" xml:space="preserve">
+    <value>Статуc: подключен с IP {0}</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Command" xml:space="preserve">
+    <value>Отправить комманду</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.DeviceDisconnected" xml:space="preserve">
+    <value>Статуc: отключен</value>
+  </data>
+  <data name="Hub.Connected" xml:space="preserve">
+    <value>Соединение с сервером установлено.</value>
+  </data>
+  <data name="Hub.Disconnected" xml:space="preserve">
+    <value>Соединение с сервером потеряно.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Command.Send" xml:space="preserve">
+    <value>Команда {0} отправлена устройству {1}.</value>
+  </data>
+  <data name="Button.Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="ConsoleLog" xml:space="preserve">
+    <value>Лог</value>
+  </data>
+  <data name="Device.CreateOrEdit.Fieldset.Creating" xml:space="preserve">
+    <value>Создание</value>
+  </data>
+  <data name="Device.Message" xml:space="preserve">
+    <value>От "{0}": {1}</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Fieldset.Configuration" xml:space="preserve">
+    <value>JSON Файл конфигурации</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Отключён</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.ShowAsAreachart" xml:space="preserve">
+    <value>Показывать график областей</value>
+  </data>
+  <data name="PermissionDenied" xml:space="preserve">
+    <value>Оператор не может вносить изменнения в кофигурацию системы.</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Description" xml:space="preserve">
+    <value>Отчёты</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Name" xml:space="preserve">
+    <value>Отчёты</value>
+  </data>
+  <data name="LoginDisplay.Role" xml:space="preserve">
+    <value>Роли</value>
+  </data>
+  <data name="LoginDisplay.Role.Administrators" xml:space="preserve">
+    <value>админ</value>
+  </data>
+  <data name="LoginDisplay.Role.Operators" xml:space="preserve">
+    <value>оператор</value>
+  </data>
+  <data name="LoginDisplay.Role.Owners" xml:space="preserve">
+    <value>владелец</value>
+  </data>
+  <data name="Page.Index.NotAuthorized.Demo" xml:space="preserve">
+    <value>Для демо входа используйте логин: &lt;span class="span-dotted"&gt;demo@skywell.net&lt;/span&gt; пароль: &lt;span class="span-dotted"&gt;Mnbvcxz1&lt;/span&gt;</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.InCommonLog" xml:space="preserve">
+    <value>Общий лог</value>
+  </data>
+  <data name="ConsoleLog.Common" xml:space="preserve">
+    <value>Общий лог</value>
+  </data>
+  <data name="Error.HttpResponse.500EntityAlreadyExists" xml:space="preserve">
+    <value>Элемент уже существует 500.</value>
+  </data>
+  <data name="Error.HttpResponse.500NotImplemented" xml:space="preserve">
+    <value>Метод не имплементирован на сервере 500.</value>
+  </data>
+  <data name="Error.HttpResponse.FailedFetch" xml:space="preserve">
+    <value>Сервер не доступен.</value>
+  </data>
+  <data name="Error.HttpResponse.Forbidden" xml:space="preserve">
+    <value>Доступ запрещён 403.</value>
+  </data>
+  <data name="Error.HttpResponse.MethodNotAllowed" xml:space="preserve">
+    <value>Метод запрещён 405.</value>
+  </data>
+  <data name="Error.HttpResponse.NoContent" xml:space="preserve">
+    <value>Пустой ответ 204.</value>
+  </data>
+  <data name="Error.HttpResponse.NotAcceptable" xml:space="preserve">
+    <value>Метод не применим 406.</value>
+  </data>
+  <data name="Error.HttpResponse.NotFound" xml:space="preserve">
+    <value>Ресурс не найден 404.</value>
+  </data>
+  <data name="Error.HttpResponse.OperationCanceled" xml:space="preserve">
+    <value>Операция прервана.</value>
+  </data>
+  <data name="Error.HttpResponse.Unauthorized" xml:space="preserve">
+    <value>Требуется авторизация 401.</value>
+  </data>
+  <data name="MonitorMapping.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить привязку монитора к сенсору "{0}"?</value>
+  </data>
+  <data name="MonitorMapping.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления привязки сенсора "{0}" к монитору.</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName.EditTitle" xml:space="preserve">
+    <value>редактировать монитор</value>
+  </data>
+  <data name="DataGrid.Column.MonitorName.ShowTitle" xml:space="preserve">
+    <value>показать монитор</value>
+  </data>
+  <data name="LoginDisplay.AdminPanel" xml:space="preserve">
+    <value>Админ панель</value>
+  </data>
+  <data name="LoginDisplay.HubHomePage" xml:space="preserve">
+    <value>Хаб</value>
+  </data>
+  <data name="DataGrid.Column.Icon" xml:space="preserve">
+    <value>Значок</value>
+  </data>
+  <data name="DataGrid.Column.Owner" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="DataGrid.Column.ShowInMenu" xml:space="preserve">
+    <value>В меню</value>
+  </data>
+  <data name="Pages.Configuration.OwnMonitors" xml:space="preserve">
+    <value>Мои мониторы</value>
+  </data>
+  <data name="Pages.Configuration.SharedMonitors" xml:space="preserve">
+    <value>Совместные мониторы</value>
+  </data>
+  <data name="Sidebar.Menu.Admin.Description" xml:space="preserve">
+    <value>Администрирование системы</value>
+  </data>
+  <data name="Sidebar.Menu.Admin.Name" xml:space="preserve">
+    <value>Администрирование</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Users.Description" xml:space="preserve">
+    <value>Все пользователи</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Users.Name" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widgets.Description" xml:space="preserve">
+    <value>Все виждеты мониторов</value>
+  </data>
+  <data name="Sidebar.Menu.Config.Widgets.Name" xml:space="preserve">
+    <value>Виджеты</value>
+  </data>
+  <data name="DataGrid.Column.Avatar" xml:space="preserve">
+    <value>Аватар</value>
+  </data>
+  <data name="DataGrid.Column.IsActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="DataGrid.Column.OnlineStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="OnlineStatus.BeenRecently" xml:space="preserve">
+    <value>был недавно</value>
+  </data>
+  <data name="OnlineStatus.NoActivities" xml:space="preserve">
+    <value>без активности</value>
+  </data>
+  <data name="OnlineStatus.Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="OnlineStatus.Online" xml:space="preserve">
+    <value>online</value>
+  </data>
+  <data name="Table.Admin.Users" xml:space="preserve">
+    <value>Пользователи панели телеметрии</value>
+  </data>
+  <data name="Exception.Rpc.Aborted" xml:space="preserve">
+    <value>Запрос отклонён сервером. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.InvalidArgument" xml:space="preserve">
+    <value>Недопустимый аргумент. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.NotFound" xml:space="preserve">
+    <value>Метод не найден. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.PermissionDenied" xml:space="preserve">
+    <value>Доступ запрещён. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.Unauthenticated" xml:space="preserve">
+    <value>Пользователь не аутентифицирован. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.Unknown" xml:space="preserve">
+    <value>Ошибка: {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Application.Message" xml:space="preserve">
+    <value>Ошибки приложения: {0}</value>
+  </data>
+  <data name="Exception.Rpc.Internal" xml:space="preserve">
+    <value>Внутрення ошибка. {0} Смотрите подробности в консоле браузера.</value>
+  </data>
+  <data name="Exception.Rpc.Unavailable" xml:space="preserve">
+    <value>Сервер недоступен. {0}</value>
+  </data>
+  <data name="Pages.Admin.Devices" xml:space="preserve">
+    <value>Все устройства</value>
+  </data>
+  <data name="Pages.Admin.Monitors" xml:space="preserve">
+    <value>Все мониторы</value>
+  </data>
+  <data name="Pages.Admin.Users" xml:space="preserve">
+    <value>Пользователи панели телеметрии</value>
+  </data>
+  <data name="Pages.Admin.Widgets" xml:space="preserve">
+    <value>Все виджеты</value>
+  </data>
+  <data name="DataGrid.Column.IpAddress" xml:space="preserve">
+    <value>IP адрес</value>
+  </data>
+  <data name="Table.Admin.Devices" xml:space="preserve">
+    <value>Все устройства</value>
+  </data>
+  <data name="Filter.DeviceTable.ShowOwnOnly" xml:space="preserve">
+    <value>только мои</value>
+  </data>
+  <data name="DataGrid.Show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Pages.Configuration.Users" xml:space="preserve">
+    <value>Все пользователи</value>
+  </data>
+  <data name="Table.Devices.ActivityTable" xml:space="preserve">
+    <value>Лог активности устройства</value>
+  </data>
+  <data name="Table.Devices.ActivityTable.Hint" xml:space="preserve">
+    <value>Лог активности данного устройства</value>
+  </data>
+  <data name="Table.Devices.AdminMode" xml:space="preserve">
+    <value>Все устройства, зарегистрированные в системе.</value>
+  </data>
+  <data name="Table.Devices.All" xml:space="preserve">
+    <value>Все устройства</value>
+  </data>
+  <data name="Table.Devices.MonitorTable" xml:space="preserve">
+    <value>Мониторы устройства</value>
+  </data>
+  <data name="Table.Devices.MonitorTable.Hint" xml:space="preserve">
+    <value>Мониторы, на которых отображаются сенсоры данного устройства.</value>
+  </data>
+  <data name="Table.Devices.Own" xml:space="preserve">
+    <value>Мои устройства</value>
+  </data>
+  <data name="Table.Devices.Own.Hint" xml:space="preserve">
+    <value>Устройства, зарегистрированные текущим пользователем.</value>
+  </data>
+  <data name="Table.Devices.SensorTable" xml:space="preserve">
+    <value>Сенсоры устройства</value>
+  </data>
+  <data name="Table.Devices.SensorTable.Hint" xml:space="preserve">
+    <value>Зарегистрированные сенсоры, обслуживаемые данным устройством.</value>
+  </data>
+  <data name="Table.Devices.Shared" xml:space="preserve">
+    <value>Общие устройства</value>
+  </data>
+  <data name="Table.Devices.Shared.Hint" xml:space="preserve">
+    <value>Устройства других пользователей, доступ к которым они предоставили данному пользователю.</value>
+  </data>
+  <data name="Table.Devices.UserTable" xml:space="preserve">
+    <value>Общие пользователи </value>
+  </data>
+  <data name="Table.Devices.UserTable.Hint" xml:space="preserve">
+    <value>Пользователи, которым пользователь-владелец данного устройства предоставил совместный доступ к данному устройству.</value>
+  </data>
+  <data name="Table.Monitors.AdminMode" xml:space="preserve">
+    <value>Все мониторы, зарегистрированные в системе.</value>
+  </data>
+  <data name="Table.Monitors.All" xml:space="preserve">
+    <value>Все мониторы</value>
+  </data>
+  <data name="Table.Monitors.MonitorMappingTable" xml:space="preserve">
+    <value>Состав монитора</value>
+  </data>
+  <data name="Table.Monitors.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Виджеты и сенсоры отображаемые на данном мониторе</value>
+  </data>
+  <data name="Table.Monitors.Own" xml:space="preserve">
+    <value>Мои мониторы</value>
+  </data>
+  <data name="Table.Monitors.Own.Hint" xml:space="preserve">
+    <value>Мониторы, зарегистрированные текущим пользователем</value>
+  </data>
+  <data name="Table.Monitors.Shared" xml:space="preserve">
+    <value>Общие мониторы</value>
+  </data>
+  <data name="Table.Monitors.Shared.Hint" xml:space="preserve">
+    <value>Мониторы других пользователей, которые они предоставили данному пользователю</value>
+  </data>
+  <data name="Table.Monitors.UserTable" xml:space="preserve">
+    <value>Общие пользователи</value>
+  </data>
+  <data name="Table.Monitors.UserTable.Hint" xml:space="preserve">
+    <value>Пользователи, которым пользователь-владелец данного монитора предоставил совместный доступ к данному монитору.</value>
+  </data>
+  <data name="Table.Sensors.MonitorMappingTable" xml:space="preserve">
+    <value>Привязки монитора</value>
+  </data>
+  <data name="Table.Sensors.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Привязки сенсоров и виджетов к мониторам</value>
+  </data>
+  <data name="Table.Sensors.WidgetMappingTable" xml:space="preserve">
+    <value>Привязки сенсоров и виджетов</value>
+  </data>
+  <data name="Table.Sensors.WidgetMappingTable.Hint" xml:space="preserve">
+    <value>Привязки сенсоров к виджетам</value>
+  </data>
+  <data name="Table.Users" xml:space="preserve">
+    <value>Все пользователи</value>
+  </data>
+  <data name="Table.Users.DeviceTable" xml:space="preserve">
+    <value>Устройства пользователя</value>
+  </data>
+  <data name="Table.Users.DeviceTable.Hint" xml:space="preserve">
+    <value>Устройства, зарегистрированные пользователем.</value>
+  </data>
+  <data name="Table.Users.Hint" xml:space="preserve">
+    <value>Все зарегистрированные пользователи панели телеметрии.</value>
+  </data>
+  <data name="Table.Users.MonitorTable" xml:space="preserve">
+    <value>Мониторы пользователя</value>
+  </data>
+  <data name="Table.Users.MonitorTable.Hint" xml:space="preserve">
+    <value>Мониторы, созданные пользователем.</value>
+  </data>
+  <data name="Table.Users.SharedDeviceTable" xml:space="preserve">
+    <value>Общие устройства</value>
+  </data>
+  <data name="Table.Users.SharedDeviceTable.Hint" xml:space="preserve">
+    <value>Устройства других пользователей, доступ к которым они предоставили данному пользователю.</value>
+  </data>
+  <data name="Table.Users.SharedMonitorTable" xml:space="preserve">
+    <value>Общие мониторы</value>
+  </data>
+  <data name="Table.Users.SharedMonitorTable.Hint" xml:space="preserve">
+    <value>Мониторы других пользователей, доступ к которым они предоставили данному пользователю.</value>
+  </data>
+  <data name="Table.Widgets.AdminMode" xml:space="preserve">
+    <value>Все виджеты, созданные в системе</value>
+  </data>
+  <data name="Table.Widgets.All" xml:space="preserve">
+    <value>Все виджеты</value>
+  </data>
+  <data name="Table.Widgets.Own" xml:space="preserve">
+    <value>Мои виджеты</value>
+  </data>
+  <data name="Table.Widgets.Own.Hint" xml:space="preserve">
+    <value>Виджеты, созданные текущим пользователем</value>
+  </data>
+  <data name="LoginDisplay.AdminMode" xml:space="preserve">
+    <value>Админ режим</value>
+  </data>
+  <data name="LoginDisplay.AdminMode.Hint" xml:space="preserve">
+    <value>Включает просмотр всех объектов и пользователей панели телеметрии.</value>
+  </data>
+  <data name="DownloadTask.Request.Compression.Label" xml:space="preserve">
+    <value>Сжатие</value>
+  </data>
+  <data name="DownloadTask.Request.Device.Label" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="DownloadTask.Request.Device.SearchText" xml:space="preserve">
+    <value>Поиск...</value>
+  </data>
+  <data name="DownloadTask.Request.FileFormat.Label" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="DownloadTask.Request.From.Label" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="DownloadTask.Request.Sensors.Label" xml:space="preserve">
+    <value>Датчики</value>
+  </data>
+  <data name="DownloadTask.Request.Sensors.SearchText" xml:space="preserve">
+    <value>Поиск...</value>
+  </data>
+  <data name="DownloadTask.Request.To.Label" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="ExportFileType.CSV" xml:space="preserve">
+    <value>.csv</value>
+  </data>
+  <data name="ExportFileType.JSON" xml:space="preserve">
+    <value>.json</value>
+  </data>
+  <data name="ExportFileType.TXT" xml:space="preserve">
+    <value>.txt</value>
+  </data>
+  <data name="ExportFileType.XLSX" xml:space="preserve">
+    <value>.xlsx</value>
+  </data>
+  <data name="ExportFileType.XML" xml:space="preserve">
+    <value>.xml</value>
+  </data>
+  <data name="FileCompressionType.GZIP" xml:space="preserve">
+    <value>.gzip</value>
+  </data>
+  <data name="FileCompressionType.None" xml:space="preserve">
+    <value>нет</value>
+  </data>
+  <data name="FileCompressionType.SevenZip" xml:space="preserve">
+    <value>.7zip</value>
+  </data>
+  <data name="FileCompressionType.ZIP" xml:space="preserve">
+    <value>.zip</value>
+  </data>
+  <data name="Reports.DownloadTask.Request" xml:space="preserve">
+    <value>Запрос выгрузки</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Charts" xml:space="preserve">
+    <value>Графики</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Export" xml:space="preserve">
+    <value>Экспорт данных</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Player" xml:space="preserve">
+    <value>Плеер</value>
+  </data>
+  <data name="DataGrid.Column.EndDateTime" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="DataGrid.Column.FileName" xml:space="preserve">
+    <value>Имя файла</value>
+  </data>
+  <data name="DataGrid.Column.FileSize" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="DataGrid.Column.FileState" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="DataGrid.Column.StartDateTime" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="DataGrid.Column.User" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="DownloadFileState.Canceled" xml:space="preserve">
+    <value>отменено</value>
+  </data>
+  <data name="DownloadFileState.Expired" xml:space="preserve">
+    <value>срок истёк</value>
+  </data>
+  <data name="DownloadFileState.InTheQueue" xml:space="preserve">
+    <value>в очереди</value>
+  </data>
+  <data name="DownloadFileState.Processing" xml:space="preserve">
+    <value>обрабатывается...</value>
+  </data>
+  <data name="DownloadFileState.Ready" xml:space="preserve">
+    <value>готово</value>
+  </data>
+  <data name="Reports.DownloadTasks" xml:space="preserve">
+    <value>Выгрузки</value>
+  </data>
+  <data name="ExportDataPage.Title" xml:space="preserve">
+    <value>Выгрузка данных</value>
+  </data>
+  <data name="Button.Get" xml:space="preserve">
+    <value>Выгрузить</value>
+  </data>
+  <data name="Button.Build" xml:space="preserve">
+    <value>Построить</value>
+  </data>
+  <data name="Charts.Request.Device.Label" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="Charts.Request.From.Label" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="Charts.Request.Sensors.Label" xml:space="preserve">
+    <value>Сенсоры</value>
+  </data>
+  <data name="Charts.Request.To.Label" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="DownloadTasks.Delete.Confirm.Message" xml:space="preserve">
+    <value>Удалить запрос на скачивание {0}?</value>
+  </data>
+  <data name="DownloadTasks.Delete.Confirm.Title" xml:space="preserve">
+    <value>Удаление задачи скачивания</value>
+  </data>
+  <data name="DownloadTasks.Delete.Error" xml:space="preserve">
+    <value>Ошибка удаления запроса на скачивание {0}.</value>
+  </data>
+  <data name="DownloadTasks.Delete.Success" xml:space="preserve">
+    <value>Запрос на скачивание {0} успешно удалён.</value>
+  </data>
+  <data name="Reports.Charts.Request" xml:space="preserve">
+    <value>Устройства и период</value>
+  </data>
+  <data name="Charts.Title" xml:space="preserve">
+    <value>Графики</value>
+  </data>
+  <data name="ComparisonChart.EmptyText" xml:space="preserve">
+    <value>нет данных</value>
+  </data>
+  <data name="Charts.PageHint" xml:space="preserve">
+    <value>Выберите один или два сенсора для анализа и сопоставления данных. Вы можете добавить второй сенсор от любого доступного устройства из списка.</value>
+  </data>
+  <data name="Charts.PageTitle" xml:space="preserve">
+    <value>Графики сравнения</value>
+  </data>
+  <data name="Charts.Request.Sensors.MultiselectValidator" xml:space="preserve">
+    <value>Выберите {0} или {1} сенсора</value>
+  </data>
+  <data name="ComparisonChart.InitText" xml:space="preserve">
+    <value>Нет загруженных данных. Нажмите "Построить".</value>
+  </data>
+  <data name="Device.Types.Mobile" xml:space="preserve">
+    <value>Мобильные</value>
+  </data>
+  <data name="Device.Types.Stationary" xml:space="preserve">
+    <value>Стационарные</value>
+  </data>
+  <data name="DeviceMap.Types.Layer" xml:space="preserve">
+    <value>Слой</value>
+  </data>
+  <data name="DeviceMap.Types.Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="DeviceMap.Types.Sat" xml:space="preserve">
+    <value>Спутник</value>
+  </data>
+  <data name="Home.DataSctatistics" xml:space="preserve">
+    <value>Статистика данных</value>
+  </data>
+  <data name="Home.DataSctatistics.Label" xml:space="preserve">
+    <value>Интервал</value>
+  </data>
+  <data name="Home.DeviceMap" xml:space="preserve">
+    <value>Карта устройств</value>
+  </data>
+  <data name="Map.Button.All" xml:space="preserve">
+    <value>Вписать все устройства на карту</value>
+  </data>
+  <data name="Button.Update" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Home.DeviceMap.Location.Own" xml:space="preserve">
+    <value>Расположение устройств: устройства пользователя</value>
+  </data>
+  <data name="TimeIntervalType.Day" xml:space="preserve">
+    <value>Сутки</value>
+  </data>
+  <data name="TimeIntervalType.Decade" xml:space="preserve">
+    <value>Декада</value>
+  </data>
+  <data name="TimeIntervalType.Hour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="TimeIntervalType.Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="TimeIntervalType.Quarter" xml:space="preserve">
+    <value>Квартал</value>
+  </data>
+  <data name="TimeIntervalType.Week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="TimeIntervalType.Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="UserDropDown.Placeholder" xml:space="preserve">
+    <value>Пользователи: все</value>
+  </data>
+  <data name="DeviceDropDown.Placeholder" xml:space="preserve">
+    <value>Устройства: все</value>
+  </data>
+  <data name="Home.DeviceMap.Location.All" xml:space="preserve">
+    <value>Расположение устройств: все зарегистрированные устройства</value>
+  </data>
+  <data name="Button.Play" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Player.Request.Device.Label" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="Player.Request.From.Label" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="Player.Request.Sensors.Label" xml:space="preserve">
+    <value>IP камера</value>
+  </data>
+  <data name="Player.Request.To.Label" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="Player.Title" xml:space="preserve">
+    <value>Видео плейер</value>
+  </data>
+  <data name="Player.Videoplayer" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Reports.Player.Request" xml:space="preserve">
+    <value>Запросить видео</value>
+  </data>
+  <data name="Button.Show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Reports.Tracker.Request" xml:space="preserve">
+    <value>Запрос трека</value>
+  </data>
+  <data name="Tracker.Device.Label" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="Tracker.From.Label" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="Tracker.Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="Tracker.Sensors.Label" xml:space="preserve">
+    <value>Трекер</value>
+  </data>
+  <data name="Tracker.Title" xml:space="preserve">
+    <value>ГНСС Трекер</value>
+  </data>
+  <data name="Tracker.To.Label" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="Sidebar.Menu.Report.Tracker" xml:space="preserve">
+    <value>Трекер</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Скорость</value>
+  </data>
+  <data name="Select.Device" xml:space="preserve">
+    <value>Устройство...</value>
+  </data>
+  <data name="Select.IpCam" xml:space="preserve">
+    <value>IP камера...</value>
+  </data>
+  <data name="Select.Sensor" xml:space="preserve">
+    <value>Сенсор...</value>
+  </data>
+  <data name="Connection.AccessDenied" xml:space="preserve">
+    <value>Доступ запрещён</value>
+  </data>
+  <data name="Connection.AccessDenied.Message" xml:space="preserve">
+    <value>Текущий пользователь уже подключен. Превышено разрешенное число соединений для одного пользователя. Обратитесь к администратору системы.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Device.Password.Change.Link" xml:space="preserve">
+    <value>Сменить пароль</value>
+  </data>
+  <data name="Device.CreateOrEdit.Password.Change.Hint" xml:space="preserve">
+    <value>Сменить пароль</value>
+  </data>
+  <data name="Device.CreateOrEdit.Password.Placeholder" xml:space="preserve">
+    <value>Введите пароль...</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Check" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="Device.CreateOrEdit.SystemName.Check.Hint" xml:space="preserve">
+    <value>Проверить доступность нового системного имени</value>
+  </data>
+  <data name="Device.Password.NotChanged" xml:space="preserve">
+    <value>Указанный пароль уже установлен</value>
+  </data>
+  <data name="Device.Password.HasChanged" xml:space="preserve">
+    <value>Пароль успешно сменён.</value>
+  </data>
+  <data name="Exception.Rpc.Cancelled" xml:space="preserve">
+    <value>Операция отменена: {0}</value>
+  </data>
+  <data name="Button.Change" xml:space="preserve">
+    <value>Сменить</value>
+  </data>
+  <data name="Button.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Device.Command.Send.Link" xml:space="preserve">
+    <value>Отправить комманду</value>
+  </data>
+  <data name="Device.Command.Title" xml:space="preserve">
+    <value>Отправка команд</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.Icon" xml:space="preserve">
+    <value>Значок</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.IsMobile" xml:space="preserve">
+    <value>Мобильное</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.IsMobile.Hint" xml:space="preserve">
+    <value>Установите "true", если устройство установлено на мобильном объекте,&lt;br/&gt; чтобы получать местоположение устройства.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ShowOnMain" xml:space="preserve">
+    <value>На главной карте</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.ShowOnMain.Hint" xml:space="preserve">
+    <value>Показывать местосполжение устройства на карте "Главного экрана"&lt;br/&gt; Для мобильных устройств отображается метосположение места инсталяции.&lt;br/&gt; Для отслеживания моильных устройств используйте мониторы или "Трекер" в разделе "Отчёты".</value>
+  </data>
+  <data name="Device.CreateOrEdit.Label.SystemName.Hint" xml:space="preserve">
+    <value>Системное имя устройства. Должно быть уникальным.</value>
+  </data>
+  <data name="Device.CreateOrEdit.Lat.Label" xml:space="preserve">
+    <value>Широта</value>
+  </data>
+  <data name="Device.CreateOrEdit.Lon.Label" xml:space="preserve">
+    <value>Долгота</value>
+  </data>
+  <data name="Device.CreateOrEdit.LonLat.Label" xml:space="preserve">
+    <value>Долгота/Широта</value>
+  </data>
+  <data name="Device.DeviceMap.Title" xml:space="preserve">
+    <value>Местоположение устройства</value>
+  </data>
+  <data name="Device.Onmap.Link" xml:space="preserve">
+    <value>Показать местоположение</value>
+  </data>
+  <data name="Device.Password.Change" xml:space="preserve">
+    <value>Смена пароля устройства</value>
+  </data>
+  <data name="Device.Password.New.Placeholder" xml:space="preserve">
+    <value>Введите новый пароль...</value>
+  </data>
+  <data name="CommonMenu.CahceHasCleared" xml:space="preserve">
+    <value>Кэш приложения очищен</value>
+  </data>
+  <data name="CommonMenu.ClearCache" xml:space="preserve">
+    <value>Очистить кэш</value>
+  </data>
+  <data name="CommonMenu.Title" xml:space="preserve">
+    <value>Допольнительно</value>
+  </data>
+  <data name="Submit.NoChanges" xml:space="preserve">
+    <value>Данные не изменены</value>
+  </data>
+  <data name="DataGrid.Column.ActivityType" xml:space="preserve">
+    <value>Активность</value>
+  </data>
+  <data name="DataGrid.Column.Comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="DataGrid.Column.CreatedOnUtc" xml:space="preserve">
+    <value>Создано UTC</value>
+  </data>
+  <data name="DataGrid.Column.Entity" xml:space="preserve">
+    <value>Сущность</value>
+  </data>
+  <data name="DataGrid.Column.SubjectName" xml:space="preserve">
+    <value>Субъект</value>
+  </data>
+  <data name="Table.DeviceActivity.Title" xml:space="preserve">
+    <value>Лог активности</value>
+  </data>
+  <data name="Table.Sensors.Title" xml:space="preserve">
+    <value>Датчики</value>
+  </data>
+  <data name="Table.UserActivity.Title" xml:space="preserve">
+    <value>Лог пользователя</value>
+  </data>
+  <data name="Table.UserActivity.Title.Hint" xml:space="preserve">
+    <value>Лог активности пользователя</value>
+  </data>
+  <data name="Validation.RequireJsonFormat" xml:space="preserve">
+    <value>Требуется формат JSON</value>
+  </data>
+  <data name="Device.Icon.Upload.Success" xml:space="preserve">
+    <value>Значок устройства успешно обновлён</value>
+  </data>
+  <data name="Sensor.CreateOrEdit.Label.InCommonLog.Hint" xml:space="preserve">
+    <value>Показывать сообщения сенсора в общем логе на главной сттанице</value>
+  </data>
+  <data name="Sensor.Icon.Upload.Success" xml:space="preserve">
+    <value>Значок датчика успешно обновлён</value>
+  </data>
+  <data name="Validation.RequireLength" xml:space="preserve">
+    <value>Длина должна быть {0} до {1} символов</value>
+  </data>
+  <data name="ConsoleLog.Sensor" xml:space="preserve">
+    <value>Лог сенсора </value>
+  </data>
+  <data name="DataGrid.Column.WidgetType" xml:space="preserve">
+    <value>Тип виджета</value>
+  </data>
+  <data name="Enum.WidgetType.LiveSceme" xml:space="preserve">
+    <value>Живая схема</value>
+  </data>
+  <data name="Table.Widgets.MonitorMappingTable" xml:space="preserve">
+    <value>Мониторы</value>
+  </data>
+  <data name="Table.Widgets.MonitorMappingTable.Hint" xml:space="preserve">
+    <value>Мониторы, использующие данный виджет</value>
+  </data>
+  <data name="Table.Widgets.SensorTable" xml:space="preserve">
+    <value>Датчики</value>
+  </data>
+  <data name="Table.Widgets.SensorTable.Hint" xml:space="preserve">
+    <value>Датчики, использующие данный виджет</value>
+  </data>
+  <data name="Table.Widgets.SensorMapping" xml:space="preserve">
+    <value>Виджеты сенсора</value>
+  </data>
+  <data name="Table.Widgets.SensorMapping.Hint" xml:space="preserve">
+    <value>Виджеты, которые визуализируют данные этого датчика.</value>
+  </data>
+  <data name="Button.Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SelectWidget.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="SelectWidget.FieldSet" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
+  <data name="SelectWidget.PlaceHolder" xml:space="preserve">
+    <value>Выберите виджет...</value>
+  </data>
+  <data name="SelectWidget.Title" xml:space="preserve">
+    <value>Выбор виджета</value>
+  </data>
+  <data name="SelectWidget.Widget" xml:space="preserve">
+    <value>Виджет</value>
+  </data>
+  <data name="SelectSensor.Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="SelectSensor.Device.PlaceHolder" xml:space="preserve">
+    <value>Выберите устройство...</value>
+  </data>
+  <data name="SelectSensor.Sensor" xml:space="preserve">
+    <value>Датчик</value>
+  </data>
+  <data name="SelectSensor.Sensor.PlaceHolder" xml:space="preserve">
+    <value>Выберите датчик...</value>
+  </data>
+  <data name="SelectSensor.Title" xml:space="preserve">
+    <value>Выбор сенсора (датчика)</value>
+  </data>
+  <data name="Sensor.Map.Error" xml:space="preserve">
+    <value>Ошибка создания привязки виджета и сенсора "{0}".</value>
+  </data>
+  <data name="Sensor.Map.Success" xml:space="preserve">
+    <value>Привязка сенсора "{0}" к виджету успешно добавлена.</value>
+  </data>
+  <data name="Sensor.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Удалить привязку виджета и сенсора "{0}"?</value>
+  </data>
+  <data name="Sensor.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Удаление привязки</value>
+  </data>
+  <data name="Sensor.Unmap.Error" xml:space="preserve">
+    <value>Ошибка удаления привязки виджета и сенсора "{0}".</value>
+  </data>
+  <data name="Sensor.Unmap.Success" xml:space="preserve">
+    <value>Привязка виджета и сенсора "{0}" успешно удалёна.</value>
+  </data>
+  <data name="Table.Sensors.WidgetMapping" xml:space="preserve">
+    <value>Сенсоры виджета</value>
+  </data>
+  <data name="Table.Sensors.WidgetMapping.Hint" xml:space="preserve">
+    <value>Сенсоры, которые визуализируются данным виджетом.</value>
+  </data>
+  <data name="Widget.Map.Error" xml:space="preserve">
+    <value>Ошибка создания привязки виджета "{0}" и сенсора.</value>
+  </data>
+  <data name="Widget.Map.Success" xml:space="preserve">
+    <value>Привязка сенсора к виджету "{0}" успешно добавлена.</value>
+  </data>
+  <data name="Widget.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Удалить привязку виджета "{0}" и сенсора?</value>
+  </data>
+  <data name="Widget.Unmap.Confirm.Tilte" xml:space="preserve">
+    <value>Удаление привязки</value>
+  </data>
+  <data name="Widget.Unmap.Error" xml:space="preserve">
+    <value>Ошибка удаления привязки виджета "{0}" к сенсору.</value>
+  </data>
+  <data name="Widget.Unmap.Success" xml:space="preserve">
+    <value>Привязка виджета "{0}" и сенсора успешно удалёна.</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.Label.DisplayOrder.Hint" xml:space="preserve">
+    <value>Порядок отображения в боковом меню</value>
+  </data>
+  <data name="Montor.Map.UserName" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="Montor.Map.UserName.Placeholder" xml:space="preserve">
+    <value>Введите имя пользователя...</value>
+  </data>
+  <data name="Presentation.Map.Create.Error" xml:space="preserve">
+    <value>Ошибка создания представления {0}.</value>
+  </data>
+  <data name="Presentation.Map.Create.Success" xml:space="preserve">
+    <value>Представление {0} успешно создано.</value>
+  </data>
+  <data name="Presentation.Map.Create.Title" xml:space="preserve">
+    <value>Создание представления</value>
+  </data>
+  <data name="Presentation.Map.Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Presentation.Map.Description.Placeholder" xml:space="preserve">
+    <value>Введите описание...</value>
+  </data>
+  <data name="Presentation.Map.DisplayOrder" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="Presentation.Map.Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Presentation.Map.Name.Placeholder" xml:space="preserve">
+    <value>Введите имя...</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget" xml:space="preserve">
+    <value>Представление</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget.PlaceHolder" xml:space="preserve">
+    <value>Выберите представление...</value>
+  </data>
+  <data name="Presentation.Map.SensorWidget.Required" xml:space="preserve">
+    <value>Требуется представление</value>
+  </data>
+  <data name="Presentation.Map.Update.Error" xml:space="preserve">
+    <value>Ошибка обновления представления {0}.</value>
+  </data>
+  <data name="Presentation.Map.Update.Success" xml:space="preserve">
+    <value>Представление {0} успешно обновлено.</value>
+  </data>
+  <data name="Presentation.Map.Update.Title" xml:space="preserve">
+    <value>Обновление представления</value>
+  </data>
+  <data name="Presentation.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Удалить представление {0}?</value>
+  </data>
+  <data name="Presentation.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Удаление представления</value>
+  </data>
+  <data name="Presentation.Unmap.Error" xml:space="preserve">
+    <value>Ошибка удаления представления {0}.</value>
+  </data>
+  <data name="Presentation.Unmap.Success" xml:space="preserve">
+    <value>Представление {0} успешно удалено.</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Представления</value>
+  </data>
+  <data name="SelectUser.Title" xml:space="preserve">
+    <value>Выбор пользователя</value>
+  </data>
+  <data name="Table.Devices.UserMapping" xml:space="preserve">
+    <value>Пользователи устройства</value>
+  </data>
+  <data name="Table.Devices.UserMapping.Hint" xml:space="preserve">
+    <value>Пользователи, которым вы предоставили доступ к устройству.</value>
+  </data>
+  <data name="Table.Monitors.UserMapping" xml:space="preserve">
+    <value>Пользователи монитора</value>
+  </data>
+  <data name="Table.Monitors.UserMapping.Hint" xml:space="preserve">
+    <value>Пользователи, которым вы предоставили доступ к монитору</value>
+  </data>
+  <data name="Table.Presentations.Hint" xml:space="preserve">
+    <value>Состав монитора. Представления, которые показывает монитор</value>
+  </data>
+  <data name="Table.Presentations.Title" xml:space="preserve">
+    <value>Представления</value>
+  </data>
+  <data name="User.Map.Error" xml:space="preserve">
+    <value>Ошибка предоставления доступа пользователю {0}.</value>
+  </data>
+  <data name="User.Map.Success" xml:space="preserve">
+    <value>Доступ пользователю {0} успешно предоставлен.</value>
+  </data>
+  <data name="User.Unmap.Confirm.Message" xml:space="preserve">
+    <value>Отменить доступ для пользоваетля {0}?</value>
+  </data>
+  <data name="User.Unmap.Confirm.Title" xml:space="preserve">
+    <value>Отмена доступа</value>
+  </data>
+  <data name="User.Unmap.Error" xml:space="preserve">
+    <value>Ошибка отмены доступа для пользователя {0}.</value>
+  </data>
+  <data name="User.Unmap.Success" xml:space="preserve">
+    <value>Доступ пользователя {0} успешно отменён.</value>
+  </data>
+  <data name="Validation.NotAuthenticated" xml:space="preserve">
+    <value>Вы не аутентифицированы.</value>
+  </data>
+  <data name="Validation.TheSameUser" xml:space="preserve">
+    <value>Вы этот пользователь. Введите другой юзернейм.</value>
+  </data>
+  <data name="Validation.UserName.NotExist" xml:space="preserve">
+    <value>Пользователь не сущетвует или не активен (заблокирован).</value>
+  </data>
+  <data name="Table.Sensors.MonitorTable" xml:space="preserve">
+    <value>Мониторы сенсора</value>
+  </data>
+  <data name="Table.Sensors.MonitorTable.Hint" xml:space="preserve">
+    <value>Мониторы, на которых отображается сенсор.</value>
+  </data>
+  <data name="Monitor.CreateOrEdit.ShowMonitor" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Table.Widgets.MonitorTable" xml:space="preserve">
+    <value>Мониторы виджета</value>
+  </data>
+  <data name="Table.Widgets.MonitorTable.Hint" xml:space="preserve">
+    <value>Мониторы, которые используют данный виджет.</value>
+  </data>
+  <data name="Enum.WidgetType.LiveChart" xml:space="preserve">
+    <value>Живой график</value>
+  </data>
+  <data name="Validation.RequireRange" xml:space="preserve">
+    <value>Диапазон должен быть от {0} до {1}</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryTrack" xml:space="preserve">
+    <value>Последних точек</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.HistoryTrack.Hint" xml:space="preserve">
+    <value>количество оторажаемых последних точек</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.PreloadVideo" xml:space="preserve">
+    <value>Прелоад, мин</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.QueueVolume" xml:space="preserve">
+    <value>Очередь сообщений</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Label.QueueVolume.Hint" xml:space="preserve">
+    <value>Размер сообшений, сохраняемых в консоле</value>
+  </data>
+  <data name="Widget.CreateOrEdit.Fieldset.SvgSchemeConfig" xml:space="preserve">
+    <value>Конфигурация SVG схемы</value>
+  </data>
+  <data name="Widget.AdjustLiveScheme.BeforeSaveHint" xml:space="preserve">
+    <value>Сохраните виджет, прежде чем продолжить</value>
+  </data>
+  <data name="Widgets.SvgScheme.Upload.Success" xml:space="preserve">
+    <value>Svg схема для виджета {0} успешно обновлена.</value>
+  </data>
+  <data name="Exception.Rpc.Demo" xml:space="preserve">
+    <value>Это демо аккаунт. Демо пользователь не может изменять данные.</value>
+  </data>
+</root>

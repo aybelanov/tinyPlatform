@@ -1,0 +1,219 @@
+﻿<AuthorizeView Roles="@UserDefaults.TelemetryAdminRoles">
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p>@Hint</p>
+      }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@((MouseEventArgs args) => { Navigation.NavigateTo("configuration/monitor/create"); })" Disabled=isLoading />
+            <RadzenButton Click=@(async args => await OnUpdate()) Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mr-3" Disabled=@isLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="MonitorModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" ExpandMode="DataGridExpandMode.Single" >
+
+         <Template Context="item">
+            <RadzenAccordion Multiple=true class="table-content">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Monitors.MonitorMappingTable"]" Icon="&#xeaf5" class="py-1" Style="cursor: pointer">
+                     <PresentationTable MonitorId="item.Id" Hint="@T["Table.Presentations.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Monitors.UserMapping"]" Icon="&#xea21" class="py-1" Style="cursor: pointer">
+                     <MonitorUserTable MonitorId="@item.Id" Hint="@T["Table.Monitors.UserMapping.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+         </Template>
+
+         <Columns>
+            <RadzenDataGridColumn @ref=idColumn TItem="MonitorModel" Property="Id" Filterable=true Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center" Resizable=false Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) />
+            <RadzenDataGridColumn TItem="MonitorModel" Filterable="false" Sortable="false" Width="60px" Title="@T["DataGrid.Show"]" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="monitor" title="@T["DataGrid.Show"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@((MouseEventArgs args) => Navigation.NavigateTo($"monitor/{item.Id}"))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="MonitorModel" @ref=nameColumn Property="Name" Title=@T["DataGrid.Column.MonitorName"] MinWidth="180px" Frozen=true TextAlign="TextAlign.Start">
+               <Template Context="item">
+                  <RadzenLink Path=@($"configuration/monitor/edit/{item.Id}") Text="@item.Name" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="MonitorModel" @ref=ownerNameColumn Property="OwnerName" Filterable=true Title=@T["DataGrid.Column.Owner"] Width="220px" TextAlign="TextAlign.Center" Resizable=true Visible=@(!UserId.HasValue && AdminService.IsAdminMode(context)) />
+            <RadzenDataGridColumn TItem="MonitorModel" @ref=showInMenuColumn Property="ShowInMenu" Filterable="true" Sortable="false" Title=@T["DataGrid.Column.ShowInMenu"] Width="100px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenCheckBox TValue="bool" @bind-Value=@item.ShowInMenu Change="@(async(bool args)=> await OnChangeEnableAsync(item))" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="MonitorModel" @ref=displayOrderColumn Property="DisplayOrder" Filterable="false" Title=@T["DataGrid.Column.DisplayOrder"] Width="100px" TextAlign="TextAlign.Center" Resizable=false />
+            
+            <RadzenDataGridColumn TItem="MonitorModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@(async () => await OnDeleteItemAsync(item))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+
+   #region Params
+
+   [Parameter] public long? UserId { get; set; }
+   [Parameter] public long? DeviceId { get; set; }
+   [Parameter] public long? SensorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   #endregion
+
+   #region fields & services
+
+   [Inject] MenuService MenuService { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] PermissionService AdminService { get; set; }
+
+   IFilterableList<MonitorModel> Model;
+   DynamicFilter filter = new();
+
+   RadzenDataGrid<MonitorModel> grid;
+   RadzenDataGridColumn<MonitorModel> idColumn;
+   RadzenDataGridColumn<MonitorModel> nameColumn;
+   RadzenDataGridColumn<MonitorModel> ownerNameColumn;
+   RadzenDataGridColumn<MonitorModel> showInMenuColumn;
+   RadzenDataGridColumn<MonitorModel> displayOrderColumn;
+
+   bool isLoading;
+
+   #endregion
+
+   #region Methods
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+      PrepareFilter(args);
+      await Task.Yield();
+
+      try
+      {
+         Model = await PrepareMonitorsModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   protected async Task OnDeleteItemAsync(MonitorModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Monitor.Delete.Confirm.Message"], item.Name), T["Monitor.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            isLoading = true;
+            await MonitorService.DeleteAsync(item);
+            await grid.Reload();
+
+            MenuService.OnMonitorMenuHasChanged(this, new() { Monitors = [item], Category = "own" });
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Monitor.Delete.Success"], item.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Monitor.Delete.Error"], item.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+
+   protected async Task OnChangeEnableAsync(MonitorModel item)
+   {
+      try
+      {
+         isLoading = true;
+         await MonitorService.UpdateAsync(item);
+         MenuService.OnMonitorMenuHasChanged(this, new() { Monitors = [item], Category = "own" });
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Monitor.Update.Success"], item.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, String.Format(T["Monitor.Update.Error"], item.Name));
+         await OnUpdate();
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnUpdate()
+   {
+      isLoading = true;
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Monitor>.ByDynamicFilterPrefix, "all");
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Monitor>.ByDynamicFilterPrefix, "own");
+      await grid.Reload();
+      isLoading = false;
+   }
+
+   #endregion
+
+   #region Utilities
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.UserId = UserId;
+      filter.DeviceId = DeviceId;
+      filter.SensorId = SensorId;
+      filter.WidgetId = WidgetId;
+
+      filter = Auto.Mapper.Map(args, filter);
+
+      filter.Filter = new List<RadzenDataGridColumn<MonitorModel>>() { idColumn, nameColumn, showInMenuColumn, displayOrderColumn }.ToFilterString();
+
+      var nameColumnFilter = new List<RadzenDataGridColumn<MonitorModel>>() { nameColumn }.ToFilterString();
+      if(!filter.AdditionalQueries.TryAdd("LocalizedProperty", nameColumnFilter))
+         filter.AdditionalQueries["LocalizedProperty"] = nameColumnFilter;
+
+      if (ownerNameColumn != null)
+      {
+         var ownerColumnFilter = new List<RadzenDataGridColumn<MonitorModel>>() { ownerNameColumn }.ToFilterString();
+         if (!filter.AdditionalQueries.TryAdd("User", ownerColumnFilter))
+            filter.AdditionalQueries["User"] = ownerColumnFilter;
+      }
+   }
+
+   #endregion
+}

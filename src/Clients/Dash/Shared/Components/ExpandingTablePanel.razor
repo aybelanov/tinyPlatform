@@ -1,0 +1,20 @@
+﻿<RadzenPanel AllowCollapse=true Collapsed=@(!Expanded) Icon="@Icon" class="mb-2" Expand="@(()=> Expanded = true)" Collapse="@(()=> Expanded = false)">
+   <HeaderTemplate>
+      <h4 class="mb-0">@Title</h4>
+   </HeaderTemplate>
+   <ChildContent>
+      @if (Expanded)
+      {
+         <p>@Hint</p>
+         @ChildContent
+      }
+   </ChildContent>
+</RadzenPanel>
+
+@code {
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+   [Parameter] public string Icon { get; set; }
+   [Parameter] public bool Expanded { get; set; }
+   [Parameter] public RenderFragment ChildContent { get; set; }
+}

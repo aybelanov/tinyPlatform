@@ -1,0 +1,13 @@
+﻿@inject NavigationManager Navigation
+
+@code {
+   protected override void OnInitialized()
+   {
+      var returnUrl = Navigation.Uri;
+
+      if (returnUrl.EndsWith("/dashboard"))
+         returnUrl += "/";
+
+      Navigation.NavigateToLogin($"authentication/login?returnUrl={Uri.EscapeDataString(returnUrl)}");
+   }
+}

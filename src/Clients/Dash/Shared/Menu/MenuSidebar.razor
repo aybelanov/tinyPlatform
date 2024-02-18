@@ -1,0 +1,94 @@
+﻿<AuthorizeView>
+   <Authorized>
+      <RadzenSidebar @bind-Expanded=@SidebarExpanded>
+         <ChildContent>
+            <div style="padding: 1rem">
+               <RadzenTextBox Placeholder=@T["Sidebar.Menu.Search.Placeholder"] type="search" @oninput="@FilterPanelMenu" style="width: 100%" Disabled=false />
+            </div>
+            <RadzenPanelMenu Match="NavLinkMatch.All" Click="@PanelMenuClick">
+
+               @if (IsFinding && CategoriesForFinding is not null)
+               {
+                  @foreach (var category in CategoriesForFinding)
+                  {
+                     <NavigationItem @bind-Expanded=@category.Expanded Category=@category>
+
+                        @if (category.Children != null)
+                        {
+                           @foreach (var example in category.Children)
+                           {
+                              if (example.Children != null)
+                              {
+                                 <NavigationItem @bind-Expanded=@example.Expanded Category=@example>
+
+                                    @foreach (var child in example.Children)
+                                    {
+                                       <NavigationItem @bind-Expanded=@child.Expanded Category=@child />
+                                    }
+
+                                 </NavigationItem>
+                              }
+                              else
+                              {
+                                 <NavigationItem @bind-Expanded=@example.Expanded Category=@example />
+                              }
+                           }
+                        }
+                     </NavigationItem>
+                  }
+               }
+               else
+               {
+                  <OverViewMenuItems />
+                  <ConfigMenuItem />
+                  <ReportsMenuItems />
+                  <OwnMonitorMenuItems />
+                  <SharedMonitorMenuItems />
+               }
+            </RadzenPanelMenu>
+         </ChildContent>
+      </RadzenSidebar>
+   </Authorized>
+</AuthorizeView>
+
+
+@code {
+   [Inject] private MenuService MenuService { get; set; }
+   [Inject] private IJSRuntime JS { get; set; }
+
+   [Parameter] public bool SidebarExpanded { get; set; }
+   bool IsFinding { get; set; } = false;
+
+   IEnumerable<CategoryMenuModel> CategoriesForFinding { get; set; }
+
+   async Task FilterPanelMenu(ChangeEventArgs args)
+   {
+      var term = args.Value.ToString();
+
+      if (string.IsNullOrEmpty(term))
+      {
+         IsFinding = false;
+         CategoriesForFinding = null;
+      }
+      else
+      {
+         IsFinding = true;
+         CategoriesForFinding = await MenuService.FilterAsync(term);
+      }
+
+      //CategoriesForFinding = (string.IsNullOrEmpty(term) ? await _menuService.GetAllCategoriesForFilters() : await _menuService.FilterAsync(term)).ToList();
+   }
+
+   protected override void OnAfterRender(bool firstRender)
+   {
+      base.OnAfterRender(firstRender);
+   }
+
+   async Task PanelMenuClick(MenuItemEventArgs args)
+   {
+      if (args.Path == "/")
+      {
+         await JS.InvokeVoidAsync("document.location.reload");
+      }
+   }
+}

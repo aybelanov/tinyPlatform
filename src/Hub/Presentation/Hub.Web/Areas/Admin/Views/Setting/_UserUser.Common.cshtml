@@ -1,0 +1,54 @@
+﻿@using Hub.Core.Domain.Users
+@using Hub.Services
+@model UserUserSettingsModel
+
+
+<div class="card-body">
+   <div id="tour-usersettings-common">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.UserRegistrationType" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="UserSettings.UserRegistrationType" asp-items="@await (((UserRegistrationType)Model.UserSettings.UserRegistrationType).ToSelectListAsync())" />
+            <span asp-validation-for="UserSettings.UserRegistrationType"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.NotifyNewUserRegistration" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.NotifyNewUserRegistration" />
+            <span asp-validation-for="UserSettings.NotifyNewUserRegistration"></span>
+         </div>
+      </div>
+   </div>
+   <div class="form-group row advanced-setting">
+      <div class="col-md-3">
+         <app-label asp-for="DateTimeSettings.AllowUsersToSetTimeZone" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DateTimeSettings.AllowUsersToSetTimeZone" />
+         <span asp-validation-for="DateTimeSettings.AllowUsersToSetTimeZone"></span>
+      </div>
+   </div>
+   <div class="form-group row advanced-setting">
+      <div class="col-md-3">
+         <app-label asp-for="DateTimeSettings.DefaultPlatformTimeZoneId" />
+      </div>
+      <div class="col-md-9">
+         <app-select asp-for="DateTimeSettings.DefaultPlatformTimeZoneId" asp-items="Model.DateTimeSettings.AvailableTimeZones" />
+         <span asp-validation-for="DateTimeSettings.DefaultPlatformTimeZoneId"></span>
+      </div>
+   </div>
+   <div class="form-group row advanced-setting">
+      <div class="col-md-3">
+         <app-label asp-for="ExternalAuthenticationSettings.AllowUsersToRemoveAssociations" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="ExternalAuthenticationSettings.AllowUsersToRemoveAssociations" />
+         <span asp-validation-for="ExternalAuthenticationSettings.AllowUsersToRemoveAssociations"></span>
+      </div>
+   </div>
+</div>

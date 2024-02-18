@@ -1,0 +1,205 @@
+﻿<AuthorizeView Roles="@UserDefaults.TelemetryAdminRoles">
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p>@Hint</p>
+      }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click=@AddButton Disabled=@isLoading />
+            <RadzenButton Click=@(async args => await OnUpdateAsync()) Icon="refresh" ButtonStyle="ButtonStyle.Light" Style="margin-right: 10px;" Disabled=@isLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="SensorModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" AllowMultiColumnSorting=true ExpandMode="DataGridExpandMode.Single">
+
+         <Template Context="item">
+            <RadzenAccordion class="table-content">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Widgets.SensorMapping"]" Icon="&#xe51e" class="py-1" Style="cursor:pointer">
+                     <SensorWidgetsTable SensorId="@item.Id" Hint="@T["Table.Widgets.SensorMapping.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Sensors.MonitorTable"]" Icon="&#xeaf5" class="py-1" Style="cursor:pointer">
+                     <MonitorTable SensorId="item.Id" Hint="@T["Table.Sensors.MonitorTable.Hint"]" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+         </Template>
+
+         <Columns>
+            <RadzenDataGridColumn TItem="SensorModel" @ref=@idColumn Property="Id" Filterable=true Sortable=true Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center" Resizable=false />
+            <RadzenDataGridColumn TItem="SensorModel" Property="PictureUrl" Sortable=false Filterable=false Title=@T["DataGrid.Column.Icon"] Width="70px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenImage Path="@item.PictureUrl" Style="height:50px;" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SensorModel" @ref=@systemNameColumn Property="SystemName" Title=@T["DataGrid.Column.SystemName"] Filterable=true Sortable=true Width="150px" Frozen=true Resizable=true>
+               <Template Context="item">
+                  <RadzenLink Text=@item.SystemName Path=@($"configuration/sensor/edit/{item.Id}") />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SensorModel" @ref=@nameColumn Property="Name" Title=@T["DataGrid.Column.Name"] Filterable=true Sortable=true MinWidth="150px" Frozen=true Resizable=true />
+            @if (ShowDevice)
+            {
+               <RadzenDataGridColumn TItem="SensorModel" @ref=@deviceColumn Property="DeviceSystemName" Title=@T["DataGrid.Column.DeviceName"] Filterable=true Sortable=true Width="150px" Frozen=true Resizable=true>
+                  <Template Context="item">
+                     <RadzenLink Text=@item.DeviceSystemName Path=@($"configuration/device/edit/{item.DeviceId}") />
+                  </Template>
+               </RadzenDataGridColumn>
+            }
+            <RadzenDataGridColumn TItem="SensorModel" @ref=@sensorTypeColumn Property="SensorType" Frozen=false Filterable=true Sortable=true Width="120px" Resizable=false TextAlign="TextAlign.Center" Title=@T["DataGrid.Column.SensorType"] />
+            <RadzenDataGridColumn TItem="SensorModel" @ref=@enabledColumn Property="Enable" Title=@T["DataGrid.Column.Enabled"] Filterable=true Sortable=false Width="100px" Frozen=false Resizable=false TextAlign="TextAlign.Center">
+               <Template Context="item">
+                  <RadzenCheckBox TValue="bool" @bind-Value=@item.Enabled Change="@(async args=> await OnChangeEnableAsync(item))" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SensorModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0" Click="@(async () => await DeleteButton(item))" @onclick:stopPropagation="true" />
+               </Template>
+            </RadzenDataGridColumn>
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+   [Parameter] public long? DeviceId { get; set; }
+   [Parameter] public long? MonitorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+   [Parameter] public Func<Task> AddButton { get; set; }
+   [Parameter] public Func<SensorModel, Task> DeleteButton { get; set; }
+   [Parameter] public bool IsLoading { get; set; }
+   [Parameter] public bool ShowDevice { get; set; }
+
+   [Inject] private ISensorService SensorService { get; set; }
+   [Inject] private IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] private NotificationService NotificationService { get; set; }
+   [Inject] private DialogService DialogService { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+
+   IFilterableList<SensorModel> Model;
+   private DynamicFilter filter = new();
+
+   RadzenDataGrid<SensorModel> grid;
+   RadzenDataGridColumn<SensorModel> idColumn;
+   RadzenDataGridColumn<SensorModel> systemNameColumn;
+   RadzenDataGridColumn<SensorModel> nameColumn;
+   RadzenDataGridColumn<SensorModel> deviceColumn;
+   RadzenDataGridColumn<SensorModel> sensorTypeColumn;
+   RadzenDataGridColumn<SensorModel> enabledColumn;
+
+   bool isLoading;
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+      PrepareFilter(args);
+      await Task.Yield();
+
+      try
+      {
+         Model = await PrepareSensorModelsAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   public async Task OnUpdateAsync()
+   {
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Sensor>.ByDynamicFilterPrefix, "all");
+      isLoading = true;
+      await grid.Reload();
+      isLoading = false;
+   }
+
+
+   async Task OnChangeEnableAsync(SensorModel sensor)
+   {
+      try
+      {
+         isLoading = true;
+         await SensorService.UpdateAsync(sensor);
+         isLoading = false;
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Sensor.Update.Success"], sensor.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, String.Format(T["Sensor.Update.Error"], sensor.Name));
+         await grid.Reload();
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+
+   async Task OnDeleteItemAsync(SensorModel sensor)
+   {
+      var confirm = await DialogService.Confirm(T["Sensor.Delete.Confirm.Message", sensor.Name], T["Sensor.Delete.Confirm.Title"],
+                                new ConfirmOptions() { OkButtonText = T["Yes"], CancelButtonText = T["No"] });
+
+      if (confirm == true)
+      {
+         try
+         {
+            ArgumentOutOfRangeException.ThrowIfLessThan(sensor.Id, 1);
+
+            isLoading = true;
+            await SensorService.DeleteAsync(sensor);
+            await grid.Reload();
+
+            //Model = await PrepareSensorModelsAsync(new() { Query = $"query => query.Where(x => x.DeviceId == {DeviceId})" });
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Sensor.Delete.Success"], sensor.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Sensor.Delete.Error"], sensor.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.DeviceId = DeviceId;
+      filter.MonitorId = MonitorId;
+      filter.WidgetId = WidgetId;
+
+      filter = Auto.Mapper.Map(args, filter);
+
+      var columnCollection = new List<RadzenDataGridColumn<SensorModel>>() { systemNameColumn, nameColumn, sensorTypeColumn, enabledColumn };
+
+      if (idColumn != null)
+         columnCollection.Add(idColumn);
+
+      if (deviceColumn != null)
+         columnCollection.Add(deviceColumn);
+
+      filter.Filter = columnCollection.ToFilterString();
+   }
+}

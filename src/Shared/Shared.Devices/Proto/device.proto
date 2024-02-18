@@ -1,0 +1,91 @@
+﻿// device to server rpc
+
+syntax = "proto3";
+
+//import "google/protobuf/duration.proto";  
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Shared.Devices.Proto";
+
+package devicepackage;
+
+service DeviceCalls {
+  rpc Point2PointStream(stream ClientMsg) returns (stream ServerMsg);
+  rpc SensorDataCall(SensorRecordProtos) returns (google.protobuf.Empty);
+  rpc ConfigurationCall(google.protobuf.Empty) returns (DeviceProto);
+  rpc VideoCall(stream VideoSegmentProto) returns (google.protobuf.Empty);
+}
+
+ message ClientMsg {
+	 google.protobuf.StringValue receiver = 1;
+	 oneof result {
+		 CommonResponse common_response = 2;
+		 CommandResponse command_response = 3;
+	 }
+ }
+
+
+ message ServerMsg {
+	 google.protobuf.StringValue sender = 1;
+	 oneof result {
+		 Command command = 2;
+		 string message = 3;
+	 }
+ }
+
+ message Command {
+	 int32 command_id = 1;
+	 repeated string parameters = 2;
+ }
+
+ message CommonResponse {
+	 google.protobuf.StringValue notification = 1;
+ }
+
+ message CommandResponse {
+	 google.protobuf.StringValue notification = 1;
+ }
+
+message DeviceProto {
+	google.protobuf.StringValue configuration = 1;
+	int32 count_data_rows = 2;
+	int32 data_sending_delay = 3;
+	int32 clear_data_delay = 4;
+	int32 data_packet_size = 5;
+	int32 dataflow_reconnect_delay = 6;
+	int64 modified_ticks = 7;
+	repeated SensorProto sensors = 8;
+}
+
+message SensorProto {
+	int64 id = 1;
+	string system_name = 2;
+	google.protobuf.StringValue configuration = 3;
+	int32 priority_type = 4;
+}
+
+message SensorRecordProto {
+	int64 id = 1;
+	double value = 2;
+	bytes bytes = 3;
+	google.protobuf.StringValue json_value = 4;
+	google.protobuf.StringValue metadata = 5;
+	int64 sensor_id = 6;
+	int64 timestamp = 7;
+	int64 event_timestamp = 8;
+}
+
+message SensorRecordProtos {
+	repeated SensorRecordProto records = 1;
+}
+
+message VideoSegmentProto {
+   bytes bytes = 1;
+   int64 timestamp = 2;
+   double duration = 3;
+   string resolution = 4;
+   string segment_name = 5;
+}

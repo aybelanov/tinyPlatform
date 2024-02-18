@@ -1,0 +1,26 @@
+﻿@model PollModel
+
+@{
+    const string hideInfoBlockAttributeName = "PollPage.HideInfoBlock";
+    var user = await workContext.GetCurrentUserAsync();
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideInfoBlockAttributeName);
+
+    const string hideAnswersBlockAttributeName = "PollPage.HideAnswersBlock";
+    var hideAnswersBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideAnswersBlockAttributeName, defaultValue: true);
+}
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <app-cards id="poll-cards">
+                <app-card asp-name="poll-info" asp-icon="fas fa-info" asp-title="@T("Admin.ContentManagement.Polls.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+                <app-card asp-name="poll-answers" asp-icon="fas fa-commenting" asp-title="@T("Admin.ContentManagement.Polls.Answers")" asp-hide-block-attribute-name="@hideAnswersBlockAttributeName" asp-hide="@hideAnswersBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Answers", Model)</app-card>
+
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.PollDetailsBlock, additionalData = Model })
+            </app-cards>
+        </div>
+    </div>
+</section>

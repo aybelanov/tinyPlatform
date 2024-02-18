@@ -1,0 +1,34 @@
+﻿@page "/configuration/monitors"
+@attribute [Authorize(Roles = UserDefaults.TelemetryAdminRoles)]
+
+<PageTitle>@T["Pages.Configuration.Monitors"]</PageTitle>
+
+<AuthorizeView>
+   <Authorized>
+      @if (AdminService.IsAdminMode(context))
+      {
+         <RadzenCard>
+            <MonitorTable Title="@T["Table.Monitors.All"]" Hint="@T["Table.Monitors.AdminMode"]" />
+         </RadzenCard>
+      }
+      else
+      {
+         <RadzenCard class="mb-5">
+            <MonitorTable Title="@T["Table.Monitors.Own"]" Hint="@T["Table.Monitors.Own.Hint"]" />
+         </RadzenCard>
+         <RadzenCard>
+            <SharedMonitorTable Title="@T["Table.Monitors.Shared"]" Hint="@T["Table.Monitors.Shared.Hint"]" />
+         </RadzenCard>
+      }
+   </Authorized>
+</AuthorizeView>
+
+
+@code {
+
+   [Inject] private PermissionService AdminService { get; set; }
+
+   protected override void OnInitialized() => AdminService.AdminModeChanged += OnAdminModeChanged;
+   private void OnAdminModeChanged(object sender, bool mode) => StateHasChanged();
+   public void Dispose() => AdminService.AdminModeChanged -= OnAdminModeChanged;
+}

@@ -1,0 +1,58 @@
+@model GeneralCommonSettingsModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplayHomepageMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplayHomepageMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplayHomepageMenuItem"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplaySearchMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplaySearchMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplaySearchMenuItem"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplayUserInfoMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplayUserInfoMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplayUserInfoMenuItem"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplayBlogMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplayBlogMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplayBlogMenuItem"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplayForumsMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplayForumsMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplayForumsMenuItem"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="DisplayDefaultMenuItemSettings.DisplayContactUsMenuItem" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="DisplayDefaultMenuItemSettings.DisplayContactUsMenuItem" />
+            <span asp-validation-for="DisplayDefaultMenuItemSettings.DisplayContactUsMenuItem"></span>
+        </div>
+    </div>
+</div>

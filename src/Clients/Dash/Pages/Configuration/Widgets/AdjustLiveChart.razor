@@ -1,0 +1,74 @@
+﻿<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.HistoryPointsCount"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric Name="HistoryPointsCount" ShowUpDown=true @bind-Value=@_adjustment.HistoryPointsCount Disabled=@IsLoading TValue="int" Style="width: 100%; display:block;" />
+      <RadzenNumericRangeValidator Component="HistoryPointsCount" Min="1" Max="120" Text="@T["Validation.RequireRange", 1, 120]" Style="position: absolute" />
+
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MinValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MinValue Name="MinValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MaxValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MaxValue Name="MaxValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.SmothHistoryChart"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenCheckBox @bind-Value=_adjustment.SmothHistoryChart TValue="bool" Name="SmothHistoryChart" Disabled=@IsLoading />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowAsAreachart"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenCheckBox @bind-Value=_adjustment.ShowAsAreachart TValue="bool" Name="ShowAsAreachart" Disabled=@IsLoading />
+   </div>
+</div>
+
+
+@code {
+   [Parameter] public WidgetModel Model { get; set; }
+   [Parameter] public bool IsLoading { get; set; }
+
+   LiveChartAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Model?.Adjustment)
+      ? new LiveChartAdjustment()
+      : JsonSerializer.Deserialize<LiveChartAdjustment>(Model.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   protected override void OnParametersSet()
+   {
+      Model.Adjustment = JsonSerializer.Serialize(_adjustment);
+      base.OnParametersSet();
+   }
+
+   public class LiveChartAdjustment
+   {
+      public int HistoryPointsCount { get; set; }
+      public double MinValue { get; set; }
+      public double MaxValue { get; set; }
+      public bool SmothHistoryChart { get; set; }
+      public bool ShowAsAreachart { get; set; }
+   }
+}

@@ -1,0 +1,25 @@
+﻿@page "/configuration/monitor/create"
+@page "/configuration/monitor/edit/{monitorId:long}"
+@attribute [Authorize]
+
+
+<MonitorForm MonitorId="@MonitorId" />
+@if (MonitorId > 0)
+{
+   <RadzenCard class="mb-4">
+      <PresentationTable MonitorId=@MonitorId Title="@T["Table.Presentations.Title"]" Hint="@T["Table.Presentations.Hint"]" />
+   </RadzenCard>
+
+   <RadzenAccordion Multiple=true class="table-content">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Monitors.UserMapping"]" Icon="&#xea21" class="py-2" Style="cursor: pointer">
+            <MonitorUserTable MonitorId="MonitorId" Hint="@T["Table.Monitors.UserMapping.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+}
+
+
+@code {
+   [Parameter] public long MonitorId { get; set; }
+}

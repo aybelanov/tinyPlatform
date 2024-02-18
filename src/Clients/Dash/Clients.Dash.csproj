@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<!--<UseInterpreter>true</UseInterpreter>-->
+		<!--https://github.com/dotnet/runtime/issues/92238-->
+        <!--<WasmStripILAfterAOT>true</WasmStripILAfterAOT>-->
+		<!--<PublishTrimmed>true</PublishTrimmed>-->
+		<!--<TrimMode>full</TrimMode>-->
+		<!--<StaticWebAssetBasePath>dashboard</StaticWebAssetBasePath>-->
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<UserSecretsId>04f903e5-ed05-4cca-84a1-0d3bd67c69e3</UserSecretsId>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.1" />
+		<PackageReference Include="Radzen.Blazor" Version="4.23.8" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.60.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\Shared.Clients\Shared.Clients.csproj" />
+		<ProjectReference Include="..\Clients.Widgets\Clients.Widgets.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<Content Remove="wwwroot\appsettings.Development.json" />
+		<None Include="wwwroot\appsettings.Development.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+
+</Project>

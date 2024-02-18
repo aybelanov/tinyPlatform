@@ -1,0 +1,40 @@
+﻿@using Clients.Widgets
+@using static Clients.Dash.Pages.Reports.Charts.ChartRequest;
+
+<ComparisonChart @ref=_chart Class="w-100 mb-4" Style="height:400px; margin-top:30px;" EmptyText="@T["ComparisonChart.EmptyText"]" Culture="@CultureInfo.CurrentUICulture.Name[..2]"
+                 Theme="@Defaults.Theme" InitChartText="@T["ComparisonChart.InitText"]" IsLoading=@isLoading />
+
+@code {
+
+   ComparisonChart _chart;
+
+   ComparisonChart.ComprasionChartContext Model;
+   bool isLoading;
+
+   public async Task ClearChart()
+   {
+      await _chart.Clear();
+   }
+
+   public async Task BuildChart(ChartRequestModel request)
+   {
+      isLoading = true;
+      StateHasChanged();
+      await Task.Yield();
+      try
+      {
+         request.ChartWidth = Convert.ToInt32(_chart.Element.GetElementBounds().Width);
+         Model = await PrepareChartSeriesAsync(request);
+         await _chart.Draw(Model);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+         StateHasChanged();
+      }
+   }
+}

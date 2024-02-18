@@ -1,0 +1,146 @@
+﻿@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <RadzenTemplateForm TItem="TrackRequestModel" Data="Model" Submit="@Submit" InvalidSubmit=@InvalidSubmit>
+      <div class="row justify-content-md-center">
+         <div class="col-xl-6" style="min-width:560px;">
+            <RadzenFieldset Text="@T["Reports.Tracker.Request"]">
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Tracker.Device.Label"]" />
+                  </div>
+                  <div class="col-10">
+                     <DeviceDropDown Name="Devices" @bind-Device=@Model.SelectedDevice AllowClear=false Style="width: 100%; display:block;" Placeholder="@T["Select"]"
+                                     Query="query=>query.Where(x=>x.IsMobile)" @bind-IsLoading=@isLoading />
+
+                     <RadzenRequiredValidator Component="Devices" DefaultValue="default(long)" Style="position: absolute" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Tracker.Sensors.Label"]" class="text-end" />
+                  </div>
+                  <div class="col-10">
+                     <SensorDropDown Name="Sensor" Device="@Model.SelectedDevice" @bind-Sensor=@Model.SelectedSensor @bind-IsLoading=@isLoading Style="width: 100%; display:block;"
+                                     Query="query=>query.Where(x=>x.SensorType == SensorType.Spatial)" />
+                     @*<SensorMultiDropDown Name="Sensors" @bind-Sensors=@Model.SelectedSensors Device="@Model.SelectedDevice" Style="width: 100%; display:block;" Clear=true @bind-IsLoading=@isLoading />*@
+                     <RadzenRequiredValidator Component="Sensor" Style="position: absolute" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Tracker.From.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="From" @bind-Value:get=@Model.From @bind-Value:set=@FromChange Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true"
+                                       ShowSeconds=false MinutesStep=1 AllowInput=false Max=@Model.To Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Tracker.To.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="To" @bind-Value:get=@Model.To @bind-Value:set="@ToChange" Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true" ShowSeconds=false
+                                       AllowInput=false MinutesStep=1 Min=Model.From.AddDays(-1) Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+            </RadzenFieldset>
+         </div>
+      </div>
+      <div class="col-12 mt-3 mb-4 d-flex align-items-end justify-content-center text-truncate">
+         <RadzenButton ButtonType="ButtonType.Submit" Text=@T["Button.Show"] ButtonStyle="ButtonStyle.Primary" Icon="route" Disabled=@isLoading />
+      </div>
+   </RadzenTemplateForm>
+}
+
+@code {
+   [Parameter] public Func<TrackRequestModel, Task> Changed { get; set; }
+   [Parameter] public bool IsLoading { get; set; }
+   [Parameter] public EventCallback<bool> IsLoadingChanged { get; set; }
+
+   [Inject] IStaticCacheManager CacheManager { get; set; }
+
+   TrackRequestModel Model;
+   IEnumerable<SensorSelectItem> defaultValue = new List<SensorSelectItem>();
+   bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareFileRequestModelAsync();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex);
+      }
+   }
+
+   async Task Submit(TrackRequestModel model)
+   {
+      if (Changed != null)
+      {
+         isLoading = true;
+         await Changed(model);
+         isLoading = false;
+      }
+   }
+
+   void FromChange(DateTime from)
+   {
+      Model.From = from.AddMinutes(2) >= Model.To ? Model.To.AddMinutes(-1) : from;
+   }
+
+   void ToChange(DateTime to)
+   {
+      Model.To = to <= Model.From ? Model.From.AddMinutes(1) : to;
+   }
+
+   async Task InvalidSubmit(FormInvalidSubmitEventArgs args)
+   {
+      await Task.CompletedTask;
+   }
+
+   async Task<TrackRequestModel> PrepareFileRequestModelAsync()
+   {
+      var now = DateTime.UtcNow;
+      var model = new TrackRequestModel();
+      model.To = ClientHelper.ConvertUtcToBrowserTime(now);
+      model.From = model.To.AddDays(-1);
+
+      return await Task.FromResult(model);
+   }
+
+   #region nested Classes
+
+   /// <summary>
+   /// Dowloadt report data file request model
+   /// </summary>
+   public record TrackRequestModel
+   {
+      /// <summary>
+      /// Date time "from"
+      /// </summary>
+      public DateTime From { get; set; }
+
+      /// <summary>
+      /// Date time "to"
+      /// </summary>
+      public DateTime To { get; set; }
+
+      /// <summary>
+      /// Selected device
+      /// </summary>
+      public DeviceSelectItem SelectedDevice { get; set; }
+
+      /// <summary>
+      /// Selected sensors
+      /// </summary>
+      public SensorSelectItem SelectedSensor { get; set; }
+   }
+
+   #endregion
+}

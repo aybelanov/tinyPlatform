@@ -1,0 +1,125 @@
+﻿@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <RadzenTemplateForm TItem="DownloadRequestModel" Data="Model" Submit="@Submit" InvalidSubmit=@InvalidSubmit>
+      <div class="row justify-content-md-center">
+         <div class="col-xl-6 col-lg-8" style="min-width:560px;">
+            <RadzenFieldset Text="@T["Reports.DownloadTask.Request"]">
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["DownloadTask.Request.Device.Label"]" />
+                  </div>
+                  <div class="col-10">
+                     <DeviceDropDown Name="Devices" @bind-Device=@Model.SelectedDevice AllowClear=false Style="width: 100%; display:block;" Placeholder="@T["Select"]" @bind-IsLoading=@isLoading />
+                     <RadzenRequiredValidator Component="Devices" DefaultValue="default(long)" Style="position: absolute" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["DownloadTask.Request.Sensors.Label"]" class="text-end" />
+                  </div>
+                  <div class="col-10">
+                     <SensorMultiDropDown Name="Sensors" @bind-Sensors=@Model.SelectedSensors Device="@Model.SelectedDevice" Style="width: 100%; display:block;" Clear=true @bind-IsLoading=@isLoading />
+                     <RadzenRequiredValidator Component="Sensors" DefaultValue="defaultValue" Style="position: absolute" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.From.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="From" @bind-Value:get=@Model.From @bind-Value:set=@FromChange Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true"
+                                       ShowSeconds=false MinutesStep=1 AllowInput=false Max=@Model.To Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.To.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="To" @bind-Value:get=@Model.To @bind-Value:set="@ToChange" Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true" ShowSeconds=false
+                                       AllowInput=false MinutesStep=1 Min=Model.From.AddDays(-1) Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+               <div class="row mb-2 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["DownloadTask.Request.FileFormat.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDropDown Name="FileFormat" TValue="int" AllowFiltering="false" @bind-Value=@Model.FormatId
+                                     Data=@Model.AvailableFormats TextProperty="Value" ValueProperty="Key" Placeholder=@T["Select"] Disabled=@isLoading
+                                     Style="width: 100%; display:block;" />
+
+                     <RadzenRequiredValidator Component="FileFormat" DefaultValue="default(int)" Style="position: absolute" />
+                  </div>
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["DownloadTask.Request.Compression.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDropDown Name="Compression" TValue="int" AllowFiltering="false" SelectedItem="@(Model.AvailableCompressions.ToArray()[0])"
+                     @bind-Value=@Model.CompressionId Data=@Model.AvailableCompressions Count=@Model.AvailableCompressions.Count TextProperty="Value"
+                                     ValueProperty="Key" Placeholder=@T["Select"] Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+            </RadzenFieldset>
+         </div>
+      </div>
+      <div class="col-12 mt-3 mb-4 d-flex align-items-end justify-content-center text-truncate">
+         <RadzenButton ButtonType="ButtonType.Submit" Text=@T["Button.Get"] ButtonStyle="ButtonStyle.Primary" Icon="bar_chart" Disabled=@isLoading />
+      </div>
+   </RadzenTemplateForm>
+}
+
+@code {
+   [Parameter] public Func<DownloadRequestModel, Task> AddDownloadTask { get; set; }
+
+   DownloadRequestModel Model;
+   IEnumerable<SensorSelectItem> defaultValue = new List<SensorSelectItem>();
+   bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareFileRequestModelAsync();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex);
+      }
+   }
+
+   async Task Submit(DownloadRequestModel model)
+   {
+      isLoading = true; 
+      try
+      {
+         if (AddDownloadTask is not null)
+         {
+            await AddDownloadTask(model);
+         }
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   void FromChange(DateTime from)
+   {
+      Model.From = from.AddMinutes(2) >= Model.To ? Model.To.AddMinutes(-1) : from;
+   }
+
+   void ToChange(DateTime to)
+   {
+      Model.To = to <= Model.From ? Model.From.AddMinutes(1) : to;
+   }
+
+
+   async Task InvalidSubmit(FormInvalidSubmitEventArgs args)
+   {
+      await Task.CompletedTask;
+   }
+}

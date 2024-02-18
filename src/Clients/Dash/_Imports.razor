@@ -1,0 +1,63 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using AutoMapper
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.Extensions.Logging;
+@using Microsoft.JSInterop
+@using System.Runtime.InteropServices.JavaScript
+@using Clients.Dash.Shared
+@using global::Shared.Common
+@using global::Shared.Clients
+@using global::Shared.Clients.Configuration
+@using global::Shared.Clients.Domain
+@using global::Shared.Clients.SignalR
+@using Clients.Dash
+@using Clients.Dash.Infrastructure
+@using Clients.Dash.Configuration;
+@using Clients.Dash.Services
+@using Clients.Dash.Services.EntityServices
+@using Clients.Dash.Services.Authentication
+@using Clients.Dash.Services.Configuration
+@using Clients.Dash.Services.Connection
+@using Clients.Dash.Services.UI
+@using Clients.Dash.Services.Helpers;
+@using Clients.Dash.Services.Validation
+@using Clients.Dash.Services.Localization
+@using Clients.Dash.Services.ErrorServices
+@using Clients.Dash.Services.Security;
+@using Clients.Dash.Models
+@using Clients.Dash.Domain
+@using Clients.Dash.Shared.Account
+@using Clients.Dash.Shared.Menu
+@using Clients.Dash.Shared.Widgets
+@using Clients.Dash.Shared.Personalization
+@using Clients.Dash.Shared.Socials
+@using Clients.Dash.Shared.Components
+@using Clients.Dash.Shared.Communication
+@using Clients.Dash.Caching
+@using Clients.Dash.Pages.Configuration.Users
+@using Clients.Dash.Pages.Configuration.Devices
+@using Clients.Dash.Pages.Configuration.Sensors
+@using Clients.Dash.Pages.Configuration.Widgets
+@using Clients.Dash.Pages.Configuration.Monitors
+@using Clients.Widgets
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.SignalR.Client
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
+
+
+@inject Localizer T
+@inject ErrorService ErrorService

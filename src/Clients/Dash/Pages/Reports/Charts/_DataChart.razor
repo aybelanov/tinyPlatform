@@ -1,0 +1,65 @@
+﻿@page "/reports/charts"
+@using static Clients.Dash.Pages.Reports.Charts.ChartRequest;
+@attribute [Authorize(Roles ="Administrators, Owners")]
+@implements IDisposable
+
+<RadzenCard style="min-width:560px;">
+   <h3>@T["Charts.PageTitle"]</h3>
+   <p class="mb-4">*<i>@T["Charts.PageHint"]</i></p>
+   @if (isAdminMode == null)
+   {
+      <LoadingStub />
+   }
+   else if (isAdminMode.Value)
+   {
+      <ChartRequest BuildChart="BuildChart" ClearChart="ClearChart" />
+      <Chart @ref=@chart />
+   }
+   else
+   {
+      <ChartRequest BuildChart="BuildChart" ClearChart="ClearChart" />
+      <Chart @ref=@chart />
+   }
+</RadzenCard>
+
+@code {
+
+   [Inject] PermissionService PermissionService { get; set; }
+
+   Chart chart;
+   bool? isAdminMode;
+
+   protected override void OnInitialized()
+   {
+      PermissionService.AdminModeChanged += OnAdminModeChanged;
+   }
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      isAdminMode = await PermissionService.IsAdminModeAsync();
+   }
+
+   async Task BuildChart(ChartRequestModel request)
+   {
+      if (chart != null)
+         await chart.BuildChart(request);
+   }
+
+   async Task ClearChart()
+   {
+      chart?.ClearChart();
+      await Task.CompletedTask;
+   }
+
+   private void OnAdminModeChanged(object sender, bool mode)
+   {
+      isAdminMode = mode;
+      StateHasChanged();
+   }
+
+   public void Dispose()
+   {
+      PermissionService.AdminModeChanged -= OnAdminModeChanged;
+   }
+}

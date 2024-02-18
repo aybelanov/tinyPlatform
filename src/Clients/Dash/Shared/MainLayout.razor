@@ -1,0 +1,57 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="@UserDefaults.TelemetryRoles">
+   <Authorized>
+      <RadzenDialog />
+      <RadzenNotification />
+      <RadzenTooltip />
+      <RadzenContextMenu />
+      <ConnectionStatus />
+      <RadzenLayout>
+         <RadzenHeader>
+            <div class="row justify-content-start align-items-center">
+               <div class="col-5 d-flex align-items-center">
+                  <RadzenSidebarToggle Click="@(args => { sidebarExpanded = !sidebarExpanded; bodyExpanded = !bodyExpanded; })" />
+                  <LogoTitle />
+               </div>
+               <div class="col-7 d-flex align-items-center justify-content-end" style="white-space:nowrap">                  
+                  <LoginDisplay />
+                  <CultureSelector />
+                  <ThemeSelector />
+                  <CommonMenu />
+               </div>
+            </div>
+            <CommunicationProgressBar />
+         </RadzenHeader>
+         <RadzenBody @bind-Expanded="@bodyExpanded" Style="padding-bottom:0px;">
+            <ChildContent>
+               <div class="page-content">
+                  <RadzenContentContainer Name="main">
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-12 py-3 px-0 px-lg-1">
+                              @Body
+                           </div>
+                        </div>
+                     </div>
+                  </RadzenContentContainer>
+                  <div class="push-footer"></div>
+               </div>
+               <div class="footer-content">
+                  <TinyCopyright />
+               </div>
+            </ChildContent>
+         </RadzenBody>
+         <MenuSidebar SidebarExpanded="sidebarExpanded" />
+      </RadzenLayout>
+   </Authorized>
+   <NotAuthorized>
+      <RedirectToLogin />
+   </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+   bool sidebarExpanded = true;
+   bool bodyExpanded = true;
+}

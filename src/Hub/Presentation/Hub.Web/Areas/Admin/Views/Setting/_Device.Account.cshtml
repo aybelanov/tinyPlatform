@@ -1,0 +1,35 @@
+﻿@using Hub.Services;
+@using Hub.Core.Domain.Clients;
+@model DeviceSettingsModel
+
+<div class="card-body">
+   <div id="tour-devicesettings-account">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="SystemNameMinLength" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="SystemNameMinLength" />
+            <span asp-validation-for="SystemNameMinLength"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="DeviceRegistrationType" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="DeviceRegistrationType" asp-items="@(await (((DeviceRegistrationType)Model.DefaultPasswordFormat).ToSelectListAsync()))" />
+            <span asp-validation-for="DeviceRegistrationType"></span>
+         </div>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="CheckSystemNameAvailabilityEnabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="CheckSystemNameAvailabilityEnabled" />
+         <span asp-validation-for="CheckSystemNameAvailabilityEnabled"></span>
+      </div>
+   </div>
+</div>

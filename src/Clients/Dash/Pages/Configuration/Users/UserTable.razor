@@ -1,0 +1,218 @@
+﻿<AuthorizeView Roles="@UserDefaults.AdministratorsRoleName">
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p>@Hint</p>
+      }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            @if (AddClick != null)
+            {
+               <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@AddClick" Disabled=@isLoading />
+            }
+            <RadzenButton Click=@OnUpdate Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mr-3" Disabled=@isLoading />
+            <span class="mr-1">@T["OnlineStatus.Online"]:</span>
+            <RadzenCheckBox @bind-Value=isOnline Change=@(async (bool args) => await OnUpdate()) class="mr-3" Disabled=@isLoading />
+            <span class="mr-1">@T["OnlineStatus.BeenRecently"]:</span>
+            <RadzenCheckBox @bind-Value=isBeenRecently Change=@(async (bool args) => await OnUpdate()) class="mr-3" Disabled=@isLoading />
+            <span class="mr-1">@T["OnlineStatus.Offline"]:</span>
+            <RadzenCheckBox @bind-Value=isOffline Change=@(async (bool args) => await OnUpdate())  Disabled=@isLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="UserModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" ExpandMode="DataGridExpandMode.Single" ShowExpandColumn=@(PermissionService.IsAdminMode(context))>
+
+         <Template Context="item">
+            <RadzenAccordion Multiple=true class="table-content">
+                <Items>
+                  <RadzenAccordionItem Text="@T["Table.Users.DeviceTable"]" Icon="&#xe328" class="py-1" Style="cursor:pointer;" >
+                     <DevicesTable UserId="item.Id" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Users.SharedDeviceTable"]" Icon="&#xe328" class="py-1" Style="cursor:pointer;">
+                     <SharedDeviceTable UserId="item.Id" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Users.MonitorTable"]" Icon="&#xeb97" class="py-1" Style="cursor:pointer;">
+                     <MonitorTable UserId="item.Id" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.Users.SharedMonitorTable"]" Icon="&#xeb97" class="py-1" Style="cursor:pointer;">
+                     <SharedMonitorTable UserId="item.Id" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+            <RadzenAccordion Multiple=true class="table-content mt-2">
+               <Items>
+                  <RadzenAccordionItem Text="@T["Table.UserActivity.Title"]" Icon="&#xe241" class="py-1" Style="cursor:pointer;">
+                     <UserActivityTable UserId="item.Id" />
+                  </RadzenAccordionItem>
+               </Items>
+            </RadzenAccordion>
+         </Template>
+
+         <Columns>
+            <RadzenDataGridColumn @ref=@idColumn TItem="UserModel" Property="Id" Filterable=true Title=@T["DataGrid.Column.Id"] MinWidth="80px" Width="80px" TextAlign="TextAlign.Center" Resizable=false Visible=(PermissionService.IsAdminMode(context)) />
+            <RadzenDataGridColumn TItem="UserModel" Property="AvatarUrl" Sortable=false Filterable=false Title=@T["DataGrid.Column.Avatar"] Width="90px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenImage Path="@item.AvatarUrl"  Style="height:75px;"/>
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=@usernameColumn TItem="UserModel" Property="Username" Filterable=true Title=@T["DataGrid.Column.Name"] MinWidth="150px" TextAlign="TextAlign.Start">
+               <Template Context="item">
+                  @if (context.User.IsInRole(UserDefaults.AdministratorsRoleName))
+                  {
+                     <RadzenLink class="external" Path=@($"{Singleton<ServerConfig>.Instance.HubHost}/Admin/User/Edit/{item.Id}") Target="_balnk">@item.Username</RadzenLink>
+                  }
+                  else
+                  {
+                     @item.Username
+                  }
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="UserModel" Property="OnlineStatus" Filterable=false Sortable=false Title=@T["DataGrid.Column.OnlineStatus"] Width="120px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  @{ var style = Helper.GetBadgeStatus(item.OnlineStatus); }
+                  <RadzenBadge BadgeStyle=@style.Item1 Shade=Shade.Lighter Text=@style.Item2 class="d-inline-block position-relative" Style="top:-1px;" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=@activityColumn TItem="UserModel" Property="LastActivityUtc" Filterable=true Sortable=true Title=@T["DataGrid.Column.LastActivity"] Width="150px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  @item.LastActivityUtc.ToLocalTime()
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="UserModel" Property="IsActive" Filterable=false Title=@T["DataGrid.Column.IsActive"] Width="90px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenCheckBox ReadOnly=true Value="@item.IsActive" Disabled=true />
+               </Template>
+            </RadzenDataGridColumn>
+            @if (DeleteClick != null)
+            {
+               <RadzenDataGridColumn TItem="UserModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false Groupable=false>
+                  <Template Context="item">
+                     <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="@(async () => await DeleteClick(item))" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" class="m-0" @onclick:stopPropagation="true">
+                     </RadzenButton>
+                  </Template>
+               </RadzenDataGridColumn>
+            }
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+
+   [Parameter] public long? DeviceId { get; set; }
+   [Parameter] public long? MonitorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public string Hint { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public Func<Task> AddClick { get; set; }
+   [Parameter] public Func<UserModel, Task> DeleteClick { get; set; }
+
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] PermissionService PermissionService { get; set; }
+   [Inject] IHelperService Helper { get; set; }
+
+   private IFilterableList<UserModel> Model;
+   private RadzenDataGrid<UserModel> grid;
+   private RadzenDataGridColumn<UserModel> idColumn;
+   private RadzenDataGridColumn<UserModel> usernameColumn;
+   private RadzenDataGridColumn<UserModel> activityColumn;
+
+   private DynamicFilter filter = new();
+   bool isLoading = false;
+
+
+   Dictionary<long, Dictionary<string, bool>> panelStates = new();
+   bool isOnline = true;
+   bool isBeenRecently = true;
+   bool isOffline = true;
+
+   #region Methods
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+
+      filter.DeviceId = DeviceId;
+      filter.MonitorId = MonitorId;
+      filter.WidgetId = WidgetId;
+      filter.ConnectionStatuses = GetConnectionStatuses();
+
+      PrepareFilter(args);
+
+      await Task.Yield();
+
+      try
+      {
+         Model = await PrepareUserModelsAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   public async Task OnUpdate()
+   {
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<User>.Prefix);
+      isLoading = true;
+      await grid.Reload();
+      isLoading = false;
+   }
+
+   #endregion
+
+   #region Utilities
+
+   private IEnumerable<OnlineStatus> GetConnectionStatuses()
+   {
+      var statuses = new List<OnlineStatus>();
+      if (isOnline) statuses.Add(OnlineStatus.Online);
+      if (isBeenRecently) statuses.Add(OnlineStatus.BeenRecently);
+      if (isOffline) statuses.Add(OnlineStatus.Offline);
+
+      return statuses;
+   }
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter = Auto.Mapper.Map(args, filter);
+
+      var columnList = new List<RadzenDataGridColumn<UserModel>>() { activityColumn, usernameColumn };
+
+      if (idColumn != null)
+         columnList.Add(idColumn);
+
+      filter.Filter = columnList.ToDynamicQuery();
+
+      // if (usernameColumn != null)
+      // {
+      //    var ownerNameColumnFilter = new List<RadzenDataGridColumn<UserModel>>() { usernameColumn }.ToDynamicQuery();
+      //    if (!filter.AdditionalQueries.TryAdd("User", ownerNameColumnFilter))
+      //       filter.AdditionalQueries["User"] = ownerNameColumnFilter;
+      // }
+   }
+
+   #endregion
+}

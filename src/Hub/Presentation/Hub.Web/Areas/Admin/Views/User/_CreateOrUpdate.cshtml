@@ -1,0 +1,61 @@
+﻿@using Hub.Core.Domain.Users
+@using Hub.Services.Users
+@model UserModel
+@inject IUserService userService
+
+
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+@{
+   const string hideInfoBlockAttributeName = "UserPage.HideInfoBlock";
+   var subject = await workContext.GetCurrentUserAsync();
+   var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideInfoBlockAttributeName);
+
+   const string hideOwnDevicesBlockAttributeName = "UserPage.HideOwnDeviceBlock";
+   var hideOwnDevicesBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideOwnDevicesBlockAttributeName);
+
+   const string hideSummaryBlockAttributeName = "UserPage.HideSummaryBlock";
+   var hideSummaryBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideSummaryBlockAttributeName);
+
+   const string hideStatisticsBlockAttributeName = "UserPage.HideStatisticBlock";
+   var hideStatisticsBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideStatisticsBlockAttributeName);
+
+   const string hideSharedDeviceBlockAttributeName = "UserPage.HideSharedDeviceBlock";
+   var hideSharedDeviceBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideSharedDeviceBlockAttributeName, defaultValue: false);
+
+   const string hideAddressesBlockAttributeName = "UserPage.HideAddressesBlock";
+   var hideAddressesBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideAddressesBlockAttributeName);
+
+   const string hideActivityLogBlockAttributeName = "UserPage.HideActivityLogBlock";
+   var hideActivityLogBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideActivityLogBlockAttributeName);
+
+   const string hideImpersonateAttributeName = "UserPage.ImpersonateBlock";
+   var hideImpersonateBlock = await genericAttributeService.GetAttributeAsync<bool>(subject, hideImpersonateAttributeName, defaultValue: true);
+}
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="form-horizontal">
+         <app-cards id="user-cards">
+            <app-card asp-name="user-info" asp-icon="fas fa-info" asp-title="@T("Admin.Users.Users.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+            @if (Model.Id > 0)
+            {
+               var user = await userService.GetUserByIdAsync(Model.Id);
+               if (user is not null && await userService.IsRegisteredAsync(user))
+               {
+                  <app-card asp-name="user-state" asp-icon="fa fa-network-wired" asp-title="@T("Admin.Users.Users.Summary")" asp-hide-block-attribute-name="@hideSummaryBlockAttributeName" asp-hide="@hideSummaryBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Summary", Model.UserStatisticsModel)</app-card>
+                  @await Html.PartialAsync("_CreateOrUpdate.DataRecords", Model)
+                  <app-card asp-name="user-owndevices" asp-icon="far fa-server" asp-title="@T("Admin.Users.Users.OwnDevices")" asp-hide-block-attribute-name="@hideOwnDevicesBlockAttributeName" asp-hide="@hideOwnDevicesBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.OwnDevices", Model)</app-card>
+                  <app-card asp-name="user-shareddevices" asp-icon="fa fa-share-alt-square" asp-title="@T("Admin.Users.Users.SharedDevices")" asp-hide-block-attribute-name="@hideSharedDeviceBlockAttributeName" asp-hide="@hideSharedDeviceBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.SharedDevices", Model)</app-card>
+                  <app-card asp-name="user-address" asp-icon="far fa-address-book" asp-title="@T("Admin.Users.Users.Addresses")" asp-hide-block-attribute-name="@hideAddressesBlockAttributeName" asp-hide="@hideAddressesBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Addresses", Model)</app-card>
+               }
+               <app-card asp-name="user-activitylog" asp-icon="fas fa-list-alt" asp-title="@T("Admin.Users.Users.ActivityLog")" asp-hide-block-attribute-name="@hideActivityLogBlockAttributeName" asp-hide="@hideActivityLogBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.ActivityLog", Model)</app-card>
+               @*<app-card asp-name="user-impersonate" asp-icon="fas fa-user-circle-o" asp-title="@T("Admin.Users.Users.Impersonate")" asp-hide-block-attribute-name="@hideImpersonateAttributeName" asp-hide="@hideImpersonateBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Impersonate", Model)</app-card>*@
+            }
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.UserDetailsBlock, additionalData = Model })
+         </app-cards>
+      </div>
+   </div>
+</section>

@@ -1,0 +1,8 @@
+﻿<p>
+   <RadzenLink Text="@T["Monitor.CreateOrEdit.ToMonitorList"]" Path="configuration/monitors" class="mr-3"></RadzenLink>
+   <RadzenLink Text="@T["Monitor.CreateOrEdit.ShowMonitor"]" Path=@($"monitor/{MonitorId}") class="mr-3"></RadzenLink>
+</p>
+
+@code{
+    [Parameter] public long MonitorId {get;set;}
+}

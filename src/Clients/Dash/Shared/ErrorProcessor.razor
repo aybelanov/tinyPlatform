@@ -1,0 +1,21 @@
+﻿<CascadingValue Value="this">
+   @ChildContent
+</CascadingValue>
+
+@code {
+   [Inject] DataLoadProcess DataLoadProcess { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+   [Inject] ILogger<ErrorProcessor> Logger { get; set; }
+   [Parameter] public RenderFragment ChildContent { get; set; }
+
+   public void ProcessError(Exception ex, string notificationMessage = null)
+   {
+      Logger.LogError("Error:ProcessError - Type: {Type} Message: {Message}", ex.GetType(), ex.Message);
+
+      if (!string.IsNullOrEmpty(notificationMessage))
+         NotificationService.Notify(NotificationSeverity.Error, notificationMessage, duration: -1d);
+      
+
+      DataLoadProcess.ClearLoading();
+   }
+}

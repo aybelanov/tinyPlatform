@@ -1,0 +1,31 @@
+﻿@page "/configuration/widgets"
+@attribute [Authorize(Roles = UserDefaults.TelemetryAdminRoles)]
+@implements IDisposable
+
+<PageTitle>@T["Pages.Configuration.Widgets"]</PageTitle>
+
+<AuthorizeView>
+   <Authorized>
+      @if (PermissionService.IsAdminMode(context))
+      {
+         <RadzenCard>
+            <WidgetTable Title="@T["Table.Widgets.All"]" Hint="@T["Table.Widgets.AdminMode"]" />
+         </RadzenCard>
+      }
+      else
+      {
+         <RadzenCard class="mb-5">
+            <WidgetTable Title="@T["Table.Widgets.Own"]" Hint="@T["Table.Widgets.Own.Hint"]" />
+         </RadzenCard>
+      }
+   </Authorized>
+</AuthorizeView>
+
+@code{
+
+   [Inject] private PermissionService PermissionService { get; set; }
+
+   protected override void OnInitialized() => PermissionService.AdminModeChanged += OnAdminModeChanged;
+   private void OnAdminModeChanged(object sender, bool mode) => StateHasChanged();
+   public void Dispose() => PermissionService.AdminModeChanged -= OnAdminModeChanged;
+}

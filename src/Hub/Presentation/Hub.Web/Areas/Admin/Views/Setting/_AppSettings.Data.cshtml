@@ -1,0 +1,38 @@
+@using Shared.Clients.Configuration
+@model AppSettingsModel
+
+<div class="card-body">
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataConfigModel.ConnectionString" />
+      </div>
+      <div class="col-md-9">
+         @if (Context.User.IsInRole(UserDefaults.DemoRoleName))
+         {
+            <input class="form-control text-box single-line" type="text" value="*******">
+         }
+         else
+         {
+            <app-editor asp-for="DataConfigModel.ConnectionString" />
+            <span asp-validation-for="DataConfigModel.ConnectionString"></span>
+         }
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataConfigModel.DataProvider" />
+      </div>
+      <div class="col-md-9">
+         <app-select asp-for="DataConfigModel.DataProvider" asp-items="Model.DataConfigModel.DataProviderTypeValues" />
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataConfigModel.SQLCommandTimeout" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DataConfigModel.SQLCommandTimeout" />
+         <span asp-validation-for="DataConfigModel.SQLCommandTimeout"></span>
+      </div>
+   </div>
+</div>

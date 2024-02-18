@@ -1,0 +1,37 @@
+﻿@inherits ChartjsBase
+<div class="comp-chart position-relative @(this.Class)" style=@(this.Style) data-chart-id="@Id">
+   <div class="row row-col2">
+      <div class="col mb-1 d-flex align-items-center justify-content-center" data-control-wrapper="series1" style="display: none!important;">
+         <div class="series1-color mr-1"></div>
+         <nobr><span class="mr-2"></span></nobr>
+         <div class="d-flex align-items-center justify-content-center" data-not-empty="series1" style="display: block;">
+            <label class="mr-1">average</label>
+            <input name="avg1" type="checkbox" class="mr-2" />
+            <label class="mr-1">min</label>
+            <input name="min1" type="checkbox" class="mr-2" />
+            <label class="mr-1">max</label>
+            <input name="max1" type="checkbox" class="mr-2" />
+         </div>
+         <div data-is-empty="series1" style="display: none;">
+            <nobr><span>@EmptyText</span></nobr>
+         </div>
+      </div>
+      <div class="col mb-1 d-flex align-items-center justify-content-center" data-control-wrapper="series2" style="display: none!important;">
+         <div class="series2-color mr-1"></div>
+         <nobr><span class="mr-2"></span></nobr>
+         <div class="d-flex align-items-center justify-content-center" data-not-empty="series2" style="display: block;">
+            <label class="mr-1">average</label>
+            <input name="avg2" type="checkbox" class="mr-2" />
+            <label class="mr-1">min</label>
+            <input name="min2" type="checkbox" class="mr-2" />
+            <label class="mr-1">max</label>
+            <input name="max2" type="checkbox" class="mr-2" />
+         </div>
+         <div data-is-empty="series2" style="display: none;">
+            <nobr><span>@EmptyText</span></nobr>
+         </div>
+      </div>
+   </div>
+   <canvas @ref="Element" id=@Id style="width:100%; height:100%;"/>
+   @LoadingStub
+</div>

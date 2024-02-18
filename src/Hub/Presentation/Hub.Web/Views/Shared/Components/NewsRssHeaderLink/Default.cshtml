@@ -1,0 +1,10 @@
+﻿@using Hub.Core
+@inject Hub.Services.Localization.ILocalizationService localizationService
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
+@inject Hub.Core.Domain.AppInfoSettings appSettings; 
+@{
+   var link = Url.RouteUrl("NewsRSS", new { languageId = (await workContext.GetWorkingLanguageAsync()).Id }, webHelper.GetCurrentRequestProtocol());
+   var platfromName = appSettings.Name;
+}
+<link href="@link" rel="alternate" type="application/rss+xml" title="@platfromName: News" />

@@ -1,0 +1,82 @@
+﻿@using Hub.Core.Domain.Users;
+@model DeviceModel
+@inject UserSettings userSettings
+
+<div class="card-body">
+@{
+    var gridModel = new DataTablesModel
+    {
+        Name = "device-user-grid",
+        UrlRead = new DataUrl("DeviceUsersSelect", "Device", new RouteValueDictionary { [nameof(Model.DeviceUserSearchModel.DeviceId)] = Model.DeviceUserSearchModel.DeviceId }),
+        UrlDelete = new DataUrl("DeleteMap", "Device", new RouteValueDictionary
+        {
+            [nameof(Model.DeviceUserSearchModel.DeviceId)] = Model.DeviceUserSearchModel.DeviceId
+        }),
+        Length = Model.DeviceUserSearchModel.PageSize,
+        LengthMenu = Model.DeviceUserSearchModel.AvailablePageSizes
+    };
+
+    if (userSettings.UsernamesEnabled)
+    {
+        gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Username))
+        {
+        Title = T("Admin.Users.Users.Fields.Username").Text,
+        Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(UserModel.Id)))
+        });
+    }
+    else
+    {
+        gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Email))
+        {
+        Title = T("Admin.Users.Users.Fields.Email").Text,
+        Width = "150",
+        Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(UserModel.Id)))
+        });
+    }
+
+    if (userSettings.CompanyEnabled)
+    {
+        gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Company))
+        {
+        Title = T("Admin.Users.Users.Fields.Company").Text,
+        Width = "150",
+        Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(UserModel.Id)))
+        });
+    }
+
+    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.IsActive))
+    {
+        Title = T("Admin.Users.Users.Fields.Active").Text,
+        Width = "80",
+        ClassName = AppColumnClassDefaults.CenterAll,
+        Render = new RenderBoolean()
+    });
+
+    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Id))
+    {
+        AutoWidth = false,
+        Title = T("Admin.Common.Delete").Text,
+        Width = "100",
+        Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+        ClassName = AppColumnClassDefaults.Button
+    });
+}
+    @await Html.PartialAsync("Table", gridModel)
+</div>
+<div class="card-footer">
+    <button type="submit" id="btnAddNewSharedUsers" class="btn btn-primary" onclick="javascript:OpenWindow('@(Url.Action("UsersAddPopup", "Device", new {deviceId = Model.Id, btnId = "btnRefreshDeviceUsers", formId = "device-form"}))', 800, 800, true); return false;">
+        @T("Admin.Devices.Devices.SharedUsers.Add")
+    </button>
+    <button type="submit" id="btnRefreshDeviceUsers" style="display: none"></button>
+    <script>
+        $(document).ready(function () {
+        $('#btnRefreshDeviceUsers').click(function () {
+            //refresh grid
+            updateTable('#device-user-grid');
+
+            //return false to don't reload a page
+            return false;
+        });
+        });
+    </script>
+</div>

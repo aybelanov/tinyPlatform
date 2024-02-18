@@ -1,0 +1,61 @@
+﻿@page "/reports/exportdata"
+@using static Clients.Dash.Pages.Reports.Export.DownloadTaskRequest;
+@attribute [Authorize(Roles = UserDefaults.TelemetryRoles)]
+@implements IDisposable
+
+<RadzenCard style="min-width:560px;">
+   <h3>@T["ExportDataPage.Title"]</h3>
+   @if (isAdminMode == null)
+   {
+      <LoadingStub />
+   }
+   else if (isAdminMode.Value)
+   {
+      <DownloadTaskRequest AddDownloadTask="@AddDownloadTask" />
+      <DownloadTaskTable @ref=@table />
+   }
+   else
+   {
+      <DownloadTaskRequest AddDownloadTask="@AddDownloadTask" />
+      <DownloadTaskTable @ref=@table />
+   }
+</RadzenCard>
+
+@code {
+
+   [Inject] PermissionService PermissionService { get; set; }
+
+   DownloadTaskTable table;
+   bool? isAdminMode;
+
+   protected override void OnInitialized()
+   {
+      PermissionService.AdminModeChanged += OnAdminModeChanged;
+   }
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      isAdminMode = await PermissionService.IsAdminModeAsync();
+   }
+
+   async Task AddDownloadTask(DownloadRequestModel model)
+   {
+      if (table != null)
+      {
+         var request = Auto.Mapper.Map<DownloadRequest>(model);
+         await table.AddFileToDownloadQueue(request);
+      }
+   }
+
+   private void OnAdminModeChanged(object sender, bool mode)
+   {
+      isAdminMode = mode;
+      StateHasChanged();
+   }
+
+   public void Dispose()
+   {
+      PermissionService.AdminModeChanged -= OnAdminModeChanged;
+   }
+}

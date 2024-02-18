@@ -1,0 +1,97 @@
+﻿@using System.Security.Claims
+@implements IAsyncDisposable
+
+<AuthorizeView>
+   <Authorized>
+      <div class="col-xl-6 my-3">
+         <RadzenFieldset class="p-0 h-100">
+            <HeaderTemplate>
+               @if (context.User.IsInRole(UserDefaults.AdministratorsRoleName) == true || context.User.Identity.Name.Equals(Monitor.OwnerName) == true)
+               {
+                  <RadzenImage Path="@Presentation.Device.PictureUrl" Style="height:24px" />
+                  <RadzenLink Text="@Presentation.Device.Name" Path="@($"configuration/device/edit/{Presentation.Device.Id}")" Style="color:var(--rz-link-color)" />
+                  <DeviceStatusBadge DeviceId=@Presentation.Device.Id class="d-inline-block position-relative" />
+                  <text>/</text>
+                  <RadzenImage Path="@Presentation.Sensor.PictureUrl" Style="height:24px" />
+                  <RadzenLink Text="@Presentation.Sensor.Name" Path="@($"configuration/sensor/edit/{Presentation.Sensor.Id}")" Style="color:var(--rz-link-color)" />
+                  <text>/</text>
+                  <RadzenImage Path="@Presentation.Widget.PictureUrl" Style="height:24px" />
+                  <RadzenLink Text="@Presentation.Widget.Name" Path="@($"configuration/widget/edit/{Presentation.Widget.Id}")" Style="color:var(--rz-link-color)" />
+               }
+               else
+               {
+                  <RadzenImage Path="@Presentation.Device.PictureUrl" Style="height:24px" />
+                  @Presentation.Device.Name
+                  <DeviceStatusBadge DeviceId=@Presentation.Device.Id class="d-inline-block position-relative" />
+                  <text>/</text>
+                  <RadzenImage Path="@Presentation.Sensor.PictureUrl" Style="height:24px" />
+                  @Presentation.Sensor.Name
+                  <text>/</text>
+                  <RadzenImage Path="@Presentation.Widget.PictureUrl" Style="height:24px" />
+                  @Presentation.Widget.Name
+               }
+            </HeaderTemplate>
+            <ChildContent>
+               <p>@Presentation.Name</p>
+               <CascadingValue TValue="PresentationViewModel" Value="@Presentation" IsFixed=true>
+                  @switch (Presentation.Widget.WidgetType)
+                  {
+                     case WidgetType.RadialGauge: <RadialGauge @ref=@widget /> break;
+                     case WidgetType.ArcGauge: <ArcGauge @ref=@widget /> break;
+                     case WidgetType.ColunmChart: <ColumnChart @ref=@widget /> break;
+                     case WidgetType.BarChart: <BarChart @ref=@widget /> break;
+                     case WidgetType.LiveChart: <LiveChart @ref=@widget /> break;
+                     case WidgetType.Video: <LivePlayer @ref=@widget /> break;
+                     case WidgetType.Map: <LiveTracker @ref=@widget />  break;
+                     case WidgetType.TextConsole: <EventConsoleWidget @ref=@widget /> break;
+                     case WidgetType.LiveScheme:  <LiveScheme @ref=widget /> break;
+                     default: throw new NotImplementedException();
+                  }
+               </CascadingValue>
+               <p>@Presentation.Description</p>
+            </ChildContent>
+         </RadzenFieldset>
+      </div>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+   [Parameter] public PresentationViewModel Presentation { get; set; }
+   [Parameter] public bool ShowLink { get; set; }
+   [CascadingParameter] private MonitorViewModel Monitor { get; set; }
+
+   [Inject] private NavigationManager Navigation { get; set; }
+   [Inject] private HubService Hub { get; set; }
+   [Inject] private IHelperService Helper { get; set; }
+   [Inject] private PermissionService PermissionService { get; set; }
+
+   IWidgetComponent widget;
+   
+   protected override async Task OnParametersSetAsync()
+   {
+      await Task.Yield();
+      try
+      {
+         Hub.SensorDataReceived += OnSensorDataReceived;
+         await Hub.SubscribeToSensorDataStream(this, [Presentation.Sensor.Id]);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+
+   async Task OnSensorDataReceived(IEnumerable<SensorRecord> records)
+   {
+      var data = records.Where(x => x.SensorId == Presentation.Sensor.Id).OrderBy(x => x.EventTimestamp).ToList();
+
+      if (data.Any())
+         await widget.Update(records);  
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Hub.SensorDataReceived -= OnSensorDataReceived;
+      await Hub.UnsubscribeFromSensorDataStream(this, [Presentation.Sensor.Id]);
+   }
+}

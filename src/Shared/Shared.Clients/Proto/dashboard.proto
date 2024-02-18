@@ -1,0 +1,515 @@
+﻿// client to server rpc
+
+syntax = "proto3";
+
+//import "google/protobuf/duration.proto";  
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Shared.Clients.Proto";
+
+// It uses to define the gRPC requests too
+// and has to have the original value 
+package clientpackage;
+
+/***************************************************
+ *                     CRUD                        *
+ ***************************************************/
+
+ service CommonRpc{
+	rpc GetUsers(FilterProto) returns (UserProtos);
+	rpc CheckUserNameAvalability(SystemNameAvailabilityRequest) returns (CommonResponse);
+	rpc GetUserSelectItems(FilterProto) returns (UserSelectItemProtos);
+	rpc GetDeviceActivityLog(FilterProto) returns (ActivityLogRecordProtos);
+	rpc GetUserActivityLog(FilterProto) returns (ActivityLogRecordProtos);
+	rpc StartImpersonate(UserProto) returns (google.protobuf.Empty);
+	rpc StopImpersonate(google.protobuf.Empty) returns (google.protobuf.Empty);
+ }
+
+service MonitorRpc{
+	rpc GetMonitorView(IdProto) returns(MonitorViewProto);
+	rpc GetAllMonitors(FilterProto) returns (MonitorProtos);
+	rpc GetOwnMonitors(FilterProto) returns (MonitorProtos);
+	rpc GetSharedMonitors(FilterProto) returns (MonitorProtos);
+	rpc ShareMonitor(ShareRequest) returns (google.protobuf.Empty);
+	rpc UnshareMonitor(ShareRequest) returns (google.protobuf.Empty);
+	rpc Insert(MonitorProto) returns (MonitorProto);
+	rpc Update(MonitorProto) returns (MonitorProto);
+	rpc Delete(IdProto) returns (google.protobuf.Empty);
+	rpc UpdateShared(MonitorProto) returns (google.protobuf.Empty);
+	rpc DeleteShared(MonitorProto) returns (google.protobuf.Empty); 
+}
+
+service WidgetRpc{
+	rpc GetAllWidgets(FilterProto) returns (WidgetProtos);
+	rpc GetOwnWidgets(FilterProto) returns (WidgetProtos);
+	rpc GetAllWidgetSelectItems(FilterProto) returns (WidgetSelectItemProtos);
+	rpc GetOwnWidgetSelectItems(FilterProto) returns (WidgetSelectItemProtos);
+	rpc Insert(WidgetProto) returns (WidgetProto);
+	rpc Update(WidgetProto) returns (WidgetProto);
+	rpc Delete(IdProto) returns (google.protobuf.Empty);
+}
+
+service DeviceRpc{
+	rpc GetAllDevices(FilterProto) returns (DeviceProtos);
+	rpc GetOwnDevices(FilterProto) returns (DeviceProtos);
+	rpc GetSharedDevices(FilterProto) returns (DeviceProtos);
+	rpc GetAllMapDevice(FilterProto) returns (DeviceMapItems);
+	rpc GetUserMapDevice(FilterProto) returns (DeviceMapItems);
+	rpc GetAllDeviceSelectList(FilterProto) returns (DeviceSelectItemProtos);
+	rpc GetUserDeviceSelectList(FilterProto) returns (DeviceSelectItemProtos);
+	rpc ShareDevice(ShareRequest) returns (google.protobuf.Empty);
+	rpc UnshareDevice(ShareRequest) returns (google.protobuf.Empty);
+	rpc Insert(DeviceProto) returns (DeviceProto);
+	rpc Update(DeviceProto) returns (DeviceProto);
+	rpc ChangePassword(ChangeDevicePassword) returns (google.protobuf.Empty);
+	rpc CheckSystemNameAvailability(SystemNameAvailabilityRequest) returns (CommonResponse);
+	rpc CheckPasswordFormat(PasswordFormatRequest) returns (CommonResponse);
+	rpc Delete(IdProto) returns (google.protobuf.Empty);
+	rpc UpdateShared(DeviceProto) returns (google.protobuf.Empty);
+	rpc DeleteShared(DeviceProto) returns (google.protobuf.Empty);
+}
+
+service SensorRpc {
+	rpc GetSensors(FilterProto) returns (SensorProtos);
+	rpc GetForAllSensorSelectList(FilterProto) returns (SensorSelectItemProtos);
+	rpc GetSensorSelectList(FilterProto) returns (SensorSelectItemProtos);
+	rpc CheckSystemNameAvailability(SystemNameAvailabilityRequest) returns (CommonResponse);
+	rpc Insert(SensorProto) returns (SensorProto);
+	rpc Update(SensorProto) returns (SensorProto);
+	rpc Delete(IdProto) returns (google.protobuf.Empty);
+}
+
+service PresentationRpc {
+	rpc GetPresentations(FilterProto) returns (PresentationProtos);
+	rpc GetAllPresentationSelectItems(FilterProto) returns (PresentationSelectItemProtos);
+	rpc GetOwnPresentationSelectItems(FilterProto) returns (PresentationSelectItemProtos);
+	rpc MapPresentation(PresentationProto) returns (PresentationProto);
+	rpc UpdateMapPresentation(PresentationProto) returns (PresentationProto);
+	rpc UnmapPresentation(IdProto) returns (google.protobuf.Empty);
+	rpc MapSensorToWidget(FilterProto) returns (google.protobuf.Empty);
+	rpc UnmapSensorFromWidget(FilterProto) returns (google.protobuf.Empty);
+}
+
+service SensorRecordRpc {
+	rpc GetRecords(FilterProto) returns (SensorRecordProtos);
+	rpc GetTrack(FilterProto) returns (RawGeoDataProtos);
+	rpc GetChartData(ChartRequestProto) returns (ChartSeriesProto);
+	rpc GetVideoSegments(FilterProto) returns (VideoSegmentProtos);
+	rpc GetAllDataStatistics(FilterProto) returns (DataStatisticsProtos);
+	rpc GetUserDataStatistics(FilterProto) returns (DataStatisticsProtos);
+	rpc Delete(FilterProto) returns (google.protobuf.Empty);
+}
+
+service DownloadTaskRpc{
+	rpc GetAllDownloadTasks(FilterProto) returns (DownloadTaskProtos);
+	rpc AddDownloadTask(DownloadRequestProto) returns (DownloadTaskProtos);
+	rpc GetDownloadTasks(FilterProto) returns (DownloadTaskProtos);
+	rpc DeleteDownloadTask(IdProto) returns (google.protobuf.Empty);
+}
+
+message IdProto { int64 id = 1; }
+
+message IdProtos { repeated int64 ids = 1; }
+
+message FilterProto {
+	google.protobuf.StringValue query = 1;
+	google.protobuf.StringValue filter = 2;
+	google.protobuf.StringValue order_by = 3;
+	google.protobuf.Int32Value skip = 4;
+	google.protobuf.Int32Value top = 5;
+	repeated int64 ids = 6;
+	google.protobuf.Int64Value device_id = 7;
+	repeated int64 device_ids = 9;
+	google.protobuf.Int64Value monitor_id = 10;
+	repeated int64 monitor_ids = 11;
+	google.protobuf.Int64Value widget_id = 12;
+	repeated int64 widget_ids = 13;
+	google.protobuf.Int64Value user_id = 14;
+	repeated int64 user_ids = 15;
+	google.protobuf.Int64Value sensor_id = 16;
+	repeated int64 sensor_ids = 17;
+	google.protobuf.Int64Value sensor_widget_id = 18;
+	repeated int64 sensor_widget_ids = 19;
+	google.protobuf.Int64Value presentation_id = 20;
+	repeated int64 presentation_ids = 21;
+	google.protobuf.Int64Value from = 22;
+	google.protobuf.Int64Value to = 23;
+	google.protobuf.Int64Value time_span = 24;
+	google.protobuf.Int32Value time_interval = 25;
+	repeated int32 connection_statuses = 26;
+	map<string, string> additional_queries = 27;
+	google.protobuf.Int32Value browser_offset = 28;
+}
+
+message DeviceProto {
+	int64 id = 1;
+	string system_name = 2;
+	google.protobuf.StringValue password = 3;
+	string name = 4;
+	google.protobuf.StringValue configuration = 5;
+	google.protobuf.StringValue description = 6;
+	bool enabled = 7;
+	bool is_active = 8;
+	google.protobuf.StringValue last_ip_address = 9;
+	google.protobuf.Int64Value last_activity_date = 10;
+	int32 connection_status = 11;
+	int32 count_data_rows = 12;
+	int32 data_sending_delay = 13;
+	int32 clear_data_delay = 14;
+	int32 data_packet_size = 15;
+	google.protobuf.StringValue picture_url = 16;
+	double lon = 17;
+	double lat = 18;
+	bool is_mobile = 19;
+	bool show_on_main = 20;
+	int64 owner_id = 21;
+	google.protobuf.StringValue owner_name = 22;
+}
+
+message DeviceProtos {
+	repeated DeviceProto devices = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message ChangeDevicePassword{
+	int64 device_id = 1;
+	string password = 2;
+}
+
+message DeviceMapItemProto{
+	int64 id = 1;
+	string name = 2;
+	double lat = 3;
+	double lon = 4;
+	bool is_mobile = 5;
+	int32 status = 6;
+	bool is_shared = 7;
+}
+
+message DeviceMapItems {
+	repeated DeviceMapItemProto items = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message DeviceSelectItemProto {
+	int64 id = 1;
+	string system_name = 2;
+	google.protobuf.StringValue name = 3;
+	bool is_shared = 4;
+}
+
+message DeviceSelectItemProtos{
+	repeated DeviceSelectItemProto devices = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message SensorProto {
+	int64 id = 1;
+	string system_name = 2;
+	google.protobuf.StringValue name = 3;
+	google.protobuf.StringValue configuration = 4;
+	google.protobuf.StringValue description = 5;
+	bool enabled = 6;
+	int32 sensor_type = 7;
+	google.protobuf.StringValue  measure_unit = 8;
+	int32 priority_type = 9;
+	bool show_in_common_log = 10;
+	google.protobuf.StringValue picture_url = 11;
+	int64 device_id = 12;
+	google.protobuf.StringValue device_system_name = 13;
+}
+
+message SensorProtos {
+	repeated SensorProto sensors = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message SensorSelectItemProto{
+	int64 id = 1;
+	string system_name = 2;
+	google.protobuf.StringValue name = 3;
+	google.protobuf.StringValue measure_unit = 4;
+}
+
+message SensorSelectItemProtos{
+	repeated SensorSelectItemProto sensors = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message MonitorProto {
+	int64 id = 1;
+	string name = 2;
+	google.protobuf.StringValue description = 3;
+	string menu_item = 4;
+	bool show_in_menu = 5;
+	int32 display_order = 6;
+	int64 owner_id = 7;
+	string owner_name = 8;
+	google.protobuf.StringValue picture_url = 9;
+}
+
+message MonitorProtos {
+	repeated MonitorProto monitors = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message WidgetProto {
+	int64 id = 1;
+	google.protobuf.StringValue name = 2;
+	google.protobuf.StringValue description = 3;
+	bool enabled = 4;
+	int32 widget_type = 5;
+	google.protobuf.StringValue live_scheme_url = 6;
+	google.protobuf.StringValue adjustment = 7;
+	google.protobuf.StringValue picture_url = 8;
+	int64 user_id = 9;
+	google.protobuf.StringValue owner_name = 10;
+}
+
+message WidgetProtos {
+	repeated WidgetProto widgets = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message WidgetSelectItemProto{
+	int64 id = 1;
+	string name = 2;
+	google.protobuf.StringValue owner_name = 3;
+}
+
+message WidgetSelectItemProtos{
+	repeated WidgetSelectItemProto widgets = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+
+message PresentationSelectItemProto{
+	int64 id = 1;
+	int64 sensor_id = 2;
+	string sensor_name = 3;
+	int64 widget_id = 4;
+	string widget_name = 5;
+	int64 device_id = 6;
+	string device_name = 7;
+}
+
+message PresentationSelectItemProtos{
+	repeated PresentationSelectItemProto presentations = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message PresentationProto {
+	int64 id = 1;
+	int64 sensor_widget_id = 2;
+	int64 monitor_id = 3;
+	google.protobuf.StringValue monitor_name = 4;
+    int64 sensor_id = 5;
+	google.protobuf.StringValue sensor_name = 6;
+	int64 device_id = 7;
+	google.protobuf.StringValue device_name = 8;
+	int64 widget_id = 9;
+	google.protobuf.StringValue widget_name = 10;
+	google.protobuf.StringValue name = 11; 
+	google.protobuf.StringValue description = 12; 
+	int32 display_order = 13;
+}
+
+message PresentationProtos {
+	repeated PresentationProto presentations = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message SensorRecordProto {
+	int64 id = 1;
+	double value = 2;
+	bytes bytes = 3;
+	google.protobuf.StringValue json_value = 4;
+	google.protobuf.StringValue metadata = 5;
+	int64 sensor_id = 6;
+	int64 timestamp = 7;
+	int64 event_timestamp = 8;
+}
+
+message SensorRecordProtos{
+	repeated SensorRecordProto records = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message UserProto {
+	int64 id = 1;
+	google.protobuf.StringValue username = 2;
+	int32 online_status = 3;
+	int64 last_activity_utc = 4;
+	google.protobuf.StringValue avatar_url = 5;
+	bool is_active = 6;
+}
+
+message UserProtos{
+	repeated UserProto users = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message UserSelectItemProto{
+	int64 id = 1;
+	google.protobuf.StringValue username = 2;
+	google.protobuf.StringValue avatar_url = 3;
+}
+
+message UserSelectItemProtos{
+	repeated UserSelectItemProto users = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+
+message SystemNameAvailabilityRequest {
+	google.protobuf.Int64Value id = 1;
+	string system_name = 2;
+}
+
+message PasswordFormatRequest{
+	string password = 1;
+	int64 device_id = 2;
+}
+
+message ActivityLogRecordProto{
+	int64 id = 1;
+	string activity_type = 2;
+	google.protobuf.StringValue entity_name = 3;
+	google.protobuf.StringValue comment = 4;
+	int64 created_on_utc = 5;
+	google.protobuf.StringValue ip_address = 6;
+}
+
+message ActivityLogRecordProtos{
+	repeated ActivityLogRecordProto records = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message DownloadTaskProto {
+	int64 id = 1;
+	int64 user_id = 2;
+	google.protobuf.StringValue username = 3;
+	string file_name = 4;
+	int64 task_date_time_utc = 5;
+	int64 ready_date_time_utc = 6;
+	int32 current_state = 7;
+	int64 size = 8;
+}
+
+message DownloadTaskProtos {
+	repeated DownloadTaskProto items = 1;
+	google.protobuf.Int32Value total_count = 2;
+}
+
+message DownloadRequestProto {
+	int64 from = 1;
+	int64 to = 2;
+	int64 device_id = 3;
+	repeated int64 sensor_ids = 4;
+	int32 format = 5;
+	int32 compression = 6;
+	int32 top = 7;
+}
+
+message ChartRequestProto {
+	int64 from = 1;
+	int64 to = 2;
+	int32 chart_width = 3;
+	repeated int64 sensor_ids = 4;
+}
+
+message ChartPointProto {
+   double x = 1;
+   double y = 2;
+   double max_y = 3;
+   double min_y = 4;
+}
+
+message ChartSetProto {
+   int64 entity_id = 1;
+   google.protobuf.StringValue name = 2;
+   google.protobuf.StringValue ordinate_name = 3;
+   google.protobuf.StringValue abscissa_name = 4;
+   repeated ChartPointProto data = 5;
+}
+
+message ChartSeriesProto{
+	repeated ChartSetProto Series = 1;
+}
+
+message DataStatisticsProto{
+	int64 moment = 1;
+	int64 value = 2;
+}
+
+message DataStatisticsProtos{
+	repeated DataStatisticsProto data = 1;
+}
+
+message GeoPointProto {
+	double latitude = 1;
+	double longitude = 2;
+	double height = 3;
+	double speed = 4;
+	double course = 5;
+	int64 timestamp = 6;
+}
+
+message GeoPointProtos {
+	repeated GeoPointProto points = 1;
+}
+
+message RawGeoDataProto{
+	int32 latitude = 1;
+	int32 longitude = 2;
+	int32 speed = 4;
+	int64 timestamp = 6;
+}
+
+message RawGeoDataProtos {
+	bytes data = 1;
+}
+
+message VideoSegmentProto {
+	int64 id = 1;
+	bytes segment_name = 2;
+	double extinf = 3;
+	int64 on_created_utc = 4;
+	int64 ipcam_id = 5;
+}
+
+message VideoSegmentProtos {
+	repeated VideoSegmentProto segments = 1;
+}
+
+message CommonResponse {
+	google.protobuf.StringValue success = 1;
+	google.protobuf.StringValue error = 2;
+}
+
+message ShareRequest {
+	int64 entity_id = 1;
+	string user_name = 2;
+}
+
+message PresentationViewProto {
+	int64 id = 1;
+	google.protobuf.StringValue name = 2;
+	google.protobuf.StringValue description = 3;
+	int32 display_order = 4;
+	SensorProto sensor = 5;
+	DeviceProto device = 6;
+	WidgetProto widget = 7;
+}
+
+message MonitorViewProto{
+	int64 id = 1;
+	google.protobuf.StringValue name = 2;
+	google.protobuf.StringValue description = 3;
+	int64 owner_id = 4;
+	google.protobuf.StringValue owner_name = 5;
+	repeated PresentationViewProto presentations = 6;
+}

@@ -1,0 +1,8 @@
+﻿.serv-link {
+    background-color: var(--rz-base-background-color);
+    right: 1rem;
+    bottom: 0px;
+    position: fixed;
+    z-index: 9999;
+    padding: 2px 25px 2px 10px;
+}

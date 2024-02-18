@@ -1,0 +1,16 @@
+﻿@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@layout AuthLayout
+@attribute [AllowAnonymous]
+
+<RemoteAuthenticatorView Action="@Action" >
+   <LogInFailed>
+      <p>@(string.IsNullOrEmpty(context) ? "Login failed." : context)</p>
+      <RadzenButton ButtonType="ButtonType.Button" Text="Try again" Click="@( args => Navigation.NavigateTo(".", true))" />
+   </LogInFailed>
+</RemoteAuthenticatorView>
+
+@code {
+   [Parameter] public string Action { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+}

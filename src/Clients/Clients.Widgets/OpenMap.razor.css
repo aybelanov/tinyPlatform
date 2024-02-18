@@ -1,0 +1,25 @@
+﻿.open-map-wrapper {
+    /*width: 100%;
+    height: 400px;*/
+    /*position: relative;*/
+}
+    .open-map-wrapper:-webkit-full-screen .open-map {
+        height: 100%!important;
+        margin: 0;
+    }
+
+    .open-map-wrapper:fullscreen .open-map {
+        height: 100% !important;
+    }
+
+.open-map {
+    /*position: absolute;
+    top: 30px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;*/
+}
+
+    .open-map .ol-rotate {
+        top: 3em;
+    }

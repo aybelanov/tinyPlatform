@@ -1,0 +1,126 @@
+﻿@using Hub.Core.Domain.Users
+@using Hub.Services
+@model UserUserSettingsModel
+
+<div class="card-body">
+   <div id="tour-usersettings-security">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PasswordMinLength" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PasswordMinLength" />
+            <span asp-validation-for="UserSettings.PasswordMinLength"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PasswordRequireLowercase" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PasswordRequireLowercase" />
+            <span asp-validation-for="UserSettings.PasswordRequireLowercase"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PasswordRequireUppercase" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PasswordRequireUppercase" />
+            <span asp-validation-for="UserSettings.PasswordRequireUppercase"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PasswordRequireNonAlphanumeric" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PasswordRequireNonAlphanumeric" />
+            <span asp-validation-for="UserSettings.PasswordRequireNonAlphanumeric"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserSettings.PasswordRequireDigit" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="UserSettings.PasswordRequireDigit" />
+            <span asp-validation-for="UserSettings.PasswordRequireDigit"></span>
+         </div>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.UnduplicatedPasswordsNumber" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.UnduplicatedPasswordsNumber" />
+         <span asp-validation-for="UserSettings.UnduplicatedPasswordsNumber"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.DefaultPasswordFormat" />
+      </div>
+      <div class="col-md-9">
+         <app-select asp-for="UserSettings.DefaultPasswordFormat" asp-items="@await (((PasswordFormat)Model.UserSettings.DefaultPasswordFormat).ToSelectListAsync())" />
+         <span asp-validation-for="UserSettings.DefaultPasswordFormat"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.PasswordLifetime" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.PasswordLifetime" />
+         <span asp-validation-for="UserSettings.PasswordLifetime"></span>
+      </div>
+   </div>
+
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.PasswordRecoveryLinkDaysValid" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.PasswordRecoveryLinkDaysValid" />
+         <span asp-validation-for="UserSettings.PasswordRecoveryLinkDaysValid"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.FailedPasswordAllowedAttempts" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.FailedPasswordAllowedAttempts" />
+         <span asp-validation-for="UserSettings.FailedPasswordAllowedAttempts"></span>
+      </div>
+   </div>
+   <div class="form-group row" id="pnlFailedPasswordLockoutMinutes">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.FailedPasswordLockoutMinutes" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.FailedPasswordLockoutMinutes" />
+         <span asp-validation-for="UserSettings.FailedPasswordLockoutMinutes"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="UserSettings.EnteringEmailTwice" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="UserSettings.EnteringEmailTwice" />
+         <span asp-validation-for="UserSettings.EnteringEmailTwice"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="MultiFactorAuthenticationSettings.ForceMultifactorAuthentication" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="MultiFactorAuthenticationSettings.ForceMultifactorAuthentication" />
+         <span asp-validation-for="MultiFactorAuthenticationSettings.ForceMultifactorAuthentication"></span>
+      </div>
+   </div>
+</div>

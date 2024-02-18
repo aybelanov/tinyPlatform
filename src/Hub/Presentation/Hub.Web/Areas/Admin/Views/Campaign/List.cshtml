@@ -1,0 +1,78 @@
+@model CampaignSearchModel
+
+@{
+    //page title
+    ViewBag.PageTitle = T("Admin.Milticast.Campaigns").Text;
+    //active menu item (system name)
+    AppHtml.SetActiveMenuItemSystemName("Campaigns");
+}
+
+@{
+    const string hideSearchBlockAttributeName = "CampaignPage.HideSearchBlock";
+    var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentUserAsync(), hideSearchBlockAttributeName);
+}
+
+
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.Milticast.Campaigns")
+    </h1>
+    <div class="float-right">
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="fas fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.CampaignListButtons, additionalData = Model })
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            @*hide the entire search block if no elements are displayed*@
+            <div class="card card-default">
+                <div class="card-body">
+                    <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.EmailCampaigns", Docs.EmailCampaigns + Utm.OnAdmin)" />
+
+                    @await Html.PartialAsync("Table", new DataTablesModel
+                    {
+                        Name = "campaigns-grid",
+                        UrlRead = new DataUrl("List", "Campaign", null),
+                        SearchButtonId = "search-campaigns",
+                        Length = Model.PageSize,
+                        LengthMenu = Model.AvailablePageSizes,
+                        Filters = new List<FilterParameter>(),
+                        ColumnCollection = new List<ColumnProperty>
+                        {
+                            new ColumnProperty(nameof(CampaignModel.Name))
+                            {
+                                Title = T("Admin.Milticast.Campaigns.Fields.Name").Text
+                            },
+                            new ColumnProperty(nameof(CampaignModel.CreatedOn))
+                            {
+                                Title = T("Admin.Milticast.Campaigns.Fields.CreatedOn").Text,
+                                Width = "200",
+                                Render = new RenderDate()
+                            },
+                            new ColumnProperty(nameof(CampaignModel.DontSendBeforeDate))
+                            {
+                                Title = T("Admin.Milticast.Campaigns.Fields.DontSendBeforeDate").Text,
+                                Width = "200",
+                                Render = new RenderDate()
+                            },
+                            new ColumnProperty(nameof(CampaignModel.Id))
+                            {
+                                Title = T("Admin.Common.Edit").Text,
+                                Width = "100",
+                                ClassName = AppColumnClassDefaults.Button,
+                                Render = new RenderButtonEdit(new DataUrl("Edit"))
+                            }
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

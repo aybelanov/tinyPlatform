@@ -1,0 +1,48 @@
+﻿@page "/reports/tracker"
+@using static Clients.Dash.Pages.Reports.Trackers.TrackRequest;
+@attribute [Authorize(Roles = "Administrators, Owners")]
+
+<RadzenCard style="min-width:560px;">
+   <h3>@T["Tracker.Title"]</h3>
+   @if (isAdminMode == null)
+   {
+      <LoadingStub />
+   }
+   else if (isAdminMode.Value)
+   {
+      <TrackerMap />
+   }
+   else
+   {
+      <TrackerMap />
+   }
+</RadzenCard>
+
+@code {
+
+   [Inject] PermissionService PermissionService { get; set; }
+   bool? isAdminMode;
+
+   protected override void OnInitialized()
+   {
+      PermissionService.AdminModeChanged += OnAdminModeChanged;
+   }
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      isAdminMode = await PermissionService.IsAdminModeAsync();
+   }
+
+   private void OnAdminModeChanged(object sender, bool mode)
+   {
+      isAdminMode = mode;
+      StateHasChanged();
+   }
+
+   public void Dispose()
+   {
+      PermissionService.AdminModeChanged -= OnAdminModeChanged;
+   }
+}
+

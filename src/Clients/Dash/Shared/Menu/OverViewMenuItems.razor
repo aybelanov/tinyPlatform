@@ -1,0 +1,39 @@
+﻿@if (OverViewMenuItem != null)
+{
+   <NavigationItem @bind-Expanded=@OverViewMenuItem.Expanded Category=@OverViewMenuItem>
+
+      @if (OverViewMenuItem.Children != null)
+      {
+         @foreach (var subCat1 in OverViewMenuItem.Children)
+         {
+            if (subCat1.Children != null)
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1>
+
+                  @foreach (var subCat2 in subCat1.Children)
+                  {
+                     <NavigationItem @bind-Expanded=@subCat2.Expanded Category=@subCat2 />
+                  }
+
+               </NavigationItem>
+            }
+            else
+            {
+               <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1 />
+            }
+         }
+      }
+   </NavigationItem>
+}
+
+@code {
+
+   [Inject] private MenuService MenuService { get; set; }
+
+   CategoryMenuModel OverViewMenuItem { get; set; }
+
+   protected override async Task OnInitializedAsync()
+   {
+      OverViewMenuItem = await MenuService.GetOverviewMenuItemAsync();
+   }
+}

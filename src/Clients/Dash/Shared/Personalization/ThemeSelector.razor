@@ -1,0 +1,20 @@
+﻿<RadzenDropDown class="mx-2 mx-xl-3" Style="min-width: 100px; max-width: 120px" TValue="string" TextProperty="Text" ValueProperty="Value"
+                Data="@Themes.Select(x=> new { Text = T["ThemeSelector." + x], Value = x })" @bind-Value="@CurrentTheme" />
+
+@code {
+
+   [Inject] IJSRuntime JS { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+
+   private static readonly string[] Themes = { "default", "dark", "software", "humanistic", "standard", "material" };
+
+   private string CurrentTheme
+   {
+      get => Defaults.Theme;
+      set
+      {
+         Defaults.Theme = value;
+         Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+      }
+   }
+}

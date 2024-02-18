@@ -1,0 +1,112 @@
+@model PluginModel
+
+<div asp-validation-summary="All"></div>
+<input asp-for="SystemName" type="hidden" />
+
+@if (ViewBag.RefreshPage == true)
+{
+   <script>
+      try { window.opener.document.forms['@(Context.Request.Query["formId"])'].@(Context.Request.Query["btnId"]).click(); }
+      catch (e) { }
+      window.close();
+   </script>
+}
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="form-horizontal">
+         <div class="cards-group">
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.PluginDetailsTop, additionalData = Model })
+            <div class="card card-default card-popup">
+               <div class="card-body">
+                  @(await Html.LocalizedEditorAsync<PluginModel, PluginLocalizedModel>("plugin-localized",
+                      @<div>
+                         <div class="form-group row">
+                            <div class="col-sm-3">
+                               <app-label asp-for="@Model.Locales[item].FriendlyName" />
+                            </div>
+                            <div class="col-sm-9">
+                               <app-editor asp-for="@Model.Locales[item].FriendlyName" />
+                               <span asp-validation-for="@Model.Locales[item].FriendlyName"></span>
+                            </div>
+                         </div>
+                         <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
+                      </div>
+                      ,
+                      @<div>
+                         <div class="form-group row">
+                            <div class="col-sm-3">
+                               <app-label asp-for="FriendlyName" />
+                            </div>
+                            <div class="col-sm-9">
+                               <app-editor asp-for="FriendlyName" asp-required="true" />
+                               <span asp-validation-for="FriendlyName"></span>
+                            </div>
+                         </div>
+                      </div>
+                      ))
+
+                  <div class="form-group row">
+                     <div class="col-sm-3">
+                        <app-label asp-for="DisplayOrder" />
+                     </div>
+                     <div class="col-sm-9">
+                        <app-editor asp-for="DisplayOrder" />
+                        <span asp-validation-for="DisplayOrder"></span>
+                     </div>
+                  </div>
+                  @if (Model.CanChangeEnabled)
+                  {
+                     <div class="form-group row">
+                        <div class="col-sm-3">
+                           <app-label asp-for="IsEnabled" />
+                        </div>
+                        <div class="col-sm-9">
+                           <app-editor asp-for="IsEnabled" />
+                           <span asp-validation-for="IsEnabled"></span>
+                        </div>
+                     </div>
+                  }
+                  <div class="form-group row">
+                     <div class="col-sm-3">
+                        <app-label asp-for="SelectedUserRoleIds" />
+                     </div>
+                     <div class="col-sm-9">
+                        <div class="row">
+                           <div class="col-sm-4">
+                              <app-select asp-for="SelectedUserRoleIds" asp-items="Model.AvailableUserRoles" asp-multiple="true" />
+                              <script>
+                                 $(document).ready(function () {
+                                    var rolesIdsInput = $('#@Html.IdFor(model => model.SelectedUserRoleIds)').data("kendoMultiSelect");
+                                    rolesIdsInput.setOptions({
+                                       autoClose: false,
+                                       filter: "contains"
+                                    });
+
+                                 @if (Model.AvailableUserRoles.Count == 0)
+                                 {
+                                    <text>
+                                          rolesIdsInput.setOptions({
+                                             enable: false,
+                                             placeholder: 'No user roles available'
+                                          });
+                                       rolesIdsInput._placeholder();
+                                       rolesIdsInput._enable();
+                                    </text>
+                                 }
+                                                                             });
+                              </script>
+                           </div>
+                           <div class="col-sm-8">
+                              @await Component.InvokeAsync("AclDisabledWarning")
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.PluginDetailsBottom, additionalData = Model })
+         </div>
+      </div>
+   </div>
+</section>

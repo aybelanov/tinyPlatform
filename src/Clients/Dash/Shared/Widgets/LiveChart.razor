@@ -1,0 +1,43 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustLiveChart
+@using static Clients.Widgets.StreamChart
+
+<div class="row my-3">
+   <div class="col">
+      <StreamChart @ref=_chart Culture="@CultureInfo.CurrentUICulture.Name[..2]" Theme="@Defaults.Theme" Type="@(_adjustment.ShowAsAreachart ? ChartType.Area : ChartType.Line)"
+                   MeasureUnit="@Presentation.Sensor.MeasureUnit" MinValue="@_adjustment.MinValue" MaxValue=@_adjustment.MaxValue Duration=@_adjustment.HistoryPointsCount
+                   Delay="3000" Smooth=@_adjustment.SmothHistoryChart PointStyle="circle" style="height:320px;" />
+   </div>
+</div>
+
+@code {
+
+   [CascadingParameter] PresentationViewModel Presentation { get; set; }
+
+   [Inject] ISensorRecordService SensorRecordService { get; set; }
+
+   StreamChart _chart;
+
+   LiveChartAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+      ? new LiveChartAdjustment()
+      : JsonSerializer.Deserialize<LiveChartAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   public override async Task Update(IEnumerable<SensorRecord> records)
+   {
+      if (_chart is null)
+         return;
+
+      if (records?.Any() != true)
+         return;
+
+      var points = records.Select(x => new StreamChart.Point() { Value = x.Value, Moment = x.EventTimestamp.ToJsTicks() }).OrderBy(x=>x.Moment);
+      await _chart.Update(points);
+   }
+}

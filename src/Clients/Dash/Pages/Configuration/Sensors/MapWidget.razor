@@ -1,0 +1,40 @@
+﻿<div class="row mb-3 align-items-center">
+   <div class="col-md-2 d-flex justify-content-md-end">
+      <TinyLabel Text="@T["SelectWidget.Widget"]" class="text-right" />
+   </div>
+   <div class="col-md-10">
+      <WidgetDropDown @bind-Widget=@widget Placeholder="@T["SelectWidget.PlaceHolder"]" @bind-IsLoading=@isLoading Change="@OnChange" class="w-100" />
+   </div>
+</div>
+<div class="row align-items-start widget-select">
+   <div class="col-md-12 d-flex justify-content-md-end">
+      <RadzenFieldset Text="@T["SelectWidget.Description"]" class="w-100">
+         <div class="w-100" style="height:75px;overflow:scroll;">
+             @widgetDescription
+         </div>
+      </RadzenFieldset>
+   </div>
+</div>
+<div class="row mt-3 row-cols-1 align-items-center">
+   <div class="col d-flex justify-content-center">
+      <RadzenButton ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.Primary" Disabled=@(isLoading || widget is null) Text="@T["Button.Ok"]" Click="@OnClick" />
+   </div>
+</div>
+
+@code {
+   [Parameter] public DialogService Dialog { get; set; }
+
+   [Inject] IWidgetService WidgetService { get; set; }
+
+   WidgetSelectItem widget;
+   string widgetDescription;
+   bool isLoading;
+
+   void OnClick(MouseEventArgs args)=> Dialog.Close(widget);
+
+   async Task OnChange(WidgetSelectItem item)
+   {
+      var widget = await WidgetService.GetByIdAsync(item.Id);
+      widgetDescription = widget.Description;
+   }
+}

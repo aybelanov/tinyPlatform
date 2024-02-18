@@ -1,0 +1,218 @@
+﻿@using Hub.Core.Domain.Users;
+@using Hub.Core.Domain.Clients;
+@model OnlineDeviceSearchModel
+@inject UserSettings _userSettings
+@inject DeviceSettings _deviceSettings
+
+@{
+   //page title
+   ViewBag.PageTitle = T("Admin.Devices.OnlineDevices").Text;
+   //active menu item (system name)
+   AppHtml.SetActiveMenuItemSystemName("Online devices");
+
+   const string hideSearchBlockAttributeName = "OnlineDevicePage.HideSearchBlock";
+   var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentUserAsync(), hideSearchBlockAttributeName, defaultValue: false);
+}
+
+<div class="content-header clearfix">
+   <h1 class="float-left">
+      @T("Admin.Devices.OnlineDevices")
+   </h1>
+   <div class="float-right">
+      &nbsp;
+      @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.OnlineDeviceListButtons, additionalData = Model })
+   </div>
+</div>
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="form-horizontal">
+         <div class="cards-group">
+            <div class="card card-default card-search">
+               <div class="card-body">
+                  <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                     <div class="search-text">@T("Admin.Common.Search")</div>
+                     <div class="icon-search"><i class="fas fa-search" aria-hidden="true"></i></div>
+                     <div class="icon-collapse"><i class="far fa-angle-@(!hideSearchBlock ? "up" : "down")" aria-hidden="true"></i></div>
+                  </div>
+                  <div class="search-body @(hideSearchBlock ? "closed" : "")">
+                     <div class="row">
+                        <div class="col-md-5">
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchSystemName" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchSystemName" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchUserEmail" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchUserEmail" />
+                              </div>
+                           </div>
+                           @if (_userSettings.CompanyEnabled)
+                           {
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchUserCompany" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchUserCompany" />
+                                 </div>
+                              </div>
+                           }
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchIpAddress" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchIpAddress" />
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-7">
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchLastActivityFrom" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchLastActivityFrom" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchLastActivityTo" />
+                              </div>
+                              <div class="col-md-8">
+                                 <app-editor asp-for="SearchLastActivityTo" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchOnline" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchOnline" />
+                              </div>
+                              <div class="col-md-2" style="min-width: 10rem;">
+                                 <app-label asp-for="SearchOffline" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchOffline" />
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-md-4">
+                                 <app-label asp-for="SearchBeenRecently" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchBeenRecently" />
+                              </div>
+                              <div class="col-md-2" style="min-width: 10rem;">
+                                 <app-label asp-for="SearchNoActivities" />
+                              </div>
+                              <div class="col-md-1">
+                                 <app-editor asp-for="SearchNoActivities" />
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="text-center col-12">
+                           <button type="button" id="search-devices" class="btn btn-primary btn-search">
+                              <i class="fas fa-search"></i>
+                              @T("Admin.Common.Search")
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="card card-default">
+               <div class="card-body">
+                  <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.OnlineDevices", Docs.OnlineDevices + Utm.OnAdmin)" />
+                  <p>
+                     <i>@(string.Format(T("Admin.Common.Online.Status.BeenRecently.Devices.Hint").Text, _deviceSettings.BeenRecentlyMinutes))</i>
+                  </p>
+                  @await Html.PartialAsync("Table", new DataTablesModel
+                  {
+                      Name = "onlinedevices-grid",
+                      UrlRead = new DataUrl("List", "OnlineDevice", null),
+                      Length = Model.PageSize,
+                      SearchButtonId = "search-devices",
+                      LengthMenu = Model.AvailablePageSizes,
+                      Filters = new List<FilterParameter>
+                      {
+                          new FilterParameter(nameof(Model.SearchIpAddress)),
+                          new FilterParameter(nameof(Model.SearchLastActivityFrom)),
+                          new FilterParameter(nameof(Model.SearchLastActivityTo)),
+                          new FilterParameter(nameof(Model.SearchBeenRecently), Model.SearchBeenRecently),
+                          new FilterParameter(nameof(Model.SearchNoActivities), Model.SearchNoActivities),
+                          new FilterParameter(nameof(Model.SearchOffline), Model.SearchOffline),
+                          new FilterParameter(nameof(Model.SearchOnline), Model.SearchOnline),
+                          new FilterParameter(nameof(Model.SearchSystemName)),
+                          new FilterParameter(nameof(Model.SearchUserCompany)),
+                          new FilterParameter(nameof(Model.SearchUserEmail)),
+                      },
+                      ColumnCollection = new List<ColumnProperty>
+                      {
+                          new ColumnProperty(nameof(OnlineDeviceModel.DeviceInfo))
+                          {
+                              Title = T("Admin.Devices.Online.Fields.DeviceInfo").Text,
+                              Render = new RenderLink(new DataUrl("~/Admin/Device/Edit", nameof(DeviceModel.Id)))
+                          },
+                          new ColumnProperty(nameof(OnlineDeviceModel.LastIpAddress))
+                          {
+                              Title = T("Admin.Devices.Online.Fields.IPAddress").Text,
+                              ClassName = AppColumnClassDefaults.CenterAll,
+                              Width = "100"
+                          },
+                          new ColumnProperty(nameof(OnlineDeviceModel.Location))
+                          {
+                              Title = T("Admin.Devices.Online.Fields.Location").Text,
+                              Width = "100"
+                          },
+                          new ColumnProperty(nameof(OnlineDeviceModel.Status))
+                          {
+                              Title = T("Admin.Devices.Online.Fields.Status").Text,
+                              ClassName = AppColumnClassDefaults.CenterAll,
+                              Width = "120",
+                              Render = new RenderCustom("rendedStatusColor")
+                          },
+                          new ColumnProperty(nameof(OnlineDeviceModel.LastActivityDate))
+                          {
+                              Title = T("Admin.Devices.Online.Fields.LastActivityDate").Text,
+                              ClassName = AppColumnClassDefaults.CenterAll,
+                              Width = "180",
+                              Render = new RenderDate()
+                          }
+                      }
+                  })
+                  <script>
+                     function rendedStatusColor(data, type, row, meta) {
+                        if (row.Status == '@T("Admin.Common.Online.Status.Online")') {
+                           return '<span style="color: #4caf50">' + row.Status + '</span>';
+                        }
+                        if (row.Status == '@T("Admin.Common.Online.Status.BeenRecently")') {
+                        return '<span style="color: #ffa707">' + row.Status + '</span>';
+                        }
+                        if (row.Status == '@T("Admin.Common.Online.Status.Offline")') {
+                           return '<span style="color: darkgray">' + row.Status + '</span>';
+                        }
+                        if (row.Status == '@T("Admin.Common.Online.Status.NoActivities")') {
+                           return '<span style="color: darkgray">' + row.Status + '</span>';
+                        }
+                        return '<span>' + row.Status +'</span>';
+                     };
+                  </script>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>

@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+    tinyhub_web:
+        build: .
+        container_name: tinyhub
+        ports:
+            - "80:80"
+        depends_on:
+            - tinyhub_database
+    tinyhub_database:
+        image: "mysql:latest"
+        container_name: tinyhub_mysql_server
+        command: "--default-authentication-plugin=mysql_native_password"
+        restart: "always"
+        environment:
+          MYSQL_ROOT_PASSWORD: "tinyhub_db_password"
+
+volumes:
+  tinyhub_data:            

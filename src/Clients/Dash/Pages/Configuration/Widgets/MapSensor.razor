@@ -1,0 +1,31 @@
+﻿<div class="row mb-3 align-items-center">
+   <div class="col-md-3 d-flex justify-content-md-end">
+      <TinyLabel Text="@T["SelectSensor.Device"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <DeviceDropDown @bind-Device=@deviceItem Placeholder="@T["SelectSensor.Device.PlaceHolder"]" @bind-IsLoading=@isLoading class="w-100" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 d-flex justify-content-md-end">
+      <TinyLabel Text="@T["SelectSensor.Sensor"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <SensorDropDown @bind-Sensor=@sensorItem Device=@deviceItem Placeholder="@T["SelectSensor.Sensor.PlaceHolder"]" @bind-IsLoading=@isLoading  class="w-100" />
+   </div>
+</div>
+<div class="row mt-3 row-cols-1 align-items-center">
+   <div class="col d-flex justify-content-center">
+      <RadzenButton ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.Primary" Disabled=@(isLoading || sensorItem is null) Text="@T["Button.Ok"]" Click="@OnClick" />
+   </div>
+</div>
+
+@code {
+   [Parameter] public DialogService Dialog { get; set; }
+
+   DeviceSelectItem deviceItem;
+   SensorSelectItem sensorItem;
+   bool isLoading;
+
+   void OnClick(MouseEventArgs args) => Dialog.Close(sensorItem);
+}

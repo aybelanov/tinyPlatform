@@ -1,0 +1,44 @@
+@model ForumSettingsModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="ForumFeedsEnabled" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="ForumFeedsEnabled" />
+            <span asp-validation-for="ForumFeedsEnabled"></span>
+        </div>
+    </div>
+    <app-nested-setting asp-for="ForumFeedsEnabled">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <app-label asp-for="ForumFeedCount" />
+            </div>
+            <div class="col-md-9">
+                <app-editor asp-for="ForumFeedCount" />
+                <span asp-validation-for="ForumFeedCount"></span>
+            </div>
+        </div>
+    </app-nested-setting>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="ActiveDiscussionsFeedEnabled" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="ActiveDiscussionsFeedEnabled" />
+            <span asp-validation-for="ActiveDiscussionsFeedEnabled"></span>
+        </div>
+    </div>
+    <app-nested-setting asp-for="ActiveDiscussionsFeedEnabled">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <app-label asp-for="ActiveDiscussionsFeedCount" />
+            </div>
+            <div class="col-md-9">
+                <app-editor asp-for="ActiveDiscussionsFeedCount" />
+                <span asp-validation-for="ActiveDiscussionsFeedCount"></span>
+            </div>
+        </div>
+    </app-nested-setting>
+</div>

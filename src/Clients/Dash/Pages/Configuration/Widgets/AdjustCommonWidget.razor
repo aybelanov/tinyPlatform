@@ -1,0 +1,131 @@
+﻿
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MinValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MinValue Name="MinValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MaxValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MaxValue Name="MaxValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MinCriticalValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.CriticalMinValue Name="CriticalMinValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MaxCriticalValue"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.CriticalMaxValue Name="CriticalMaxValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowCriticalValueNotification"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenCheckBox @bind-Value=_adjustment.ShowCriticalNotification TValue="bool" Name="ShowCriticalNotification" Disabled=@IsLoading />
+   </div>
+</div>
+<div class="row mb-3 align-items-center">
+   <div class="col-md-3 justify-content-md-end d-flex">
+      <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowHistory"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenCheckBox @bind-Value=_adjustment.ShowHistory TValue="bool" Name="ShowHistory" Disabled=@IsLoading />
+   </div>
+</div>
+@if (_adjustment.ShowHistory)
+{
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 justify-content-md-end d-flex">
+         <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowAsAreachart"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenCheckBox @bind-Value=_adjustment.ShowAsAreachart TValue="bool" Name="ShowAsAreachart" Disabled=@IsLoading />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 justify-content-md-end d-flex">
+         <TinyLabel Text="@T["Widget.CreateOrEdit.Label.HistoryPointsCount"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.HistoryPointsCount Name="HistoryPointsCount" Disabled=@IsLoading TValue="int" Style="width: 100%; display:block;" />
+         <RadzenNumericRangeValidator Component="HistoryPointsCount" Min="1" Max="120" Text="@T["Validation.RequireRange", 1, 1000]" Style="position: absolute" />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 justify-content-md-end d-flex">
+         <TinyLabel Text="@T["Widget.CreateOrEdit.Label.SmothHistoryChart"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenCheckBox @bind-Value=_adjustment.SmothHistoryChart TValue="bool" Name="SmothHistoryChart" Disabled=@IsLoading />
+      </div>
+   </div>
+   <div class="row mb-3 align-items-center">
+      <div class="col-md-3 justify-content-md-end d-flex">
+         <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowHistoryTrends"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenCheckBox @bind-Value=_adjustment.ShowHistoryTrends TValue="bool" Name="ShowHistoryTrends" Disabled=@IsLoading />
+      </div>
+   </div>
+   <div class="row align-items-center">
+      <div class="col-md-3 justify-content-md-end d-flex">
+         <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowHistoryAnnotations"]" class="text-right" />
+      </div>
+      <div class="col-md-9">
+         <RadzenCheckBox @bind-Value=_adjustment.ShowHistoryAnnotations TValue="bool" Name="ShowHistoryTrends" Disabled=@IsLoading />
+      </div>
+   </div>
+}
+
+@code {
+   [Parameter] public WidgetModel Model { get; set; }
+   [Parameter] public bool IsLoading { get; set; }
+   [CascadingParameter] EditContext EditContext { get; set; }
+
+   CommonWidgetAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Model?.Adjustment) 
+      ? new CommonWidgetAdjustment()
+      : JsonSerializer.Deserialize<CommonWidgetAdjustment>(Model.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   protected override void OnParametersSet()
+   {
+      Model.Adjustment = JsonSerializer.Serialize(_adjustment);
+      base.OnParametersSet();
+   }
+
+   public class CommonWidgetAdjustment
+   {
+      public double MinValue { get; set; }
+      public double MaxValue { get; set; }
+      public double CriticalMinValue { get; set; }
+      public double CriticalMaxValue { get; set; }
+      public bool ShowCriticalNotification { get; set; }
+      public bool ShowHistory { get; set; }
+      public bool ShowAsAreachart { get; set; }
+      public int HistoryPointsCount { get; set; }
+      public bool SmothHistoryChart { get; set; }
+      public bool ShowHistoryTrends { get; set; }
+      public bool ShowHistoryAnnotations { get; set; }
+   }
+}

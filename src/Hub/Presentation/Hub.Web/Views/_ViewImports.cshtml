@@ -1,0 +1,37 @@
+﻿@inherits Hub.Web.Framework.Mvc.Razor.AppRazorPage<TModel>
+
+@inject IAppHtmlHelper AppHtml
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@*we remove the default InputTagHelper to prevent the checkbox duplicating: https://stackoverflow.com/questions/42544961/asp-net-core-custom-input-tag-helper-rendering-duplicate-checkboxes*@
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Hub.Web.Framework
+@addTagHelper *, MiniProfiler.AspNetCore.Mvc
+
+@using System.Globalization;
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.Extensions.Primitives
+@using static Hub.Services.Common.AppLinksDefaults
+@using Hub.Web.Extensions
+@using Hub.Web.Framework
+@using Hub.Web.Framework.Extensions
+@using Hub.Web.Framework.Events
+@using Hub.Web.Framework.Infrastructure
+@using Hub.Web.Framework.Models
+@using Hub.Web.Framework.Security.Captcha
+@using Hub.Web.Framework.Security.Honeypot
+@using Hub.Web.Framework.Themes
+@using Hub.Web.Framework.UI
+@using Hub.Web.Models.Blogs
+@using Hub.Web.Models.Boards
+@using Hub.Web.Models.Cms
+@using Hub.Web.Models.Common
+@using Hub.Web.Models.User
+@using Hub.Web.Models.Media
+@using Hub.Web.Models.News
+@using Hub.Web.Models.Newsletter
+@using Hub.Web.Models.Polls
+@using Hub.Web.Models.PrivateMessages
+@using Hub.Web.Models.Profile
+@using Hub.Web.Models.Topics

@@ -1,0 +1,58 @@
+﻿@model UserAttributeSearchModel
+
+<div class="card card-default">
+    <div class="card-header">
+        @T("Admin.Users.UserAttributes")
+    </div>
+    <div class="card-body">
+        <p>
+            <em>@T("Admin.Users.UserAttributes.Description")</em>
+        </p>
+        @await Html.PartialAsync("Table", new DataTablesModel
+        {
+            Name = "userattributes-grid",
+            UrlRead = new DataUrl("List", "UserAttribute", null),
+            Length = Model.PageSize,
+            LengthMenu = Model.AvailablePageSizes,
+            ColumnCollection = new List<ColumnProperty>
+            {
+                new ColumnProperty(nameof(UserAttributeModel.Name))
+                {
+                    Title = T("Admin.Users.UserAttributes.Fields.Name").Text,
+                    Width = "300"
+                },
+                new ColumnProperty(nameof(UserAttributeModel.AttributeControlTypeName))
+                {
+                    Title = T("Admin.Users.UserAttributes.Fields.AttributeControlType").Text,
+                    Width = "200"
+                },
+                new ColumnProperty(nameof(UserAttributeModel.IsRequired))
+                {
+                    Title = T("Admin.Users.UserAttributes.Fields.IsRequired").Text,
+                    Width = "200",
+                    ClassName =  AppColumnClassDefaults.CenterAll,
+                    Render = new RenderBoolean()
+                },
+                new ColumnProperty(nameof(UserAttributeModel.DisplayOrder))
+                {
+                    Title = T("Admin.Users.UserAttributes.Fields.DisplayOrder").Text,
+                    Width = "100",
+                    ClassName =  AppColumnClassDefaults.CenterAll
+                },
+                new ColumnProperty(nameof(UserAttributeModel.Id))
+                {
+                    Title = T("Admin.Common.Edit").Text,
+                    Width = "100",
+                    ClassName =  AppColumnClassDefaults.Button,
+                    Render = new RenderButtonEdit(new DataUrl("~/Admin/UserAttribute/Edit/"))
+                }
+            }
+        })
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="@Url.Action("Create", "UserAttribute")">
+            <i class="fas fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+    </div>
+</div>

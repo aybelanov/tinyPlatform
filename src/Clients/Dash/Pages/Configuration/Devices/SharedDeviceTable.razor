@@ -1,0 +1,294 @@
+﻿@implements IDisposable
+@implements IAsyncDisposable
+
+<AuthorizeView Roles="@UserDefaults.TelemetryAdminRoles">
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p>@Hint</p>
+      }
+      @{
+         authState = context;
+      }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            @* <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@((MouseEventArgs args) => { Navigation.NavigateTo("configuration/device/create"); })" Disabled=isLoading Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) /> *@
+            <RadzenButton Click=@(async args => await OnUpdate()) Icon="refresh" ButtonStyle="ButtonStyle.Light" class="mr-3" Disabled=isLoading />
+            <span class="mr-1">@T["OnlineStatus.Online"]:</span>
+            <RadzenCheckBox @bind-Value=isOnline Change=@(async (bool args) => await OnUpdate()) class="mr-3" Disabled=isLoading />
+            <span class="mr-1">@T["OnlineStatus.BeenRecently"]:</span>
+            <RadzenCheckBox @bind-Value=isBeenRecently Change=@(async (bool args) => await OnUpdate()) class="mr-3" Disabled=isLoading />
+            <span class="mr-1">@T["OnlineStatus.Offline"]:</span>
+            <RadzenCheckBox @bind-Value=isOffline Change=@(async (bool args) => await OnUpdate()) class="mr-3" Disabled=isLoading />
+            <span class="mr-1">@T["OnlineStatus.NoActivities"]:</span>
+            <RadzenCheckBox @bind-Value=isNoActivities Change=@(async (bool args) => await OnUpdate()) Disabled=isLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="DeviceModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" AllowMultiColumnSorting=true>
+         <Columns>
+            <RadzenDataGridColumn @ref=idColumn TItem="DeviceModel" Property="Id" Filterable=true Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center" Resizable=false Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) />
+            <RadzenDataGridColumn TItem="DeviceModel" Property="PictureUrl" Sortable=false Filterable=false Title=@T["DataGrid.Column.Icon"] Width="75px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenImage Path="@item.PictureUrl" Style="height:50px;" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=systemNameColumn TItem="DeviceModel" Property="SystemName" Title=@T["DataGrid.Column.SystemName"] MinWidth="150px" Frozen=true TextAlign="TextAlign.Start">
+               <Template Context="item">
+                  <RadzenLink Path=@($"configuration/device/edit/{item.Id}") Text="@item.SystemName" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=ownerNameColumn TItem="DeviceModel" Property="OwnerName" Width="180px" Filterable=true Sortable=true Title=@T["DataGrid.Column.Owner"] TextAlign="TextAlign.Center" />
+            <RadzenDataGridColumn @ref=ipAddressColumn TItem="DeviceModel" Property="LastIpAddress" Width="180px" Filterable=true Sortable=false Title=@T["DataGrid.Column.IpAddress"] TextAlign="TextAlign.Center" Resizable=false />
+            <RadzenDataGridColumn TItem="DeviceModel" Property="ConnectionStatus" Filterable=false Sortable=false Title=@T["DataGrid.Column.OnlineStatus"] Width="120px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <DeviceStatusBadge DeviceId="@item.Id" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=lastActivityColumn TItem="DeviceModel" Property="LastActivityOnUtc" Filterable=true Sortable=true Title=@T["DataGrid.Column.LastActivity"] Width="150px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  @item.LastActivityString
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=enabledColumn TItem="DeviceModel" Property="Enabled" Filterable="false" Title=@T["DataGrid.Column.Enabled"] Width="100px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="device">
+                  <RadzenCheckBox TValue="bool" @bind-Value=@device.Enabled Change="@(async(bool args) => await OnChangeEnableAsync(device))" />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=isActiveColumn TItem="DeviceModel" Property="IsActive" Filterable=false Title=@T["DataGrid.Column.IsActive"] Width="90px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenCheckBox ReadOnly=true Value="@item.IsActive" Disabled=true />
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="DeviceModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@(async () => await OnDeleteItemAsync(item))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+
+   #region Params
+
+   [Parameter] public long? MonitorId { get; set; }
+   [Parameter] public long? UserId { get; set; }
+   [Parameter] public long? SensorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   #endregion
+
+   #region fields & Services
+
+   [Inject] private IDeviceService Service { get; set; }
+   [Inject] private IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] private NotificationService NotificationService { get; set; }
+   [Inject] private DialogService DialogService { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+   [Inject] private HubService HubService { get; set; }
+   [Inject] private IJSRuntime JS { get; set; }
+   [Inject] private SettingsService SettingsService { get; set; }
+
+   IFilterableList<DeviceModel> Model;
+   private DynamicFilter filter = new();
+   bool isLoading;
+
+   RadzenDataGrid<DeviceModel> grid;
+   RadzenDataGridColumn<DeviceModel> idColumn;
+   RadzenDataGridColumn<DeviceModel> systemNameColumn;
+   RadzenDataGridColumn<DeviceModel> lastActivityColumn;
+   RadzenDataGridColumn<DeviceModel> enabledColumn;
+   RadzenDataGridColumn<DeviceModel> ownerNameColumn;
+   RadzenDataGridColumn<DeviceModel> ipAddressColumn;
+   RadzenDataGridColumn<DeviceModel> isActiveColumn;
+
+
+   bool isOnline = true;
+   bool isBeenRecently = true;
+   bool isOffline = true;
+   bool isNoActivities = true;
+
+   AuthenticationState authState;
+
+   #endregion
+
+   #region Lifecycle methods
+
+   protected override void OnInitialized()
+   {
+      HubService.DeviceStatusChanged += OnDeviceStatusChanged;
+   }
+
+   #endregion
+
+   #region Methods
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+      PrepareFilter(args);
+
+      await Task.Yield();
+
+      try
+      {
+         if (Model?.Any() ?? false)
+            await HubService.UnsubscribeFromDeviceStatus(this, Model.Select(x => x.Id));
+
+         Model = await PrepareSharedDevicesModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   protected async Task OnDeleteItemAsync(DeviceModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Device.Delete.Confirm.Message"], item.Name), T["Device.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            isLoading = true;
+            await Service.DeleteAsync(item);
+            //Model = await Factory.PrepareDevicesModelAsync();
+            await grid.Reload();
+
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Device.Delete.Success"], item.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Device.Delete.Error"], item.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+   protected async Task OnChangeEnableAsync(DeviceModel item)
+   {
+      try
+      {
+         isLoading = true;
+         await Service.UpdateAsync(item);
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Device.Update.Success"], item.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, String.Format(T["Device.Update.Error"], item.Name));
+         await OnUpdate();
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnUpdate()
+   {
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Device>.ByDynamicFilterPrefix, "shared");
+      isLoading = true;
+      await grid.Reload();
+      isLoading = false;
+   }
+
+   public void Dispose()
+   {
+      HubService.DeviceStatusChanged -= OnDeviceStatusChanged;
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Dispose();
+
+      if (Model?.Any() ?? false)
+         await HubService.UnsubscribeFromDeviceStatus(this, Model.Select(x => x.Id));
+   }
+
+   #endregion
+
+   #region Utilities
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.UserId = UserId;
+      filter.MonitorId = MonitorId;
+      filter.SensorId = SensorId;
+      filter.WidgetId = WidgetId;
+      filter.ConnectionStatuses = GetConnectionStatuses();
+
+      filter = Auto.Mapper.Map(args, filter);
+
+      filter.Filter = new List<RadzenDataGridColumn<DeviceModel>>() { idColumn, systemNameColumn, lastActivityColumn, enabledColumn, ipAddressColumn }.ToFilterString();
+
+      if (ownerNameColumn != null)
+      {
+         var ownerNameColumnFilter = new List<RadzenDataGridColumn<DeviceModel>>() { ownerNameColumn }.ToFilterString();
+         if (!filter.AdditionalQueries.TryAdd("User", ownerNameColumnFilter))
+            filter.AdditionalQueries["User"] = ownerNameColumnFilter;
+      }
+   }
+
+   private IEnumerable<OnlineStatus> GetConnectionStatuses()
+   {
+      var statuses = new List<OnlineStatus>();
+      if (isOnline) statuses.Add(OnlineStatus.Online);
+      if (isBeenRecently) statuses.Add(OnlineStatus.BeenRecently);
+      if (isOffline) statuses.Add(OnlineStatus.Offline);
+      if (isNoActivities) statuses.Add(OnlineStatus.NoActivities);
+
+      return statuses;
+   }
+
+   private async Task OnDeviceStatusChanged(DeviceConnectionStatus status)
+   {
+      var item = Model?.FirstOrDefault(x => x.Id == status.DeviceId);
+      if (item != null)
+      {
+         if (string.IsNullOrEmpty(status.IPAddress))
+         {
+            item.ConnectionStatus = OnlineStatus.BeenRecently;
+            item.LastIpAddress = string.Empty;
+            item.LastActivityString = ClientHelper.ConvertUtcToBrowserTime(DateTime.UtcNow).ToString("g");
+         }
+         else
+         {
+            item.LastIpAddress = status.IPAddress;
+            item.ConnectionStatus = OnlineStatus.Online;
+            item.LastActivityString = string.Empty;
+         }
+
+
+         StateHasChanged();
+         await Task.CompletedTask;
+      }
+   }
+
+   #endregion
+}

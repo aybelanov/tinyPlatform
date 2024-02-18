@@ -1,0 +1,36 @@
+﻿<label class="rz-label px-0" @attributes=@Attributes>
+   @if ((Text.Name + ".Hint").ToLower().Equals(T[Text.Name + ".Hint"].Value.ToLower()))
+   {
+      @($"{Text}:")
+   }
+   else
+   {
+      <nobr>
+         <text>@Text</text>
+         <RadzenIcon Icon="help" IconStyle="IconStyle.Secondary" Style="cursor:default; margin-bottom:1px;" MouseEnter="@ShowTooltip" MouseLeave="@CloseTooltip" class="mx-0 align-middle" />
+         <text>:</text>
+      </nobr>
+   }
+</label>
+
+@code {
+   [Parameter] public LocalizedString Text { get; set; }
+   [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> Attributes { get; set; }
+
+   [Inject] TooltipService TooltipService { get; set; }
+
+   void ShowTooltip(ElementReference elRef)
+   {
+      var options = new TooltipOptions() { Duration = 10_000, Position = TooltipPosition.Bottom };
+      TooltipService.Open(elRef, ds =>
+   @<div>
+      @((MarkupString)T[Text.Name + ".Hint"].Value)
+   </div>,
+    options);
+   }
+
+   void CloseTooltip(ElementReference elRef)
+   {
+      TooltipService.Close();
+   }
+}

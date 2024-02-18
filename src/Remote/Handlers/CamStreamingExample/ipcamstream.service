@@ -1,0 +1,30 @@
+# sudo journalctl -u ipcamstream
+
+#filter
+# sudo journalctl -p 3 -u ipcamstream
+
+[Unit]
+Description=IPCamStreaming net app running on XUbuntu
+
+[Service]
+Type=notify
+# target self-contained for linux-64
+# WorkingDirectory=/home/ayblinux/shared/dev/ms/debug/linux64sc/
+# ExecStart=/home/ayblinux/shared/dev/ms/debug/linux64sc/IPCamStreamingService
+
+# target framework-dependent for linux-64
+WorkingDirectory=/home/ayblinux/shared/dev/ms/debug/linux64fd/
+ExecStart=/home/ayblinux/shared/dev/ms/debug/linux64fd/IPCamStreamingService
+
+# target framework-dependent portable
+# WorkingDirectory=/home/ayblinux/shared/dev/ms/debug/portablefd/
+# ExecStart=/usr/bin/dotnet /home/ayblinux/shared/dev/ms/debug/portablefd/IPCamStreamingService.dll
+
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=ipcam-streaming
+
+[Install]
+WantedBy=multi-user.target

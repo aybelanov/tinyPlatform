@@ -1,0 +1,60 @@
+﻿@page "/monitor/{MonitorId:long}"
+@attribute [Authorize(Roles = UserDefaults.TelemetryRoles)]
+
+<AuthorizeView>
+   <Authorized>
+      <RadzenCard>
+         @if (Model == null)
+         {
+            <PageTitle>@($"{T["Monitor"]}: #{MonitorId}")</PageTitle>
+            <h3>@($"{T["Monitor"]}: #{MonitorId}")</h3>
+            <LoadingStub />
+         }
+         else
+         {
+            <PageTitle>@($"{T["Monitor"]}: {Model.Name}")</PageTitle>
+            @if (context.User.IsInRole(UserDefaults.AdministratorsRoleName) || context.User?.Identity.Name.Equals(Model.OwnerName) == true)
+            {
+               <h3><RadzenLink Icon="monitor" Text=@Model.Name Path=@($"configuration/monitor/edit/{MonitorId}") /></h3>
+            }
+            else
+            {
+               <h3 class="d-flex align-items-center">
+                  <RadzenIcon Icon="monitor" class="mr-1"></RadzenIcon>
+                  @Model.Name
+               </h3>
+            }
+            <p>@Model.Description</p>
+            <div class="row row-cols-2 justify-content-center">
+               <CascadingValue Value="@Model" TValue="MonitorViewModel" IsFixed=true>
+                  @foreach (var presentation in Model.Presentations)
+                  {
+                     <WidgetView Presentation="@presentation" />
+                  }
+               </CascadingValue>
+            </div>
+         }
+      </RadzenCard>
+   </Authorized>
+</AuthorizeView>
+
+
+@code {
+   [Parameter] public long MonitorId { get; set; }
+
+   private MonitorViewModel Model { get; set; }
+
+   protected override async Task OnParametersSetAsync()
+   {
+      Model = null;
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareMonitorViewModelAsync(MonitorId);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+}

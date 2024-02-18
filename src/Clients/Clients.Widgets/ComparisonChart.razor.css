@@ -1,0 +1,20 @@
+﻿.comp-chart input[type=checkbox] {
+    min-width: 15px;
+    min-height: 15px;
+}
+
+.comp-chart .series1-color {
+    min-height: 20px;
+    min-width: 20px;
+    background-color: rgb(54, 162, 235, 0.5);
+    border: 3px solid rgb(54, 162, 235);
+    border-radius: 10%;
+}
+
+.comp-chart .series2-color {
+    min-height: 20px;
+    min-width: 20px;
+    background-color: rgb(255, 99, 132, 0.5);
+    border: 3px solid rgb(255, 99, 132);
+    border-radius: 10%;
+}

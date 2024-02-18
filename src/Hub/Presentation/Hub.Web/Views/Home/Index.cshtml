@@ -1,0 +1,32 @@
+﻿@using Hub.Core.Domain.Seo
+@inject SeoSettings seoSettings
+
+@{
+   Layout = "_ColumnsOne";
+
+   //title
+   if (!string.IsNullOrEmpty(seoSettings.HomepageTitle))
+   {
+      AppHtml.AddTitleParts(seoSettings.HomepageTitle);
+   }
+
+   //meta
+   if (!string.IsNullOrEmpty(seoSettings.HomepageDescription))
+   {
+      AppHtml.AddMetaDescriptionParts(seoSettings.HomepageDescription);
+   }
+
+   //page class
+   AppHtml.AppendPageCssClassParts("html-home-page");
+}
+<div class="page home-page">
+   <div class="page-body">
+      @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
+      @await Component.InvokeAsync("TopicBlock", new { systemName = "HomepageText" })
+      @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeNews })
+      @await Component.InvokeAsync("HomepageNews")
+      @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforePoll })
+      @await Component.InvokeAsync("HomepagePolls")
+      @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })
+   </div>
+</div>

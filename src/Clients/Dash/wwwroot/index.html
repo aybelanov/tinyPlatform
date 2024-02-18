@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+   <title>Tiny dashboard</title>
+   <base href="/dashboard/" />
+   <script src="js/start.app.js"></script>
+   <link href="css/app.css" rel="stylesheet" />
+   <link href="favicon.svg" rel="icon" />
+   <link href="Clients.Dash.styles.css" rel="stylesheet" />
+   <link href="manifest.json" rel="manifest" />
+   <link rel="apple-touch-icon" sizes="512x512" href="favicon.svg" />
+   <link rel="apple-touch-icon" sizes="192x192" href="favicon.svg" />
+</head>
+<body>
+   <div id="app">
+      <svg class="loading-progress">
+         <circle r="40%" cx="50%" cy="50%" />
+         <circle r="40%" cx="50%" cy="50%" />
+      </svg>
+      <div class="loading-progress-text"></div>
+   </div>
+   <div id="blazor-error-ui">
+      An unhandled error has occurred.
+      <a href="" class="reload">Reload</a>
+      <a class="dismiss">🗙</a>
+   </div>
+   <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+   <script src="_framework/blazor.webassembly.js"></script>
+   <script>navigator.serviceWorker.register('service-worker.js');</script>
+   <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+
+   <!-- Yandex.Metrika counter -->
+   <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+         m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+         m[i].l = 1 * new Date();
+         for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+         k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+      })
+         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(96336417, "init", {
+         clickmap: true,
+         trackLinks: true,
+         accurateTrackBounce: true
+      });
+   </script>
+   <noscript><div><img src="https://mc.yandex.ru/watch/96336417" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+   <!-- /Yandex.Metrika counter -->
+
+</body>
+</html>

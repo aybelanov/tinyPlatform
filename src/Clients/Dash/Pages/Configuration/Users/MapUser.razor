@@ -1,0 +1,56 @@
+﻿<div class="row mb-3 align-items-center">
+   <div class="col-md-3 d-flex justify-content-md-end">
+      <TinyLabel Text="@T["Montor.Map.UserName"]" class="text-right" />
+   </div>
+   <div class="col-md-9">
+      <RadzenTextBox Trim=true Name="UserName" style="width: 100%; display:block;" @bind-Value=@userName Placeholder="@T["Montor.Map.UserName.Placeholder"]" />
+   </div>
+</div>
+<div class="row mt-4 row-cols-1 align-items-center">
+   <div class="col d-flex justify-content-center">
+      <RadzenButton ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.Primary" Click="@OnClick" Text="@T["Button.Ok"]" />
+   </div>
+</div>
+
+@code {
+   [Parameter] public DialogService Dialog { get; set; }
+
+   [Inject] NotificationService Notification { get; set; }
+   [Inject] AuthenticationStateProvider AuthProvider { get; set; }
+   [Inject] ICommonService CommonService { get; set; }
+
+   string userName;
+
+   async Task OnClick()
+   {
+      if (string.IsNullOrWhiteSpace(userName))
+      {
+         Notification.Notify(NotificationSeverity.Error, T["Validation.RequireValue"], duration: 5000d);
+         return;
+      }
+
+      userName = userName.Trim();
+
+      var state = await AuthProvider.GetAuthenticationStateAsync();
+      if (state.User?.Identity.IsAuthenticated != true)
+      {
+         Notification.Notify(NotificationSeverity.Error, T["Validation.NotAuthenticated"], duration: 5000d);
+         return;
+      }
+
+      if (state.User?.Identity.Name.Equals(userName, StringComparison.InvariantCultureIgnoreCase) == true)
+      {
+         Notification.Notify(NotificationSeverity.Error, T["Validation.TheSameUser"], duration: 5000d);
+         return;
+      }
+
+      var result = await CommonService.CheckUserNameAvailabilityAsync(userName);
+      if (!string.IsNullOrEmpty(result.Error))
+      {
+         Notification.Notify(NotificationSeverity.Error, result.Error, duration: 5000d);
+         return;
+      }
+
+      Dialog.Close(userName);
+   }
+}

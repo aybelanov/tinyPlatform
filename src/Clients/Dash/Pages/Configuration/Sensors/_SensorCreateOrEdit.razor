@@ -1,0 +1,34 @@
+﻿@page "/configuration/sensor/create"
+@page "/configuration/sensor/edit/{sensorId:long}"
+@attribute [Authorize]
+
+<SensorForm SensorId=@SensorId DeviceId=@DeviceId />
+
+@if (SensorId > 0)
+{
+    <RadzenCard class="mb-4">
+      <SensorWidgetsTable SensorId="@SensorId" Title="@T["Table.Widgets.SensorMapping"]" Hint="@T["Table.Widgets.SensorMapping.Hint"]" />
+   </RadzenCard>
+   <RadzenAccordion class="table-content">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Sensors.MonitorTable"]" Icon="&#xeaf5" class="py-2" Style="cursor:pointer">
+            <MonitorTable SensorId="SensorId" Hint="@T["Table.Sensors.MonitorTable.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+   <RadzenAccordion Multiple=true class="table-content mt-3">
+      <Items>
+         <RadzenAccordionItem Text="@T["ConsoleLog.Sensor"]" Icon="&#xe241" class="py-2" Style="cursor:pointer">
+            <SensorConsole SensorId=@SensorId />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+}
+
+@code {
+
+   [Parameter] public long SensorId { get; set; }
+
+   [Parameter, SupplyParameterFromQuery(Name = "device")]
+   public long DeviceId { get; set; }
+}

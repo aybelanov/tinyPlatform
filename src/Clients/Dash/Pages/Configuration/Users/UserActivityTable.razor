@@ -1,0 +1,85 @@
+﻿<RadzenCard class="mb-5">
+   <div class="col mt-3">
+      <div class="row mb-2 align-items-center d-flex">
+         <RadzenButton Click=@(async args => await OnUpdateAsync()) Icon="refresh" ButtonStyle="ButtonStyle.Light" Style="margin-right: 10px;" Disabled=@isLoading />
+      </div>
+   </div>
+   <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                   PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                   TItem="ActivityLogRecordModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                   IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" AllowMultiColumnSorting=true ExpandMode="DataGridExpandMode.Single">
+      <Columns>
+         <RadzenDataGridColumn @ref=@activityTypeColumn Property="ActivityType" TItem="ActivityLogRecordModel" Title=@T["DataGrid.Column.ActivityType"] Width="150px" />
+         <RadzenDataGridColumn @ref=@entityNameColumn Property="EntityName" TItem="ActivityLogRecordModel" Title=@T["DataGrid.Column.Entity"] Width="150px" />
+         <RadzenDataGridColumn @ref=@commentColumn Property="Comment" TItem="ActivityLogRecordModel" Title=@T["DataGrid.Column.Comment"]>
+            <Template>
+               <span class="cell-full-text">@context.Comment</span>
+            </Template>
+         </RadzenDataGridColumn>
+         <RadzenDataGridColumn @ref=@ipAddressColumn Property="IpAddress" TItem="ActivityLogRecordModel" Title=@T["DataGrid.Column.IpAddress"] Width="130px" />
+         <RadzenDataGridColumn @ref=@createdColumn Property="CreatedOnUtc" SortOrder=SortOrder.Descending TItem="ActivityLogRecordModel" Title=@T["DataGrid.Column.CreatedOnUtc"] Width="150px" />
+      </Columns>
+   </RadzenDataGrid>
+</RadzenCard>
+
+@code {
+   [Parameter, EditorRequired] public long? UserId { get; set; }
+
+   [Inject] NavigationManager Navigation { get; set; }
+
+   RadzenDataGrid<ActivityLogRecordModel> grid;
+   RadzenDataGridColumn<ActivityLogRecordModel> activityTypeColumn;
+   RadzenDataGridColumn<ActivityLogRecordModel> entityNameColumn;
+   RadzenDataGridColumn<ActivityLogRecordModel> commentColumn;
+   RadzenDataGridColumn<ActivityLogRecordModel> ipAddressColumn;
+   RadzenDataGridColumn<ActivityLogRecordModel> createdColumn;
+   IFilterableList<ActivityLogRecordModel> Model;
+   DynamicFilter filter = new();
+   bool isLoading;
+
+   async Task OnUpdateAsync()
+   {
+      isLoading = true;
+      await grid.Reload();
+      isLoading = false;
+   }
+
+   async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+      PrepareFilter(args);
+      await Task.Yield();
+
+      if (string.IsNullOrEmpty(filter.OrderBy))
+         filter.OrderBy = "CreatedOnUtc desc";
+
+      try
+      {
+         Model = await PrepareActivityLogModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.UserId = UserId;
+      filter = Auto.Mapper.Map(args, filter);
+      var columnCollection = new List<RadzenDataGridColumn<ActivityLogRecordModel>>()
+      {
+          activityTypeColumn,
+          entityNameColumn,
+          commentColumn,
+          ipAddressColumn,
+          createdColumn
+      };
+
+      filter.Filter = columnCollection.ToFilterString();
+   }
+}

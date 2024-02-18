@@ -1,0 +1,72 @@
+﻿@implements IDisposable
+
+@if (ConfigurationMenuItem != null)
+{
+   <AuthorizeView Roles="@UserDefaults.TelemetryAdminRoles">
+      <Authorized>
+         <NavigationItem @bind-Expanded=@ConfigurationMenuItem.Expanded Category=@ConfigurationMenuItem>
+
+            @if (ConfigurationMenuItem.Children != null)
+            {
+               @foreach (var subCat1 in ConfigurationMenuItem.Children)
+               {
+                  if (subCat1.Children != null)
+                  {
+                     <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1>
+
+                        @foreach (var subCat2 in subCat1.Children)
+                        {
+                           <NavigationItem @bind-Expanded=@subCat2.Expanded Category=@subCat2 />
+                        }
+
+                     </NavigationItem>
+                  }
+                  else
+                  {
+                     <NavigationItem @bind-Expanded=@subCat1.Expanded Category=@subCat1 />
+                  }
+               }
+            }
+         </NavigationItem>
+      </Authorized>
+   </AuthorizeView>
+}
+
+@code {
+
+   [Inject] private MenuService MenuService { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+   [Inject] private PermissionService AdminService { get; set; }
+
+   CategoryMenuModel ConfigurationMenuItem { get; set; }
+   EventHandler<bool> AdminModeChangedHandler;
+
+   protected override void OnInitialized()
+   {
+      AdminModeChangedHandler = async (o, e) => await OnAdminModeChanged(o, e);
+      AdminService.AdminModeChanged += AdminModeChangedHandler;
+   }
+
+
+   protected override async Task OnInitializedAsync()
+   {
+      ConfigurationMenuItem = await MenuService.GetConfigurationMenuItemAsync();
+   }
+
+
+   async Task OnAdminModeChanged(object sensder, bool mode)
+   {
+      await Task.Yield();
+      var expanded = ConfigurationMenuItem.Expanded;
+      ConfigurationMenuItem = await MenuService.GetConfigurationMenuItemAsync();
+      ConfigurationMenuItem.Expanded = expanded;
+
+      if (Navigation.Uri.EndsWith("/configuration/users")) Navigation.NavigateTo("./");
+      else Navigation.NavigateTo(Navigation.Uri);
+   }
+
+   public void Dispose()
+   {
+      AdminService.AdminModeChanged -= AdminModeChangedHandler;
+   }
+}

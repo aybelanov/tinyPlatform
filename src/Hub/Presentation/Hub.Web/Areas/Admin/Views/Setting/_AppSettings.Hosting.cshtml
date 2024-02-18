@@ -1,0 +1,128 @@
+@using Shared.Clients.Configuration
+@model AppSettingsModel
+
+@{
+   var isDemoUser = Context.User.IsInRole(UserDefaults.DemoRoleName);
+}
+
+<div class="card-body">
+   <div id="hosting-area">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="HostingConfigModel.HubHostUrl" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="HostingConfigModel.HubHostUrl" />
+            <span asp-validation-for="HostingConfigModel.HubHostUrl"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="HostingConfigModel.ClientHostUrl" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="HostingConfigModel.ClientHostUrl" />
+            <span asp-validation-for="HostingConfigModel.ClientHostUrl"></span>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="HostingConfigModel.AllowedHosts" />
+         </div>
+         <div class="col-md-9">
+            @if (isDemoUser)
+            {
+               <input class="form-control text-box single-line" type="text" value="*******">
+            }
+            else
+            {
+               <app-editor asp-for="HostingConfigModel.AllowedHosts" />
+               <span asp-validation-for="HostingConfigModel.AllowedHosts"></span>
+            }
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="HostingConfigModel.Urls" />
+         </div>
+         <div class="col-md-9">
+            @if (isDemoUser)
+            {
+               <input class="form-control text-box single-line" type="text" value="*******">
+            }
+            else
+            {
+               <app-editor asp-for="HostingConfigModel.Urls" />
+               <span asp-validation-for="HostingConfigModel.Urls"></span>
+            }
+         </div>
+      </div>
+   </div>
+   <div id="proxy-area">
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="HostingConfigModel.UseProxy" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="HostingConfigModel.UseProxy" />
+            <span asp-validation-for="HostingConfigModel.UseProxy"></span>
+         </div>
+      </div>
+      <app-nested-setting asp-for="HostingConfigModel.UseProxy" disable-auto-generation="true">
+         <div class="form-group row advanced-setting" id="pnForwardedForHeaderName">
+            <div class="col-md-3">
+               <app-label asp-for="HostingConfigModel.ForwardedForHeaderName" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="HostingConfigModel.ForwardedForHeaderName" />
+               <span asp-validation-for="HostingConfigModel.ForwardedForHeaderName"></span>
+            </div>
+         </div>
+         <div class="form-group row advanced-setting" id="pnForwardedProtoHeaderName">
+            <div class="col-md-3">
+               <app-label asp-for="HostingConfigModel.ForwardedProtoHeaderName" />
+            </div>
+            <div class="col-md-9">
+               <app-editor asp-for="HostingConfigModel.ForwardedProtoHeaderName" />
+               <span asp-validation-for="HostingConfigModel.ForwardedProtoHeaderName"></span>
+            </div>
+         </div>
+         <div class="form-group row advanced-setting" id="pnKnownProxies">
+            <div class="col-md-3">
+               <app-label asp-for="HostingConfigModel.KnownProxies" />
+            </div>
+            <div class="col-md-9">
+               @if (isDemoUser)
+               {
+                  <input class="form-control text-box single-line" type="text" value="*******">
+               }
+               else
+               {
+                  <app-editor asp-for="HostingConfigModel.KnownProxies" />
+                  <span asp-validation-for="HostingConfigModel.KnownProxies"></span>
+               }
+            </div>
+         </div>
+      </app-nested-setting>
+   </div>
+</div>
+<script>
+   $(document).ready(function () {
+      $("#@Html.IdFor(model => model.HostingConfigModel.UseProxy)").click(toggleHostingProxy);
+      $(@Html.IdFor(model => model.DistributedCacheConfigModel.DistributedCacheType)).change(toggleHostingProxy);
+
+      toggleHostingProxy();
+   });
+
+   function toggleHostingProxy() {
+      if ($('#@Html.IdFor(model => model.HostingConfigModel.UseProxy)').is(':checked')) {
+         $('#pnForwardedForHeaderName').showElement();
+         $('#pnForwardedProtoHeaderName').showElement();
+         $('#pnKnownProxies').showElement();
+      } else {
+         $('#pnForwardedForHeaderName').hideElement();
+         $('#pnForwardedProtoHeaderName').hideElement();
+         $('#pnKnownProxies').hideElement();
+      }
+   }
+</script>

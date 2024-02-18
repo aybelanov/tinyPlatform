@@ -1,0 +1,30 @@
+﻿.console-content {
+    height: 400px;
+    overflow: auto;
+}
+
+.console-header {
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 0 0 16px 0;
+}
+
+.console-title {
+    flex: 1;
+    margin: 0 !important;
+}
+
+.console-message {
+    margin: 8px 0;
+    padding: 4px 0;
+    display: flex;
+    align-items: baseline;
+    color: #000000;
+    background: rgba(210,233,255,0.8);
+    border-radius: 4px;
+}
+
+.console-message-time {
+    font-size: 12px;
+    padding: 2px 4px;
+}

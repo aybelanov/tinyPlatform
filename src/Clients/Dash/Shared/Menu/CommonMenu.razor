@@ -1,0 +1,33 @@
+﻿@using Microsoft.Extensions.Caching.Memory
+
+<RadzenMenu class="mr-3 mr-xl-3 common-menu" Responsive=false>
+   <RadzenMenuItem Icon="&#xe5d2">
+      <RadzenMenuItem Icon="&#xe86a" Click="@OnClearCache" Text="@T["CommonMenu.ClearCache"]" />
+      <AuthorizeView Roles="@UserDefaults.AdministratorsRoleName">
+         <Authorized >
+            <RadzenMenuItem Icon="&#xef3d" Path="@(Singleton<ServerConfig>.Instance.HubHost +"/admin")" Text="@T["LoginDisplay.AdminPanel"]"/>
+         </Authorized>
+      </AuthorizeView>
+      <RadzenMenuItem Icon="&#xe80b" Path="@(Singleton<ServerConfig>.Instance.HubHost)" Text="@T["LoginDisplay.HubHomePage"]" />
+      @* <RadzenMenuItem Icon="help" Path="https://github.com/aybelanov/tinyPlatform" Text="Docs" Target="_blank" /> *@
+      @* <RadzenMenuItem Icon="help" Path="https://docs.tinypalt.com" Text="Docs" /> *@
+      <AuthorizeView>
+         <Authorized>
+            <RadzenMenuItem Icon="&#xe9ba" Click="@(_ => Navigation.NavigateToLogout("authentication/logout"))" Text="@T["LoginDisplay.Logout"]"/>
+         </Authorized>
+      </AuthorizeView>
+   </RadzenMenuItem>
+</RadzenMenu>
+
+@code {
+
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] NotificationService Notification { get; set; }
+
+   async Task OnClearCache(MenuItemEventArgs args)
+   {
+      await StaticCacheManager.ClearAsync();
+      Notification.Notify(NotificationSeverity.Success, T["CommonMenu.CahceHasCleared"]);
+   }
+}

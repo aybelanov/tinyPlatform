@@ -1,0 +1,63 @@
+﻿<div class="row justify-content-md-center">
+   <div class="col-md-12">
+      <RadzenFieldset Text=@((Model.Id < 1) ? T["Device.CreateOrEdit.Fieldset.Creating"] : (isConnected ? T["Device.CreateOrEdit.Fieldset.DeviceConnected", Model.LastIpAddress] : T["Device.CreateOrEdit.Fieldset.DeviceDisconnected"]))>
+         <div class="row mb-2">
+            <div class="col-md-12">
+               <EventConsole @ref=@console Height="300" Ascending=true />
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-2 align-items-center d-flex">
+               <RadzenLabel Text="@T["Device.CreateOrEdit.Label.Command"]" class="text-end" />
+            </div>
+            <div class="col-md-8 align-items-center d-flex">
+               <RadzenDropDown AllowClear="true" Name="WidgetType" TValue="int" AllowFiltering="true" Disabled=@(!isConnected) class="w-100"
+                               @bind-Value=@selectedCommandId Data=@commands Count=@commands.Count TextProperty="Value" ValueProperty="Key" Placeholder=@T["Select"] />
+
+            </div>
+            <div class="col-md-2 align-items-center d-flex text-truncate">
+               <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="send" title="send" Click=@OnCommandSendClick Disabled=@(!isConnected) />
+            </div>
+         </div>
+      </RadzenFieldset>
+   </div>
+</div>
+
+@code {
+   [Parameter] public DeviceModel Model { get; set; }
+   //[Parameter] public bool IsConnected { get; set; }
+
+   [Inject] private HubService Hub { get; set; }
+
+   private EventConsole console;
+   private Dictionary<int, string> commands;
+   private int selectedCommandId;
+   private bool isConnected;
+
+   protected override void OnInitialized()
+   {
+      isConnected = Hub.ConnectionState == HubConnectionState.Connected && Model?.ConnectionStatus == OnlineStatus.Online;
+      commands = Enum.GetValues(typeof(CommandEnum)).Cast<CommandEnum>().ToDictionary(t => (int)t, t => t.ToString());
+   }
+
+   private async Task OnCommandSendClick(MouseEventArgs eventargs)
+   {
+      if (Model.Id > 0)
+      {
+         try
+         {
+            await Hub.SendCommandToDevice(Model.Id, (CommandEnum)selectedCommandId);
+            console.Log(T["Device.CreateOrEdit.Command.Send", ((CommandEnum)selectedCommandId).ToString().ToUpper(), Model.Name]);
+         }
+         catch
+         {
+            console.Log("Sending command has failed.");
+         }
+      }
+   }
+
+   public void Write(string message)
+   {
+      console.Log(message);
+   }
+}

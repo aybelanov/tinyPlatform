@@ -1,0 +1,183 @@
+﻿@using Hub.Core.Domain.Users
+@using Microsoft.AspNetCore.Components;
+@inject IWorkContext workContext
+
+@{
+   const string cardId = "configuration-steps-card";
+   var user = await workContext.GetCurrentUserAsync();
+
+   //hide value
+   var hideCard = await genericAttributeService.GetAttributeAsync<bool>(user, AppUserDefaults.HideConfigurationStepsAttribute);
+
+   //close value
+   var closeCard = await genericAttributeService.GetAttributeAsync<bool>(user, AppUserDefaults.CloseConfigurationStepsAttribute);
+}
+
+<div class="card card-primary card-outline configuration-steps @if (hideCard){<text>collapsed-card</text>}" id="@cardId">
+   <div class="card-header with-border">
+      <h3 class="card-title">
+         <i class="far fa-star"></i>
+         @T("Admin.ConfigurationSteps")
+      </h3>
+      <div class="card-tools float-right">
+         <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            @if (hideCard)
+            {
+               <text><i class="fas fa-plus"></i></text>
+            }
+            else
+            {
+               <text><i class="fas fa-minus"></i></text>
+            }
+         </button>
+         <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <text><i class="fas fa-times"></i></text>
+         </button>
+      </div>
+   </div>
+   <script>
+      $(document).ready(function () {
+         $('#@cardId').on('click', 'button[data-card-widget="collapse"]', function () {
+            var collapsed = !$('#@cardId').hasClass('collapsed-card');
+            saveUserPreferences('@(Url.Action("SavePreference", "Preferences"))', '@AppUserDefaults.HideConfigurationStepsAttribute', collapsed);
+         });
+
+         $('#@cardId').on('click', 'button[data-card-widget="remove"]', function () {
+            var collapsed = !$('#@cardId').hasClass('collapsed-card');
+            saveUserPreferences('@(Url.Action("SavePreference", "Preferences"))', '@AppUserDefaults.CloseConfigurationStepsAttribute', collapsed);
+         });
+      });
+   </script>
+   <div class="card-body">
+      <div class="row">
+         <div class="col-12">
+            <h4>
+               @T("Admin.ConfigurationSteps.Welcome.Title")
+            </h4>
+         </div>
+         <app-doc-reference style="text-indent: 2rem; margin: 15px 15px 25px;" asp-string-resource="@T("Admin.ConfigurationSteps.Welcome.Text", Docs.PlatformInstallation + Utm.OnAdmin)" />
+      </div>
+      <div class="row">
+         <div class="col-12">
+            <div class="row mb-3">
+               <div class="col-4">
+                  <a class="configuration-step-link hubconfig-step d-flex" asp-action="AppSettings" asp-controller="Setting" asp-route-showtour="@true">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="fa fa-share-alt"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              1. &nbsp; @T("Admin.ConfigurationSteps.ConfigureHub.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.ConfigureHub.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col-4">
+                  <a class="configuration-step-link email-step d-flex" asp-action="List" asp-controller="EmailAccount" asp-route-showtour="@true">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="far fa-envelope"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              2. &nbsp; @T("Admin.ConfigurationSteps.CreateEmailAccounts.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.CreateEmailAccounts.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col-4">
+                  <a class="configuration-step-link client-step d-flex" href="@(Docs.ClientInstallation)@Utm.OnAdminConfigurationSteps" target="_blank">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="fa fa-laptop"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              3. &nbsp; @T("Admin.ConfigurationSteps.SetUpClient.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.SetUpClient.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+            </div>
+            <div class="row mb-2">
+               <div class="col-4">
+                  <a class="configuration-step-link device-step d-flex" href="@(Docs.DispatcherInstallation)@Utm.OnAdminConfigurationSteps" target="_blank">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="fas fa-hdd"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              4. &nbsp; @T("Admin.ConfigurationSteps.ConfigureDevices.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.ConfigureDevices.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col-4">
+                  <a class="configuration-step-link personalize-step d-flex" asp-action="GeneralCommon" asp-controller="Setting" asp-route-showtour="@true">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="fas fa-pencil-alt"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              5. &nbsp; @T("Admin.ConfigurationSteps.PersonalizePlatform.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.PersonalizePlatform.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col-4">
+                  <a class="configuration-step-link copyright-step d-flex" href="@(OfficialSite.CopyrightRemovalKey)@Utm.OnAdminConfigurationSteps" target="_blank">
+                     <div class="row">
+                        <div class="col-12 col-xl-3 d-flex">
+                           <div class="configuration-step-icon m-auto">
+                              <i class="far fa-copyright"></i>
+                           </div>
+                        </div>
+                        <div class="col-12 col-xl-9 mt-3">
+                           <h5>
+                              6. &nbsp; @T("Admin.ConfigurationSteps.PoweredBy.Title")
+                              <small class="text-muted">
+                                 @T("Admin.ConfigurationSteps.PoweredBy.Description")
+                              </small>
+                           </h5>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

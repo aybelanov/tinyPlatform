@@ -1,0 +1,7 @@
+﻿{
+  "SystemName": "DefaultTheme",
+  "FriendlyName": "Default theme",
+  "SupportRTL": true,
+  "PreviewImageUrl": "~/Themes/DefaultTheme/preview.jpg",
+  "PreviewText": "The 'DefaultTheme' site theme"
+}

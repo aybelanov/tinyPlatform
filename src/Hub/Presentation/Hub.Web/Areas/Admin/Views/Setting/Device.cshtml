@@ -1,0 +1,58 @@
+﻿@using Hub.Web.Framework.Models.AdminAreaTour;
+@model DeviceSettingsModel
+
+@{
+   //page title
+   ViewBag.PageTitle = T("Admin.Configuration.Settings.Device").Text;
+ 
+   //active menu item (system name)
+   AppHtml.SetActiveMenuItemSystemName("Device settings");
+
+   var user = await workContext.GetCurrentUserAsync();
+   const string hideCommonBlockAttributeName = "DeviceSettingsPage.HideCommonBlock";
+   var hideCommonBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideCommonBlockAttributeName);
+
+   const string hideSecurityBlockAttributeName = "DeviceSettingsPage.HideSecurityBlock";
+   var hideSecurityBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideSecurityBlockAttributeName);
+
+   const string hideAccountBlockAttributeName = "DeviceSettingsPage.HideAccountBlock";
+   var hideAccountBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideAccountBlockAttributeName);
+
+   //tour step
+   ViewBag.TourStep = TourStep.DeviceSettings;
+}
+
+@await Html.PartialAsync("_AdminTour")
+
+
+<form asp-controller="Setting" asp-action="Device" method="post">
+   <div class="content-header clearfix">
+      <h1 class="float-left">
+         @T("Admin.Configuration.Settings.Device")
+      </h1>
+      <div class="float-right">
+         <button type="submit" name="save" class="btn btn-primary">
+            <i class="far fa-save"></i>
+            @T("Admin.Common.Save")
+         </button>
+         @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DeviceSettingsButtons, additionalData = Model })
+      </div>
+   </div>
+   <div asp-validation-summary="All"></div>
+
+   <section class="content">
+      <div class="container-fluid">
+         <div class="form-horizontal">
+            @await Component.InvokeAsync("SettingMode")
+            <app-cards id="usersettings-cards">
+               <app-card asp-name="usersettings-common" asp-icon="fas fa-info" asp-title="@T("Admin.Configuration.Settings.Device.BlockTitle.Common")" asp-hide-block-attribute-name="@hideCommonBlockAttributeName" asp-hide="@hideCommonBlock" asp-advanced="false">@await Html.PartialAsync("_Device.Common", Model)</app-card>
+               <app-card asp-name="usersettings-security" asp-icon="fas fa-shield-alt" asp-title="@T("Admin.Configuration.Settings.Device.BlockTitle.Password")" asp-hide-block-attribute-name="@hideSecurityBlockAttributeName" asp-hide="@hideSecurityBlock" asp-advanced="true">@await Html.PartialAsync("_Device.Security", Model)</app-card>
+               <app-card asp-name="usersettings-account" asp-icon="fas fa-user" asp-title="@T("Admin.Configuration.Settings.Device.BlockTitle.Account")" asp-hide-block-attribute-name="@hideAccountBlockAttributeName" asp-hide="@hideAccountBlock" asp-advanced="true">@await Html.PartialAsync("_Device.Account", Model)</app-card>
+
+               @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DeviceSettingsDetailsBlock, additionalData = Model })
+            </app-cards>
+         </div>
+      </div>
+   </section>
+</form>
+

@@ -1,0 +1,110 @@
+﻿@using System.Net.Http.Headers
+
+@if (ShowLoadButton)
+{ 
+   <InputFile @ref=@inputRef OnChange="@OnInputFileChange" accept="@Accept" multiple="@Multiple" />
+}
+else
+{
+   var style = $"cursor:pointer; border: 1px solid var(--rz-base-300); height:{Height}px;";
+   style += Width > 0 ? $" width:{Width}px;" : string.Empty;
+   <RadzenImage Path="@PictureUrl" Click=@IconClick Style=@style class="mr-3" />
+   <InputFile @ref=@inputRef OnChange="@OnInputFileChange" style="display:none;" accept="@Accept" multiple="@Multiple" />   
+}
+
+@code {
+   //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
+   [Parameter] public string Accept { get; set; }
+   [Parameter] public bool Multiple { get; set; }
+   [Parameter, EditorRequired] public string UploadUrl { get; set; }
+   [Parameter] public string PictureUrl { get; set; }
+   [Parameter] public EventCallback<string> SuccessCallback { get; set; }
+   [Parameter] public EventCallback<string> ErrorCallback { get; set; }
+   [Parameter] public int MaxSize { get; set; }
+   [Parameter] public bool Disabled { get; set; }
+   [Parameter] public EventCallback<bool> DisabledChanged { get; set; }
+   [Parameter] public int Height { get; set; }
+   [Parameter] public int Width { get; set; }
+   [Parameter] public bool ShowLoadButton { get; set; }
+
+   private static IJSObjectReference _jsModule;
+
+   [Inject] IJSRuntime JS { get; set; }
+   [Inject] ILogger<TinyImageUpload> Logger { get; set; }
+   [Inject] HttpClient HttpClient { get; set; }
+
+   private InputFile inputRef;
+   private bool shouldRender;
+
+   public TinyImageUpload()
+   {
+      Accept = "image/*";
+      Height = 32;
+      MaxSize =  20000; // like user avatar settings
+   }
+
+   protected override bool ShouldRender() => shouldRender;
+
+   protected override async Task OnAfterRenderAsync(bool firstRender)
+   {
+      if (firstRender)
+      {
+         _jsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/TinyImageUpload.razor.js");
+      }
+   }
+
+   async Task IconClick(MouseEventArgs e)
+   {
+      if (!Disabled)
+         await _jsModule.InvokeVoidAsync("triggerClick", inputRef.Element);
+   }
+
+   async Task OnInputFileChange(InputFileChangeEventArgs e)
+   {
+      shouldRender = false;
+
+      var file = e.File;
+
+      if (string.IsNullOrWhiteSpace(file.Name))
+         await ErrorCallback.InvokeAsync("File name is empty.");
+
+      else if (file.Size > MaxSize)
+         await ErrorCallback.InvokeAsync("File size is too long (20000 bytes are allowed).");
+
+      else
+      {
+         try
+         {
+            await DisabledChanged.InvokeAsync(true);
+            using var content = new MultipartFormDataContent();
+            // using var iconSize = new StringContent(Height.ToString());
+            // content.Add(content: iconSize, "iconSize");
+            using var fileContent = new StreamContent(file.OpenReadStream(MaxSize));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+            content.Add(content: fileContent, name: "\"pictures\"", fileName: file.Name);
+            using var response = await HttpClient.PostAsync(UploadUrl, content);
+            var uploadResult = await response.Content.ReadFromJsonAsync<UploadResult>();
+            if (response.IsSuccessStatusCode)
+            {
+               shouldRender = true;
+               await SuccessCallback.InvokeAsync(uploadResult.Success);
+            }
+            else throw new Exception(uploadResult.Error);
+         }
+         catch (Exception ex)
+         {
+            Logger.LogError(ex, null);
+            await ErrorCallback.InvokeAsync(ex.Message);
+         }
+      }
+
+      await DisabledChanged.InvokeAsync(false);
+      shouldRender = true;
+   }
+
+   class UploadResult
+   {
+      public string Success { get; set; }
+      public string Error { get; set; }
+   }
+}

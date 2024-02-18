@@ -1,0 +1,44 @@
+@if (!Category.New && !Category.Updated)
+{
+   <RadzenPanelMenuItem @bind-Expanded=@Expanded Text="@Category.Name" Path="@Category.Path" Icon="@Category.Icon">
+      @ChildContent
+   </RadzenPanelMenuItem>
+}
+else
+{
+   <RadzenPanelMenuItem @bind-Expanded=@Expanded Text="@Category.Name" Path="@Category.Path" Icon="@Category.Icon">
+      <Template>
+         @Category.Name
+         <RadzenBadge Text="Updated" Visible=@Category.Updated />
+         <RadzenBadge Text="New" Visible=@Category.New BadgeStyle="BadgeStyle.Success" />
+      </Template>
+      <ChildContent>@ChildContent</ChildContent>
+   </RadzenPanelMenuItem>
+}
+
+@code {
+    [Parameter]
+    public CategoryMenuModel Category { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    
+    #pragma warning disable BL0007
+    [Parameter]
+    public bool Expanded
+    {
+        get
+        {
+            return Category.Expanded;
+        }
+        set
+        {
+            Category.Expanded = value;
+        }
+    }
+    #pragma warning restore BL0007
+    
+
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+}

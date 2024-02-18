@@ -1,0 +1,97 @@
+﻿@using Hub.Core.Configuration
+@using Hub.Core.Domain.Common
+@using Hub.Core.Domain.Seo
+@using Hub.Services.Security
+@using Hub.Core.Events
+
+@inject CommonSettings commonSettings
+@inject IEventPublisher eventPublisher
+@inject IPermissionService permissionService
+@inject SeoSettings seoSettings
+@inject AppSettings appSettings
+
+@{
+
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/js/public.countryselect.js");
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/js/public.common.js");
+   //when jQuery migrate script logging is active you will see the log in the browser console
+   if (commonSettings.JqueryMigrateScriptLoggingActive)
+   {
+      AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery-migrate/jquery-migrate.js");
+   }
+   else
+   {
+      AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery-migrate/jquery-migrate.min.js");
+   }
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery-ui-dist/jquery-ui.min.js");
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js");
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery-validation/jquery.validate.min.js");
+   AppHtml.AppendScriptParts(ResourceLocation.Footer, "~/lib_npm/jquery/jquery.min.js");
+
+   //custom tag(s);
+   if (!string.IsNullOrEmpty(seoSettings.CustomHeadTags))
+   {
+      AppHtml.AppendHeadCustomParts(seoSettings.CustomHeadTags);
+   }
+
+   var displayMiniProfiler = appSettings.Get<CommonConfig>().MiniProfilerEnabled && await permissionService.AuthorizeAsync(StandardPermissionProvider.AccessProfiling);
+
+   //event
+   await eventPublisher.PublishAsync(new PageRenderingEvent(AppHtml));
+}
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" dir="@Html.GetUIDirection(!await Html.ShouldUseRtlThemeAsync())" class="@AppHtml.GeneratePageCssClasses()">
+<head>
+   <title>@AppHtml.GenerateTitle()</title>
+   <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+   <meta name="description" content="@AppHtml.GenerateMetaDescription()" />
+   <meta name="keywords" content="@AppHtml.GenerateMetaKeywords()" />
+   <meta name="generator" content="tinyPlat" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   @AppHtml.GenerateHeadCustom()
+   @*This is used so that themes can inject content into the header*@
+   @await Html.PartialAsync("Head")
+
+   @AppHtml.GenerateCssFiles()
+
+   @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeadHtmlTag })
+   @AppHtml.GenerateCanonicalUrls()
+   @await Component.InvokeAsync("NewsRssHeaderLink")
+   @await Component.InvokeAsync("BlogRssHeaderLink")
+   @*Insert favicon and app icons head code*@
+   @await Component.InvokeAsync("Favicon")
+   @if (displayMiniProfiler)
+   {
+      <mini-profiler />
+   }
+   @AppHtml.GenerateScripts(ResourceLocation.Head)
+   @AppHtml.GenerateInlineScripts(ResourceLocation.Head)
+   <!--Powered by ayb-->
+</head>
+<body>
+   <app-antiforgery-token />
+   @RenderBody()
+
+   <!-- Yandex.Metrika counter -->
+   <script asp-location="Footer" asp-exclude-from-bundle="true">
+      (function (m, e, t, r, i, k, a) {
+         m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+         m[i].l = 1 * new Date();
+         for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+         k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+      })
+         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(96336417, "init", {
+         clickmap: true,
+         trackLinks: true,
+         accurateTrackBounce: true
+      });
+   </script>
+   <noscript><div><img src="https://mc.yandex.ru/watch/96336417" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+   <!-- /Yandex.Metrika counter -->
+
+   @AppHtml.GenerateScripts(ResourceLocation.Footer)
+   @AppHtml.GenerateInlineScripts(ResourceLocation.Footer)
+</body>
+</html>

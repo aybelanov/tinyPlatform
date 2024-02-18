@@ -1,0 +1,52 @@
+﻿@using static Clients.Dash.Pages.Reports.Trackers.TrackRequest;
+@using static Clients.Widgets.Core.OpenLayerBase;
+
+<TrackRequest Changed=@OnRequestChanged @bind-IsLoading=@_isLoading />
+<RadzenFieldset>
+   <HeaderTemplate>
+      <div>
+         <nobr>
+            <RadzenButton id="fit_btn" Icon="fullscreen" ButtonStyle="ButtonStyle.Light" class="mr-2" title="@T["Map.Button.All"]" Disabled=@(IsLoading || _playDisabled) />
+            <RadzenDropDown @bind-Value=@_mapView.LayerType TValue=@LayerTypes Data="@_mapSelectItems" ValueProperty="MapType" TextProperty="Locale" AllowClear=false
+                            AllowFiltering=false AllowSelectAll=false Multiple=false Change="@MapOnChange" class="mr-2" style="width:100px;"/>
+           
+            <RadzenButton id="play_btn" Icon="play_arrow" ButtonStyle="ButtonStyle.Light" class="mr-2" Disabled=@(IsLoading || _playDisabled) />
+            <RadzenButton id="stop_btn" Icon="stop" ButtonStyle="ButtonStyle.Light" class="mr-2" Disabled=@(IsLoading || _playDisabled) />
+            @*<RadzenButton Click=@Pause Icon="pause" ButtonStyle="ButtonStyle.Light" class="mr-2" title="@T["Button.Stop"]" Disabled=@(_isLoading || !_playDisabled) /> *@
+            <span>@T["Speed"]:</span>
+            <RadzenNumeric @bind-Value:get=@_acceleration @bind-Value:set=@PlayerSpeedChange AutoComplete=false Min="1" Max="100" Step="1"
+                           Style="width:3.5rem" Culture="CultureInfo.DefaultThreadCurrentUICulture" Disabled=@(IsLoading || _playDisabled) />
+         </nobr>
+      </div>
+   </HeaderTemplate>
+   <ChildContent>
+      <div class="row row-cols-1">
+          <div class="col-12">
+            <input id="tracker_scrollbar" type="range" min="0" max="2000" value="0" name="tracker-progress" class="w-100 mb-3" disabled=@(IsLoading || _playDisabled) />
+          </div>
+         <div class="col-12">
+            <OpenMap @ref=@_map BingKey="@Config["ApiKeys:BingMap"]" View=@_mapView IsLoading=@_isLoading Class="mb-3" style="height:500px; width:100%;"
+                     PlayButtonId="play_btn" StopButtonId="stop_btn" ScrollbarId="tracker_scrollbar" FitButtonId="fit_btn" />
+         </div>
+      </div>
+   </ChildContent>
+</RadzenFieldset>
+
+@code {
+
+   void MapOnChange(object newLayer) => _map?.ChangeMapLayer((LayerTypes)newLayer);
+ 
+   Task OnUpdate() => ShowTrack();
+ 
+   void PlayerSpeedChange(int val)
+   {
+      _acceleration = val;
+      _map?.SetPlayerSpeed(val);
+   }
+
+   // async Task OnUpdateWithCache(long? userId)
+   // {
+   //    await CacheManager.RemoveByPrefixAsync("TrackerMapPrefix");
+   //    await ShowTrack();
+   // }
+}

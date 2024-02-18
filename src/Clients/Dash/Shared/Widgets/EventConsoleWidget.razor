@@ -1,0 +1,28 @@
+@using Clients.Dash.Pages.Monitors
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustCommonWidget
+
+<EventConsole @ref=@console Height="300" Capacity="@_adjustment.HistoryPointsCount" class="mt-3" />
+
+@code {
+   [CascadingParameter] public PresentationViewModel Presentation { get; set; }
+   EventConsole console;
+
+   CommonWidgetAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+      ? new CommonWidgetAdjustment()
+      : JsonSerializer.Deserialize<CommonWidgetAdjustment>(Presentation.Widget.Adjustment);
+
+      base.OnInitialized();
+   }
+
+   public override async Task Update(IEnumerable<SensorRecord> records)
+   {
+      foreach (var record in records)
+         console.Log($"Value: {record.Value} {Presentation.Sensor.MeasureUnit}, Event time UTC: {new DateTime(record.EventTimestamp):yyyy.MM.dd HH:mm:ss:FFFFFFF}");
+    
+      await Task.CompletedTask;
+   }
+}

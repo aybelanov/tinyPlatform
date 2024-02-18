@@ -1,0 +1,41 @@
+﻿@model DeviceModel
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+@{
+   const string hideInfoBlockAttributeName = "DevicePage.HideInfoBlock";
+   var user = await workContext.GetCurrentUserAsync();
+   var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideInfoBlockAttributeName);
+
+   const string hideUsersBlockAttributeName = "DevicePage.HideUsersBlock";
+   var hideUsersBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideUsersBlockAttributeName);
+
+   const string hideSummaryBlockAttributeName = "DevicePage.HideSummaryBlock";
+   var hideSummaryBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideSummaryBlockAttributeName);
+
+   const string hideStatisticsBlockAttributeName = "DevicePage.HideStatisticsBlock";
+   var hideStatisticsBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideStatisticsBlockAttributeName);
+
+   const string hideActivityLogBlockAttributeName = "DevicePage.HideActivityLogBlock";
+   var hideActivityLogBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideActivityLogBlockAttributeName);
+}
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="form-horizontal">
+         <app-cards id="user-cards">
+            <app-card asp-name="device-info" asp-icon="fas fa-info" asp-title="@T("Admin.Devices.Devices.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+            @if (Model.Id > 0)
+            {
+               <app-card asp-name="device-state" asp-icon="fa fa-network-wired" asp-title="@T("Admin.Devices.Devices.Summary")" asp-hide-block-attribute-name="@hideSummaryBlockAttributeName" asp-hide="@hideSummaryBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Summary", Model.DeviceStatisticsModel)</app-card>
+               @await Html.PartialAsync("_CreateOrUpdate.DataRecords", Model)
+               <app-card asp-name="device-users" asp-icon="fa fa-share-alt-square" asp-title="@T("Admin.Devices.Devices.Users")" asp-hide-block-attribute-name="@hideUsersBlockAttributeName" asp-hide="@hideUsersBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Users", Model)</app-card>
+               <app-card asp-name="device-activitylog" asp-icon="fas fa-list-alt" asp-title="@T("Admin.Devices.Devices.ActivityLog")" asp-hide-block-attribute-name="@hideActivityLogBlockAttributeName" asp-hide="@hideActivityLogBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.ActivityLog", Model)</app-card>
+            }
+
+            @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DeviceDetailsBlock, additionalData = Model })
+         </app-cards>
+      </div>
+   </div>
+</section>

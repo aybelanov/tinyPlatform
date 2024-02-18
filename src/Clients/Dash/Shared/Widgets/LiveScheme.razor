@@ -1,0 +1,67 @@
+﻿@using Clients.Dash.Pages.Monitors
+@using System.Text.Json.Nodes
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustLiveScheme
+@using static Clients.Widgets.StreamChart
+@using static Clients.Dash.Pages.Configuration.Widgets.AdjustLiveChart
+
+<div class="row justify-content-md-center my-3">
+   <div class="@(_adjustment.ShowHistory ? "col-3" : "col") px-0 align-items-center">
+      <SvgScheme @ref=@_scheme ImageUrl="@Presentation.Widget.LiveSchemeUrl" Config="@_adjustment.SvgSchemeConfig" Style="height:300px;" Theme="@Defaults.Theme"
+                 Culture="@CultureInfo.CurrentUICulture.Name[..2]" />
+   </div>
+   @if (_adjustment.ShowHistory)
+   {
+      <div class="col-9 px-0 align-items-center">
+         <StreamChart @ref=_chart Type="@(_adjustment.ShowAsAreachart ? ChartType.Area : ChartType.Line)" MeasureUnit="@Presentation.Sensor.MeasureUnit" Theme="@Defaults.Theme"
+                      Culture="@CultureInfo.CurrentUICulture.Name[..2]" MinValue="@_adjustment.MinValue" MaxValue=@_adjustment.MaxValue Duration=@_adjustment.HistoryPointCount
+                      Delay="3000" Smooth=@_adjustment.SmothHistoryChart style="height:300px;" />
+      </div>
+   }
+</div>
+
+@code {
+
+   [CascadingParameter] PresentationViewModel Presentation { get; set; }
+
+   [Inject] ISensorRecordService SensorRecordService { get; set; }
+
+   SvgScheme _scheme;
+   StreamChart _chart;
+
+   LiveSchemeAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Presentation.Widget.Adjustment)
+      ? new LiveSchemeAdjustment()
+      : JsonSerializer.Deserialize<LiveSchemeAdjustment>(Presentation.Widget.Adjustment);
+      base.OnInitialized();
+   }
+
+   public override async Task Update(IEnumerable<SensorRecord> records)
+   {
+      if (records?.Any() != true)
+         return;
+
+      records = records.OrderBy(x => x.EventTimestamp).ToList();
+
+      if (_adjustment.ShowHistory)
+      {
+         await _chart.Update(records.Select(x => new StreamChart.Point()
+            {
+               Moment = x.EventTimestamp.ToJsTicks(),
+               Value = x.Value
+
+            })).ConfigureAwait(false);
+      }
+
+      await _scheme.Update(records.Select(x => new SvgScheme.DataRecord()
+      {
+         EventTimestamp = x.EventTimestamp.ToJsTicks(),
+         JsonValue = x.JsonValue,
+         Value = x.Value,
+         Metadata = x.Metadata
+
+      }));
+   }
+}

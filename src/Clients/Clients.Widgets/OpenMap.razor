@@ -1,0 +1,6 @@
+﻿@inherits OpenLayerBase
+<div id="@("wrapper-" + Id)" class="open-map-wrapper" >
+   @Header
+   <div @ref=@Element id="@Id" class="open-map @(this.Class)" style=@Style @attributes=@Attributes></div>
+   @LoadingStub
+</div>

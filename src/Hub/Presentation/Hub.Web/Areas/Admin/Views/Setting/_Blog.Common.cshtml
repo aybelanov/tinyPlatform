@@ -1,0 +1,40 @@
+@model BlogSettingsModel
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Enabled"/>
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="Enabled" />
+            <span asp-validation-for="Enabled"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="PostsPageSize" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="PostsPageSize" />
+            <span asp-validation-for="PostsPageSize"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="NumberOfTags" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="NumberOfTags" />
+            <span asp-validation-for="NumberOfTags"></span>
+        </div>
+    </div>
+    <div class="form-group row advanced-setting">
+        <div class="col-md-3">
+            <app-label asp-for="ShowHeaderRssUrl" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="ShowHeaderRssUrl" />
+            <span asp-validation-for="ShowHeaderRssUrl"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿<p>
+   <RadzenLink Text="@T["Device.CreateOrEdit.ToDeviceList"]" Path="configuration/devices" class="mr-3"></RadzenLink>
+   <AuthorizeView>
+      <Authorized>
+         @if (Model.Id > 0)
+         {
+           <RadzenLink Text=@T["Device.Password.Change.Link"] Path="javascript:void(0)" @onclick=@OnChangePassword class="mr-3"></RadzenLink>
+           <RadzenLink Text=@T["Device.Command.Send.Link"] Path="javascript:void(0)" @onclick=@OnSendCommand class="mr-3"></RadzenLink>
+           <RadzenLink Text=@T["Device.Onmap.Link"] Path="javascript:void(0)" @onclick=@OnShowOnMap></RadzenLink>
+         }
+      </Authorized>
+   </AuthorizeView>
+</p>
+
+@code {
+
+   [Parameter] public DeviceModel Model { get; set; }
+
+   [Inject] DialogService DialogService { get; set; }
+
+   private async Task OnSendCommand(MouseEventArgs args)
+   {
+      var options = new DialogOptions()
+      {
+         ShowClose = true,
+         ShowTitle = true,
+         CloseDialogOnOverlayClick = true,
+         CloseDialogOnEsc = true,
+      };
+
+      _ = await DialogService.OpenAsync(@T["Device.Command.Title"], ds =>@<SendDeviceCommand Model="@Model" Dialog="@ds" />, options);
+   }
+
+   private async Task OnChangePassword(MouseEventArgs args)
+   {
+      var options = new DialogOptions()
+      {
+          ShowClose = true,
+          ShowTitle = true, 
+          AutoFocusFirstElement=true, 
+          CloseDialogOnOverlayClick = true,
+          CloseDialogOnEsc = true,
+          Width = "360px", 
+      };
+
+      _ = await DialogService.OpenAsync(@T["Device.Password.Change"], ds =>@<ChangeDevicePassword Model="@Model" Dialog="@ds" />, options);
+   }
+
+   private async Task OnShowOnMap(MouseEventArgs args)
+   {
+      var options = new DialogOptions()
+         {
+            ShowClose = true,
+            ShowTitle = true,
+            CloseDialogOnOverlayClick = true,
+            CloseDialogOnEsc = true,
+      };
+
+      _ = await DialogService.OpenAsync(@T["Device.DeviceMap.Title"], ds =>@<ShowDeviceMap Model="@Model" Dialog="@ds" />, options);
+   }
+}

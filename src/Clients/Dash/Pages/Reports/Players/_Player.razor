@@ -1,0 +1,79 @@
+﻿@page "/reports/player"
+@using static Clients.Dash.Pages.Reports.Players.VideoRequest;
+@attribute [Authorize(Roles = "Administrators, Owners")]
+
+<RadzenCard style="min-width:560px;">
+   <h3>@T["Player.Title"]</h3>
+   @if (isAdminMode == null)
+   {
+      <LoadingStub />
+   }
+   else if (isAdminMode.Value)
+   {
+      <VideoRequest Play="@PlayVideo" />
+      <VideoPlayer @ref=@player Style="height:560px; width:100%;" Culture="@CultureInfo.CurrentUICulture.Name[..2]" Theme="@Defaults.Theme" TokenKey=@Defaults.TokenKey
+                   controls Endpoint="@(Singleton<ServerConfig>.Instance.HubHost + "/ipcam")" />
+   }
+   else
+   {
+      <VideoRequest Play="@PlayVideo" />
+      @*<... preload="auto" controls autoplay muted /> *@
+      <VideoPlayer @ref=@player Style="height:560px; width:100%;" Culture="@CultureInfo.CurrentUICulture.Name[..2]" Theme="@Defaults.Theme" TokenKey=@Defaults.TokenKey
+                   controls Endpoint="@(Singleton<ServerConfig>.Instance.HubHost + "/ipcam")" />
+   }
+  
+</RadzenCard>
+
+@code {
+
+   [Inject] PermissionService PermissionService { get; set; }
+   [Inject] ISensorRecordService SensorRecordService { get; set; }
+
+   private VideoPlayer player;
+   bool? isAdminMode;
+
+   protected override void OnInitialized()
+   {
+      PermissionService.AdminModeChanged += OnAdminModeChanged;
+   }
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      isAdminMode = await PermissionService.IsAdminModeAsync();
+   }
+
+   async Task PlayVideo(VideoRequestModel request)
+   {
+      if (player == null)
+         return;
+     
+      await player.Stop();
+
+      var segments = await SensorRecordService.GetVideoSegmentsAsync(new()
+      {
+         SensorId = request?.SelectedSensor?.Id,
+         From = request.From.ToUniversalTime(),
+         To = request.To.ToUniversalTime(),
+      });
+      
+      if (!segments.Any())
+         return;
+
+      segments = segments.OrderBy(x => x.OnCreatedUtc).ToList();
+
+      await player.Play(segments);
+   }
+
+   
+   private void OnAdminModeChanged(object sender, bool mode)
+   {
+      isAdminMode = mode;
+      StateHasChanged();
+   }
+
+   public void Dispose()
+   {
+      PermissionService.AdminModeChanged -= OnAdminModeChanged;
+   }
+}

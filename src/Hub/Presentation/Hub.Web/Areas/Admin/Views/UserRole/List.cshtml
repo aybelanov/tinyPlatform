@@ -1,0 +1,72 @@
+@model UserRoleSearchModel
+
+@{
+    //page title
+    ViewBag.PageTitle = T("Admin.Users.UserRoles").Text;
+    //active menu item (system name)
+    AppHtml.SetActiveMenuItemSystemName("User roles");
+}
+
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.Users.UserRoles")
+    </h1>
+    <div class="float-right">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.UserRoleListButtons, additionalData = Model })
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            <div class="card card-default">
+                <div class="card-body">
+                    <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.UserRoles", Docs.UserRoles + Utm.OnAdmin)" />
+
+                    @await Html.PartialAsync("Table", new DataTablesModel
+                    {
+                        Name = "userroles-grid",
+                        UrlRead = new DataUrl("List", "UserRole", null),
+                        Length = Model.PageSize,
+                        LengthMenu = Model.AvailablePageSizes,
+                        ColumnCollection = new List<ColumnProperty>
+                        {
+                            new ColumnProperty(nameof(UserRoleModel.Name))
+                            {
+                                Title = T("Admin.Users.UserRoles.Fields.Name").Text,
+                                Width = "300"
+                            },
+                            new ColumnProperty(nameof(UserRoleModel.Active))
+                            {
+                                Title = T("Admin.Users.UserRoles.Fields.Active").Text,
+                                Width = "100",
+                                ClassName =  AppColumnClassDefaults.CenterAll,
+                                Render = new RenderBoolean()
+                            },
+                            new ColumnProperty(nameof(UserRoleModel.IsSystemRole))
+                            {
+                                Title = T("Admin.Users.UserRoles.Fields.IsSystemRole").Text,
+                                Width = "100",
+                                ClassName =  AppColumnClassDefaults.CenterAll,
+                                Render = new RenderBoolean()
+                            },
+                            new ColumnProperty(nameof(UserRoleModel.Id))
+                            {
+                                Title = T("Admin.Common.Edit").Text,
+                                Width = "100",
+                                ClassName =  AppColumnClassDefaults.Button,
+                                Render = new RenderButtonEdit(new DataUrl("Edit"))
+                            }
+                        }
+                    })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

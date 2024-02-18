@@ -1,0 +1,140 @@
+﻿@*
+!Important! Be careful! Do load a livescheme only from trusted issuer and after js-code checking!
+*@
+<AuthorizeView Roles="@UserDefaults.AdministratorsRoleName">
+    <Authorized>
+      @if (Model.Id > 0)
+      {
+         <div class="row">
+            <div class="col">
+               <TinyImageUpload Accept="image/svg+xml" Multiple="false" PictureUrl="@Model.LiveSchemeUrl" UploadUrl="@($"widget/uploadlivescheme/{Model.Id}")" MaxSize="150000"
+                                ShowLoadButton="true" ErrorCallback=@IconUploadError SuccessCallback="@IconUploadSuccess" @bind-Disabled=@IsLoading />
+            </div>
+         </div>
+
+         @if (!string.IsNullOrEmpty(Model.LiveSchemeUrl))
+         {
+            <div class="row my-3">
+               <div class="col-12">
+                  <img src="@Model.LiveSchemeUrl" class="w-100" style="height:250px;" />
+               </div>
+               <div class="col-12  mt-3 justify-content-md-start d-flex">
+                  <TinyLabel Text="@T["Widget.CreateOrEdit.Fieldset.SvgSchemeConfig"]" class="text-right" />
+               </div>
+               <div class="col-12 mt-2 ">
+                  <RadzenTextArea Rows="15" Name="SvgSchemeConfig" @bind-Value=@_adjustment.SvgSchemeConfig class="w-100 h-100" Style="display: block" />
+                  <JsonFormatValidator Component="SvgSchemeConfig" Text=@T["Validation.RequireJsonFormat"] Style="position: absolute" />
+               </div>
+            </div>
+            <div class="row mb-3 align-items-center">
+               <div class="col-md-3 justify-content-md-end d-flex">
+                  <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowHistory"]" class="text-right" />
+               </div>
+               <div class="col-md-9">
+                  <RadzenCheckBox @bind-Value=_adjustment.ShowHistory TValue="bool" Name="ShowHistory" Disabled=@IsLoading />
+               </div>
+            </div>
+            if (_adjustment.ShowHistory)
+            {
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-3 justify-content-md-end d-flex">
+                     <TinyLabel Text="@T["Widget.CreateOrEdit.Label.HistoryPointsCount"]" class="text-right" />
+                  </div>
+                  <div class="col-md-9">
+                     <RadzenNumeric Name="HistoryPointsCount" ShowUpDown=true @bind-Value=@_adjustment.HistoryPointCount Disabled=@IsLoading TValue="int" Style="width: 100%; display:block;" />
+                     <RadzenNumericRangeValidator Component="HistoryPointsCount" Min="1" Max="120" Text="@T["Validation.RequireRange", 1, 120]" Style="position: absolute" />
+
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-3 justify-content-md-end d-flex">
+                     <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MinValue"]" class="text-right" />
+                  </div>
+                  <div class="col-md-9">
+                     <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MinValue Name="MinValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-3 justify-content-md-end d-flex">
+                     <TinyLabel Text="@T["Widget.CreateOrEdit.Label.MaxValue"]" class="text-right" />
+                  </div>
+                  <div class="col-md-9">
+                     <RadzenNumeric ShowUpDown=true @bind-Value=@_adjustment.MaxValue Name="MaxValue" Format="0.000" Disabled=@IsLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-3 justify-content-md-end d-flex">
+                     <TinyLabel Text="@T["Widget.CreateOrEdit.Label.SmothHistoryChart"]" class="text-right" />
+                  </div>
+                  <div class="col-md-9">
+                     <RadzenCheckBox @bind-Value=_adjustment.SmothHistoryChart TValue="bool" Name="SmothHistoryChart" Disabled=@IsLoading />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-3 justify-content-md-end d-flex">
+                     <TinyLabel Text="@T["Widget.CreateOrEdit.Label.ShowAsAreachart"]" class="text-right" />
+                  </div>
+                  <div class="col-md-9">
+                     <RadzenCheckBox @bind-Value=_adjustment.ShowAsAreachart TValue="bool" Name="ShowAsAreachart" Disabled=@IsLoading />
+                  </div>
+               </div>
+            }
+         }
+      }
+      else
+      {
+         <p>@T["Widget.AdjustLiveScheme.BeforeSaveHint"]</p>
+      }
+    </Authorized>
+</AuthorizeView>
+
+
+@code {
+   [Parameter] public WidgetModel Model { get; set; }
+   [Parameter] public bool IsLoading { get; set; }
+
+   [Inject] private NotificationService Notification { get; set; }
+   [Inject] IWidgetService WidgetService { get; set; }
+
+   LiveSchemeAdjustment _adjustment;
+
+   protected override void OnInitialized()
+   {
+      _adjustment = string.IsNullOrEmpty(Model?.Adjustment)
+      ? new LiveSchemeAdjustment()
+      : JsonSerializer.Deserialize<LiveSchemeAdjustment>(Model.Adjustment);
+
+      if (!string.IsNullOrWhiteSpace(_adjustment.SvgSchemeConfig))
+         _adjustment.SvgSchemeConfig = ClientHelper.NormalizeJsonString(_adjustment.SvgSchemeConfig, true);
+
+      base.OnInitialized();
+   }
+
+   protected override void OnParametersSet()
+   {
+      _adjustment.SvgSchemeConfig = ClientHelper.NormalizeJsonString(_adjustment.SvgSchemeConfig, false);
+      Model.Adjustment = JsonSerializer.Serialize(_adjustment);
+      _adjustment.SvgSchemeConfig = ClientHelper.NormalizeJsonString(_adjustment.SvgSchemeConfig, true);
+      base.OnParametersSet();
+   }
+
+   private void IconUploadError(string message) => Notification.Notify(NotificationSeverity.Error, message, duration: -1d);
+
+   private async void IconUploadSuccess(string newPictureUrl)
+   {
+      var widget = await WidgetService.GetByIdAsync(Model.Id);
+      widget.LiveSchemeUrl = Model.LiveSchemeUrl = newPictureUrl;
+      Notification.Notify(NotificationSeverity.Success, T["Widgets.SvgScheme.Upload.Success", widget.Name]);
+   }
+
+   public class LiveSchemeAdjustment
+   {
+      public bool ShowHistory { get; set; }
+      public int HistoryPointCount { get; set; }
+      public double MinValue { get; set; }
+      public double MaxValue { get; set; }
+      public bool SmothHistoryChart { get; set; }
+      public bool ShowAsAreachart { get; set; }
+      public string SvgSchemeConfig { get; set; }
+   }
+}

@@ -1,0 +1,66 @@
+﻿@using Shared.Clients.Configuration
+@model AppSettingsModel
+
+<div class="card-body" id="security-area">
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecurityConfigModel.SslEnabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="SecurityConfigModel.SslEnabled" />
+         <span asp-validation-for="SecurityConfigModel.SslEnabled"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecurityConfigModel.RequireSignalrConnection" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="SecurityConfigModel.RequireSignalrConnection" />
+         <span asp-validation-for="SecurityConfigModel.RequireSignalrConnection"></span>
+         <div class="row">@T("Admin.Configuration.AppSettings.Hosting.RequireSignalrConnection.Hint2")</div>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SecurityConfigModel.CorsEnabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="SecurityConfigModel.CorsEnabled" />
+         <span asp-validation-for="SecurityConfigModel.CorsEnabled"></span>
+      </div>
+   </div>
+   <app-nested-setting asp-for="SecurityConfigModel.CorsEnabled" disable-auto-generation="true">
+      <div class="form-group row advanced-setting" id="pnSecurityCorsEnabled">
+         <div class="col-md-3">
+            <app-label asp-for="SecurityConfigModel.CorsOriginString" />
+         </div>
+         <div class="col-md-9">
+            @if (Context.User.IsInRole(UserDefaults.DemoRoleName))
+            {
+               <input class="form-control text-box single-line" type="text" value="*******">
+            }
+            else
+            {
+               <app-editor asp-for="SecurityConfigModel.CorsOriginString" />
+               <span asp-validation-for="SecurityConfigModel.CorsOriginString"></span>
+            }
+         </div>
+      </div>
+   </app-nested-setting>
+</div>
+<script>
+   $(document).ready(function () {
+      $("#@Html.IdFor(model => model.SecurityConfigModel.CorsEnabled)").click(toggleCors);
+      $(@Html.IdFor(model => model.DistributedCacheConfigModel.DistributedCacheType)).change(toggleCors);
+      toggleCors();
+   });
+
+   function toggleCors() {
+      if ($('#@Html.IdFor(model => model.SecurityConfigModel.CorsEnabled)').is(':checked')) {
+         $('#pnSecurityCorsEnabled').showElement();
+      } else {
+         $('#pnSecurityCorsEnabled').hideElement();
+      }
+   }
+</script>

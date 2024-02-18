@@ -1,0 +1,8 @@
+﻿@inherits VideojsBase
+
+<div id="@("wrapper-" + Id)" class="video-js-wrapper">
+   @Header
+   <video @ref=Element id=@Id class="video-js @(this.Class)" style=@Style @attributes=@Attributes>
+      @* <source src="@Source" type="application/x-mpegURL" /> *@
+   </video>
+</div>

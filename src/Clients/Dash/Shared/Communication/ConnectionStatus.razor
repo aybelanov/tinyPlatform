@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Http.Connections.Client
+@implements IDisposable 
+@implements IAsyncDisposable
+
+<div class="serv-link">
+   <RadzenText Text="@T["Connection.Status"]" TextStyle="TextStyle.Caption" Style="margin-right: 10px;" />
+   <RadzenIcon Icon="@iconName" IconStyle="iconStyle" Style="position:absolute;" />
+</div>
+
+@code {
+   [Inject] private HubService Hub { get; set; }
+   [Inject] private NotificationService Notification { get; set; }
+
+   private string iconName = "link_off";
+   private IconStyle iconStyle = IconStyle.Danger;
+
+   protected override async Task OnInitializedAsync()
+   {
+      switch (Hub.ConnectionState)
+      {
+         case HubConnectionState.Connecting: await OnConnecting(); break;
+         case HubConnectionState.Connected: await OnConnected(Hub.ConnectionId); break;
+         case HubConnectionState.Disconnected: await OnDisconnected(new Exception()); break;
+      }
+
+      Hub.Connected += OnConnected;
+      Hub.Connecting += OnConnecting;
+      Hub.Disconnected += OnDisconnected;
+      Hub.Disconnected += OnDisconnectedNotify;
+
+      await Hub.TryStartAsync();
+   }
+
+
+   private Task OnConnected(string connectionId)
+   {
+      iconName = "link";
+      iconStyle = IconStyle.Success;
+      StateHasChanged();
+      return Task.CompletedTask;
+   }
+
+
+   private Task OnConnecting()
+   {
+      iconName = "pending";
+      iconStyle = IconStyle.Warning;
+      StateHasChanged();
+      return Task.CompletedTask;
+   }
+
+   private Task OnDisconnectedNotify(Exception exception)
+   {
+      Notification.Notify(NotificationSeverity.Error, exception.Message, duration: -1d);
+      return Task.CompletedTask;
+   }
+
+   private Task OnDisconnected(Exception exception)
+   {
+      iconName = "link_off";
+      iconStyle = IconStyle.Danger;
+      StateHasChanged();
+      return Task.CompletedTask;
+   }
+
+
+   public void Dispose()
+   {
+      Hub.Connected -= OnConnected;
+      Hub.Connecting -= OnConnecting;
+      Hub.Disconnected -= OnDisconnected;
+      Hub.Disconnected -= OnDisconnectedNotify;
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Dispose();
+      await Hub.StopAsync();
+   }
+}

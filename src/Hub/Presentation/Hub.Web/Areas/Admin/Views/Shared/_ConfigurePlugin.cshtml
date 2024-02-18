@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Mvc.Controllers
+@using Hub.Core
+@using Hub.Services.Authentication.External
+@using Hub.Services.Authentication.MultiFactor
+@using Hub.Services.Cms
+@using Hub.Services.Common
+@using Hub.Services.Plugins
+@inject IPluginService pluginService
+@inject IWebHelper webHelper
+@{
+    var plugin = pluginService.FindPluginByTypeInAssembly((this.ViewContext.ActionDescriptor as ControllerActionDescriptor).ControllerTypeInfo);
+
+    //friendly name
+    var friendlyName = plugin?.PluginDescriptor.FriendlyName;
+
+    var activeMenuSystemName = string.Empty;
+    var configureLocale = string.Empty;
+    var backToLocale = string.Empty;
+    var listActionMethodName = string.Empty;
+    var listControllerName = string.Empty;
+
+   
+    if (plugin is IExternalAuthenticationMethod)
+    {
+        //external auth method
+        activeMenuSystemName = "External authentication methods";
+        configureLocale = "Admin.Configuration.Authentication.ExternalMethods.Configure";
+        backToLocale = "Admin.Configuration.Authentication.ExternalMethods.BackToList";
+        listActionMethodName = "ExternalMethods";
+        listControllerName = "Authentication";
+    }
+    else if (plugin is IMultiFactorAuthenticationMethod)
+    {
+        //multi-factor authentication method
+        activeMenuSystemName = "Multi-factor authentication methods";
+        configureLocale = "Admin.Configuration.Authentication.MultiFactorMethods.Configure";
+        backToLocale = "Admin.Configuration.Authentication.MultiFactorMethods.BackToList";
+        listActionMethodName = "MultiFactorMethods";
+        listControllerName = "Authentication";
+
+    }
+    else if (plugin is IWidgetPlugin widget && !widget.HideInWidgetList)
+    {
+        //widgets
+        activeMenuSystemName = "Widgets";
+        configureLocale = "Admin.ContentManagement.Widgets.Configure";
+        backToLocale = "Admin.ContentManagement.Widgets.BackToList";
+        listActionMethodName = "List";
+        listControllerName = "Widget";
+    }
+    else if (plugin is IMiscPlugin)
+    {
+        //Misc plugins
+        activeMenuSystemName = "Local plugins";
+        configureLocale = "Admin.Configuration.Plugins.Misc.Configure";
+        backToLocale = "Admin.Configuration.Plugins.Misc.BackToList";
+        listActionMethodName = "List";
+        listControllerName = "Plugin";
+    }    
+
+    Layout = "_AdminLayout";
+    //page title
+    ViewBag.PageTitle = T(configureLocale).Text + " - " + friendlyName;
+    //active menu item (system name)
+    AppHtml.SetActiveMenuItemSystemName(activeMenuSystemName);
+
+}
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T(configureLocale) - @friendlyName
+        <small>
+            <i class="fas fa-arrow-circle-left"></i>
+            <a asp-action="@listActionMethodName" asp-controller="@listControllerName">@T(backToLocale)</a>
+        </small>
+    </h1>
+    <div class="float-right">
+        &nbsp;
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            @RenderBody()
+        </div>
+    </div>
+</section>

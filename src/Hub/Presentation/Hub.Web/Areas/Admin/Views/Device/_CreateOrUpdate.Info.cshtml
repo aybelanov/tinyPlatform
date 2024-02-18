@@ -1,0 +1,307 @@
+﻿@model DeviceModel
+
+<script asp-location="Footer">
+   // device owner names
+   $(document).ready(function () {
+      loadDeviceOwnerName();
+   });
+
+   $(document).ready(function () {
+      $('#@Html.IdFor(model => model.OwnerId)')
+         .data('timeout', null)
+         .keyup(function () {
+            clearTimeout($(this).data('timeout'));
+            //one second timeout
+            $(this).data('timeout', setTimeout(loadDeviceOwnerName, 1000));
+         });
+   });
+
+   function loadDeviceOwnerName() {
+      var inputValue = $('#@Html.IdFor(model => model.OwnerId)').val();
+      if (inputValue) {
+         //load device owner name
+         $('#OwnerName').val('');
+         $('#set-owner-check-progress').show();
+
+         var postData = {
+            ownerId: inputValue
+         };
+         addAntiForgeryToken(postData);
+
+         $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("LoadOwnerName", "Device")",
+            data: postData,
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+               $('#OwnerName').val(data.Text);//.text(data.Text);
+               $('#ownername-link').attr('href', '@Url.Action("Edit", "User")/' + inputValue);
+               $('#ownername-link').text(data.Text);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+               $('#OwnerName').val('');
+            },
+            complete: function (jqXHR, textStatus) {
+               $('#set-owner-check-progress').hide();
+            }
+         });
+      } else {
+         $('#OwnerName').val('');
+      }
+   }
+</script>
+
+
+<div class="card-body">
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="OwnerName" />
+      </div>
+      <div class="col-md-9">
+         <div class="input-group align-items-center">
+            <input type="hidden" asp-for="OwnerId" />
+            <app-editor asp-for="OwnerName" html-attributes=@(new { @readonly="readonly", style="display: none"}) />
+            <a id="ownername-link" href="#" class="ml-2 mr-4">@Model.OwnerName</a>
+            <div class="input-group-append">
+               <button type="submit" id="btnRefreshDeviceOwner" style="display: none"></button>
+               <script>
+                  $(document).ready(function () {
+                     $('#btnRefreshDeviceOwner').click(function () {
+                        //refresh owner
+                        loadDeviceOwnerName();
+
+                        // and we update the shared users grid because mapping can be changed
+                        // don't need because user must save changes
+                        //updateTable('#device-user-grid');
+
+                        //return false to don't reload a page
+                        return false;
+                     });
+                  });
+               </script>
+               <span id="set-owner-check-progress" style="display: block; position: absolute; left: 10px;" class="please-wait">
+                  @T("Common.Wait")
+               </span>
+               <button type="submit" id="btnSetDeviceOwner" onclick="javascript:OpenWindow('@(Url.Action("OwnerAddPopup", "Device", new {btnId = "btnRefreshDeviceOwner", ownerIdInput = "OwnerId"}))', 800, 850, true); return false;" class="btn btn-info">
+                  @T("Admin.Devices.Devices.Fields.Owner.Select")
+               </button>
+               <app-required />
+            </div>
+         </div>
+         @Html.ValidationMessageFor(model => model.OwnerId)
+         <span asp-validation-for="OwnerName"></span>
+      </div>
+   </div>
+
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SystemName" />
+      </div>
+      <div class="col-md-9">
+         <div class="input-group">
+            <app-editor asp-for="SystemName" />
+            <app-required />
+         </div>
+         <span asp-validation-for="SystemName"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Password" />
+      </div>
+      <div class="col-md-9">
+         <div class="input-group">
+            <app-editor asp-for="Password" html-attributes="@(new { autocomplete = "new-password" })" />
+            <div class="input-group-append">
+               @if (Model.Id > 0)
+               {
+                  <button type="submit" name="changepassword" class="btn btn-info">
+                     @T("Admin.Devies.Devices.Fields.Password.Change")
+                  </button>
+               }
+            </div>
+            @if (Model.Id < 1)
+            {
+               <app-required />
+            }
+         </div>
+         <span asp-validation-for="Password"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Name" />
+      </div>
+      <div class="col-md-9">
+         <div class="input-group">
+            <app-editor asp-for="Name" />
+            <app-required />
+         </div>
+         <span asp-validation-for="Name"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Description" />
+      </div>
+      <div class="col-md-9">
+         <app-textarea asp-for="Description" />
+         <span asp-validation-for="Description"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Configuration" />
+      </div>
+      <div class="col-md-9">
+         <app-textarea asp-for="Configuration" />
+         <span asp-validation-for="Configuration"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="AdminComment" />
+      </div>
+      <div class="col-md-9">
+         <app-textarea asp-for="AdminComment" />
+         <span asp-validation-for="AdminComment"></span>
+      </div>
+   </div>
+
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DisplayOrder" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DisplayOrder" />
+         <span asp-validation-for="DisplayOrder"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Enabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="Enabled" />
+         <span asp-validation-for="Enabled"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="IsActive" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="IsActive" />
+         <span asp-validation-for="IsActive"></span>
+      </div>
+   </div>
+   @if (Model.Id > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="IsDeleted" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@(Model.IsDeleted ? T("Enums.Hub.Web.Framework.TagHelpers.Shared.BooleanNullable.True") : T("Enums.Hub.Web.Framework.TagHelpers.Shared.BooleanNullable.False"))</div>
+         </div>
+      </div>
+   }
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="CountDataRows" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="CountDataRows" />
+         <span asp-validation-for="CountDataRows"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataSendingDelay" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DataSendingDelay" />
+         <span asp-validation-for="DataSendingDelay"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataflowReconnectDelay" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DataflowReconnectDelay" />
+         <span asp-validation-for="DataflowReconnectDelay"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="DataPacketSize" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="DataPacketSize" />
+         <span asp-validation-for="DataPacketSize"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="ClearDataDelay" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="ClearDataDelay" />
+         <span asp-validation-for="ClearDataDelay"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="CannotLoginUntilDateUtc" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="CannotLoginUntilDateUtc" />
+         <span asp-validation-for="CannotLoginUntilDateUtc"></span>
+      </div>
+   </div>
+   @if (Model.Id > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="CreatedOnUtc" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.CreatedOnUtc</div>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UpdatedOnUtc" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.UpdatedOnUtc</div>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="LastLoginDateUtc" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.LastLoginDateUtc</div>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="IPAddress" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.IPAddress</div>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="LastActivityDateUtc" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.LastActivityDateUtc</div>
+         </div>
+      </div>
+   }
+</div>

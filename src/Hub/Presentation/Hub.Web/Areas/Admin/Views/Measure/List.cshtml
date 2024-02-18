@@ -1,0 +1,43 @@
+@model MeasureSearchModel
+
+@{
+    //page title
+    ViewBag.PageTitle = T("Admin.Configuration.Shipping.Measures").Text;
+    //active menu item (system name)
+    AppHtml.SetActiveMenuItemSystemName("Measures");
+    
+    const string hideDimensionsBlockAttributeName = "MeasuresPage.HideDimensionsBlock";
+    var user = await workContext.GetCurrentUserAsync();
+    var hideDimensionsBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideDimensionsBlockAttributeName);
+
+    const string hideWeightsBlockAttributeName = "MeasuresPage.HideWeightBlock";
+    var hideWeightsBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideWeightsBlockAttributeName);
+}
+
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.Configuration.Shipping.Measures")
+    </h1>
+    <div class="float-right">
+        &nbsp;
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.MeasureListButtons, additionalData = Model })
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            @* <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.Measures", Docs.Measures + Utm.OnAdmin)" /> *@
+
+            <app-cards id="category-cards">
+                <app-card asp-name="measures-dimensions" asp-icon="fas fa-cog" asp-title="@T("Admin.Configuration.Shipping.Measures.Dimensions")" asp-hide-block-attribute-name="@hideDimensionsBlockAttributeName" asp-hide="@hideDimensionsBlock" asp-advanced="false">@await Html.PartialAsync("Dimensions", Model)</app-card>
+                <app-card asp-name="measures-weights" asp-icon="fas fa-truck" asp-title="@T("Admin.Configuration.Shipping.Measures.Weights")" asp-hide-block-attribute-name="@hideWeightsBlockAttributeName" asp-hide="@hideWeightsBlock" asp-advanced="false">@await Html.PartialAsync("Weights", Model)</app-card>
+
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.MeasureListBlock, additionalData = Model })
+            </app-cards>
+        </div>
+    </div>
+</section>
+    <app-action-confirmation asp-button-id="btnMarkAsPrimaryDimension" asp-additional-confirm="Admin.Configuration.Shipping.Measures.AdditionalConfirm" />
+    <app-action-confirmation asp-button-id="btnMarkAsPrimaryWeight" asp-additional-confirm="Admin.Configuration.Shipping.Measures.AdditionalConfirm" />
+

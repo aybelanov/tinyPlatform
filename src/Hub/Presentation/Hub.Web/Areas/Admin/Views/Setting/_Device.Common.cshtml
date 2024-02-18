@@ -1,0 +1,59 @@
+﻿@model DeviceSettingsModel
+
+<div class="card-body" id="tour-devicesettings-common">
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="StoreIpAddresses" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="StoreIpAddresses" />
+         <span asp-validation-for="StoreIpAddresses"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="NotifyNewDeviceRegistration" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="NotifyNewDeviceRegistration" />
+         <span asp-validation-for="NotifyNewDeviceRegistration"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="BlockDevicesIfOwnerNotActive" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="BlockDevicesIfOwnerNotActive" />
+         <span asp-validation-for="BlockDevicesIfOwnerNotActive"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="MaxSensorDatasInDb" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="MaxSensorDatasInDb" />
+         <span asp-validation-for="MaxSensorDatasInDb"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="VideoFileExpiration" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="VideoFileExpiration" />
+         <span asp-validation-for="VideoFileExpiration"></span>
+      </div>
+   </div>
+   @*Not implemented yet. It implemented in Schedule tasks*@
+   @*<div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="CleanSensorDataInterval" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="CleanSensorDataInterval" />
+         <span asp-validation-for="CleanSensorDataInterval"></span>
+      </div>
+   </div>*@
+</div>

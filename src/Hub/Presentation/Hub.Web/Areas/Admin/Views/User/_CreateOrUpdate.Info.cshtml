@@ -1,0 +1,459 @@
+﻿@model UserModel
+
+@using Newtonsoft.Json
+@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+{
+   <script>
+      $(document).ready(function () {
+         $("#@Html.IdFor(model => model.CountryId)").change(function () {
+            var selectedItem = $(this).val();
+            var ddlStates = $("#@Html.IdFor(model => model.StateProvinceId)");
+
+            var postData = {
+               countryId: selectedItem,
+               addSelectStateItem: "true"
+            };
+
+            $.ajax({
+               cache: false,
+               type: "GET",
+               url: "@(Url.Action("GetStatesByCountryId", "Country"))",
+               data: postData,
+               success: function (data, textStatus, jqXHR) {
+                  ddlStates.html('');
+                  $.each(data, function (id, option) {
+                     ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                  });
+               },
+               error: function (jqXHR, textStatus, errorThrown) {
+                  $("#statesAlert").click();
+               }
+            });
+         });
+      });
+   </script>
+}
+
+<div class="card-body">
+
+   @if (Model.UsernamesEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="Username" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+         </div>
+      </div>
+   }
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Email" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="Email" />
+         <span asp-validation-for="Email"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="Password" />
+      </div>
+      <div class="col-md-9">
+         <div class="input-group">
+            <app-editor asp-for="Password" html-attributes="@(new { autocomplete = "new-password" })" />
+            <div class="input-group-append">
+               @if (Model.Id > 0)
+               {
+                  <button type="submit" name="changepassword" class="btn btn-info">
+                     @T("Admin.Users.Users.Fields.Password.Change")
+                  </button>
+               }
+            </div>
+         </div>
+         <span asp-validation-for="Password"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="FirstName" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="FirstName" />
+         <span asp-validation-for="FirstName"></span>
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="LastName" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="LastName" />
+         <span asp-validation-for="LastName"></span>
+      </div>
+   </div>
+   @if (Model.GenderEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="Gender" />
+         </div>
+         <div class="col-md-9">
+            <div class="raw">
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" name="Gender" id="Gender_Male" value="M" @(Model.Gender == "M" ? Html.Raw("checked") : null)>
+                  <label class="form-check-label" for="Gender_Male">
+                     @T("Admin.Users.Users.Fields.Gender.Male")
+                  </label>
+               </div>
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" name="Gender" id="Gender_Female" value="F" @(Model.Gender == "F" ? Html.Raw("checked") : null)>
+                  <label class="form-check-label" for="Gender_Female">
+                     @T("Admin.Users.Users.Fields.Gender.Female")
+                  </label>
+               </div>
+            </div>
+         </div>
+      </div>
+   }
+   @if (Model.DateOfBirthEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="DateOfBirth" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="DateOfBirth" />
+            <span asp-validation-for="DateOfBirth"></span>
+         </div>
+      </div>
+   }
+   @if (Model.CompanyEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="Company" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="Company" />
+            <span asp-validation-for="Company"></span>
+         </div>
+      </div>
+   }
+   @if (Model.StreetAddressEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="StreetAddress" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="StreetAddress" />
+            <span asp-validation-for="StreetAddress"></span>
+         </div>
+      </div>
+   }
+   @if (Model.StreetAddress2Enabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="StreetAddress2" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="StreetAddress2" />
+            <span asp-validation-for="StreetAddress2"></span>
+         </div>
+      </div>
+   }
+   @if (Model.ZipPostalCodeEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="ZipPostalCode" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="ZipPostalCode" />
+            <span asp-validation-for="ZipPostalCode"></span>
+         </div>
+      </div>
+   }
+   @if (Model.CityEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="City" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="City" />
+            <span asp-validation-for="City"></span>
+         </div>
+      </div>
+   }
+   @if (Model.CountyEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="County" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="County" />
+            <span asp-validation-for="County"></span>
+         </div>
+      </div>
+   }
+   @if (Model.CountryEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="CountryId" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="CountryId" asp-items="Model.AvailableCountries" />
+            <span asp-validation-for="CountryId"></span>
+         </div>
+      </div>
+   }
+   @if (Model.CountryEnabled && Model.StateProvinceEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="StateProvinceId" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="StateProvinceId" asp-items="Model.AvailableStates" />
+            <span asp-validation-for="StateProvinceId"></span>
+         </div>
+      </div>
+   }
+   @if (Model.PhoneEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="Phone" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+         </div>
+      </div>
+   }
+   @if (Model.FaxEnabled)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="Fax" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="Fax" />
+            <span asp-validation-for="Fax"></span>
+         </div>
+      </div>
+   }
+   @if (Model.UserAttributes.Count > 0)
+   {
+      @await Html.PartialAsync("_UserAttributes", Model.UserAttributes)
+   }
+
+   @if (Model.AllowUsersToSetTimeZone)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="TimeZoneId" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="TimeZoneId" asp-items="Model.AvailableTimeZones" />
+            <span asp-validation-for="TimeZoneId"></span>
+         </div>
+      </div>
+   }
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="SelectedUserRoleIds" />
+      </div>
+
+      <div class="col-md-9">
+         <div class="input-group-append input-group-required">
+            <div class="input-group">
+               <app-select asp-for="SelectedUserRoleIds" asp-items="Model.AvailableUserRoles" asp-multiple="true" />
+            </div>
+            <div class="input-group-btn">
+               <app-required />
+            </div>
+         </div>
+         <script>
+            $(document).ready(function () {
+               var userRoleIdsInput = $('#@Html.IdFor(model => model.SelectedUserRoleIds)').data("kendoMultiSelect");
+               userRoleIdsInput.setOptions({
+                  userRoleIdsInput: false,
+                  filter: "contains"
+               });
+
+            @if (Model.AvailableUserRoles.Count == 0)
+            {
+               <text>
+                     userRoleIdsInput.setOptions({
+                        enable: false,
+                        placeholder: '@T("Admin.Users.Users.Fields.UserRoles.NoRoles")'
+                     });
+                  userRoleIdsInput._placeholder();
+                  userRoleIdsInput._enable();
+               </text>
+            }
+                            });
+         </script>
+      </div>
+   </div>
+   @if (Model.AffiliateId > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="AffiliateId" />
+         </div>
+         <div class="col-md-9">
+            <a asp-controller="Affiliate" asp-action="Edit" asp-route-id="@Model.AffiliateId">@Model.AffiliateName - @T("Admin.Common.View")</a>
+            <button type="submit" name="remove-affiliate" class="btn btn-danger">
+               @T("Admin.Users.Users.Fields.Affiliate.Remove")
+            </button>
+         </div>
+      </div>
+   }
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="IsActive" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="IsActive" />
+         <span asp-validation-for="IsActive"></span>
+      </div>
+   </div>
+   @if (!string.IsNullOrEmpty(Model.MultiFactorAuthenticationProvider))
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="MultiFactorAuthenticationProvider" />
+         </div>
+         <div class="col-md-9">
+            <div class="input-group">
+               <app-editor asp-for="MultiFactorAuthenticationProvider" html-attributes="@(new { disabled = true })" />
+               <div class="input-group-append">
+                  @if (Model.Id > 0)
+                  {
+                     <a id="mfa-bind-delete" href="#" class="btn btn-danger">
+                        @T("Admin.Common.Delete")
+                     </a>
+                  }
+               </div>
+            </div>
+            <span asp-validation-for="MultiFactorAuthenticationProvider"></span>
+         </div>
+      </div>
+   }
+
+   @if (Model.Id > 0 && Model.UserAssociatedExternalAuthRecordsSearchModel.AssociatedExternalAuthRecords.Count > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="UserAssociatedExternalAuthRecordsSearchModel.AssociatedExternalAuthRecords" />
+         </div>
+         <div class="col-md-9">
+            @await Html.PartialAsync("Table", new DataTablesModel
+         {
+         Name = "externalauthrecords-grid",
+         Paging = false,
+         ServerSide = false,
+         Length = Model.UserAssociatedExternalAuthRecordsSearchModel.PageSize,
+         LengthMenu = Model.UserAssociatedExternalAuthRecordsSearchModel.AvailablePageSizes,
+         ColumnCollection = new List<ColumnProperty>
+         {
+         new ColumnProperty(nameof(UserAssociatedExternalAuthModel.AuthMethodName))
+         {
+         Title = T("Admin.Users.Users.AssociatedExternalAuth.Fields.AuthMethodName").Text,
+         Width = "100"
+         },
+         new ColumnProperty(nameof(UserAssociatedExternalAuthModel.Email))
+         {
+         Title = T("Admin.Users.Users.AssociatedExternalAuth.Fields.Email").Text,
+         Width = "100"
+         },
+         new ColumnProperty(nameof(UserAssociatedExternalAuthModel.ExternalIdentifier))
+         {
+         Title = T("Admin.Users.Users.AssociatedExternalAuth.Fields.ExternalIdentifier").Text,
+         Width = "300"
+         }
+         },
+         Data = JsonConvert.SerializeObject(Model.UserAssociatedExternalAuthRecordsSearchModel.AssociatedExternalAuthRecords.Select(externalAuthRecord => new
+         {
+         //We must display this data encoded, since the data can contain Unicode characters or malicious exploits
+         AuthMethodName = WebUtility.HtmlEncode(externalAuthRecord.AuthMethodName),
+         Email = WebUtility.HtmlEncode(externalAuthRecord.Email),
+         ExternalIdentifier = WebUtility.HtmlEncode(externalAuthRecord.ExternalIdentifier)
+         }).ToList())
+         })
+         </div>
+      </div>
+   }
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="NewsletterSubscribed" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="NewsletterSubscribed" />
+      </div>
+   </div>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="AdminComment" />
+      </div>
+      <div class="col-md-9">
+         <app-textarea asp-for="AdminComment" />
+         <span asp-validation-for="AdminComment"></span>
+      </div>
+   </div>
+   @if (Model.Id > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="LastIpAddress" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.LastIpAddress</div>
+         </div>
+      </div>
+   }
+   @if (Model.Id > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="CreatedOn" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.CreatedOn</div>
+         </div>
+      </div>
+   }
+   @if (Model.Id > 0)
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="LastActivityDate" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.LastActivityDate</div>
+         </div>
+      </div>
+   }
+   @if (Model.Id > 0 && !string.IsNullOrEmpty(Model.LastVisitedPage))
+   {
+      <div class="form-group row">
+         <div class="col-md-3">
+            <app-label asp-for="LastVisitedPage" />
+         </div>
+         <div class="col-md-9">
+            <div class="form-text-row">@Model.LastVisitedPage</div>
+         </div>
+      </div>
+   }
+</div>
+
+<app-alert asp-alert-id="statesAlert" asp-alert-message="@T("Admin.Common.Alert.States.Failed")" />

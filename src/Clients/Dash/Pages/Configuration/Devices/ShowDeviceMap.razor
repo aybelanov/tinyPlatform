@@ -1,0 +1,49 @@
+﻿@using static Clients.Widgets.Core.OpenLayerBase
+
+@* <h3>@T["Device.DeviceMap.Title"]</h3> *@
+<div class="row">
+   <div class="col">
+      <OpenMap @ref=@map BingKey="@Config["ApiKeys:BingMap"]" View=@mapView style="height:450px; width:100%;" />
+   </div>
+</div>
+
+@code {
+   [Parameter] public DeviceModel Model { get; set; }
+   [Parameter] public DialogService Dialog { get; set; }
+
+   [Inject] WebAssemblyHostConfiguration Config { get; set; }
+
+   private OpenMap map;
+   private MapView mapView;
+
+   protected override void OnInitialized()
+   {
+      mapView = new()
+      {
+         Zoom = 14,
+         LayerType = LayerTypes.AerialWithLabelsOnDemand,
+         Culture = Defaults.Culture,
+         Theme = Defaults.Theme,
+         Center = new() { Lon = Model.Lon, Lat = Model.Lat }
+      };
+   }
+
+   protected override async Task OnAfterRenderAsync(bool firstRender)
+   {
+      if (firstRender)
+      {
+         await map.ShowMarkers(new[]
+         { 
+            new Marker()
+            {
+                //Name = Model.Name,
+                EntityId = Model.Id,
+                Lat = Model.Lat,
+                Lon = Model.Lon,
+                Icon = "img/" + (Model.IsMobile ? "mobile" : "stationary") + "_" + ClientHelper.GetMapMarkerStatusColor(Model.ConnectionStatus) + ".svg",
+                Visible = true,
+            }
+         });
+      }
+   }
+}

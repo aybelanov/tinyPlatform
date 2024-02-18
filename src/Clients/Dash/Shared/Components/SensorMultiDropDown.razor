@@ -1,0 +1,17 @@
+﻿<RadzenDropDown @ref=@_sensorDropDown
+                @bind-Value:get=@_selectedSensors
+                @bind-Value:set=@SensorChange
+                Name=@Name 
+                Data="_availableSensors" 
+                AllowClear=true
+                AllowFiltering=true 
+                AllowSelectAll=true
+                Multiple=true
+                Chips=true
+                MaxSelectedLabels=@MaxSelectedLabels
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                TextProperty="Name"
+                Placeholder=@T["Select"]
+                Style=@Style
+                Disabled=@(Disabled || Device is null || IsLoading)
+                @attributes=@Attributes/>

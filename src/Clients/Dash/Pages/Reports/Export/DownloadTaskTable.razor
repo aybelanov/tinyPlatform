@@ -1,0 +1,264 @@
+﻿@using Radzen;
+@implements IDisposable
+@implements IAsyncDisposable
+
+<AuthorizeView>
+   <Authorized Context="authContext">
+      <RadzenFieldset class="mb-3">
+         <HeaderTemplate>
+            <div class="col">
+               <div class="row align-items-center">
+                  <RadzenButton Click=@(async args => await OnUpdate()) Icon="refresh" ButtonStyle="ButtonStyle.Light" Style="margin-right: 12px" />
+                  <span>@T["Reports.DownloadTasks"]</span>
+               </div>
+            </div>
+         </HeaderTemplate>
+         <ChildContent>
+            <RadzenDataGrid @ref=@grid TItem="DownloadTaskModel" Data="@Model" AllowFiltering="true" AllowSorting="true" AllowColumnResize="true" EmptyText="@T["DataGrid.EmptyText"]"
+                            IsLoading=@isLoading PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" FilterMode=FilterMode.Advanced
+                            PageSizeOptions=@Defaults.GridPageSizeOptions LoadData="@LoadData" Count="@(Model?.TotalCount ?? 0)">
+               <Columns>
+                  <RadzenDataGridColumn @ref=idColumn TItem="DownloadTaskModel" Property="Id" Filterable=true Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center" Resizable=false Visible=(PermissionService.IsAdminMode(authContext)) />
+                  <RadzenDataGridColumn @ref=taskStartColumn SortOrder=SortOrder.Descending TItem="DownloadTaskModel" Property="TaskDateTimeUtc" Title=@T["DataGrid.Column.StartDateTime"] Width="150px" TextAlign="TextAlign.Center">
+                     <Template>
+                        @context.TaskDateTimeUtc.ToLocalTime()
+                     </Template>
+                  </RadzenDataGridColumn>
+                  <RadzenDataGridColumn @ref=fileNameColumn TItem="DownloadTaskModel" Property="FileName" Title=@T["DataGrid.Column.FileName"] MinWidth="150px">
+                     <Template Context="file">
+                        @if (file.CurrentState == DownloadFileState.Ready)
+                        {
+                           <RadzenLink Path=@($"{Singleton<ServerConfig>.Instance.HubHost}/reportfiles/{file.FileName}") @onclick:stopPropagation="true" Text="@file.FileName"></RadzenLink>
+                        }
+                        else
+                        {
+                           @file.FileName
+                        }
+                     </Template>
+                  </RadzenDataGridColumn>
+                  <RadzenDataGridColumn @ref=sizeColumn TItem="DownloadTaskModel" Property="Size" Title=@T["DataGrid.Column.FileSize"] Width="150px" Sortable="true" Filterable=true TextAlign="TextAlign.Center">
+                     <Template Context="file">
+                        @(file.Size > 0 ? ClientHelper.ByteSizeToString(file.Size) : string.Empty)
+                     </Template>
+                  </RadzenDataGridColumn>
+                  <RadzenDataGridColumn @ref=stateColumn TItem="DownloadTaskModel" Property="CurrentState" Title=@T["DataGrid.Column.FileState"] Width="180px" Sortable="false" Filterable=false TextAlign="TextAlign.Center">
+                     <Template>
+                        @T[$"DownloadFileState.{context.CurrentState}"]
+                     </Template>
+                  </RadzenDataGridColumn>
+                  <RadzenDataGridColumn @ref=readyTimeColumn TItem="DownloadTaskModel" Property="ReadyDateTimeUtc" Title=@T["DataGrid.Column.EndDateTime"] Width="150px" Sortable="true" Filterable=true TextAlign="TextAlign.Center">
+                     <Template>
+                        @if (context.ReadyDateTimeUtc != default)
+                        {
+                           @* @ClientHelper.ConvertUtcToBrowserTime(context.ReadyDateTimeUtc).ToString("g") *@
+                           @context.ReadyDateTimeUtc.ToLocalTime()
+                        }
+                        else
+                        {
+                           @string.Empty
+                        }
+                     </Template>
+                  </RadzenDataGridColumn>
+                  @if (PermissionService.IsAdminMode(authContext))
+                  {
+                     <RadzenDataGridColumn @ref=usernameColumn TItem="DownloadTaskModel" Property="Username" Width="180px" Filterable=true Sortable=true Title=@T["DataGrid.Column.User"] TextAlign="TextAlign.Center" />
+                  }
+                  <RadzenDataGridColumn TItem="DownloadTaskModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center" Resizable=false>
+                     <Template Context="task">
+                        @if (task.CurrentState == DownloadFileState.InTheQueue)
+                        {
+                           <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0"
+                                         Click="@(async () => await OnDeleteItem(task))" @onclick:stopPropagation="true">
+                           </RadzenButton>
+                        }
+                     </Template>
+                  </RadzenDataGridColumn>
+               </Columns>
+            </RadzenDataGrid>
+         </ChildContent>
+      </RadzenFieldset>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+
+   #region Services
+
+   [Inject] HubService Hub { get; set; }
+   [Inject] IDownloadTaskService Service { get; set; }
+   [Inject] ILogger<DownloadTaskModel> Logger { get; set; }
+   [Inject] DialogService DialogService { get; set; }
+   [Inject] NotificationService NotificationService { get; set; }
+
+   #endregion
+
+   #region fields
+
+   RadzenDataGrid<DownloadTaskModel> grid;
+   RadzenDataGridColumn<DownloadTaskModel> idColumn;
+   RadzenDataGridColumn<DownloadTaskModel> taskStartColumn;
+   RadzenDataGridColumn<DownloadTaskModel> fileNameColumn;
+   RadzenDataGridColumn<DownloadTaskModel> sizeColumn;
+   RadzenDataGridColumn<DownloadTaskModel> stateColumn;
+   RadzenDataGridColumn<DownloadTaskModel> readyTimeColumn;
+   RadzenDataGridColumn<DownloadTaskModel> usernameColumn;
+
+   IFilterableList<DownloadTaskModel> Model;
+   private DynamicFilter filter = new();
+   bool isLoading;
+
+   #endregion
+
+   #region Utilities
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter = Auto.Mapper.Map(args, filter);
+
+      var columnList = new List<RadzenDataGridColumn<DownloadTaskModel>>() { taskStartColumn, fileNameColumn, sizeColumn, stateColumn, readyTimeColumn };
+
+      if (idColumn != null)
+         columnList.Add(idColumn);
+
+      filter.Filter = columnList.ToDynamicQuery();
+
+      if (usernameColumn != null)
+      {
+         var ownerNameColumnFilter = new List<RadzenDataGridColumn<DownloadTaskModel>>() { usernameColumn }.ToFilterString();
+         if (!filter.AdditionalQueries.TryAdd("User", ownerNameColumnFilter))
+            filter.AdditionalQueries["User"] = ownerNameColumnFilter;
+      }
+   }
+
+   private async Task OnDownloadTaskStatusChanged(DownloadTask task)
+   {
+      var item = Model?.FirstOrDefault(x => x.Id == task.Id);
+      if (item != null)
+      {
+         item.Size = task.Size;
+         item.CurrentState = task.CurrentState;
+         item.ReadyDateTimeUtc = task.ReadyDateTimeUtc;
+         StateHasChanged();
+      }
+
+      await Task.CompletedTask;
+   }
+
+   #endregion
+
+
+   #region Lifecycle
+
+   protected override void OnInitialized()
+   {
+      Hub.DownloadTaskStatusChanged += OnDownloadTaskStatusChanged;
+   }
+
+   #endregion
+
+   #region Methods
+
+   public async Task AddFileToDownloadQueue(DownloadRequest request)
+   {
+      isLoading = true;
+      StateHasChanged();
+      await Task.Yield();
+
+      try
+      {
+         if (grid.Query.Top.HasValue)
+            request.Top = grid.Query.Top.Value;
+
+         if (Model?.Any() ?? false)
+            await Hub.UnsubscribeFromGroupsAsync(this, Model.Select(x => $"{nameof(DownloadTask)}_{x.Id}"));
+
+         Model = await PrepareDownloadTaskModelAsync(request);
+         grid.CurrentPage = 0;
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+         StateHasChanged();
+      }
+   }
+
+   protected async Task LoadData(LoadDataArgs args)
+   {
+      isLoading = true;
+      await Task.Yield();
+      PrepareFilter(args);
+
+      if (string.IsNullOrEmpty(filter.OrderBy))
+         filter.OrderBy = "TaskDateTimeUtc desc";
+
+      try
+      {
+         if (Model?.Any() ?? false)
+            await Hub.UnsubscribeFromGroupsAsync(this, Model.Select(x => $"{nameof(DownloadTask)}_{x.Id}"));
+
+         Model = await PrepareDownloadTaskModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnUpdate()
+   {
+      await grid.Reload();      
+   }
+
+   protected async Task OnDeleteItem(DownloadTaskModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["DownloadTasks.Delete.Confirm.Message"], item.FileName), T["DownloadTasks.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            isLoading = true;
+            await Service.DeleteDownloadTaskAsync(item.Id);
+            await grid.Reload();
+
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["DownloadTasks.Delete.Success"], item.FileName));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["DownloadTasks.Delete.Error"], item.FileName));
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+   public void Dispose()
+   {
+      Hub.DownloadTaskStatusChanged -= OnDownloadTaskStatusChanged;
+   }
+
+   public async ValueTask DisposeAsync()
+   {
+      Dispose();
+
+      if (Model?.Any() ?? false)
+         await Hub.UnsubscribeFromGroupsAsync(this, Model.Select(x => $"{nameof(DownloadTask)}_{x.Id}"));
+   }
+
+   #endregion
+}

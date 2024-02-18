@@ -1,0 +1,293 @@
+﻿@model UserSearchModel
+
+@{
+   Layout = "_AdminPopupLayout";
+
+   //page title
+   ViewBag.PageTitle = T("Admin.Devices.Devices.SharedUsers.Title").Text;
+}
+
+@if (ViewBag.RefreshPage == true)
+{
+    <script>
+        try {window.opener.document.forms['@(Context.Request.Query["formId"])'].@(Context.Request.Query["btnId"]).click();}
+        catch (e){}
+        window.close();
+    </script>
+}
+else
+{
+   <form asp-controller="Device" asp-action="UsersAddPopup"
+      asp-route-deviceId="@Context.Request.Query["deviceId"]"
+      asp-route-btnId="@Context.Request.Query["btnId"]"
+      asp-route-formId="@Context.Request.Query["formId"]">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T("Admin.Devices.Devices.SharedUsers.Add")
+        </h1>
+        <div class="pull-right">
+            &nbsp;
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="cards-group">
+                    <div class="card card-default card-search card-popup">
+                        <div class="card-body">
+                            <div class="row">
+                               <div class="col-md-5">
+                                  <div class="form-group row">
+                                     <div class="col-md-4">
+                                        <app-label asp-for="SearchEmail" />
+                                     </div>
+                                     <div class="col-md-8">
+                                        <app-editor asp-for="SearchEmail" />
+                                     </div>
+                                  </div>
+                                  @if (Model.UsernamesEnabled)
+                                  {
+                                     <div class="form-group row">
+                                        <div class="col-md-4">
+                                           <app-label asp-for="SearchUsername" />
+                                        </div>
+                                        <div class="col-md-8">
+                                           <app-editor asp-for="SearchUsername" />
+                                        </div>
+                                     </div>
+                                  }
+                                  <div class="form-group row">
+                                     <div class="col-md-4">
+                                        <app-label asp-for="SearchFirstName" />
+                                     </div>
+                                     <div class="col-md-8">
+                                        <app-editor asp-for="SearchFirstName" />
+                                     </div>
+                                  </div>
+                                  <div class="form-group row">
+                                     <div class="col-md-4">
+                                        <app-label asp-for="SearchLastName" />
+                                     </div>
+                                     <div class="col-md-8">
+                                        <app-editor asp-for="SearchLastName" />
+                                     </div>
+                                  </div>
+                                  @if (Model.DateOfBirthEnabled)
+                                  {
+                                     <div class="form-group row">
+                                        <div class="col-md-4">
+                                           <app-label asp-for="SearchDayOfBirth" />
+                                        </div>
+                                        <div class="col-md-8">
+                                           @{
+                                              var monthOfBirthValues = new List<SelectListItem>();
+                                              monthOfBirthValues.Add(new SelectListItem { Text = T("Admin.Users.Users.List.SearchDateOfBirth.Month").Text, Value = "0" });
+                                              for (var i = 1; i <= 12; i++)
+                                              {
+                                                 monthOfBirthValues.Add(new SelectListItem { Text = i.ToString(CultureInfo.InvariantCulture), Value = i.ToString(CultureInfo.InvariantCulture) });
+                                              }
+                                              var dayOfBirthValues = new List<SelectListItem>();
+                                              dayOfBirthValues.Add(new SelectListItem { Text = T("Admin.Users.Users.List.SearchDateOfBirth.Day").Text, Value = "0" });
+                                              for (var i = 1; i <= 31; i++)
+                                              {
+                                                 dayOfBirthValues.Add(new SelectListItem { Text = i.ToString(CultureInfo.InvariantCulture), Value = i.ToString(CultureInfo.InvariantCulture) });
+                                              }
+                                           }
+                                           <div class="row">
+                                              <div class="col-md-6">
+                                                 <app-select asp-for="SearchMonthOfBirth" asp-items="@monthOfBirthValues" />
+                                              </div>
+                                              <div class="col-md-6">
+                                                 <app-select asp-for="SearchDayOfBirth" asp-items="@dayOfBirthValues" />
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                  }
+                               </div>
+                               <div class="col-md-7">
+                                  @if (Model.CompanyEnabled)
+                                  {
+                                     <div class="form-group row">
+                                        <div class="col-md-4">
+                                           <app-label asp-for="SearchCompany" />
+                                        </div>
+                                        <div class="col-md-8">
+                                           <app-editor asp-for="SearchCompany" />
+                                        </div>
+                                     </div>
+                                  }
+                                  @if (Model.PhoneEnabled)
+                                  {
+                                     <div class="form-group row">
+                                        <div class="col-md-4">
+                                           <app-label asp-for="SearchPhone" />
+                                        </div>
+                                        <div class="col-md-8">
+                                           <app-editor asp-for="SearchPhone" />
+                                        </div>
+                                     </div>
+                                  }
+                                  @if (Model.ZipPostalCodeEnabled)
+                                  {
+                                     <div class="form-group row">
+                                        <div class="col-md-4">
+                                           <app-label asp-for="SearchZipPostalCode" />
+                                        </div>
+                                        <div class="col-md-8">
+                                           <app-editor asp-for="SearchZipPostalCode" />
+                                        </div>
+                                     </div>
+                                  }
+                                  <div class="form-group row">
+                                     <div class="col-md-4">
+                                        <app-label asp-for="SearchIpAddress" />
+                                     </div>
+                                     <div class="col-md-8">
+                                        <app-editor asp-for="SearchIpAddress" />
+                                     </div>
+                                  </div>
+                                  <div class="form-group row">
+                                     <div class="col-md-4">
+                                        <app-label asp-for="SelectedUserRoleIds" />
+                                     </div>
+                                     <div class="col-md-8">
+                                        <app-select asp-for="SelectedUserRoleIds" asp-items="Model.AvailableUserRoles" asp-multiple="true" />
+                                        <script>
+                                           $(document).ready(function () {
+                                              var rolesIdsInput =
+                                                 $('#@Html.IdFor(model => model.SelectedUserRoleIds)')
+                                                    .data("kendoMultiSelect");
+                                              rolesIdsInput.setOptions({
+                                                 autoClose: false,
+                                                 filter: "contains"
+                                              });
+
+                                               @if (Model.AvailableUserRoles.Count == 0)
+                                               {
+                                                  <text>
+                                                        rolesIdsInput.setOptions({
+                                                           enable: false,
+                                                           placeholder:
+                                                              '@T("Admin.Catalog.Products.UserRoles.NoUserRolesAvailable")'
+                                                        });
+                                                     rolesIdsInput._placeholder();
+                                                     rolesIdsInput._enable();
+                                                  </text>
+                                               }
+                                           });
+                                        </script>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="button" id="search-users" class="btn btn-primary btn-search">
+                                            <i class="fas fa-search"></i>
+                                            @T("Admin.Common.Search")
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="card card-default">
+                        <div class="card-body">
+                            @{
+                                var gridModel = new DataTablesModel
+                                {
+                                   Name = "users-grid",
+                                   UrlRead = new DataUrl("UserList", "User", null),
+                                   SearchButtonId = "search-users",
+                                   Length = Model.PageSize,
+                                   LengthMenu = Model.AvailablePageSizes,
+                                   Filters = new List<FilterParameter>
+                                   {
+                                        new FilterParameter(nameof(Model.SelectedUserRoleIds)),
+                                        new FilterParameter(nameof(Model.SearchEmail)),
+                                        new FilterParameter(nameof(Model.SearchUsername)),
+                                        new FilterParameter(nameof(Model.SearchFirstName)),
+                                        new FilterParameter(nameof(Model.SearchLastName)),
+                                        new FilterParameter(nameof(Model.SearchDayOfBirth)),
+                                        new FilterParameter(nameof(Model.SearchMonthOfBirth)),
+                                        new FilterParameter(nameof(Model.SearchCompany)),
+                                        new FilterParameter(nameof(Model.SearchPhone)),
+                                        new FilterParameter(nameof(Model.SearchZipPostalCode)),
+                                        new FilterParameter(nameof(Model.SearchIpAddress)),
+                                   }
+                                };
+
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Id))
+                                {
+                                   IsMasterCheckBox = false,
+                                   //Render = new RenderCheckBox("checkbox_users"),
+                                   Render = new RenderCheckBox(nameof(DeviceUsersModel.SelectedUserIds)),
+                                   ClassName = AppColumnClassDefaults.CenterAll,
+                                   Width = "30"
+                                });
+
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Email))
+                                {
+                                   Title = T("Admin.Users.Users.Fields.Email").Text
+                                });
+                           
+                                if (Model.UsernamesEnabled)
+                                {
+                                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Username))
+                                    { 
+                                        Title = T("Admin.Users.Users.Fields.Username").Text
+                                    });
+                                }
+                         
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.FullName))
+                                {
+                                   Title = T("Admin.Users.Users.Fields.FullName").Text
+                                });
+
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.UserRoleNames))
+                                {
+                                   Title = T("Admin.Users.Users.Fields.UserRoles").Text,
+                                   Width = "100"
+                                });
+                    
+                                if (Model.CompanyEnabled)
+                                {
+                                    gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Company))
+                                    {
+                                        Title = T("Admin.Users.Users.Fields.Company").Text
+                                    });
+                                }
+
+                           
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.IsActive))
+                                {
+                                   Title = T("Admin.Users.Users.Fields.Active").Text,
+                                   Width = "70",
+                                   ClassName = AppColumnClassDefaults.CenterAll,
+                                   Render = new RenderBoolean()
+                                });
+                          
+                                gridModel.ColumnCollection.Add(new ColumnProperty(nameof(UserModel.Id))
+                                {
+                                   Title = T("Admin.Common.Edit").Text,
+                                   Width = "80",
+                                   ClassName = AppColumnClassDefaults.Button,
+                                   Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                });
+                            }
+                            @await Html.PartialAsync("Table", gridModel)
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" name="save" class="btn btn-primary">
+                                <i class="far fa-save"></i>
+                                @T("Admin.Common.Save")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+}

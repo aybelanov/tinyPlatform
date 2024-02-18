@@ -1,0 +1,26 @@
+﻿@model BlogPostModel
+
+@{
+    const string hideInfoBlockAttributeName = "BlogPostPage.HideInfoBlock";
+    var user = await workContext.GetCurrentUserAsync();
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideInfoBlockAttributeName);
+
+    const string hideSeoBlockAttributeName = "BlogPostPage.HideSEOBlock";
+    var hideSeoBlock = await genericAttributeService.GetAttributeAsync<bool>(user, hideSeoBlockAttributeName, defaultValue: true);
+}
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <app-cards id="blog-post-cards">
+                <app-card asp-name="blog-post-info" asp-icon="fas fa-info" asp-title="@T("Admin.ContentManagement.Blog.BlogPosts.Info")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">@await Html.PartialAsync("_CreateOrUpdate.Info", Model)</app-card>
+                <app-card asp-name="blog-post-seo" asp-icon="fas fa-search-plus" asp-title="@T("Admin.Common.SEO")" asp-hide-block-attribute-name="@hideSeoBlockAttributeName" asp-hide="@hideSeoBlock" asp-advanced="true">@await Html.PartialAsync("_CreateOrUpdate.Seo", Model)</app-card>
+
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.BlogPostDetailsBlock, additionalData = Model })
+            </app-cards>
+        </div>
+    </div>
+</section>

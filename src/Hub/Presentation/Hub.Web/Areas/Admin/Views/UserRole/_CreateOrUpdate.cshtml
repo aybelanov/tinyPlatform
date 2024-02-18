@@ -1,0 +1,80 @@
+@model UserRoleModel
+
+<div asp-validation-summary="ModelOnly"></div>
+<input asp-for="Id" type="hidden" />
+
+<script>
+    $(document).ready(function() {
+        toggleRemoveButton();
+    });
+    
+    //function toggleRemoveButton() {
+    //    if ($('#@Html.IdFor(model => model.Active)').val() > 0) {
+    //        $('#purchased-with-product-name-remove').showElement();
+    //    } else {
+    //        $('#purchased-with-product-name-remove').hideElement();
+    //    }
+    //}
+</script>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="cards-group">
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.UserRoleDetailsTop, additionalData = Model })
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <app-label asp-for="Name" />
+                            </div>
+                            <div class="col-md-9">
+                                <app-editor asp-for="Name" asp-required="true" />
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <app-label asp-for="Active" />
+                            </div>
+                            <div class="col-md-9">
+                                <app-editor asp-for="Active" />
+                                <span asp-validation-for="Active"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <app-label asp-for="EnablePasswordLifetime" />
+                            </div>
+                            <div class="col-md-9">
+                                <app-editor asp-for="EnablePasswordLifetime" />
+                                <span asp-validation-for="EnablePasswordLifetime"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <app-label asp-for="IsSystemRole" />
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-text-row">@T(Model.IsSystemRole ? "Admin.Common.Yes" : "Admin.Common.No")</div>
+                                <input type="hidden" asp-for="IsSystemRole" />
+                                <span asp-validation-for="IsSystemRole"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <app-label asp-for="SystemName" />
+                            </div>
+                            <div class="col-md-9">
+                                <app-editor asp-for="SystemName" />
+                                <span asp-validation-for="SystemName"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.UserRoleDetailsBottom, additionalData = Model })
+            </div>
+        </div>
+    </div>
+</section>

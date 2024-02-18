@@ -1,0 +1,111 @@
+﻿@model DeviceStatisticsModel
+@using Hub.Core
+@using Hub.Core.Configuration;
+@using Shared.Clients
+@inject Hub.Services.Common.IGenericAttributeService genericAttributeService
+@inject IWorkContext workContext
+@inject AppSettings appSettings
+
+@{
+   var onlineClass = string.Empty;
+   if (Model.Status == "online") onlineClass = "bg-green";
+   else if (Model.Status == "beenrecently") onlineClass = "bg-yellow";
+   else if (Model.Status == "offline") onlineClass = "bg-red";
+   else if (Model.Status == "noactivities") onlineClass = "bg-gray";
+}
+
+<link rel="stylesheet" href="~/lib_npm/ionicons/css/ionicons.min.css" />
+
+<div class="card-body">
+   <div class="row">
+      <div class="col-lg-3 col-6">
+         <div class="row row-cols-1 h-100 px-2">
+            <div class="small-box @{<text>@onlineClass</text>} h-100">
+               <div class="inner row row-cols-1">
+                  <div class="col mt-1">
+                     <p>@T("Admin.Device.Statistics.Device.Status.Title")</p>
+                  </div>
+                  <div class="col">
+                     <h4>@Model.StatusValue</h4>
+                  </div>
+               </div>
+               <div class="icon">
+                  <i class="ion ion-cube"></i>
+               </div>
+               <a asp-controller="OnlineDevice" asp-action="List" class="small-box-footer" style="position: absolute; width: 100%; bottom: 0;">
+                  @T("Admin.Dashboard.MoreInfo")
+                  <i class="fas fa-arrow-circle-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-6">
+         <div class="row row-cols-1 h-100 px-2">
+            <div class="small-box bg-info h-100">
+               <div class="inner row row-cols-1">
+                  <div class="col">
+                     <h3>@Model.NumberOfOnlineDeviceUsers</h3>
+                  </div>
+                  <div class="col row">
+                     <div class="col-10 justify-content-center align-self-center">
+                        <p>@T("Admin.Device.Statistics.NumberOfOnlineUsers")</p>
+                     </div>
+                     <div class="col-2">
+                        <h3>@Model.NumberOfTotalDeviceUsers</h3>
+                     </div>
+                  </div>
+               </div>
+               <div class="icon">
+                  <i class="ion ion-person"></i>
+               </div>
+               <a asp-controller="OnlineUser" asp-action="List" class="small-box-footer" style="position: absolute; width: 100%; bottom: 0;">
+                  @T("Admin.Dashboard.MoreInfo")
+                  <i class="fas fa-arrow-circle-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-6">
+         <div class="row row-cols-1 h-100 px-2">
+            <div class="small-box bg-yellow h-100">
+               <div class="inner row row-cols-1">
+                  <div class="col">
+                     <h3>@Model.NumberOfSensors</h3>
+                  </div>
+                  <div class="col justify-content-center align-self-center">
+                     <p>@T("Admin.Device.Summary.NumberOfSensors")</p>
+                  </div>
+               </div>
+               <div class="icon">
+                  <i class="ion ion-ios-pulse-strong"></i>
+               </div>
+               <a href="@(appSettings.Get<HostingConfig>().ClientHostUrl)" class="small-box-footer" style="position: absolute; width: 100%; bottom: 0;">
+                  @T("Admin.Dashboard.MoreInfo")
+                  <i class="fas fa-arrow-circle-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-6">
+         <div class="row row-cols-1 h-100 px-2">
+            <div class="small-box bg-red h-100">
+               <div class="inner row row-cols-1">
+                  <div class="col">
+                     <h3>@Model.NumberOfDataRecords</h3>
+                  </div>
+                  <div class="col">
+                     <p>@T("Admin.Device.Summary.NumberOfRecords")</p>
+                  </div>
+               </div>
+               <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+               </div>
+               <a href="@(appSettings.Get<HostingConfig>().ClientHostUrl)" class="small-box-footer" style="position: absolute; width: 100%; bottom: 0;">
+                  @T("Admin.Dashboard.MoreInfo")
+                  <i class="fas fa-arrow-circle-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

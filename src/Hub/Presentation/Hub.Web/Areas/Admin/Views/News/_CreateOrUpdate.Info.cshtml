@@ -1,0 +1,84 @@
+@model NewsItemModel
+
+<div class="card-body">
+    <div class="form-group row" @(Model.AvailableLanguages.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
+        <div class="col-md-3">
+            <app-label asp-for="LanguageId" />
+        </div>
+        <div class="col-md-9">
+            <app-select asp-for="LanguageId" asp-items="Model.AvailableLanguages" />
+            <span asp-validation-for="LanguageId"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Title" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="Title" asp-required="true" />
+            <span asp-validation-for="Title"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Short" />
+        </div>
+        <div class="col-md-9">
+            <app-textarea asp-for="Short" asp-required="true" />
+            <span asp-validation-for="Short"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Full" />
+        </div>
+        <div class="col-md-9">
+            
+            <div class="input-group-append input-group-required">                
+                <div class="input-group">
+                    <app-editor asp-for="Full" asp-template="RichEditor" />
+                </div>
+                <div class="input-group-btn">
+                    <app-required />
+                </div>
+            </div>
+            <span asp-validation-for="Full"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="AllowComments" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="AllowComments" />
+            <span asp-validation-for="AllowComments"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="StartDateUtc" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="StartDateUtc" />
+            <span asp-validation-for="StartDateUtc"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="EndDateUtc" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="EndDateUtc" />
+            <span asp-validation-for="EndDateUtc"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <app-label asp-for="Published" />
+        </div>
+        <div class="col-md-9">
+            <app-editor asp-for="Published" />
+            <span asp-validation-for="Published"></span>
+        </div>
+    </div>
+</div>

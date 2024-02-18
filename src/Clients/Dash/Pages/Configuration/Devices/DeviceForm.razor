@@ -1,0 +1,182 @@
+﻿@if (DeviceId < 1)
+{
+   <PageTitle>@T["Device.Create.PageTitle"]</PageTitle>
+   <h3>@T["Device.Create.PageTitle"]</h3>
+}
+else
+{
+   <PageTitle>@T["Device.Edit.PageTitle", Model?.SystemName ?? string.Empty]</PageTitle>
+   <h3 class="mb-3 mr-1 d-inline-block">@T["Device.Edit.PageTitle", Model?.SystemName ?? string.Empty]</h3>
+}
+
+@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <DeviceStatusBadge DeviceId="@Model.Id" class="d-inline-block position-relative" Style="top:-1px;" />
+   <DeviceLinks Model="@Model" />
+
+   <RadzenCard class="mb-5">
+      <CreateOrEditForm @ref=@_form TItem="DeviceModel" ItemNameForNotification="@Model.Name" Model="Model" OnCancel=@(async model => { await OnInitializedAsync(); StateHasChanged();})
+                        OnDelete=@DeviceService.DeleteAsync OnSubmitCreate=@DeviceService.InsertAsync OnSubmitUpdate=@DeviceService.UpdateAsync Context="model" @bind-DisableButtons=@isLoading
+                        AfterDelete=@OnAfterSave AfterSave=@OnAfterSave>
+
+         <div class="row justify-content-md-center">
+            <div class="col-lg-10 col-xl-8">
+               <RadzenFieldset Text=@T["Device.CreateOrEdit.Fieldset.Common"]>
+                  @if (DeviceId > 0)
+                  {
+                     <div class="row mb-2 align-items-center">
+                        <div class="col-md-3 d-flex justify-content-md-end">
+                           <TinyLabel Text="@T["Device.CreateOrEdit.Label.ID"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           @Model.Id
+                        </div>
+                     </div>
+                  }
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Device.CreateOrEdit.Label.SystemName"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="SystemName" @bind-Value=@model.SystemName Placeholder="@T["Device.CreateOrEdit.SystemName.Placeholder"]" style="width: 100%; display:block;" Disabled=@isLoading />
+                        <DeviceSystemNameValidator Component="SystemName" @bind-IsValidating=@isLoading Style="position: absolute" />
+                        @* <RadzenLengthValidator Component="SystemName" Min="5" Text="@T["Validation.Length.Min", T["Device.CreateOrEdit.Label.Name"], 5]" Style="position: absolute" />
+                     <RadzenLengthValidator Component="SystemName" Max="100" Text="@T["Validation.Length.Max", T["Device.CreateOrEdit.Label.Name"], 100]" Style="position: absolute" /> *@
+                     </div>
+                  </div>
+                  @if (Model.Id < 1)
+                  {
+                     <div class="row mb-3 align-items-center">
+                        <div class="col-md-3 justify-content-md-end d-flex">
+                           <TinyLabel Text="@T["Device.CreateOrEdit.Label.Password"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           <TinyPassword Name="Password" @bind-Value=@Model.Password MinLength="5" MaxLength="100" style="width: 100%; display:block;" Disabled=@isLoading />
+                           <PasswordValidator Component="Password" Style="position: absolute" />
+                        </div>
+                     </div>
+                  }
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3  justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Device.CreateOrEdit.Label.Name"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextBox Trim=true Name="Name" @bind-Value=@Model.Name Placeholder="@T["Device.CreateOrEdit.Name.Placeholder"]" style="width: 100%; display:block;" Disabled=@isLoading />
+                        <RadzenLengthValidator Component="Name" Min="5" Text="@T["Validation.Length.Min", T["Device.CreateOrEdit.Label.Name"], 5]" Style="position: absolute" />
+                        <RadzenLengthValidator Component="Name" Max="100" Text="@T["Validation.Length.Max", T["Device.CreateOrEdit.Label.Name"], 100]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-2 align-items-md-start">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Device.CreateOrEdit.Label.Description"]" class="text-right" />
+                     </div>
+                     <div class="col-md-9">
+                        <RadzenTextArea Rows="4" Name="Description" @bind-Value=@model.Description style="width: 100%;" Class="w-100" Placeholder="@T["Device.CreateOrEdit.Description.Placeholder"]" Disabled=@isLoading />
+                        <RadzenLengthValidator Component="Description" Max="1000" Text="@T["Validation.Length.Max", T["Device.CreateOrEdit.Label.Description"], 1000]" Style="position: absolute" />
+                     </div>
+                  </div>
+                  <div class="row mb-3 align-items-center">
+                     <div class="col-md-3 justify-content-md-end d-flex">
+                        <TinyLabel Text="@T["Device.CreateOrEdit.LonLat.Label"]" class="text-right" />
+                     </div>
+                     <div class="col-md-4">
+                        <RadzenNumeric ShowUpDown=false Min="-180m" Name="Lon" @bind-Value=@Model.Lon Max="180m" Disabled=@isLoading Style="width: 100%; display:block;" />
+                     </div>
+
+                     <div class="col-md-4">
+                        <RadzenNumeric ShowUpDown=false Min="-90m" Name="Lat" @bind-Value=@Model.Lat Max="90m" Disabled=@isLoading Style="width: 100%; display:block;" />
+                     </div>
+                  </div>
+                  <div class="row mb-1 align-items-center">
+                     <div class="col-3">
+                     </div>
+                     <div class="col-md-9">
+                        <nobr>
+                           <div class="d-inline-block">
+                              <TinyLabel Text="@T["Device.CreateOrEdit.Label.Enabled"]" class="text-right" />
+                           </div>
+                           <div class="d-inline-block  mr-3">
+                              <RadzenCheckBox @bind-Value=@Model.Enabled TValue="bool" Name="Enabled" Disabled=@isLoading></RadzenCheckBox>
+                           </div>
+                        </nobr>
+                        <nobr>
+                           <div class="d-inline-block">
+                              <TinyLabel Text="@T["Device.CreateOrEdit.Label.ShowOnMain"]" class="text-right" />
+                           </div>
+                           <div class="d-inline-block mr-3">
+                              <RadzenCheckBox @bind-Value=@Model.ShowOnMain TValue="bool" Name="ShowOnMain" Disabled=@isLoading></RadzenCheckBox>
+                           </div>
+                        </nobr>
+                        <nobr>
+                           <div class="d-inline-block">
+                              <TinyLabel Text="@T["Device.CreateOrEdit.Label.IsMobile"]" class="text-right" />
+                           </div>
+                           <div class="d-inline-block">
+                              <RadzenCheckBox @bind-Value=@Model.IsMobile TValue="bool" Name="IsMobile" Disabled=@isLoading></RadzenCheckBox>
+                           </div>
+                        </nobr>
+                     </div>
+                  </div>
+                  @if (Model.Id > 0)
+                  {
+                     <div class="row align-items-center mt-3 mb-0">
+                        <div class="col-md-3 justify-content-md-end d-flex">
+                           <TinyLabel Text="@T["Device.CreateOrEdit.Label.Icon"]" class="text-right" />
+                        </div>
+                        <div class="col-md-9">
+                           <TinyImageUpload Accept="image/jpeg, image/png, image/gif" Multiple="false" PictureUrl="@Model.PictureUrl" UploadUrl="@($"device/uploadicon/{Model.Id}")"
+                                            Height="50" ErrorCallback=@IconUploadError SuccessCallback="@IconUploadSuccess" @bind-Disabled=@isLoading />
+                        </div>
+                     </div>
+                  }
+               </RadzenFieldset>
+            </div>
+         </div>
+      </CreateOrEditForm>
+   </RadzenCard>
+}
+
+@code {
+   [Parameter] public long DeviceId { get; set; }
+   [Inject] IDeviceService DeviceService { get; set; }
+   [Inject] HubService Hub { get; set; }
+   [Inject] NotificationService Notification { get; set; }
+   [Inject] NavigationManager Navigation { get; set; }
+   [Inject] PermissionService PermissionService { get; set; }
+   [Inject] IHelperService Helper { get; set; }
+
+   DeviceModel Model;
+   CreateOrEditForm<DeviceModel> _form;
+   bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      try
+      {
+         Model = DeviceId > 0 ? await PrepareModelAsync(DeviceId) : await PrepareModelAsync(Model);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+   }
+
+   private void IconUploadError(string message) => Notification.Notify(NotificationSeverity.Error, message, duration: -1d);
+
+   private async void IconUploadSuccess(string newPictureUrl)
+   {
+      var device = await DeviceService.GetByIdAsync(Model.Id);
+      device.PictureUrl = Model.PictureUrl = newPictureUrl;
+      Notification.Notify(NotificationSeverity.Success, T["Device.Icon.Upload.Success"]);
+   }
+
+   private async Task OnAfterSave()
+   {
+      Navigation.NavigateTo("configuration/devices");
+      await Task.CompletedTask;
+   }
+}

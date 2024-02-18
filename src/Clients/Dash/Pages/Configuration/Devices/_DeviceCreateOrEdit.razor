@@ -1,0 +1,38 @@
+﻿@page "/configuration/device/create"
+@page "/configuration/device/edit/{deviceId:long}"
+@attribute [Authorize]
+
+<DeviceForm DeviceId="@DeviceId" />
+
+@if (DeviceId > 0)
+{
+   <RadzenCard class="mb-4">
+      <SensorTable DeviceId="DeviceId" Title="@T["Table.Sensors.Title"]" />
+   </RadzenCard>
+   <RadzenAccordion Multiple=true class="table-content">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Devices.UserMapping"]" Icon="&#xea21" class="py-2" Style="cursor: pointer">
+            <DeviceUserTable DeviceId="DeviceId" Hint="@T["Table.Devices.UserMapping.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+   <RadzenAccordion class="table-content mt-3">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.Devices.MonitorTable"]" Icon="&#xeb97" class="py-2" Style="cursor: pointer">
+            <MonitorTable DeviceId="DeviceId" Hint="@T["Table.Devices.MonitorTable.Hint"]" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+   <RadzenAccordion Multiple=true class="table-content mt-3">
+      <Items>
+         <RadzenAccordionItem Text="@T["Table.DeviceActivity.Title"]" Icon="&#xe241" class="py-2" Style="cursor: pointer">
+            <DeviceActivityTable DeviceId="@DeviceId" />
+         </RadzenAccordionItem>
+      </Items>
+   </RadzenAccordion>
+}
+
+
+@code{
+   [Parameter] public long DeviceId { get; set; }
+}

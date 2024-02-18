@@ -1,0 +1,133 @@
+﻿@if (Model == null)
+{
+   <LoadingStub />
+}
+else
+{
+   <RadzenTemplateForm @ref=@form TItem="ChartRequestModel" Data="Model" Submit="@Submit" InvalidSubmit=@InvalidSubmit>
+      <div class="row justify-content-md-center">
+         <div class="col-xl-6 col-lg-8" >
+            <RadzenFieldset Text="@T["Reports.Charts.Request"]">
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.Device.Label"]" />
+                  </div>
+                  <div class="col-10">
+                     <DeviceDropDown Name="Devices" @bind-Device:get=Model.SelectedDevice @bind-Device:set=@DeviceChange AllowClear=false Style="width: 100%; display:block;"
+                                     Placeholder="@T["Select"]" @bind-IsLoading=@isLoading />
+                     <RadzenRequiredValidator Component="Devices" DefaultValue="default(long)" Style="position: absolute" />
+                  </div>
+               </div>
+               <div class="row mb-3 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.Sensors.Label"]" class="text-end" />
+                  </div>
+                  <div class="col-10">
+                     <SensorMultiDropDown Name="Sensors" @bind-Sensors:get=@Model.SelectedSensors @bind-Sensors:set=@SensorsChange Device="@Model.SelectedDevice"
+                                          Style="width: 100%; display:block;" @bind-IsLoading=@isLoading/>
+                     <DropDownMultiselectValidator Component="Sensors" MinItems="1" MaxItems="2" Text="@T["Charts.Request.Sensors.MultiselectValidator", 1, 2]" Style="position: absolute"/>
+                  </div>
+               </div>
+               <div class="row mb-2 align-items-center">
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.From.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="From" @bind-Value:get=@Model.From @bind-Value:set=@FromChange Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true"
+                                       ShowSeconds=false MinutesStep=1 AllowInput=false Max=@Model.To Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+                  <div class="col-2 text-right">
+                     <RadzenLabel Text="@T["Charts.Request.To.Label"]" />
+                  </div>
+                  <div class="col-4">
+                     <RadzenDatePicker Name="To" @bind-Value:get=@Model.To @bind-Value:set="@ToChange" Kind=DateTimeKind.Local DateFormat="dd.MM.yyyy HH:mm" ShowTime="true" ShowSeconds=false
+                                       AllowInput=false MinutesStep=1  Min=Model.From.AddDays(-1) Disabled=@isLoading Style="width: 100%; display:block;" />
+                  </div>
+               </div>
+            </RadzenFieldset>
+         </div>
+      </div>
+      <div class="col-12 mt-3 mb-4 d-flex align-items-end justify-content-center text-truncate">
+         <RadzenButton ButtonType="ButtonType.Submit" Text=@T["Button.Build"] ButtonStyle="ButtonStyle.Primary" Icon="bar_chart" Disabled=@isLoading />
+      </div>
+   </RadzenTemplateForm>
+   if (ChildContent != null)
+   {
+      @ChildContent(Model)
+   }
+}
+
+@code {
+   [Parameter] public Func<ChartRequestModel, Task> BuildChart { get; set; }
+   [Parameter] public Func<Task> ClearChart { get; set; }
+   [Parameter] public RenderFragment<ChartRequestModel> ChildContent { get; set; }
+
+   RadzenTemplateForm<ChartRequestModel> form;
+   ChartRequestModel Model;
+   bool isLoading;
+
+   protected override async Task OnInitializedAsync()
+   {
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareChartRequestModelAsync();
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex);
+      }
+   }
+
+   async Task Submit(ChartRequestModel model)
+   {
+      isLoading = true;
+      try
+      {
+         if (BuildChart is not null)
+            await BuildChart(model);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task FromChange(DateTime from)
+   {
+      Model.From = from.AddMinutes(2) >= Model.To ? Model.To.AddMinutes(-1) : from;
+
+      if (ClearChart is not null)
+         await ClearChart();
+   }
+
+   async Task ToChange(DateTime to)
+   {
+      Model.To = to <= Model.From ? Model.From.AddMinutes(1) : to;
+
+      if (ClearChart is not null)
+         await ClearChart();
+   }
+
+   async Task DeviceChange(DeviceSelectItem device)
+   {
+      Model.SelectedDevice = device;
+
+      if (ClearChart is not null)
+         await ClearChart();
+   }
+
+   async Task SensorsChange(IEnumerable<SensorSelectItem> sensors)
+   {
+      Model.SelectedSensors = sensors;
+
+      if (ClearChart is not null)
+         await ClearChart();
+   }
+
+   async Task InvalidSubmit(FormInvalidSubmitEventArgs args)
+   {
+      if (ClearChart is not null)
+         await ClearChart();
+   }
+}

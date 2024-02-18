@@ -1,0 +1,332 @@
+﻿@model DeviceSearchModel
+
+@using Hub.Core.Domain.Media
+@using Hub.Services;
+@using Hub.Web.Framework.TagHelpers.Shared;
+
+@inject MediaSettings _mediaSettings
+
+@{
+   //page title
+   ViewBag.PageTitle = T("Admin.Devices.Devices").Text;
+   //active menu item (system name)
+   AppHtml.SetActiveMenuItemSystemName("Devices list");
+}
+
+@{
+   const string hideSearchBlockAttributeName = "DeviceListPage.HideSearchBlock";
+   var hideSearchBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentUserAsync(), hideSearchBlockAttributeName);
+}
+
+<form asp-controller="Device" asp-action="List" method="post">
+   <div class="content-header clearfix">
+      <h1 class="float-left">
+         @T("Admin.Devices.Devices")
+      </h1>
+      <div class="float-right">
+         <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+         </a>
+         <div class="btn-group">
+            <button type="button" class="btn btn-success">
+               <i class="fas fa-download"></i>
+               @T("Admin.Common.Export")
+            </button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+               <span class="caret"></span>
+               <span class="sr-only">&nbsp;</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+               <li class="dropdown-item">
+                  <button asp-action="ExportXML" type="submit" name="exportxml-all">
+                     <i class="far fa-file-code"></i>
+                     @T("Admin.Common.ExportToXml.All")
+                  </button>
+               </li>
+               <li class="dropdown-item">
+                  <button type="button" id="exportxml-selected">
+                     <i class="far fa-file-code"></i>
+                     @T("Admin.Common.ExportToXml.Selected")
+                  </button>
+               </li>
+               <li class="dropdown-divider"></li>
+               <li class="dropdown-item">
+                  <button asp-action="ExportExcel" type="submit" name="exportexcel-all">
+                     <i class="far fa-file-excel"></i>
+                     @T("Admin.Common.ExportToExcel.All")
+                  </button>
+               </li>
+               <li class="dropdown-item">
+                  <button type="button" id="exportexcel-selected">
+                     <i class="far fa-file-excel"></i>
+                     @T("Admin.Common.ExportToExcel.Selected")
+                  </button>
+               </li>
+            </ul>
+
+         </div>
+         @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.DeviceListButtons, additionalData = Model })
+      </div>
+   </div>
+
+   <section class="content">
+      <div class="container-fluid">
+         <div class="form-horizontal">
+            <div class="cards-group">
+               <div class="card card-default card-search">
+                  <div class="card-body">
+                     <div class="row search-row @(!hideSearchBlock ? "opened" : "")" data-hideAttribute="@hideSearchBlockAttributeName">
+                        <div class="search-text">@T("Admin.Common.Search")</div>
+                        <div class="icon-search"><i class="fas fa-search" aria-hidden="true"></i></div>
+                        <div class="icon-collapse"><i class="far fa-angle-@(!hideSearchBlock ? "up" : "down")" aria-hidden="true"></i></div>
+                     </div>
+                     <div class="search-body @(hideSearchBlock ? "closed" : "")">
+                        <div class="row">
+                           <div class="col-md-5">
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceSystemName" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchDeviceSystemName" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceName" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchDeviceName" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchUserEmail" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchUserEmail" />
+                                 </div>
+                              </div>
+                              @if (Model.UsernamesEnabled)
+                              {
+                                 <div class="form-group row">
+                                    <div class="col-md-4">
+                                       <app-label asp-for="SearchUsername" />
+                                    </div>
+                                    <div class="col-md-8">
+                                       <app-editor asp-for="SearchUsername" />
+                                    </div>
+                                 </div>
+                              }
+                              @if (Model.UserCompanyEnabled)
+                              {
+                                 <div class="form-group row">
+                                    <div class="col-md-4">
+                                       <app-label asp-for="SearchUserCompany" />
+                                    </div>
+                                    <div class="col-md-8">
+                                       <app-editor asp-for="SearchUserCompany" />
+                                    </div>
+                                 </div>
+                              }
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchIpAddress" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="SearchIpAddress" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceActive" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-select asp-for="SearchDeviceActive" asp-items="@(await Model.SearchDeviceActive.ToSelectListAsync())" />
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-7">
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="CreatedFrom" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="CreatedFrom" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="CreatedTo" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="CreatedTo" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="UpdatedFrom" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="UpdatedFrom" />
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="UpdatedTo" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-editor asp-for="UpdatedTo" />
+                                 </div>
+                              </div> 
+                              <div class="form-group row">
+                                 <div class="col-md-4">
+                                    <app-label asp-for="SearchDeviceEnabled" />
+                                 </div>
+                                 <div class="col-md-8">
+                                    <app-select asp-for="SearchDeviceEnabled" asp-items="@(await Model.SearchDeviceEnabled.ToSelectListAsync())" style="max-width: 300px;" />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="text-center col-12">
+                              <button type="button" id="search-Devices" class="btn btn-primary btn-search">
+                                 <i class="fas fa-search"></i>
+                                 @T("Admin.Common.Search")
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="card card-default">
+                  <div class="card-body">
+                     <app-doc-reference asp-string-resource="@T("Admin.Documentation.Reference.Devices", Docs.Devices + Utm.OnAdmin)" />
+                     @{
+                         var gridModel = new DataTablesModel
+                         {
+                            Name = "Devices-grid",
+                            UrlRead = new DataUrl("DeviceList", "Device", null),
+                            SearchButtonId = "search-Devices",
+                            Length = Model.PageSize,
+                            LengthMenu = Model.AvailablePageSizes,
+                            Filters = new List<FilterParameter>
+                            {
+                                new FilterParameter(nameof(Model.SearchUserEmail)),
+                                new FilterParameter(nameof(Model.SearchUsername)),
+                                new FilterParameter(nameof(Model.SearchDeviceName)),
+                                new FilterParameter(nameof(Model.SearchDeviceSystemName)),
+                                new FilterParameter(nameof(Model.SearchDeviceActive)),
+                                new FilterParameter(nameof(Model.SearchDeviceEnabled)),
+                                new FilterParameter(nameof(Model.CreatedFrom)),
+                                new FilterParameter(nameof(Model.CreatedTo)),
+                                new FilterParameter(nameof(Model.UpdatedFrom)),
+                                new FilterParameter(nameof(Model.UpdatedTo)),
+                            },
+                            ColumnCollection = new List<ColumnProperty>
+                            {
+                                 new ColumnProperty(nameof(DeviceModel.Id))
+                                 {
+                                     IsMasterCheckBox = true,
+                                     Render = new RenderCheckBox("checkbox_devices"),
+                                     ClassName = AppColumnClassDefaults.CenterAll,
+                                     Width = "30"
+                                 },
+                                 new ColumnProperty(nameof(DeviceModel.SystemName))
+                                 {
+                                     Title = T("Admin.Devices.Devices.Fields.SystemName").Text,
+                                     Render = new RenderLink(new DataUrl("~/Admin/Device/Edit", nameof(DeviceModel.Id)))
+                                 },
+
+                                 new ColumnProperty(nameof(DeviceModel.OwnerName))
+                                 {
+                                    Title = T("Admin.Devices.Devices.Fields.OwnerName").Text,
+                                    Width = "150",
+                                    Render = new RenderLink(new DataUrl("~/Admin/User/Edit", nameof(DeviceModel.OwnerId)))
+                                 },
+
+                                 new ColumnProperty(nameof(DeviceModel.IsActive))
+                                 {
+                                    Title = T("Admin.Devices.Devices.Fields.IsActive").Text,
+                                    Width = "80",
+                                    ClassName = AppColumnClassDefaults.CenterAll,
+                                    Render = new RenderBoolean()
+                                 },
+
+                                 new ColumnProperty(nameof(DeviceModel.Enabled))
+                                 {
+                                    Title = T("Admin.Devices.Devices.Fields.Enabled").Text,
+                                    Width = "80",
+                                    ClassName = AppColumnClassDefaults.CenterAll,
+                                    Render = new RenderBoolean()
+                                 },
+
+                                 //new ColumnProperty(nameof(DeviceModel.Id))
+                                 //{
+                                 //   Title = T("Admin.Common.Edit").Text,
+                                 //   Width = "100",
+                                 //   ClassName = AppColumnClassDefaults.Button,
+                                 //   Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                 //}
+                            }
+                         };
+                     }
+                     @await Html.PartialAsync("Table", gridModel)
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</form>
+
+@*export selected (XML). We don't use GET approach because it's limited to 2K-4K chars and won't work for large number of entities*@
+<form asp-controller="Device" asp-action="ExportXmlSelected" method="post" id="export-xml-selected-form">
+   <input type="hidden" id="selectedIds" name="selectedIds" value="" />
+</form>
+<script>
+   $(document).ready(function () {
+      $('#exportxml-selected').click(function (e) {
+         e.preventDefault();
+         var ids = selectedIds.join(",");
+         if (!ids) {
+            $('#exportXmlSelected-info').text("@T("Admin.Devices.NoDevices")");
+            $("#exportXmlSelected").click();
+         }
+         else {
+            $('#export-xml-selected-form #selectedIds').val(ids);
+            $('#export-xml-selected-form').submit();
+            updateTable('#Devices-grid');
+         }
+         return false;
+      });
+   });
+</script>
+<app-alert asp-alert-id="exportXmlSelected" />
+
+@*export selected (Excel). We don't use GET approach because it's limited to 2K-4K chars and won't work for large number of entities*@
+<form asp-controller="Device" asp-action="ExportExcelSelected" method="post" id="export-excel-selected-form">
+   <input type="hidden" id="selectedIds" name="selectedIds" value="" />
+</form>
+<script>
+   $(document).ready(function () {
+      $('#exportexcel-selected').click(function (e) {
+         e.preventDefault();
+         var ids = selectedIds.join(",");
+         if (!ids) {
+            $('#exportExcelSelected-info').text("@T("Admin.Devices.NoDevices")");
+            $("#exportExcelSelected").click();
+         }
+         else {
+            $('#export-excel-selected-form #selectedIds').val(ids);
+            $('#export-excel-selected-form').submit();
+            updateTable('#Devices-grid');
+         }
+         return false;
+      });
+   });
+</script>
+<app-alert asp-alert-id="exportExcelSelected" /> 

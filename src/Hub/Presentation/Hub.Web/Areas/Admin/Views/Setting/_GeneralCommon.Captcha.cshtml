@@ -1,0 +1,204 @@
+@model GeneralCommonSettingsModel
+@using Hub.Core.Domain.Security
+@using Shared.Clients.Configuration
+
+@{
+   var isDemoUser = Context.User.IsInRole(UserDefaults.DemoRoleName);
+}
+
+<div class="card-body">
+   <p>@T("Admin.Configuration.Settings.GeneralCommon.Captcha.Instructions")</p>
+   <div class="form-group row">
+      <div class="col-md-3">
+         <app-label asp-for="CaptchaSettings.Enabled" />
+      </div>
+      <div class="col-md-9">
+         <app-editor asp-for="CaptchaSettings.Enabled" />
+         <span asp-validation-for="CaptchaSettings.Enabled"></span>
+      </div>
+   </div>
+   <app-nested-setting asp-for="CaptchaSettings.Enabled" disable-auto-generation="true">
+      <div class="form-group row" id="ssCaptchaTypepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.CaptchaType" />
+         </div>
+         <div class="col-md-9">
+            <app-select asp-for="CaptchaSettings.CaptchaType" asp-items="Model.CaptchaSettings.CaptchaTypeValues" />
+            <span asp-validation-for="CaptchaSettings.CaptchaType"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssReCaptchaV3ScoreThresholdpnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ReCaptchaV3ScoreThreshold" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ReCaptchaV3ScoreThreshold" />
+            <span asp-validation-for="CaptchaSettings.ReCaptchaV3ScoreThreshold"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnLoginPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnLoginPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnLoginPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnLoginPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnRegistrationPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnRegistrationPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnRegistrationPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnRegistrationPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnForgotPassworPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnForgotPasswordPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnForgotPasswordPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnForgotPasswordPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnContactUsPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnContactUsPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnContactUsPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnContactUsPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnEmailWishlistToFriendPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnEmailWishlistToFriendPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnEmailProductToFriendPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnEmailToFriendPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnEmailToFriendPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnEmailToFriendPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnBlogCommentPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnBlogCommentPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnBlogCommentPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnBlogCommentPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnNewsCommentPagepnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnNewsCommentPage" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnNewsCommentPage" />
+            <span asp-validation-for="CaptchaSettings.ShowOnNewsCommentPage"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssCaptchaShowOnForumpnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ShowOnForum" />
+         </div>
+         <div class="col-md-9">
+            <app-editor asp-for="CaptchaSettings.ShowOnForum" />
+            <span asp-validation-for="CaptchaSettings.ShowOnForum"></span>
+         </div>
+      </div>
+      <div class="form-group row" id="ssReCaptchaPublicKeypnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ReCaptchaPublicKey" />
+         </div>
+         <div class="col-md-9">
+            @if (isDemoUser)
+            {
+               <input class="form-control text-box single-line" type="text" value="*******">
+            }
+            else
+            {
+               <app-editor asp-for="CaptchaSettings.ReCaptchaPublicKey" />
+               <span asp-validation-for="CaptchaSettings.ReCaptchaPublicKey"></span>
+            }
+         </div>
+      </div>
+      <div class="form-group row" id="ssReCaptchaPrivateKeypnl">
+         <div class="col-md-3">
+            <app-label asp-for="CaptchaSettings.ReCaptchaPrivateKey" />
+         </div>
+         <div class="col-md-9">
+            @if (isDemoUser)
+            {
+               <input class="form-control text-box single-line" type="text" value="*******">
+            }
+            else
+            {
+               <app-editor asp-for="CaptchaSettings.ReCaptchaPrivateKey" />
+               <span asp-validation-for="CaptchaSettings.ReCaptchaPrivateKey"></span>
+            }
+         </div>
+      </div>
+   </app-nested-setting>
+</div>
+<script>
+   $(document).ready(function () {
+      $('#@Html.IdFor(model => model.CaptchaSettings.CaptchaType)').change(toggleReCaptchaV3ScoreThreshold);
+      $("#@Html.IdFor(model => model.CaptchaSettings.Enabled)").click(toggleReCaptcha);
+      toggleReCaptcha();
+   });
+
+   function toggleReCaptchaV3ScoreThreshold() {
+      var reCaptchaV3 = "@((int)CaptchaType.ReCaptchaV3)";
+      if ($('#@Html.IdFor(model => model.CaptchaSettings.CaptchaType)').val() === reCaptchaV3)
+         $('#ssReCaptchaV3ScoreThresholdpnl').showElement();
+      else
+         $('#ssReCaptchaV3ScoreThresholdpnl').hideElement();
+   }
+
+   function toggleReCaptcha() {
+      if ($('#@Html.IdFor(model => model.CaptchaSettings.Enabled)').is(':checked')) {
+         $('#ssCaptchaTypepnl').showElement();
+         $('#ssCaptchaShowOnLoginPagepnl').showElement();
+         $('#ssCaptchaShowOnRegistrationPagepnl').showElement();
+         $('#ssCaptchaShowOnForgotPassworPagepnl').showElement();
+         $('#ssCaptchaShowOnContactUsPagepnl').showElement();
+         $('#ssCaptchaShowOnEmailWishlistToFriendPagepnl').showElement();
+         $('#ssCaptchaShowOnEmailProductToFriendPagepnl').showElement();
+         $('#ssCaptchaShowOnBlogCommentPagepnl').showElement();
+         $('#ssCaptchaShowOnNewsCommentPagepnl').showElement();
+         $('#ssCaptchaShowOnProductReviewPagepnl').showElement();
+         $('#ssCaptchaShowOnApplyVendorPagepnl').showElement();
+         $('#ssCaptchaShowOnForumpnl').showElement();
+         $('#ssReCaptchaPublicKeypnl').showElement();
+         $('#ssReCaptchaPrivateKeypnl').showElement();
+         toggleReCaptchaV3ScoreThreshold();
+      } else {
+         $('#ssCaptchaTypepnl').hideElement();
+         $('#ssReCaptchaV3ScoreThresholdpnl').hideElement();
+         $('#ssCaptchaShowOnLoginPagepnl').hideElement();
+         $('#ssCaptchaShowOnRegistrationPagepnl').hideElement();
+         $('#ssCaptchaShowOnForgotPassworPagepnl').hideElement();
+         $('#ssCaptchaShowOnContactUsPagepnl').hideElement();
+         $('#ssCaptchaShowOnEmailWishlistToFriendPagepnl').hideElement();
+         $('#ssCaptchaShowOnEmailProductToFriendPagepnl').hideElement();
+         $('#ssCaptchaShowOnBlogCommentPagepnl').hideElement();
+         $('#ssCaptchaShowOnNewsCommentPagepnl').hideElement();
+         $('#ssCaptchaShowOnProductReviewPagepnl').hideElement();
+         $('#ssCaptchaShowOnApplyVendorPagepnl').hideElement();
+         $('#ssCaptchaShowOnForumpnl').hideElement();
+         $('#ssReCaptchaPublicKeypnl').hideElement();
+         $('#ssReCaptchaPrivateKeypnl').hideElement();
+      }
+   }
+</script>

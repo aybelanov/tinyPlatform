@@ -1,0 +1,148 @@
+﻿@using Grpc.Core;
+@typeparam TItem
+
+<RadzenTemplateForm @ref=@_innerForm TItem="TItem" Data="Model" Submit="@OnSubmit" InvalidSubmit=@OnInvalidSubmit >
+
+   @ChildContent(Model)
+
+   @if (!HideButton)
+   {
+      <div class="col-md-12 d-flex align-items-end justify-content-center text-truncate" style="margin-top: 16px;">
+         <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text=@T["Button.Save"] Click=@(args => isSaveContinue = false) Disabled=@DisableButtons  />
+         <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text=@T["Button.Save&Continue"] Click=@(args => isSaveContinue = true) Disabled=@DisableButtons style="display: inline-block; margin-left: 10px;" />
+         <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="cancel"  Text=@T["Button.Cancel"] Click=@(async args => await Cancel(Model)) Disabled=@DisableButtons style="display: inline-block; margin-left: 10px;" />
+         <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Text=@T["Button.Delete"] Visible=@(Model.Id > 0) Click=@(async args => await Delete(Model)) Disabled=@DisableButtons style ="display: inline-block; margin-left: 10px;" />
+      </div>
+   }
+</RadzenTemplateForm>
+
+@code {
+   [Inject] private ILogger<TItem> Logger { get; set; }
+   [Inject] private DialogService DialogService { get; set; }
+   [Inject] private NotificationService NotificationService { get; set; }
+   [Inject] private IJSRuntime JS { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+
+   [Parameter] public TItem Model { get; set; }
+   [Parameter] public RenderFragment<TItem> ChildContent { get; set; }
+   [Parameter] public Func<TItem, Task> OnCancel { get; set; }
+   [Parameter] public Func<TItem, Task> OnSubmitUpdate { get; set; }
+   [Parameter] public Func<TItem, Task> OnSubmitCreate { get; set; }
+   [Parameter] public Func<TItem, Task> OnDelete { get; set; }
+   [Parameter] public EventCallback<FormInvalidSubmitEventArgs> InvalidSubmit { get; set; }
+   [Parameter] public string ItemNameForNotification { get; set; }
+   [Parameter] public EventCallback<TItem> Submit { get; set; }
+   [Parameter] public bool DisableButtons { get; set; }
+   [Parameter] public EventCallback<bool> DisableButtonsChanged { get; set; }
+   [Parameter] public Func<Task> AfterSave { get; set; } = () => Task.CompletedTask;
+   [Parameter] public Func<Task> AfterDelete { get; set; } = () => Task.CompletedTask;
+   [Parameter] public bool HideButton { get; set; }
+
+   public RadzenTemplateForm<TItem> _innerForm;
+   bool isSaveContinue;
+   string EntityName => typeof(TItem).Name.Replace("Model", "");
+
+
+   private async Task Cancel(TItem model)
+   {
+      await DisableButtonsChanged.InvokeAsync(true);
+      await OnCancel(model);
+      await DisableButtonsChanged.InvokeAsync(false);
+
+   }
+
+   private async Task Delete(TItem model)
+   {
+      var confirm = await DialogService.Confirm(T[$"{EntityName}.Delete.Confirm.Message", ItemNameForNotification], T[$"{EntityName}.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      await DisableButtonsChanged.InvokeAsync(true);
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (model.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(model.Id));
+
+            await OnDelete(model);
+            NotificationService.Notify(NotificationSeverity.Success, T[$"{EntityName}.Delete.Success", ItemNameForNotification]);
+
+            await AfterDelete();
+            return;
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, T[$"{EntityName}.Delete.Error", ItemNameForNotification]);
+         }
+      }
+
+      await DisableButtonsChanged.InvokeAsync(false);
+   }
+
+
+   private async Task OnSubmit(TItem model)
+   {
+
+      if (!_innerForm.EditContext.IsModified())
+      {
+         NotificationService.Notify(NotificationSeverity.Info, T["Submit.NoChanges"]);
+         return;
+      }
+
+      await DisableButtonsChanged.InvokeAsync(true);
+
+      if (model.Id > 0)
+      {
+         try
+         {
+            await OnSubmitUpdate(model);
+            _innerForm.EditContext.MarkAsUnmodified();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T[$"{EntityName}.Update.Success"], ItemNameForNotification));
+
+            if (!isSaveContinue)
+            {
+               await AfterSave();
+               return;
+            }
+            await Submit.InvokeAsync(model);
+         }
+         catch (Exception updateEx)
+         {
+            await ErrorService.HandleError(this, updateEx, String.Format(T[$"{EntityName}.Update.Error"], ItemNameForNotification));
+         }
+      }
+      else
+      {
+         try
+         {
+            await OnSubmitCreate(model);
+            _innerForm.EditContext.MarkAsUnmodified();
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T[$"{EntityName}.Insert.Success"], ItemNameForNotification));
+            if (isSaveContinue)
+            {
+               Navigation.NavigateTo($"configuration/{EntityName.ToLower()}/edit/{model.Id}", replace: true); // $"configuration/device/edit/{model.Id}"
+                                                                                                              //await OnCancel(model);
+            }
+            else
+            {
+               await AfterSave();
+               return;
+            }
+            await Submit.InvokeAsync(model);
+         }
+         catch (Exception createEx)
+         {
+            await ErrorService.HandleError(this, createEx, String.Format(T[$"{EntityName}.Insert.Error"], ItemNameForNotification));
+         }
+      }
+
+      await DisableButtonsChanged.InvokeAsync(false);
+   }
+
+
+   private async Task OnInvalidSubmit(FormInvalidSubmitEventArgs args)
+   {
+      await InvalidSubmit.InvokeAsync(args);
+   }
+}

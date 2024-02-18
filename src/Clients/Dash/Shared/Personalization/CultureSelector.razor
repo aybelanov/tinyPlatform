@@ -1,0 +1,28 @@
+﻿@using System.Globalization
+@inject IJSRuntime JS
+@inject NavigationManager Nav
+
+<RadzenDropDown class="mx-2 mx-xl-3" style="min-width: 80px; max-width: 80px;" TValue="string" TextProperty="Name" ValueProperty="Name" Data="@supportedCultures"
+                @bind-Value="@Culture" />
+
+@code
+{
+   private CultureInfo[] supportedCultures = new[]
+   {
+        new CultureInfo("en-US"),
+        new CultureInfo("ru-RU"),
+    };
+
+   private string Culture
+   {
+      get => Defaults.Culture;
+      set
+      {
+         if (Defaults.Culture != value)
+         {
+            Defaults.Culture = value;
+            Nav.NavigateTo(Nav.Uri, forceLoad: true);
+         }
+      }
+   }
+}

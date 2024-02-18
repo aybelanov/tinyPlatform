@@ -1,0 +1,201 @@
+﻿<AuthorizeView Roles="@UserDefaults.TelemetryAdminRoles">
+   <Authorized>
+      @if (!string.IsNullOrEmpty(Title))
+      {
+         <h3>@Title</h3>
+      }
+      @if (!string.IsNullOrEmpty(Hint))
+      {
+         <p>@Hint</p>
+      }
+      @{ authState = context; }
+      <div class="col mt-3">
+         <div class="row mb-2 align-items-center d-flex">
+            @* <RadzenButton Text=@T["DataGrid.Add"] Style="margin-right: 10px;" Click="@((MouseEventArgs args) => { Navigation.NavigateTo("configuration/device/create"); })" Disabled=isLoading Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) /> *@
+            <RadzenButton Click=@(async args => await OnUpdate(args)) Icon="refresh" ButtonStyle="ButtonStyle.Light" Disabled=@isLoading />
+         </div>
+      </div>
+      <RadzenDataGrid @ref=@grid Data="@Model" AllowFiltering="true" AllowColumnResize="true" FilterMode="FilterMode.Advanced" LoadData=@LoadDataAsync AllowSorting="true"
+                      PageSize=@Defaults.GridPageSizeOptions[0] AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Center" ShowPagingSummary="true" AllowColumnReorder=false
+                      TItem="MonitorModel" LogicalFilterOperator="LogicalFilterOperator.Or" EmptyText="@T["DataGrid.EmptyText"]" PageSizeOptions=@Defaults.GridPageSizeOptions
+                      IsLoading=@isLoading Count="@(Model?.TotalCount ?? 0)" AllowMultiColumnSorting=true>
+         <Columns>
+            <RadzenDataGridColumn @ref=@idColumn TItem="MonitorModel" Property="Id" Title=@T["DataGrid.Column.Id"] Width="80px" TextAlign="TextAlign.Center" Visible=@context.User.IsInRole(UserDefaults.AdministratorsRoleName) />
+            <RadzenDataGridColumn TItem="MonitorModel" Filterable="false" Sortable="false" Width="60px" Title="@T["DataGrid.Show"]" TextAlign="TextAlign.Center" Resizable=false>
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="monitor" title="@T["DataGrid.Show"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@((MouseEventArgs args) => Navigation.NavigateTo($"monitor/{item.Id}"))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=@nameColumn TItem="MonitorModel" Property="Name" Frozen=true Title=@T["DataGrid.Column.MonitorName"] MinWidth="180px" TextAlign="TextAlign.Start">
+               @* <Template Context="item">
+                  <RadzenLink Path=@($"configuration/monitor/edit/{item.Id}") Text="@item.Name" />
+               </Template> *@
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn @ref=@ownerNameColumn TItem="MonitorModel" Property="OwnerName" Title=@T["DataGrid.Column.Owner"] Width="220px" TextAlign="TextAlign.Center" />
+            <RadzenDataGridColumn @ref=@showInMenuColumn TItem="MonitorModel" Property="ShowInMenu" Sortable=false Title=@T["DataGrid.Column.ShowInMenu"] Width="100px" TextAlign="TextAlign.Center">
+               <Template Context="item">
+                  <RadzenCheckBox TValue="bool" @bind-Value=@item.ShowInMenu Change="@(async(bool args)=> await OnChangeEnableAsync(item))" />
+               </Template>
+            </RadzenDataGridColumn>
+            @*<RadzenDataGridColumn @ref=@displayOrderColumn TItem="MonitorModel" Property="DisplayOrder" Filterable="false" Title=@T["DataGrid.Column.DisplayOrder"] Width="100px" TextAlign="TextAlign.Center" />*@
+            <RadzenDataGridColumn TItem="MonitorModel" Filterable="false" Sortable="false" Width="60px" TextAlign="TextAlign.Center">
+               <Template Context="item">
+                  <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" title="@T["DataGrid.Delete"]" Size="ButtonSize.Small" Class="m-0"
+                                Click="@(async () => await OnDeleteItemAsync(item))" @onclick:stopPropagation="true">
+                  </RadzenButton>
+               </Template>
+            </RadzenDataGridColumn>
+         </Columns>
+      </RadzenDataGrid>
+   </Authorized>
+</AuthorizeView>
+
+@code {
+
+   #region Params
+
+   [Parameter] public long? UserId { get; set; }
+   [Parameter] public long? DeviceId { get; set; }
+   [Parameter] public long? SensorId { get; set; }
+   [Parameter] public long? WidgetId { get; set; }
+   [Parameter] public string Title { get; set; }
+   [Parameter] public string Hint { get; set; }
+
+   #endregion
+
+   #region fields & Services
+
+   [Inject] private MenuService MenuService { get; set; }
+   [Inject] private IMonitorService MonitorService { get; set; }
+   [Inject] private IStaticCacheManager StaticCacheManager { get; set; }
+   [Inject] private NotificationService NotificationService { get; set; }
+   [Inject] private DialogService DialogService { get; set; }
+   [Inject] private NavigationManager Navigation { get; set; }
+   [Inject] private SettingsService SettingsService { get; set; } 
+
+   private IFilterableList<MonitorModel> Model;
+   private DynamicFilter filter = new();
+   private AuthenticationState authState;
+   private bool isLoading;
+
+   private RadzenDataGrid<MonitorModel> grid;
+   private RadzenDataGridColumn<MonitorModel> idColumn;
+   private RadzenDataGridColumn<MonitorModel> nameColumn;
+   private RadzenDataGridColumn<MonitorModel> ownerNameColumn;
+   private RadzenDataGridColumn<MonitorModel> showInMenuColumn;
+   //private RadzenDataGridColumn<MonitorModel> displayOrderColumn;
+
+   #endregion
+
+   #region Methods
+
+   protected async Task LoadDataAsync(LoadDataArgs args)
+   {
+      isLoading = true;
+      PrepareFilter(args);
+      
+      await Task.Yield();
+      try
+      {
+         Model = await PrepareSharedMonitorsModelAsync(filter);
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, T["Error.DataFetch"]);
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   protected async Task OnDeleteItemAsync(MonitorModel item)
+   {
+      var confirm = await DialogService.Confirm(string.Format(T["Monitor.Delete.Confirm.Message"], item.Name), T["Monitor.Delete.Confirm.Title"],
+                          new ConfirmOptions() { OkButtonText = T["Button.Yes"], CancelButtonText = T["Button.No"] });
+
+      if (confirm.HasValue && confirm.Value)
+      {
+         try
+         {
+            if (item.Id < 1)
+               throw new ArgumentOutOfRangeException(nameof(item.Id));
+
+            isLoading = true;
+            await MonitorService.DeleteSharedAsync(item);
+            //Model = await Factory.PrepareMonitorsModelAsync();
+            await grid.Reload();
+
+            MenuService.OnMonitorMenuHasChanged(this, new() { Monitors = [item], Category = "shared" });
+            NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Monitor.Delete.Success"], item.Name));
+         }
+         catch (Exception ex)
+         {
+            await ErrorService.HandleError(this, ex, String.Format(T["Monitor.Delete.Error"], item.Name));
+            StateHasChanged();
+         }
+         finally
+         {
+            isLoading = false;
+         }
+      }
+   }
+
+   protected async Task OnChangeEnableAsync(MonitorModel item)
+   {
+      try
+      {
+         isLoading = true;
+         await MonitorService.UpdateSharedAsync(item);
+         MenuService.OnMonitorMenuHasChanged(this, new() { Monitors = [item], Category = "shared" });
+         NotificationService.Notify(NotificationSeverity.Success, String.Format(T["Monitor.Update.Success"], item.Name));
+      }
+      catch (Exception ex)
+      {
+         await ErrorService.HandleError(this, ex, String.Format(T["Monitor.Update.Error"], item.Name));
+      }
+      finally
+      {
+         isLoading = false;
+      }
+   }
+
+   async Task OnUpdate(MouseEventArgs args)
+   {
+      isLoading = true;
+      await StaticCacheManager.RemoveByPrefixAsync(CacheDefaults<Monitor>.ByDynamicFilterPrefix, "shared");
+      await grid.Reload();
+      isLoading = false;
+   }
+
+   #endregion
+
+   #region Utilities
+
+   private void PrepareFilter(LoadDataArgs args)
+   {
+      filter.UserId = UserId;
+      filter.DeviceId = DeviceId;
+      filter.SensorId = SensorId;
+      filter.WidgetId = WidgetId;
+
+      filter = Auto.Mapper.Map(args, filter);
+
+      filter.Filter = new List<RadzenDataGridColumn<MonitorModel>>() { idColumn, nameColumn, showInMenuColumn }.ToFilterString();
+
+      var nameColumnFilter = new List<RadzenDataGridColumn<MonitorModel>>() { nameColumn }.ToFilterString();
+      if (!filter.AdditionalQueries.TryAdd("LocalizedProperty", nameColumnFilter))
+         filter.AdditionalQueries["LocalizedProperty"] = nameColumnFilter;
+
+      if (ownerNameColumn != null)
+      {
+         var ownerColumnFilter = new List<RadzenDataGridColumn<MonitorModel>>() { ownerNameColumn }.ToFilterString();
+         if (!filter.AdditionalQueries.TryAdd("User", ownerColumnFilter))
+            filter.AdditionalQueries["User"] = ownerColumnFilter;
+      }
+   }
+
+   #endregion
+}

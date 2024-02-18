@@ -1,0 +1,40 @@
+﻿@implements IDisposable
+
+@if (!inErrorState)
+{
+    <p>@T["LoadingStub.Text"]</p>
+}
+else
+{
+    <p>Error has occured. Source: @sender</p>
+    <p>@notification</p>
+    <p>@exceptionMessage</p>
+}
+
+
+@code {
+    private ErrorProcessEventHandler errorHasOccured;
+    private bool inErrorState;
+    private string notification;
+    private string exceptionMessage;
+    private string sender;
+
+    protected override void OnInitialized()
+    {
+        errorHasOccured = (o, e) =>
+        {
+            sender = o.ToString();
+            exceptionMessage = e.Exception.Message;
+            notification = e.NotificationMessage;
+            inErrorState = true; 
+            StateHasChanged();
+        };
+
+        ErrorService.ErrorHasOccured += errorHasOccured;
+    }
+
+    public void Dispose()
+    {
+        ErrorService.ErrorHasOccured -= errorHasOccured;
+    }
+}
