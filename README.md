@@ -52,3 +52,4 @@ Unlike other widget types the livescheme widgets can be created by platform user
  ## What the next?
  - some Grafana integration;
  - SBC integration;
+ - integration with Timescale db;
