@@ -49,3 +49,6 @@ Unlike other widget types the livescheme widgets can be created by platform user
  - authorization is based on openid and has custom implementation (not Duende)
  - for user interaction the platform has public pages and they can be used as a platform website. It is adjusted with the hub admin panel and can contain static pages, forums, blogs, news, polls, newsletter and mail compaign.
 
+ ## What the next?
+ - some Grafana integration;
+ - SBC integration;
