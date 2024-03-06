@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Web.Areas.Admin.Models.Forums;
-using Hub.Core.Domain.Forums;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

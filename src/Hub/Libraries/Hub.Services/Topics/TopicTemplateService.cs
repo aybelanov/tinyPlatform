@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.Domain.Topics;
+using Hub.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Topics;
-using Hub.Data;
 
 namespace Hub.Services.Topics;
 

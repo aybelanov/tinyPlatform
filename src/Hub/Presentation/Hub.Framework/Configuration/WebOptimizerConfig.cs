@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using Hub.Core.Configuration;
+﻿using Hub.Core.Configuration;
+using System.Text.Json.Serialization;
 using WebOptimizer;
 
 namespace Hub.Web.Framework.Configuration;

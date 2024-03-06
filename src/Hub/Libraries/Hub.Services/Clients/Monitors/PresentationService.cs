@@ -28,7 +28,7 @@ public class PresentationService(IRepository<LocalizedProperty> localizedReposit
    IRepository<Monitor> monitorRepository,
    ILocalizer localizer) : IPresentationService
 {
-   
+
    #region Methods
 
    /// <summary>
@@ -111,8 +111,8 @@ public class PresentationService(IRepository<LocalizedProperty> localizedReposit
 
       var sensorWidgetQuery = sensorWidgetRepository.Table.AsNoTracking();
 
-      if(filter.SensorWidgetId.HasValue)
-         sensorWidgetQuery = sensorWidgetQuery.Where(x=>x.Id ==  filter.SensorWidgetId.Value);
+      if (filter.SensorWidgetId.HasValue)
+         sensorWidgetQuery = sensorWidgetQuery.Where(x => x.Id == filter.SensorWidgetId.Value);
 
       if (filter.SensorWidgetIds?.Any() == true)
          sensorWidgetQuery = sensorWidgetQuery.Where(x => filter.SensorWidgetIds.Contains(x.Id));

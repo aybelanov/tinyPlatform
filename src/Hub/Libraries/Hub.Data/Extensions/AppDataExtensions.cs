@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq.Expressions;
-using Hub.Core.Domain.Common;
-using Hub.Core.Infrastructure;
+﻿using Hub.Core.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shared.Common;
+using System;
+using System.Linq.Expressions;
 
 namespace Hub.Data.Extensions;
 

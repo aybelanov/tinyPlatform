@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Configuration;
 using Hub.Core.Infrastructure;
@@ -18,6 +13,11 @@ using Hub.Web.Infrastructure.Installation;
 using Hub.Web.Models.Install;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -110,7 +110,7 @@ public partial class InstallController : Controller
    private InstallModel PrepareAvailableDataProviders(InstallModel model)
    {
       model.AvailableDataProviders.AddRange(
-          _locService.Value.GetAvailableProviderTypes([2,4])
+          _locService.Value.GetAvailableProviderTypes([2, 4])
           .OrderBy(v => v.Value)
           .Select(pt => new SelectListItem
           {

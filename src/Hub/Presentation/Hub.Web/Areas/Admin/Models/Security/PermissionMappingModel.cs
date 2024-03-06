@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Hub.Web.Areas.Admin.Models.Users;
+﻿using Hub.Web.Areas.Admin.Models.Users;
 using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Areas.Admin.Models.Security
 {

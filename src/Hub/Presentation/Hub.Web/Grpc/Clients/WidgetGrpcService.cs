@@ -2,7 +2,6 @@
 using Grpc.Core;
 using Hub.Core;
 using Hub.Core.Domain.Clients;
-using Hub.Services.Clients.Sensors;
 using Hub.Services.Clients.Widgets;
 using Hub.Services.Media;
 using Hub.Services.Security;
@@ -15,7 +14,6 @@ using Shared.Clients;
 using Shared.Clients.Configuration;
 using Shared.Clients.Domain;
 using Shared.Clients.Proto;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Auto = Hub.Core.Infrastructure.Mapper.AutoMapperConfiguration;
@@ -25,12 +23,12 @@ namespace Hub.Web.Grpc.Clients;
 [EnableCors(PolicyName = WebFrameworkDefaults.CorsPolicyName)]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = UserDefaults.TelemetryRoles)]
 public class WidgetGrpcService(IWidgetService widgetService,
-   IUserService userService, 
+   IUserService userService,
    IWorkContext workContext,
-   IPictureService pictureService) 
+   IPictureService pictureService)
    : WidgetRpc.WidgetRpcBase
 {
-  
+
    #region Methods
 
    [Authorize(nameof(StandardPermissionProvider.AllowManageWidgets))]
@@ -65,9 +63,9 @@ public class WidgetGrpcService(IWidgetService widgetService,
          var proto = Auto.Mapper.Map<WidgetProto>(widget);
          proto.PictureUrl = await pictureService.GetPictureUrlAsync(widget.PictureId);
 
-         if(widget.WidgetType == WidgetType.LiveScheme && widget.LiveSchemePictureId > 0)
+         if (widget.WidgetType == WidgetType.LiveScheme && widget.LiveSchemePictureId > 0)
             proto.LiveSchemeUrl = await pictureService.GetPictureUrlAsync(widget.LiveSchemePictureId);
-         
+
          protos.Widgets.Add(proto);
       }
 
@@ -140,10 +138,10 @@ public class WidgetGrpcService(IWidgetService widgetService,
 
       var widgetProto = Auto.Mapper.Map<WidgetProto>(widget);
       widgetProto.PictureUrl = await pictureService.GetPictureUrlAsync(widget.PictureId);
-      
+
       if (widget.WidgetType == WidgetType.LiveScheme && widget.LiveSchemePictureId > 0)
          widgetProto.LiveSchemeUrl = await pictureService.GetPictureUrlAsync(widget.LiveSchemePictureId);
-     
+
       return widgetProto;
    }
 
@@ -174,6 +172,6 @@ public class WidgetGrpcService(IWidgetService widgetService,
 
       return response;
    }
-        
+
    #endregion
 }

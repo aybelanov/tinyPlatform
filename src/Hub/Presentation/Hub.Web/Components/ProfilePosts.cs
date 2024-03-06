@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Services.Users;
+﻿using Hub.Services.Users;
 using Hub.Web.Factories;
 using Hub.Web.Framework.Components;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Components
 {

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.Domain.Users;
+using Hub.Services.Plugins;
+using Hub.Services.Users;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
-using Hub.Services.Users;
-using Hub.Services.Plugins;
 
 namespace Hub.Services.Authentication.MultiFactor;
 

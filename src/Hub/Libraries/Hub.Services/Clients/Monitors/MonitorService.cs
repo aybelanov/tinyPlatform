@@ -210,12 +210,12 @@ public class MonitorService(IRepository<Device> deviceRepository,
          Id = m.Id,
          OwnerId = u.Id,
          OwnerName = userSettings.UsernamesEnabled ? u.Username : u.Email,
-         
+
          Name = monitorLocaleQuery
          .Where(x => x.LocaleKey == nameof(Monitor.Name) && x.EntityId == m.Id)
          .Select(x => x.LocaleValue)
          .FirstOrDefault(),
-        
+
          Description = monitorLocaleQuery
          .Where(x => x.LocaleKey == nameof(Monitor.Description) && x.EntityId == m.Id)
          .Select(x => x.LocaleValue)
@@ -233,12 +233,12 @@ public class MonitorService(IRepository<Device> deviceRepository,
           {
              Id = p.Id,
              DisplayOrder = p.DisplayOrder,
-            
+
              Name = presentationLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Presentation.Name) && x.EntityId == p.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-             
+
              Description = presentationLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Presentation.Description) && x.EntityId == p.Id)
                  .Select(x => x.LocaleValue)
@@ -247,25 +247,25 @@ public class MonitorService(IRepository<Device> deviceRepository,
              Sensor = new Sensor()
              {
                 Id = s.Id,
-             
+
                 Description = sensorLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Sensor.Description) && x.EntityId == s.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 DeviceId = s.DeviceId,
                 SensorType = s.SensorType,
-                
+
                 MeasureUnit = sensorLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Sensor.MeasureUnit) && x.EntityId == s.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 Name = sensorLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Sensor.Name) && x.EntityId == s.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 SystemName = s.SystemName,
                 PictureId = s.PictureId,
              },
@@ -279,17 +279,17 @@ public class MonitorService(IRepository<Device> deviceRepository,
                 PictureId = d.PictureId,
                 Lon = d.Lon,
                 Lat = d.Lat,
-                
+
                 Name = deviceLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Device.Name) && x.EntityId == s.DeviceId)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 Description = deviceLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Device.Description) && x.EntityId == s.DeviceId)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 ConnectionStatus = onlineDevices.Contains(d.Id)
                  ? OnlineStatus.Online
                  : d.LastActivityOnUtc >= beenRecenlyLimit
@@ -302,17 +302,17 @@ public class MonitorService(IRepository<Device> deviceRepository,
              Widget = new Widget()
              {
                 Id = w.Id,
-               
+
                 Description = widgetLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Widget.Description) && x.EntityId == w.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 Name = widgetLocaleQuery
                  .Where(x => x.LocaleKey == nameof(Widget.Name) && x.EntityId == w.Id)
                  .Select(x => x.LocaleValue)
                  .FirstOrDefault(),
-                
+
                 PictureId = w.PictureId,
                 LiveSchemePictureId = w.LiveSchemePictureId,
                 Adjustment = w.Adjustment,

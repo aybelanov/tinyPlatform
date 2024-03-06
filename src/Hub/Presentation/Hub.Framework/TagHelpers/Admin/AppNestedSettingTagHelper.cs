@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Hub.Core;
+using Hub.Web.Framework.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Hub.Core;
-using Hub.Web.Framework.Extensions;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.TagHelpers.Admin
 {

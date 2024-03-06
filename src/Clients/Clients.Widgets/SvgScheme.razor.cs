@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
-using static Clients.Widgets.Core.OpenLayerBase;
 
 namespace Clients.Widgets;
 
@@ -19,7 +18,7 @@ public partial class SvgScheme
    /// <summary>
    /// Initial svg image
    /// </summary>
-   [Parameter] public string ImageUrl {  get; set; }
+   [Parameter] public string ImageUrl { get; set; }
    [Parameter] public string Width { get; set; }
    [Parameter] public string Height { get; set; }
    [Parameter] public string Config { get; set; }
@@ -54,9 +53,9 @@ public partial class SvgScheme
    }
 
 
-   public async Task Update(IEnumerable<DataRecord> records) 
+   public async Task Update(IEnumerable<DataRecord> records)
    {
-      if (records?.Any() != true) 
+      if (records?.Any() != true)
          return;
 
       var dataset = new List<object>()
@@ -67,7 +66,7 @@ public partial class SvgScheme
          records.Select(x=>x.Metadata ?? string.Empty).ToArray(),
 
       }.ToArray();
-      
+
       await _jsImportReady.Task;
       Update(Id, dataset);
    }
@@ -82,7 +81,7 @@ public partial class SvgScheme
       [JSMarshalAs<JSType.Array<JSType.Any>>] object[] data);
 
    [JSInvokable]
-   public Task SchemeCallback(object args) 
+   public Task SchemeCallback(object args)
    {
       return Task.CompletedTask;
    }
@@ -146,12 +145,12 @@ public partial class SvgScheme
       /// <summary>
       /// Record identifier 
       /// </summary>
-      public long Id { get; set; }  
+      public long Id { get; set; }
 
       /// <summary>
       /// Data record event timestamp
       /// </summary>
-      public double EventTimestamp { get;set; }
+      public double EventTimestamp { get; set; }
 
       /// <summary>
       /// Scalar value

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Hub.Web.Areas.OpenId.Models;
 
@@ -15,7 +15,7 @@ public partial record OpenIdConfigModel
    /// If Issuer discovery is supported (see Section 2), this value MUST be identical to the issuer value returned by WebFinger.
    /// This also MUST be identical to the iss Claim value in ID Tokens issued from this Issuer.
    /// </summary>
-   [JsonProperty(PropertyName ="issuer")]
+   [JsonProperty(PropertyName = "issuer")]
    public string Issuer { get; set; }
 
 
@@ -29,7 +29,7 @@ public partial record OpenIdConfigModel
    /// The JWK x5c parameter MAY be used to provide X.509 representations of keys provided.
    /// When used, the bare key values MUST still be present and MUST match those in the certificate.
    /// </summary>
-   [JsonProperty(PropertyName ="jwks_uri")]
+   [JsonProperty(PropertyName = "jwks_uri")]
    public string JwksUri { get; set; }
 
 
@@ -37,7 +37,7 @@ public partial record OpenIdConfigModel
    /// REQUIRED. URL of the OP's OAuth 2.0 Authorization Endpoint 
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OpenID.Core">[OpenID.Core]</see>.
    /// </summary>
-   [JsonProperty(PropertyName ="authorization_endpoint")]
+   [JsonProperty(PropertyName = "authorization_endpoint")]
    public string AuthorizationEndPoint { get; set; }
 
 
@@ -45,7 +45,7 @@ public partial record OpenIdConfigModel
    /// URL of the OP's OAuth 2.0 Token Endpoint [OpenID.Core]. 
    /// This is REQUIRED unless only the Implicit Flow is used.
    /// </summary>
-   [JsonProperty(PropertyName ="token_endpoint")]
+   [JsonProperty(PropertyName = "token_endpoint")]
    public string TokenEndPoint { get; set; }
 
 
@@ -66,7 +66,7 @@ public partial record OpenIdConfigModel
    /// The algorithm RS256 MUST be included. The value none MAY be supported,
    /// but MUST NOT be used unless the Response Type used returns no ID Token from the Authorization Endpoint (such as when using the Authorization Code Flow).
    /// </summary>
-   [JsonProperty(PropertyName ="id_token_signing_alg_values_supported")]
+   [JsonProperty(PropertyName = "id_token_signing_alg_values_supported")]
    public IEnumerable<string> IdTokenSigningAlgValuesSupported { get; set; }
 
 
@@ -74,14 +74,14 @@ public partial record OpenIdConfigModel
    /// REQUIRED. JSON array containing a list of the OAuth 2.0 response_type values that this OP supports.
    /// Dynamic OpenID Providers MUST support the code, id_token, and the token id_token Response Type values.
    /// </summary>
-   [JsonProperty(PropertyName ="response_types_supported")]
+   [JsonProperty(PropertyName = "response_types_supported")]
    public IEnumerable<string> ResponseTypesSupported { get; set; }
 
 
    /// <summary>
    /// REQUIRED. JSON array containing a list of the Subject Identifier types that this OP supports. Valid types include pairwise and public.
    /// </summary>
-   [JsonProperty(PropertyName ="subject_types_supported")]
+   [JsonProperty(PropertyName = "subject_types_supported")]
    public IEnumerable<string> SubjectTypesSupported { get; set; }
 
 
@@ -94,7 +94,7 @@ public partial record OpenIdConfigModel
    /// RECOMMENDED. URL of the OP's UserInfo Endpoint <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OpenID.Core">[OpenID.Core]</see>. 
    /// This URL MUST use the https scheme and MAY contain port, path, and query parameter components.
    /// </summary>
-   [JsonProperty(PropertyName ="userinfo_endpoint")]
+   [JsonProperty(PropertyName = "userinfo_endpoint")]
    public string UserInfoEndPoint { get; set; }
 
 
@@ -102,7 +102,7 @@ public partial record OpenIdConfigModel
    /// RECOMMENDED. URL of the OP's Dynamic Client Registration Endpoint
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OpenID.Registration">[OpenID.Registration]</see>.
    /// </summary>
-   [JsonProperty(PropertyName ="registration_endpoint")]
+   [JsonProperty(PropertyName = "registration_endpoint")]
    public string RegistrationEndpoint { get; set; }
 
 
@@ -112,7 +112,7 @@ public partial record OpenIdConfigModel
    /// The server MUST support the openid scope value. Servers MAY choose not to advertise some supported scope values even when this parameter is used,
    /// although those defined in <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OpenID.Core">[OpenID.Core]</see> SHOULD be listed, if supported.
    /// </summary>
-   [JsonProperty(PropertyName ="scopes_supported")]
+   [JsonProperty(PropertyName = "scopes_supported")]
    public IEnumerable<string> ScopesSupported { get; set; }
 
 
@@ -120,7 +120,7 @@ public partial record OpenIdConfigModel
    /// RECOMMENDED. JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for.
    /// Note that for privacy or other reasons, this might not be an exhaustive list.
    /// </summary>
-   [JsonProperty(PropertyName ="claims_supported")]
+   [JsonProperty(PropertyName = "claims_supported")]
    public IEnumerable<string> ClaimsSupported { get; set; }
 
    #endregion
@@ -136,7 +136,7 @@ public partial record OpenIdConfigModel
    /// If omitted, the implementation supports only normal Claims.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="claim_types_supported")]
+   [JsonProperty(PropertyName = "claim_types_supported")]
    public IEnumerable<string> ClaimTypesSupported { get; set; }
 
 
@@ -144,7 +144,7 @@ public partial record OpenIdConfigModel
    /// OPTIONAL. Boolean value specifying whether the OP supports use of the claims parameter, with true indicating support. If omitted, the default value is false.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="claims_parameter_supported")]
+   [JsonProperty(PropertyName = "claims_parameter_supported")]
    public bool ClaimsParameterSupported { get; set; }
 
 
@@ -155,7 +155,7 @@ public partial record OpenIdConfigModel
    /// Not all languages and scripts are necessarily supported for all Claim values.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="claims_locales_supported")]
+   [JsonProperty(PropertyName = "claims_locales_supported")]
    public IEnumerable<string> ClaimsLocalesSupported { get; set; }
 
 
@@ -164,7 +164,7 @@ public partial record OpenIdConfigModel
    /// Dynamic OpenID Providers MUST support the authorization_code and implicit Grant Type values and MAY support other Grant Types.
    /// If omitted, the default value is ["authorization_code", "implicit"].
    /// </summary>
-   [JsonProperty(PropertyName ="grant_types_supported")]
+   [JsonProperty(PropertyName = "grant_types_supported")]
    public IEnumerable<string> GrantTypesSupported { get; set; }
 
 
@@ -174,7 +174,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OAuth.Responses">Response Type Encoding Practices [OAuth.Responses]</see>.
    /// If omitted, the default for Dynamic OpenID Providers is ["query", "fragment"].
    /// </summary>
-   [JsonProperty(PropertyName ="response_modes_supported")]
+   [JsonProperty(PropertyName = "response_modes_supported")]
    public IEnumerable<string> ResponseModesSupported { get; set; }
 
 
@@ -182,7 +182,7 @@ public partial record OpenIdConfigModel
    /// OPTIONAL. JSON array containing a list of the Authentication Context Class References that this OP supports.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="acr_values_supported")]
+   [JsonProperty(PropertyName = "acr_values_supported")]
    public IEnumerable<string> AcrValuesSupported { get; set; }
 
 
@@ -194,7 +194,7 @@ public partial record OpenIdConfigModel
    /// specified in Section 2.3.1 of 
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#RFC6749">OAuth 2.0 [RFC6749]</see>.
    /// </summary>
-   [JsonProperty(PropertyName ="token_endpoint_auth_methods_supported")]
+   [JsonProperty(PropertyName = "token_endpoint_auth_methods_supported")]
    public IEnumerable<string> TokenEndpointAuthMethodsSupported { get; set; }
 
 
@@ -203,7 +203,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#JWT">[JWT]</see>.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="id_token_encryption_alg_values_supported")]
+   [JsonProperty(PropertyName = "id_token_encryption_alg_values_supported")]
    public IEnumerable<string> IdTokenEncryptionAlgValuesSupported { get; set; }
 
 
@@ -212,7 +212,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#JWT">[JWT]</see>.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="id_token_encryption_enc_values_supported")]
+   [JsonProperty(PropertyName = "id_token_encryption_enc_values_supported")]
    public IEnumerable<string> IdTokenEncryptionEncValuesSupported { get; set; }
 
 
@@ -226,7 +226,7 @@ public partial record OpenIdConfigModel
    /// The value none MAY be included.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="userinfo_signing_alg_values_supported")]
+   [JsonProperty(PropertyName = "userinfo_signing_alg_values_supported")]
    public IEnumerable<string> UserInfoSigningAlgValuesSupported { get; set; }
 
 
@@ -239,7 +239,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#JWT">[JWT]</see>.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="userinfo_encryption_alg_values_supported")]
+   [JsonProperty(PropertyName = "userinfo_encryption_alg_values_supported")]
    public IEnumerable<string> UserInfoEncryptionAlgValuesSupported { get; set; }
 
 
@@ -250,7 +250,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#JWT">[JWT]</see>.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="userinfo_encryption_enc_values_supported")]
+   [JsonProperty(PropertyName = "userinfo_encryption_enc_values_supported")]
    public IEnumerable<string> UserInfoEncryptionEncValuesSupported { get; set; }
 
 
@@ -258,7 +258,7 @@ public partial record OpenIdConfigModel
    /// OPTIONAL. Boolean value specifying whether the OP supports use of the request parameter, with true indicating support. If omitted, the default value is false.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="request_parameter_supported")]
+   [JsonProperty(PropertyName = "request_parameter_supported")]
    public bool RequestParameterSupported { get; set; }
 
 
@@ -266,7 +266,7 @@ public partial record OpenIdConfigModel
    /// OPTIONAL. Boolean value specifying whether the OP supports use of the request_uri parameter, with true indicating support. If omitted, the default value is true.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="request_uri_parameter_supported")]
+   [JsonProperty(PropertyName = "request_uri_parameter_supported")]
    public bool RequestUriParameterSupported { get; set; }
 
 
@@ -275,7 +275,7 @@ public partial record OpenIdConfigModel
    /// Pre-registration is REQUIRED when the value is true. If omitted, the default value is false.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="require_request_uri_registration")]
+   [JsonProperty(PropertyName = "require_request_uri_registration")]
    public bool RequireRequestUriRegistration { get; set; }
 
 
@@ -287,7 +287,7 @@ public partial record OpenIdConfigModel
    /// and when it is passed by reference (using the request_uri parameter). Servers SHOULD support none and RS256.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="request_object_signing_alg_values_supported")]
+   [JsonProperty(PropertyName = "request_object_signing_alg_values_supported")]
    public IEnumerable<string> RequestObjectSigningAlgValuesSupported { get; set; }
 
 
@@ -296,7 +296,7 @@ public partial record OpenIdConfigModel
    /// These algorithms are used both when the Request Object is passed by value and when it is passed by reference.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="request_object_encryption_alg_values_supported")]
+   [JsonProperty(PropertyName = "request_object_encryption_alg_values_supported")]
    public IEnumerable<string> RequestObjectEncryptionAlgValuesSupported { get; set; }
 
 
@@ -305,7 +305,7 @@ public partial record OpenIdConfigModel
    /// These algorithms are used both when the Request Object is passed by value and when it is passed by reference.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="request_object_encryption_enc_values_supported")]
+   [JsonProperty(PropertyName = "request_object_encryption_enc_values_supported")]
    public IEnumerable<string> RequestObjectEncryptionEncValuesSupported { get; set; }
 
 
@@ -316,7 +316,7 @@ public partial record OpenIdConfigModel
    /// Servers SHOULD support RS256. The value none MUST NOT be used.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="token_endpoint_auth_signing_alg_values_supported")]
+   [JsonProperty(PropertyName = "token_endpoint_auth_signing_alg_values_supported")]
    public IEnumerable<string> TokenEndpointAuthSigningAlgValuesSupported { get; set; }
 
 
@@ -326,7 +326,7 @@ public partial record OpenIdConfigModel
    /// <see href="https://openid.net/specs/openid-connect-discovery-1_0.html#OpenID.Core">OpenID Connect Core 1.0 [OpenID.Core]</see>.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="display_values_supported")]
+   [JsonProperty(PropertyName = "display_values_supported")]
    public IEnumerable<string> DisplayValuesSupported { get; set; }
 
 
@@ -336,7 +336,7 @@ public partial record OpenIdConfigModel
    /// [RFC5646] language tag values.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="ui_locales_supported")]
+   [JsonProperty(PropertyName = "ui_locales_supported")]
    public IEnumerable<string> UiLocalesSupported { get; set; }
 
 
@@ -346,7 +346,7 @@ public partial record OpenIdConfigModel
    /// The registration process SHOULD display this URL to the person registering the Client if it is given.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="op_policy_uri")]
+   [JsonProperty(PropertyName = "op_policy_uri")]
    public string OpPolicyUri { get; set; }
 
 
@@ -355,7 +355,7 @@ public partial record OpenIdConfigModel
    /// The registration process SHOULD display this URL to the person registering the Client if it is given.
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="op_tos_uri")]
+   [JsonProperty(PropertyName = "op_tos_uri")]
    public string OpTosUri { get; set; }
    #endregion
 
@@ -366,7 +366,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    /// <remarks><see href="https://openid.net/specs/openid-connect-session-1_0.html"/></remarks>
-   [JsonProperty(PropertyName ="end_session_endpoint")]
+   [JsonProperty(PropertyName = "end_session_endpoint")]
    public string EndSessionEndPoint { get; set; }
 
    /// <summary>
@@ -380,7 +380,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="revocation_endpoint")]
+   [JsonProperty(PropertyName = "revocation_endpoint")]
    public string RevocationEndPoint { get; set; }
 
 
@@ -388,7 +388,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="introspection_endpoint")]
+   [JsonProperty(PropertyName = "introspection_endpoint")]
    public string IntrospectionEndPoint { get; set; }
 
 
@@ -396,7 +396,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="device_authorization_endpoint")]
+   [JsonProperty(PropertyName = "device_authorization_endpoint")]
    public string DeviceAuthorizationEndPoint { get; set; }
 
 
@@ -404,7 +404,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="frontchannel_logout_supported")]
+   [JsonProperty(PropertyName = "frontchannel_logout_supported")]
    public bool FrontChannelLogoutSupported { get; set; }
 
 
@@ -412,7 +412,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="frontchannel_logout_session_supported")]
+   [JsonProperty(PropertyName = "frontchannel_logout_session_supported")]
    public bool FrontChannelLogoutSessionSupported { get; set; }
 
 
@@ -420,7 +420,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="backchannel_logout_supported")]
+   [JsonProperty(PropertyName = "backchannel_logout_supported")]
    public bool BackChannelLogoutSupported { get; set; }
 
 
@@ -428,7 +428,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="backchannel_logout_session_supported")]
+   [JsonProperty(PropertyName = "backchannel_logout_session_supported")]
    public bool BackChannelLogoutSessionSupported { get; set; }
 
 
@@ -436,7 +436,7 @@ public partial record OpenIdConfigModel
    /// NON-NORMATIVE
    /// </summary>
    [JsonIgnore]
-   [JsonProperty(PropertyName ="authorization_response_iss_parameter_supported")]
+   [JsonProperty(PropertyName = "authorization_response_iss_parameter_supported")]
    public bool AuthorizationResponseIssParameterSupported { get; set; }
 
    #endregion

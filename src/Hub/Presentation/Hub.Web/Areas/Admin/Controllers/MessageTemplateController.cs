@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Messages;
+﻿using Hub.Core.Domain.Messages;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
 using Hub.Services.Messages;
@@ -13,6 +10,9 @@ using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -39,7 +39,7 @@ public partial class MessageTemplateController : BaseAdminController
        IMessageTemplateModelFactory messageTemplateModelFactory,
        IMessageTemplateService messageTemplateService,
        INotificationService notificationService,
-       IPermissionService permissionService,       
+       IPermissionService permissionService,
        IWorkflowMessageService workflowMessageService)
    {
       _userActivityService = userActivityService;

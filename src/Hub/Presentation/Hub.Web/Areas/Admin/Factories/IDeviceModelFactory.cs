@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Web.Areas.Admin.Models.Devices;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

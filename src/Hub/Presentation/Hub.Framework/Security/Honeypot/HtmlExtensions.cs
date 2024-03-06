@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text;
+﻿using Hub.Core.Domain.Security;
+using Hub.Core.Infrastructure;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core.Infrastructure;
-using Hub.Core.Domain.Security;
+using System;
+using System.Text;
 
 namespace Hub.Web.Framework.Security.Honeypot
 {

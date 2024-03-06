@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Common;
 using Microsoft.AspNetCore.Http;
-using Hub.Core.Domain.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Common
 {

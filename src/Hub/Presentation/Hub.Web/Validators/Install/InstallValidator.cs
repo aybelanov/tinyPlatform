@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.Install;
 using Hub.Data;
 using Hub.Web.Framework.Validators;
 using Hub.Web.Infrastructure.Installation;
+using Hub.Web.Models.Install;
 
 namespace Hub.Web.Validators.Install
 {

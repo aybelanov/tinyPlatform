@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Factories;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Services.Localization;
+﻿using Hub.Services.Localization;
 using Hub.Services.Security;
 using Hub.Services.Topics;
+using Hub.Web.Factories;
 using Hub.Web.Framework;
 using Hub.Web.Framework.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -16,7 +16,7 @@ public partial class TopicController : BasePublicController
 
    private readonly IAclService _aclService;
    private readonly ILocalizationService _localizationService;
-   private readonly IPermissionService _permissionService; 
+   private readonly IPermissionService _permissionService;
    private readonly ITopicModelFactory _topicModelFactory;
    private readonly ITopicService _topicService;
 

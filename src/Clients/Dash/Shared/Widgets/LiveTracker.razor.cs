@@ -24,7 +24,7 @@ public partial class LiveTracker
    [CascadingParameter] PresentationViewModel Presentation { get; set; }
 
    [Inject] WebAssemblyHostConfiguration Config { get; set; }
-   [Inject] ISensorRecordService SensorRecordService { get; set; }   
+   [Inject] ISensorRecordService SensorRecordService { get; set; }
 
    OpenMap _map;
    MapView _mapView;
@@ -35,9 +35,9 @@ public partial class LiveTracker
    /// <summary>
    /// Default ctor
    /// </summary>
-   public LiveTracker() 
+   public LiveTracker()
    {
-      
+
    }
 
    /// <inheritdoc/>
@@ -93,7 +93,7 @@ public partial class LiveTracker
       {
          var point = ClientHelper.ParseGeoRecord(record);
 
-         var historyPoint = _adjustment.HistoryPointsCount < 1 ? 10 : _adjustment.HistoryPointsCount;   
+         var historyPoint = _adjustment.HistoryPointsCount < 1 ? 10 : _adjustment.HistoryPointsCount;
 
          if (_track.Count >= historyPoint && _track.Count > 0)
             _track.RemoveAt(0);
@@ -101,7 +101,7 @@ public partial class LiveTracker
          _track.Add(point);
       }
 
-      _track = _track.OrderBy(x=>x.Ticks).ToList();   
+      _track = _track.OrderBy(x => x.Ticks).ToList();
       await _map.UpdateTrack(_track);
    }
 }

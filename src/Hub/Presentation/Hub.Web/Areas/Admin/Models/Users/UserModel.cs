@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Areas.Admin.Models.Users;
 
@@ -28,7 +28,7 @@ public partial record UserModel : BaseAppEntityModel, IAclSupportedModel
       AvailableStates = new List<SelectListItem>();
       UserAttributes = new List<UserAttributeModel>();
       UserAddressSearchModel = new UserAddressSearchModel();
-      UserDeviceSearchModel = new UserDeviceSearchModel();  
+      UserDeviceSearchModel = new UserDeviceSearchModel();
       UserActivityLogSearchModel = new UserActivityLogSearchModel();
       UserAssociatedExternalAuthRecordsSearchModel = new UserAssociatedExternalAuthRecordsSearchModel();
    }
@@ -201,7 +201,7 @@ public partial record UserModel : BaseAppEntityModel, IAclSupportedModel
 
    public string AvatarUrl { get; internal set; }
 
-   public UserDeviceSearchModel UserDeviceSearchModel { get; set; }  
+   public UserDeviceSearchModel UserDeviceSearchModel { get; set; }
 
    public UserAddressSearchModel UserAddressSearchModel { get; set; }
 
@@ -209,7 +209,7 @@ public partial record UserModel : BaseAppEntityModel, IAclSupportedModel
 
    public UserAssociatedExternalAuthRecordsSearchModel UserAssociatedExternalAuthRecordsSearchModel { get; set; }
 
-   public UserStatisticsModel UserStatisticsModel { get; set; }   
+   public UserStatisticsModel UserStatisticsModel { get; set; }
 
    #endregion
 

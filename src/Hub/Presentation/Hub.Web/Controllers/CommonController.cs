@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Localization;
@@ -18,6 +16,8 @@ using Hub.Web.Framework.Themes;
 using Hub.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -148,7 +148,7 @@ public partial class CommonController : BasePublicController
       return Redirect(returnUrl);
    }
 
-  
+
    //contact us page
    //available even when a platform is closed
    [CheckAccessPublicPlatform(true)]
@@ -195,7 +195,7 @@ public partial class CommonController : BasePublicController
       return View(model);
    }
 
-  
+
    //sitemap page
    public virtual async Task<IActionResult> Sitemap(SitemapPageModel pageModel)
    {

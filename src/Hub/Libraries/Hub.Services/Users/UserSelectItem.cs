@@ -7,13 +7,13 @@ namespace Hub.Services.Users;
 /// </summary>
 public class UserSelectItem : BaseEntity
 {
-    /// <summary>
-    /// Username
-    /// </summary>
-    public string Username { get; set; }
+   /// <summary>
+   /// Username
+   /// </summary>
+   public string Username { get; set; }
 
-    /// <summary>
-    /// Avatar url
-    /// </summary>
-    public long AvatarPictureId { get; set; }
+   /// <summary>
+   /// Avatar url
+   /// </summary>
+   public long AvatarPictureId { get; set; }
 }

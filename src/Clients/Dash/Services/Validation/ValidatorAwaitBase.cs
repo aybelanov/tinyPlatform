@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components;
 using Radzen;
-using System.Threading.Tasks;
 using System;
-using Radzen.Blazor;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Clients.Dash.Services.Validation;
 
@@ -80,7 +78,7 @@ public abstract class ValidatorAwaitBase : RadzenComponent, IRadzenFormValidator
    /// <summary>
    /// Default ctor
    /// </summary>
-   public ValidatorAwaitBase() :base()
+   public ValidatorAwaitBase() : base()
    {
       FieldChangedHandler = async (o, e) => await ValidateFieldAsync(o, e);
       ValidationModelHandler = async (o, e) => await ValidationRequestedAsync(o, e);

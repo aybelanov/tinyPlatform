@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Core.Domain.Users;
-using Hub.Core.Domain.Directory;
-using Hub.Services.Users;
 using Hub.Services.Plugins;
+using Hub.Services.Users;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Directory;
 

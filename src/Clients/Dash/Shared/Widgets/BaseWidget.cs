@@ -13,7 +13,7 @@ public abstract class BaseWidget : ComponentBase, IWidgetComponent
    /// <summary>
    /// Component unmach attributes
    /// </summary>
-   [Parameter(CaptureUnmatchedValues = true)] 
+   [Parameter(CaptureUnmatchedValues = true)]
    public Dictionary<string, object> Attributes { get; set; }
 
    /// <summary>
@@ -21,7 +21,7 @@ public abstract class BaseWidget : ComponentBase, IWidgetComponent
    /// </summary>
    /// <param name="records"></param>
    /// <returns></returns>
-   public virtual Task Update(IEnumerable<SensorRecord> records) 
+   public virtual Task Update(IEnumerable<SensorRecord> records)
    {
       return Task.CompletedTask;
    }

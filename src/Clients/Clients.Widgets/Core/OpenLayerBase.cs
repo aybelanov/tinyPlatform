@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Clients.Widgets.Core;
 
@@ -185,7 +180,7 @@ public abstract class OpenLayerBase : WidgetBase
       public double Lon { get; set; }
       public bool Visible { get; set; }
       public string TextColor { get; set; }
-      public string Link { get; set; } 
+      public string Link { get; set; }
    }
 
    /// <summary>

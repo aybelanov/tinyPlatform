@@ -11,7 +11,6 @@ using Shared.Devices.Proto;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -79,7 +78,7 @@ public class HubCommunicator : ICommunicator
    /// <returns>Connection conntext collection for he pointed user</returns>
    public Task<IList<ClientConnectionInfo>> GetUserConnectionsInfoAsync(long userId)
    {
-      var info = _userConnections.Select(x => x.Value).Where(x=>x.UserId == userId).ToList();  
+      var info = _userConnections.Select(x => x.Value).Where(x => x.UserId == userId).ToList();
       return Task.FromResult<IList<ClientConnectionInfo>>(info);
    }
 
@@ -101,7 +100,7 @@ public class HubCommunicator : ICommunicator
    /// <returns>Client connection info collection</returns>
    public Task<IList<ClientConnectionInfo>> GetConnectionInfoByGroupNameAsync(string groupName)
    {
-      var info = _userConnections.Select(x=>x.Value).Where(x=>x.SubcribedGroups.Contains(groupName)).ToList();
+      var info = _userConnections.Select(x => x.Value).Where(x => x.SubcribedGroups.Contains(groupName)).ToList();
       return Task.FromResult<IList<ClientConnectionInfo>>(info);
    }
 
@@ -112,7 +111,7 @@ public class HubCommunicator : ICommunicator
    /// <returns>Client connection info collection</returns>
    public Task<IList<ClientConnectionInfo>> GetConnectionInfoByGroupNamesAsync(IEnumerable<string> groupNames)
    {
-      var info = _userConnections.Select(x => x.Value).Where(x => groupNames.Any(n => x.SubcribedGroups.Contains(n))).DistinctBy(x=>x.ConnectionId).ToList();
+      var info = _userConnections.Select(x => x.Value).Where(x => groupNames.Any(n => x.SubcribedGroups.Contains(n))).DistinctBy(x => x.ConnectionId).ToList();
       return Task.FromResult<IList<ClientConnectionInfo>>(info);
    }
 
@@ -157,7 +156,7 @@ public class HubCommunicator : ICommunicator
    public Task ClearUserConnectionsAsync(long userId)
    {
       var connections = _userConnections.Where(x => x.Value.UserId == userId);
-      
+
       foreach (var connection in connections)
          _userConnections.TryRemove(connection);
 
@@ -172,7 +171,7 @@ public class HubCommunicator : ICommunicator
    public Task<IList<string>> GetUserGroupsAsync(long userId)
    {
       var groups = _userConnections.Where(x => x.Value.UserId == userId).SelectMany(x => x.Value.SubcribedGroups).Distinct();
-      return Task.FromResult<IList<string>>(groups.ToList()); 
+      return Task.FromResult<IList<string>>(groups.ToList());
    }
 
    /// <summary>
@@ -186,7 +185,7 @@ public class HubCommunicator : ICommunicator
       {
          foreach (var group in groups)
          {
-            await _hubContext.Groups.AddToGroupAsync(connectionId, group); 
+            await _hubContext.Groups.AddToGroupAsync(connectionId, group);
             info.SubcribedGroups.Add(group);
          }
       }
@@ -429,7 +428,7 @@ public class HubCommunicator : ICommunicator
          var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
          await logger.WarningAsync("Sensor data sending is failed", ex);
       }
-      
+
    }
 
    #endregion

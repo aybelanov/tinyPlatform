@@ -33,10 +33,10 @@ public sealed class HttpsRequirementAttribute : TypeFilterAttribute
    private class HttpsRequirementFilter(IWebHelper webHelper, AppSettings appSettings) : IAsyncAuthorizationFilter
    {
       #region Fields
-    
+
       private readonly SecurityConfig _securityConfig = appSettings.Get<SecurityConfig>();
       private readonly HostingConfig _hostingConfig = appSettings.Get<HostingConfig>();
-      
+
       #endregion
 
       #region Utilities
@@ -52,7 +52,7 @@ public sealed class HttpsRequirementAttribute : TypeFilterAttribute
 
          // Proxy server must implement the redirect logic,
          // so we switch off our https redirect logic
-         if(_hostingConfig.UseProxy)
+         if (_hostingConfig.UseProxy)
             return;
 
          if (context.HttpContext.Request == null)

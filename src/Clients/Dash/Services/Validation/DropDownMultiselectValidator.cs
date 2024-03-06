@@ -30,7 +30,7 @@ public class DropDownMultiselectValidator : ValidatorBase
    /// <inheritdoc/>
    protected override bool Validate(IRadzenFormComponent component)
    {
-      
+
       if (component is not null && component.GetType().GetGenericTypeDefinition() == typeof(RadzenDropDown<>))
       {
          BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Localization;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Polls;
 
@@ -29,12 +27,12 @@ public partial class PollAnswer : BaseEntity
    /// </summary>
    public int DisplayOrder { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Poll Poll { get; set; }
-//   public List<PollVotingRecord> VotingRecords { get; set; } = new();   
+   //   public Poll Poll { get; set; }
+   //   public List<PollVotingRecord> VotingRecords { get; set; } = new();   
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

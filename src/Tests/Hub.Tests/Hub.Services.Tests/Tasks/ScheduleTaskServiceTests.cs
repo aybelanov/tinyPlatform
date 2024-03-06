@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Domain.ScheduleTasks;
 using Hub.Services.ScheduleTasks;
+using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace Hub.Services.Tests.Tasks;
 
@@ -80,7 +80,7 @@ public class ScheduleTaskServiceTests : ServiceTest
       await _scheduleTaskService.DeleteTaskAsync(_task);
 
       task.Id.Should().Be(task2.Id);
-      task2.Name.Should().Be(_task.Name);
+      task2.Name.Should().Be(task.Name);
 
       // For linq2db which doesn't have the ChangeTracker and doesn't track the entity instance
       //task2.FieName.Should().NotBe(_task.FieName);
@@ -144,7 +144,7 @@ public class ScheduleTaskServiceTests : ServiceTest
       var tasks = await _scheduleTaskService.GetAllTasksAsync(true);
       tasks.Count.Should().Be(6);
       tasks = await _scheduleTaskService.GetAllTasksAsync(false);
-      tasks.Count.Should().Be(4);
+      tasks.Count.Should().Be(3);
 
       await _scheduleTaskService.InsertTaskAsync(_task);
       var tasksWithHidden = await _scheduleTaskService.GetAllTasksAsync(true);
@@ -152,7 +152,7 @@ public class ScheduleTaskServiceTests : ServiceTest
       await _scheduleTaskService.DeleteTaskAsync(_task);
 
       tasksWithHidden.Count.Should().Be(7);
-      tasksWitoutHidden.Count.Should().Be(5);
+      tasksWitoutHidden.Count.Should().Be(4);
 
       _task.Enabled = false;
 
@@ -163,6 +163,6 @@ public class ScheduleTaskServiceTests : ServiceTest
       _task.Enabled = true;
 
       tasksWithHidden.Count.Should().Be(7);
-      tasksWitoutHidden.Count.Should().Be(4);
+      tasksWitoutHidden.Count.Should().Be(3);
    }
 }

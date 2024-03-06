@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Polls;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Polls
 {

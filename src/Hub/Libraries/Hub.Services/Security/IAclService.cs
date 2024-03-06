@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Security;
+﻿using Hub.Core.Domain.Security;
 using Hub.Core.Domain.Users;
 using Shared.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Security;
 

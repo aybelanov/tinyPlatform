@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Polls;
 using Hub.Web.Models.Polls;
-using Hub.Core.Domain.Polls;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

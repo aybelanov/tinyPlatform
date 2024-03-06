@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Hub.Core.Domain.Clients;
+using Hub.Core.Domain.Users;
+using Hub.Data.Extensions;
+using Hub.Services.Common;
+using Hub.Services.Devices;
+using Hub.Services.Helpers;
+using Hub.Services.Logging;
+using Hub.Services.Users;
+using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
+using Hub.Web.Areas.Admin.Models.Logging;
+using Hub.Web.Framework.Models.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Logging;
-using Hub.Services.Users;
-using Hub.Services.Helpers;
-using Hub.Services.Logging;
-using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
-using Hub.Web.Framework.Models.Extensions;
-using Hub.Data.Extensions;
-using Hub.Services.Devices;
-using Hub.Core.Domain.Clients;
-using Hub.Core.Domain.Users;
-using Hub.Services.Common;
 
 namespace Hub.Web.Areas.Admin.Factories;
 
@@ -30,7 +30,7 @@ public partial class ActivityLogModelFactory : IActivityLogModelFactory
    private readonly IHubDeviceService _deviceService;
    private readonly IDateTimeHelper _dateTimeHelper;
    private readonly UserSettings _userSettings;
-   private readonly DeviceSettings _deviceSettings;   
+   private readonly DeviceSettings _deviceSettings;
 
    #endregion
 

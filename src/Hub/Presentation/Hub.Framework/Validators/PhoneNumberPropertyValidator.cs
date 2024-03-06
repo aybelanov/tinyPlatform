@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Validators;
 using Hub.Core.Domain.Users;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Hub.Web.Framework.Validators
 {

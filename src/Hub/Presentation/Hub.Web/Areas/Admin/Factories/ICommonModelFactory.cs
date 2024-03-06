@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Web.Areas.Admin.Models.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Common;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

@@ -1,11 +1,6 @@
 ﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
 using Hub.Services.Caching;
-using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hub.Services.Clients.Caching;

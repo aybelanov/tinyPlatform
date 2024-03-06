@@ -1,14 +1,14 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Factories;
-using Hub.Web.Areas.Admin.Models.Cms;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core.Domain.Cms;
+﻿using Hub.Core.Domain.Cms;
 using Hub.Core.Events;
 using Hub.Services.Cms;
 using Hub.Services.Configuration;
 using Hub.Services.Plugins;
 using Hub.Services.Security;
+using Hub.Web.Areas.Admin.Factories;
+using Hub.Web.Areas.Admin.Models.Cms;
 using Hub.Web.Framework.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -88,13 +88,13 @@ public partial class WidgetController : BaseAdminController
             _widgetSettings.ActiveWidgetSystemNames.Remove(widget.PluginDescriptor.SystemName);
             await _settingService.SaveSettingAsync(_widgetSettings);
          }
-      else
+         else
          if (model.IsActive)
-      {
-         //mark as active
-         _widgetSettings.ActiveWidgetSystemNames.Add(widget.PluginDescriptor.SystemName);
-         await _settingService.SaveSettingAsync(_widgetSettings);
-      }
+         {
+            //mark as active
+            _widgetSettings.ActiveWidgetSystemNames.Add(widget.PluginDescriptor.SystemName);
+            await _settingService.SaveSettingAsync(_widgetSettings);
+         }
 
       var pluginDescriptor = widget.PluginDescriptor;
 

@@ -58,7 +58,7 @@ public class HubSensorService : IHubSensorService
    {
       ArgumentNullException.ThrowIfNull(sensor);
 
-      var sensorWidgets = _sensorWidgetRepository.Table.AsNoTracking().Where(x=>x.SensorId == sensor.Id);   
+      var sensorWidgets = _sensorWidgetRepository.Table.AsNoTracking().Where(x => x.SensorId == sensor.Id);
 
       var presentations =
          from p in _presentationRepository.Table.AsNoTracking()
@@ -170,7 +170,7 @@ public class HubSensorService : IHubSensorService
          return null;
 
       var query = from s in _sensorRepository.Table
-                  where s.SystemName == systemName && s.DeviceId == deviceId 
+                  where s.SystemName == systemName && s.DeviceId == deviceId
                   select s;
 
       // we don't use common GetAll cache becase this method uses by incomming device methods

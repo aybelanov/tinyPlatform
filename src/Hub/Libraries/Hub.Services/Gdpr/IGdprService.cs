@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core;
 using Hub.Core.Domain.Gdpr;
+using Hub.Core.Domain.Users;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Gdpr
 {

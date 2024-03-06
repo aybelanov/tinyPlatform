@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Logging;
 using Hub.Web.Areas.Admin.Models.Logging;
-using Hub.Core.Domain.Logging;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

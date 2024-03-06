@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Hub.Core.Configuration;
+using Hub.Core.Domain.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Hub.Core.Configuration;
-using Hub.Core.Domain.Configuration;
 
 namespace Hub.Services.Configuration
 {

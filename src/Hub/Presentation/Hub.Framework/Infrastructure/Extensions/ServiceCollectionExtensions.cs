@@ -305,7 +305,7 @@ public static class ServiceCollectionExtensions
 
       // policy to apply a proper scheme
       authenticationBuilder.AddPolicyScheme(AuthDefaults.MixedScheme, AuthDefaults.MixedScheme, options =>
-      { 
+      {
          options.ForwardDefaultSelector = context =>
          {
             // filter by auth type
@@ -379,7 +379,7 @@ public static class ServiceCollectionExtensions
                   if (!string.IsNullOrEmpty(systemName))
                   {
                      var deviceService = scope.ServiceProvider.GetRequiredService<IHubDeviceService>();
-                     var device = await deviceService.GetDeviceBySystemNameAsync(systemName); 
+                     var device = await deviceService.GetDeviceBySystemNameAsync(systemName);
 
                      if (device == null) reason = "Device does not exist.";
                      //else if (device.IsDeleted) reason = "Device was deleted.";
@@ -440,7 +440,7 @@ public static class ServiceCollectionExtensions
                return Task.CompletedTask;
             }
          };
-         
+
          options.MapInboundClaims = false;
          options.TokenValidationParameters = new TokenValidationParameters
          {
@@ -452,14 +452,14 @@ public static class ServiceCollectionExtensions
             ValidateLifetime = true,
             NameClaimType = "name", //ClaimTypes.Name
             RoleClaimType = "role", //ClaimTypesRole
-            RequireSignedTokens = true,  
+            RequireSignedTokens = true,
             ValidateIssuerSigningKey = true,
             ClockSkew = TimeSpan.FromSeconds(5),
             IssuerSigningKey = EncryptionHelper.RsaSecurityKey,
             TokenDecryptionKey = EncryptionHelper.SymmetricSecurityKey,
          };
       });
-     
+
       //register and configure external authentication plugins now
       var typeFinder = Singleton<ITypeFinder>.Instance;
       var externalAuthConfigurations = typeFinder.FindClassesOfType<IExternalAuthenticationRegistrar>();
@@ -469,7 +469,7 @@ public static class ServiceCollectionExtensions
       foreach (var instance in externalAuthInstances)
          instance.Configure(authenticationBuilder);
    }
- 
+
 
 
    /// <summary>

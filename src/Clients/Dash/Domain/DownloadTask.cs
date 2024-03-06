@@ -1,7 +1,6 @@
 ﻿using Shared.Clients;
-using System.ComponentModel.DataAnnotations.Schema;
-using System;
 using Shared.Common;
+using System;
 
 namespace Clients.Dash.Domain;
 
@@ -38,7 +37,7 @@ public class DownloadTask : BaseEntity, IDownloadTask
    /// <summary>
    /// Current file readiness state
    /// </summary>
-   public DownloadFileState CurrentState { get; set; }   
+   public DownloadFileState CurrentState { get; set; }
 
    /// <summary>
    /// File size

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Gdpr;
+﻿using Hub.Core.Domain.Gdpr;
 using Hub.Services.Caching;
 
 namespace Hub.Services.Gdpr.Caching

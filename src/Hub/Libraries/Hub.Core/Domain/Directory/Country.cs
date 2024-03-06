@@ -1,7 +1,5 @@
-﻿using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Localization;
+﻿using Hub.Core.Domain.Localization;
 using Shared.Common;
-using System.Collections.Generic;
 
 namespace Hub.Core.Domain.Directory;
 
@@ -55,11 +53,11 @@ public partial class Country : BaseEntity, ILocalizedEntity
    /// </summary>
    public int DisplayOrder { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<StateProvince> StateProvinces { get; set; } = new();
+   //   public List<StateProvince> StateProvinces { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

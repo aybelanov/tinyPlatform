@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Models.Common;
 

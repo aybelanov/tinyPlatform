@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Users;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
@@ -12,6 +10,8 @@ using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Users;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 

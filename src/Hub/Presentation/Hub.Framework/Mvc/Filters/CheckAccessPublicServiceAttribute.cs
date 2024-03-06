@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Hub.Data;
+using Hub.Services.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Hub.Data;
-using Hub.Services.Security;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Mvc.Filters
 {

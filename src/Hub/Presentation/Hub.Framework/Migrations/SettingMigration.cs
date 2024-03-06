@@ -1,5 +1,4 @@
-﻿using Hub.Data.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Hub.Web.Framework.Migrations;
 

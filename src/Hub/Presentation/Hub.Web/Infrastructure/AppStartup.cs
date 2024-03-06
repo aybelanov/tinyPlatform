@@ -1,7 +1,6 @@
 ﻿using Hub.Core.Infrastructure;
 using Hub.Data;
 using Hub.Services.Clients;
-using Hub.Web.Framework.Configuration;
 using Hub.Web.Framework.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +33,7 @@ public class AppStartup : IAppStartup
       services.AddAntiForgery();
       services.AddThemes();
       services.AddAppRouting();
-      services.AddAppRateLimiter(); 
+      services.AddAppRateLimiter();
       services.AddAppWebMarkupMin();
       services.AddAppMiniProfiler();
       services.AddAppDataProtection();
@@ -65,7 +64,7 @@ public class AppStartup : IAppStartup
       {
          app.UseInstallUrl();
          app.UseAppSwagger();
-         app.UseAppRequestLocalization(); 
+         app.UseAppRequestLocalization();
          app.UseMiniProfiler();
          app.UseRouting();
          app.UseGrpcWeb();
@@ -78,7 +77,7 @@ public class AppStartup : IAppStartup
          app.UseGrpcEndpoinst();
          app.UseApiEndpoinst();
       });
-     
+
       #endregion
 
       #region ipcam streamiing
@@ -113,7 +112,7 @@ public class AppStartup : IAppStartup
          app.UseMiniProfiler();
          app.UseRouting();
          app.UseAppCors();
-         app.UseAppAuthentication(); 
+         app.UseAppAuthentication();
          app.UseAuthorization();
          app.UseAppRateLimiter();
          app.UseDemoMode();

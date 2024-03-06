@@ -22,7 +22,7 @@ public partial class DevicesTable
    /// </summary>
    /// <returns>Device model collection (async operation)</returns>
    public async Task<FilterableList<DeviceModel>> PrepareDevicesModelAsync(DynamicFilter filter)
-   {      
+   {
       Func<DynamicFilter, Task<IFilterableList<Device>>> getData = await PermissionService.IsAdminModeAsync()
          ? Service.GetAllDevicesAsync
          : Service.GetOwnDevicesAsync;

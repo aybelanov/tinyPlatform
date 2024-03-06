@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Messages;
+using Hub.Core.Domain.Users;
 using Hub.Core.Events;
-using Hub.Data.Extensions;
 using Hub.Data;
+using Hub.Data.Extensions;
 using Hub.Services.Users;
 using Shared.Clients.Configuration;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Messages
 {

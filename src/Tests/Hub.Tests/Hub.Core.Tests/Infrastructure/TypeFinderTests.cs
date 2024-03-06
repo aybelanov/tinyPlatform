@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Infrastructure;
 using Hub.Tests;
+using NUnit.Framework;
+using System.Linq;
 
 namespace Hub.Core.Tests.Infrastructure;
 

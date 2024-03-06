@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Services.Security;
 using Hub.Web.Areas.Admin.Factories;
 using Hub.Web.Areas.Admin.Models.Users;
 using Microsoft.AspNetCore.Mvc;
-using Hub.Services.Security;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 

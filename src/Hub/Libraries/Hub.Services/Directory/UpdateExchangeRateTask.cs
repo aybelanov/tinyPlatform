@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Services.ScheduleTasks;
+using System;
 
 namespace Hub.Services.Directory;
 

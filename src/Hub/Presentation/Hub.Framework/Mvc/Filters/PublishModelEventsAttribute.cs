@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Hub.Core.Events;
+using Hub.Web.Framework.Events;
+using Hub.Web.Framework.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Hub.Core.Events;
-using Hub.Web.Framework.Events;
-using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Framework.Mvc.Filters
 {

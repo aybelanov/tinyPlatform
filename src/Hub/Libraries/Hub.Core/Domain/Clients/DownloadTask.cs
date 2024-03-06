@@ -1,7 +1,7 @@
 ﻿using Shared.Clients;
-using System.ComponentModel.DataAnnotations.Schema;
-using System;
 using Shared.Common;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hub.Core.Domain.Clients;
 

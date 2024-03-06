@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Infrastructure;
+using Hub.Data.Extensions;
+using Hub.Services.Localization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core.Infrastructure;
-using Hub.Core;
-using Hub.Data.Extensions;
-using Hub.Services.Localization;
-using Shared.Common;
 
 namespace Hub.Services
 {
-    /// <summary>
-    /// Extensions
-    /// </summary>
-    public static class Extensions
+   /// <summary>
+   /// Extensions
+   /// </summary>
+   public static class Extensions
    {
       /// <summary>
       /// Convert to select list

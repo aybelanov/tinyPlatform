@@ -1,11 +1,11 @@
 ﻿//This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com
 
-using System;
+using Hub.Core.Infrastructure;
+using Hub.Services.Logging;
 using MaxMind.GeoIP2;
 using MaxMind.GeoIP2.Exceptions;
 using MaxMind.GeoIP2.Responses;
-using Hub.Core.Infrastructure;
-using Hub.Services.Logging;
+using System;
 
 namespace Hub.Services.Directory;
 

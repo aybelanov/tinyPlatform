@@ -1,14 +1,11 @@
 ﻿using Devices.Dispatcher.Configuration;
-using Devices.Dispatcher.Services;
 using Devices.Dispatcher.Services.Settings;
 using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Shared.Common;
 using Shared.Devices.Proto;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

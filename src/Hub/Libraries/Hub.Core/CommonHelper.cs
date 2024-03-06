@@ -2,10 +2,10 @@
 
 namespace Hub.Core
 {
-    /// <summary>
-    /// Represents a common helper
-    /// </summary>
-    public partial class CommonHelper : Shared.Common.Helpers.CommonHelper
+   /// <summary>
+   /// Represents a common helper
+   /// </summary>
+   public partial class CommonHelper : Shared.Common.Helpers.CommonHelper
    {
       #region Methods
 

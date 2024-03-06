@@ -26,9 +26,9 @@ namespace Hub.Web.Grpc.Clients;
 public class PresentationGrpcService(IWorkContext workContext,
    IUserService userService,
    IMonitorService monitorService,
-   IPresentationService presentationService, 
+   IPresentationService presentationService,
    ISensorService sensorService,
-   IWidgetService widgetService) 
+   IWidgetService widgetService)
    : PresentationRpc.PresentationRpcBase
 {
    #region fields
@@ -127,7 +127,7 @@ public class PresentationGrpcService(IWorkContext workContext,
 
       var response = Auto.Mapper.Map<PresentationProto>(presentation);
       return response;
-   } 
+   }
 
 
    [Authorize(nameof(StandardPermissionProvider.AllowManageMonitors))]

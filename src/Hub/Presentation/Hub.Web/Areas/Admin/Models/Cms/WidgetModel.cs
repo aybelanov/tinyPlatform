@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
+using Microsoft.AspNetCore.Routing;
 
 namespace Hub.Web.Areas.Admin.Models.Cms;
 

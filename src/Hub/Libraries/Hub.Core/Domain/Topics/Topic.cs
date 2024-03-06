@@ -1,7 +1,6 @@
 ﻿using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Security;
 using Hub.Core.Domain.Seo;
-using Hub.Core.Domain.Users;
 using Shared.Common;
 
 namespace Hub.Core.Domain.Topics;
@@ -101,11 +100,11 @@ public partial class Topic : BaseEntity, ILocalizedEntity, ISlugSupported, IAclS
    /// </summary>
    public bool SubjectToAcl { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public TopicTemplate TopicTemplate { get; set; }
+   //   public TopicTemplate TopicTemplate { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

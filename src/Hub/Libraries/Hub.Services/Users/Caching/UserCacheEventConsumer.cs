@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Services.Caching;
 using Hub.Services.Events;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Users.Caching;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Blogs;
+﻿using Hub.Core.Domain.Blogs;
 using Hub.Core.Domain.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -28,8 +23,8 @@ public class BlogPostMap : AppEntityTypeConfiguration<BlogPost>
       builder.Property(p => p.Body).IsRequired();
       builder.Property(p => p.MetaKeywords).HasMaxLength(400).IsRequired(false);
       builder.Property(p => p.MetaTitle).HasMaxLength(400).IsRequired(false);
-     
-      builder.HasOne<Language>().WithMany().HasForeignKey(x=>x.LanguageId);   
+
+      builder.HasOne<Language>().WithMany().HasForeignKey(x => x.LanguageId);
 
       base.Configure(builder);
    }

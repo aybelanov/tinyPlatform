@@ -20,12 +20,12 @@
  */
 #endregion
 
+using Hub.Core;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using Hub.Core;
 
 namespace Hub.Services.Html.CodeFormatter
 {

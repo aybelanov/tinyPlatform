@@ -14,7 +14,7 @@ public static class SignalRDefaults
    /// Send sensor data method
    /// </summary>
    public static string SensorDataMethod => "SensorDataMethod";
-   
+
    /// <summary>
    /// Download task status changed method
    /// </summary>

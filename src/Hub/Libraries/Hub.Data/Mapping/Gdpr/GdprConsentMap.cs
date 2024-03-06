@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Gdpr;
+﻿using Hub.Core.Domain.Gdpr;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +16,7 @@ public class GdprConsentMap : AppEntityTypeConfiguration<GdprConsent>
    public override void Configure(EntityTypeBuilder<GdprConsent> builder)
    {
       builder.ToTable("GdprConsents");
-      builder.Property(p=>p.Message).IsRequired();
+      builder.Property(p => p.Message).IsRequired();
 
       base.Configure(builder);
    }

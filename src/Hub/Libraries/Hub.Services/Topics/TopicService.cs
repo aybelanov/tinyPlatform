@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.Topics;
 using Hub.Data;
-using Hub.Services.Users;
 using Hub.Services.Security;
+using Hub.Services.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Topics;
 

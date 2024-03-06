@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Infrastructure;
 using Hub.Services.Localization;
+using System.ComponentModel;
 
 namespace Hub.Web.Framework.Mvc.ModelBinding
 {

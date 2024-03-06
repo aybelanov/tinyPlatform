@@ -30,7 +30,7 @@ public class Worker : BackgroundService
    private HttpClient httpClient;
    private long lastConfiguration;
    private Guid dispatherProcessGuid;
-   
+
    private int handlingGnssRecord;
    private static List<GNSS> gnssData;
 
@@ -49,8 +49,8 @@ public class Worker : BackgroundService
       httpClient = _httpClientFactory.CreateClient("default");
       var gnssDataFile = _configuration["GNSSData"];
       gnssData = ParseNMEAFile(gnssDataFile).Where(x => x.Speed > 5).ToList();
-      
-      
+
+
    }
 
    #endregion
@@ -75,7 +75,7 @@ public class Worker : BackgroundService
             var observableSensors = allowedSensors.IntersectBy(installedSensorGroups.Select(x => x.SystemName.ToLower()), x => x.SystemName.ToLower());
 
             foreach (var observableSensor in observableSensors)
-               observableSensor.Group = installedSensorGroups.FirstOrDefault(x=>x.SystemName == observableSensor.SystemName).Group;  
+               observableSensor.Group = installedSensorGroups.FirstOrDefault(x => x.SystemName == observableSensor.SystemName).Group;
 
             if (observableSensors.Any())
                await SensorHandling(observableSensors, stoppingToken);
@@ -170,7 +170,7 @@ public class Worker : BackgroundService
    {
       if (sensor == null)
          throw new ArgumentNullException(nameof(sensor));
-      else if (sensor.SystemName.StartsWith("GNSS")) 
+      else if (sensor.SystemName.StartsWith("GNSS"))
          return await HandleGnssSensorAsync(sensor, token);
       else if (sensor.SystemName.StartsWith("HeartBeat"))
          return await HandleHeartBeatSensorAsync(sensor, token);
@@ -306,7 +306,7 @@ public class Worker : BackgroundService
       var grow = Math.Sin(i++ * Math.PI / beatRateArg);
       var beatRate = minBeatRate + (maxBeatRate - minBeatRate) / 2 * (1 + grow);
       await Task.Delay(beatRateUpdate, token);
-      
+
       return new SensorMessage() { Sensor = sensor, Value = beatRate, Timestamp = now };
    }
 

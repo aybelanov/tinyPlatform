@@ -1,5 +1,4 @@
-﻿using Shared.Clients.Domain;
-using Shared.Common;
+﻿using Shared.Common;
 using System;
 
 namespace Hub.Core.Domain.Clients;

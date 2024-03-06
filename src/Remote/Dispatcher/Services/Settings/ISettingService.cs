@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Devices.Dispatcher.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Devices.Dispatcher.Domain;
 
 namespace Devices.Dispatcher.Services.Settings
 {

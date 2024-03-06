@@ -1,6 +1,6 @@
-﻿using System.Text.Json.Serialization;
-using Shared.Common;
+﻿using Shared.Common;
 using Shared.Devices;
+using System.Text.Json.Serialization;
 
 namespace Devices.Dispatcher.Domain;
 

@@ -101,7 +101,7 @@ public sealed class ExportDataFileService
    {
       if (!await TryProcessInitAsync(task))
       {
-         await CancelDownloadTaskAsync(); 
+         await CancelDownloadTaskAsync();
          return;
       }
 
@@ -255,7 +255,7 @@ public sealed class ExportDataFileService
          fileStream.WriteLine($"Sensors=[{string.Join(',', _sensors.Select(x => x.SystemName))}];");
          using (var scope = _scopeFactory.CreateScope())
          {
-            using var dbContext = scope.ServiceProvider.GetService<AppDbContext>(); 
+            using var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
             dbContext.Database.SetCommandTimeout(TimeSpan.FromSeconds(600));
             var reportQuery = PrepareDataReportQuery(dbContext.Set<SensorRecord>().AsNoTracking(), _downloadRequest);
 

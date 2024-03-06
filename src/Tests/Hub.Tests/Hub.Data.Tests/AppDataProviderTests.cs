@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Hub.Core;
+﻿using FluentAssertions;
 using Hub.Core.Domain.Logging;
 using Hub.Core.Domain.Users;
-using Hub.Data;
 using Hub.Tests;
-using Hub.Web.Framework.Models.Install;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Data.Tests;
 
@@ -221,22 +217,24 @@ public class AppDataProviderTests : BaseAppTest
       using var scope = GetService<IServiceProvider>().CreateScope();
       var dataProvider = scope.ServiceProvider.GetService<AppDbContext>();
 
-      var rez = await dataProvider.ExecuteSqlCommandAsync("select * from SearchTerm");
+      //await dataProvider.ExecuteSqlCommandAsync("create table SearchTerm(Id INT, Keyword NVARCHAR, Count INT, CONSTRAINT \"PK_SearchTerm\" PRIMARY KEY (\"Id\"))");
+
+      var rez = await dataProvider.ExecuteSqlCommandAsync("select * from Logs");
       rez.Should().Be(-1);
 
-      rez = await dataProvider.ExecuteSqlCommandAsync("insert into SearchTerm(Keyword, Count) values('test task', 10)");
+      rez = await dataProvider.ExecuteSqlCommandAsync($"insert into Logs(ShortMessage, FullMessage, LogLevel, LogLevelId, CreatedOnUtc) values('test task', 'ytu oiuoiu', 10, 10, {DateTime.Now.Ticks})");
       rez.Should().Be(1);
 
-      rez = await dataProvider.ExecuteSqlCommandAsync("delete from SearchTerm where Id=0");
+      rez = await dataProvider.ExecuteSqlCommandAsync("delete from Logs where Id=0");
       rez.Should().Be(0);
 
-      var rez1 = await dataProvider.ExecuteSqlCommandAsync("select * from \"SearchTerm\"");
+      var rez1 = await dataProvider.ExecuteSqlCommandAsync("select * from \"Logs\"");
       rez1.Should().Be(-1);
 
-      rez1 = await dataProvider.ExecuteSqlCommandAsync("insert into \"SearchTerm\"(\"Keyword\", \"Count\") values('test task', 10)");
+      rez1 = await dataProvider.ExecuteSqlCommandAsync($"insert into Logs(ShortMessage, FullMessage, LogLevel, LogLevelId, CreatedOnUtc) values('test task', 'ytu oiuoiu', 10, 10, {DateTime.Now.Ticks})");
       rez1.Should().Be(1);
 
-      rez1 = await dataProvider.ExecuteSqlCommandAsync("delete from \"SearchTerm\" where \"Id\"=0");
+      rez1 = await dataProvider.ExecuteSqlCommandAsync("delete from \"Logs\" where \"Id\"=0");
       rez1.Should().Be(0);
 
       await dataProvider.TruncateAsync<Log>();
@@ -248,9 +246,9 @@ public class AppDataProviderTests : BaseAppTest
       using var scope = GetService<IServiceProvider>().CreateScope();
       var dataProvider = scope.ServiceProvider.GetService<AppDbContext>();
 
-      var rez = dataProvider.EntityFromSql<User>("select * from User");
+      var rez = dataProvider.EntityFromSql<User>("select * from Users");
       rez.Count().Should().BeGreaterThan(7);
-      var rez1 = dataProvider.EntityFromSql<User>("select * from \"User\"");
+      var rez1 = dataProvider.EntityFromSql<User>("select * from \"Users\"");
       rez1.Count().Should().BeGreaterThan(7);
    }
 

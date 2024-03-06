@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Topics;
+﻿using Hub.Core.Domain.Topics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +16,7 @@ public class TopicTemplateMap : AppEntityTypeConfiguration<TopicTemplate>
    public override void Configure(EntityTypeBuilder<TopicTemplate> builder)
    {
       builder.ToTable("TopicTemplates");
-      builder.Property(p=>p.Name).HasMaxLength(400).IsRequired();
+      builder.Property(p => p.Name).HasMaxLength(400).IsRequired();
       builder.Property(p => p.ViewPath).HasMaxLength(400).IsRequired();
 
       base.Configure(builder);

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Hub.Core;
 
 namespace Hub.Data.Migrations
 {
@@ -103,21 +100,21 @@ namespace Hub.Data.Migrations
       {
          throw new NotImplementedException();
 
-//         if (assembly is null)
-//            throw new ArgumentNullException(nameof(assembly));
+         //         if (assembly is null)
+         //            throw new ArgumentNullException(nameof(assembly));
 
-//         foreach (var migrationInfo in GetUpMigrations(assembly, migrationProcessType))
-//         {
-//            _migrationRunner.Up(migrationInfo.Migration);
+         //         foreach (var migrationInfo in GetUpMigrations(assembly, migrationProcessType))
+         //         {
+         //            _migrationRunner.Up(migrationInfo.Migration);
 
-//#if DEBUG
-//            if (!string.IsNullOrEmpty(migrationInfo.Description) &&
-//                migrationInfo.Description.StartsWith(string.Format(AppMigrationDefaults.UpdateMigrationDescriptionPrefix, AppVersion.FULL_VERSION)))
-//               continue;
-//#endif
-//            _versionLoader.Value
-//                .UpdateVersionInfo(migrationInfo.Version, migrationInfo.Description ?? migrationInfo.Migration.GetType().Name);
-//         }
+         //#if DEBUG
+         //            if (!string.IsNullOrEmpty(migrationInfo.Description) &&
+         //                migrationInfo.Description.StartsWith(string.Format(AppMigrationDefaults.UpdateMigrationDescriptionPrefix, AppVersion.FULL_VERSION)))
+         //               continue;
+         //#endif
+         //            _versionLoader.Value
+         //                .UpdateVersionInfo(migrationInfo.Version, migrationInfo.Description ?? migrationInfo.Migration.GetType().Name);
+         //         }
       }
 
       /// <summary>

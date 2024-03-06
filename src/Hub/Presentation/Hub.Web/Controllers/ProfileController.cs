@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Factories;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core.Domain.Users;
-using Hub.Services.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Services.Security;
+using Hub.Services.Users;
+using Hub.Web.Factories;
 using Hub.Web.Framework;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers
 {

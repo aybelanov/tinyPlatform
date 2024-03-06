@@ -21,7 +21,7 @@ public class ClientConnectionInfo
       UserId = userId;
       ConnectionId = hubLifetimeContext.Context.ConnectionId;
       IpAddressV4 = hubLifetimeContext.Context.GetHttpContext().Connection?.RemoteIpAddress.MapToIPv4();
-      SubcribedGroups  = new HashSet<string>();
+      SubcribedGroups = new HashSet<string>();
    }
 
    #endregion

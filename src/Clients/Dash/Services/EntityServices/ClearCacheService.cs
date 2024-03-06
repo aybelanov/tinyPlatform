@@ -1,6 +1,5 @@
 ﻿using Clients.Dash.Caching;
 using Clients.Dash.Domain;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace Clients.Dash.Services.EntityServices;
 /// <summary>
 /// Represents a clear cache service class
 /// </summary>
-public class ClearCacheService 
+public class ClearCacheService
 {
    #region fields
 

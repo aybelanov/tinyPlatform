@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Topics;
 using Hub.Core.Domain.Users;
 using Hub.Services.Common;
@@ -16,6 +14,8 @@ using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Topics;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers
 {
@@ -118,13 +118,13 @@ namespace Hub.Web.Areas.Admin.Controllers
                //new role
                if (!existingAclRecords.Any(acl => acl.UserRoleId == userRole.Id))
                   await _aclService.InsertAclRecordAsync(topic, userRole.Id);
-            else
-            {
-               //remove role
-               var aclRecordToDelete = existingAclRecords.FirstOrDefault(acl => acl.UserRoleId == userRole.Id);
-               if (aclRecordToDelete != null)
-                  await _aclService.DeleteAclRecordAsync(aclRecordToDelete);
-            }
+               else
+               {
+                  //remove role
+                  var aclRecordToDelete = existingAclRecords.FirstOrDefault(acl => acl.UserRoleId == userRole.Id);
+                  if (aclRecordToDelete != null)
+                     await _aclService.DeleteAclRecordAsync(aclRecordToDelete);
+               }
       }
 
       #endregion

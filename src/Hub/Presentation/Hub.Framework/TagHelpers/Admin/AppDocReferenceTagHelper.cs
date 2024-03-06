@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Hub.Core.Domain.Common;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.TagHelpers.Admin
 {

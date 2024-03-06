@@ -1,9 +1,4 @@
-﻿using Hub.Core.Domain.Clients;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Hub.Services.Hosted;
 
@@ -20,7 +15,7 @@ public class EventGroupRecord
    /// <summary>
    /// value records
    /// </summary>
-   public IEnumerable<ReportRecord> Records { get;set; }
+   public IEnumerable<ReportRecord> Records { get; set; }
 }
 
 /// <summary>

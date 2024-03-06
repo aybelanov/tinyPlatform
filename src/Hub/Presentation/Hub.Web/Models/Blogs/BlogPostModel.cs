@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Hub.Web.Framework.Models;
+using System;
 using System.Collections.Generic;
-using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Models.Blogs;
 

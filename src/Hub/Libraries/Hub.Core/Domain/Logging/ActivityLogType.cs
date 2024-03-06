@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Logging;
 
@@ -23,11 +22,11 @@ public partial class ActivityLogType : BaseEntity
    /// </summary>
    public bool Enabled { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   //public List<ActivityLog> ActivityLogRecords { get; set; } = new();
+   //   //public List<ActivityLog> ActivityLogRecords { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

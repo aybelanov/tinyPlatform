@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Directory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,7 +20,7 @@ public class CurrencyStateProvinceMap : AppEntityTypeConfiguration<CurrencyState
       builder.HasKey(p => new { p.CurrencyId, p.StateProvinceId });
 
       builder.HasOne<StateProvince>().WithMany().HasForeignKey(p => p.StateProvinceId);
-      builder.HasOne<Currency>().WithMany().HasForeignKey(p => p.CurrencyId);  
+      builder.HasOne<Currency>().WithMany().HasForeignKey(p => p.CurrencyId);
 
       base.Configure(builder);
    }

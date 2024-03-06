@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Models.Newsletter;
+﻿using Hub.Web.Models.Newsletter;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

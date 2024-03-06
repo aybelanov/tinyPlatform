@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Clients.Dash.Infrastructure.AutoMapper.Extensions;
 using System;
-using Clients.Dash.Infrastructure.AutoMapper.Extensions;
+using System.Threading.Tasks;
 
 namespace Clients.Dash.Pages.Configuration.Devices;
 

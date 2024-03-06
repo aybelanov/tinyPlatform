@@ -1,10 +1,9 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
+﻿using Hub.Core.Configuration;
+using Hub.Core.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
-using Hub.Core.Infrastructure;
-using Hub.Core.Configuration;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace Hub.Services.Helpers;
 

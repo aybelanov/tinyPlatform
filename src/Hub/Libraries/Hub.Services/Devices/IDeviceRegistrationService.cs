@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Services.Users;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Devices;
 

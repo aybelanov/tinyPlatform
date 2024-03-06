@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Localization;
 using Hub.Web.Areas.Admin.Models.Localization;
-using Hub.Core.Domain.Localization;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

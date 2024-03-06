@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Logging;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

@@ -9,7 +9,6 @@ using Shared.Clients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
 
@@ -136,7 +135,7 @@ public partial class DeviceDropDown
             }
 
             //Console.WriteLine(JsonSerializer.Serialize(_availableDevices));
-            
+
             //var newItems = await getData(_filter);
 
             //var items = _availableDevices.ToList();
@@ -176,7 +175,7 @@ public partial class DeviceDropDown
    private async Task DeviceChange(object obj)
    {
       _selectedDevice = obj as DeviceSelectItem;
-      await DeviceChanged.InvokeAsync(_selectedDevice);      
+      await DeviceChanged.InvokeAsync(_selectedDevice);
       await Change.InvokeAsync(_selectedDevice);
    }
 }

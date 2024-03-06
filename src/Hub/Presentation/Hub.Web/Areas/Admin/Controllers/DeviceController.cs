@@ -23,17 +23,14 @@ using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.Filters;
 using Hub.Web.Framework.TagHelpers.Shared;
-using Humanizer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Clients;
-using Shared.Common;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
@@ -110,7 +107,7 @@ public partial class DeviceController : BaseAdminController
       _userModelFactory = userModelFactory;
       _deviceRegistrationService = deviceRegistrationService;
       _deviceService = deviceService;
-      _sensorDataService = sensorDataService;   
+      _sensorDataService = sensorDataService;
       _userService = userService;
       _dateTimeHelper = dateTimeHelper;
       _emailAccountService = emailAccountService;
@@ -690,7 +687,7 @@ public partial class DeviceController : BaseAdminController
       };
 
       var culture = new CultureInfo((await _workContext.GetWorkingLanguageAsync()).LanguageCulture);
-     
+
       var result = (await _sensorDataService.GetDataStatisticsAsync(filter))
       .SelectAwait(async x => new
       {

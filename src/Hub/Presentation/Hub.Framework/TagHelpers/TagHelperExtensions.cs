@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Web.Framework.Extensions;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Web.Framework.Extensions;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Hub.Web.Framework.TagHelpers
 {

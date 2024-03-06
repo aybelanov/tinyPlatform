@@ -18,7 +18,7 @@ public class PictureMap : AppEntityTypeConfiguration<Picture>
       builder.ToTable("Pictures");
       builder.Property(p => p.MimeType).HasMaxLength(40).IsRequired();
       builder.Property(p => p.SeoFilename).HasMaxLength(300).IsRequired(false);
-    
+
       builder.HasOne<PictureBinary>().WithOne().HasForeignKey<PictureBinary>(p => p.PictureId);
 
       base.Configure(builder);

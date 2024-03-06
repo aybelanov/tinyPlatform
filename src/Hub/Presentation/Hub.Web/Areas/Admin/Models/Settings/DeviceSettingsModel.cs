@@ -1,5 +1,4 @@
 ﻿using Hub.Core.Domain.Clients;
-using Hub.Core.Domain.Users;
 using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Blogs;
 using Hub.Core.Domain.Clients;
@@ -25,6 +20,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Messages;
 
@@ -39,7 +39,7 @@ public partial class MessageTokenProvider : IMessageTokenProvider
    private readonly IActionContextAccessor _actionContextAccessor;
    private readonly IBlogService _blogService;
    private readonly IUserAttributeFormatter _userAttributeFormatter;
-   private readonly IHubDeviceService _deviceService; 
+   private readonly IHubDeviceService _deviceService;
    private readonly IUserService _userService;
    private readonly IEventPublisher _eventPublisher;
    private readonly IGenericAttributeService _genericAttributeService;
@@ -154,7 +154,7 @@ public partial class MessageTokenProvider : IMessageTokenProvider
             {
                TokenGroupNames.DeviceTokens,
                new[]
-               { 
+               {
                   "%Device.SystemName%",
                   "%Device.Name%"
                }
@@ -422,7 +422,7 @@ public partial class MessageTokenProvider : IMessageTokenProvider
       tokens.Add(new Token("User.FirstName", await _genericAttributeService.GetAttributeAsync<string>(device, AppUserDefaults.FirstNameAttribute)));
       tokens.Add(new Token("User.LastName", await _genericAttributeService.GetAttributeAsync<string>(device, AppUserDefaults.LastNameAttribute)));
       tokens.Add(new Token("Device.SystemName", device.SystemName));
-      
+
       //event notification
       await _eventPublisher.EntityTokensAddedAsync(device, tokens);
    }
@@ -573,7 +573,7 @@ public partial class MessageTokenProvider : IMessageTokenProvider
       await _eventPublisher.EntityTokensAddedAsync(privateMessage, tokens);
    }
 
-   
+
    /// <summary>
    /// Get collection of allowed (supported) message tokens for campaigns
    /// </summary>

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Hub.Web.Areas.Admin.Models.Settings;
+﻿using Hub.Web.Areas.Admin.Models.Settings;
+using System.Linq;
 
 namespace Hub.Web.Areas.Admin.Validators
 {

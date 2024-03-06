@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 
@@ -44,7 +43,7 @@ public class DynamicFilter
    /// <summary>
    /// Additional quries (values) to entities (keys)
    /// </summary>
-   public IDictionary<string, string> AdditionalQueries { get; set; } = new Dictionary<string, string>();  
+   public IDictionary<string, string> AdditionalQueries { get; set; } = new Dictionary<string, string>();
 
    /// <summary>
    /// Entity identifier set

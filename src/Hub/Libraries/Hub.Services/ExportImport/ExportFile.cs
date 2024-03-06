@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using OfficeOpenXml;
+using Shared.Clients;
+using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
@@ -7,10 +11,6 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using CsvHelper;
-using CsvHelper.Configuration;
-using OfficeOpenXml;
-using Shared.Clients;
 
 namespace Hub.Services.ExportImport;
 
@@ -326,7 +326,7 @@ public sealed class ExportFile
                await gzipStream.FlushAsync();
                await gzipFileStream.FlushAsync();
             }
-         }  
+         }
       }
    }
 

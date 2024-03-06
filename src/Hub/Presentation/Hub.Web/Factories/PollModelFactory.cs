@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Web.Models.Polls;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.Polls;
 using Hub.Data.Extensions;
 using Hub.Services.Polls;
 using Hub.Web.Infrastructure.Cache;
+using Hub.Web.Models.Polls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {
@@ -29,7 +29,7 @@ namespace Hub.Web.Factories
 
       public PollModelFactory(IPollService pollService,
           IStaticCacheManager staticCacheManager,
-          
+
           IWorkContext workContext)
       {
          _pollService = pollService;

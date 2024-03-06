@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Hub.Web.Framework.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Framework.Factories;
 

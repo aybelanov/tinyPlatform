@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Messages;
 
@@ -49,13 +48,13 @@ public partial class EmailAccount : BaseEntity
    public bool UseDefaultCredentials { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<QueuedEmail> QueuedEmails { get; set; } = new();
-//   public List<MessageTemplate> MessageTemplates { get; set; } = new();
+   //   public List<QueuedEmail> QueuedEmails { get; set; } = new();
+   //   public List<MessageTemplate> MessageTemplates { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 
 }

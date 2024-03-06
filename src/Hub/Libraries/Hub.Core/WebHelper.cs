@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using Hub.Core.Configuration;
+using Hub.Core.Http;
+using Hub.Core.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
@@ -12,9 +11,10 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
-using Hub.Core.Infrastructure;
-using Hub.Core.Configuration;
-using Hub.Core.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace Hub.Core;
 

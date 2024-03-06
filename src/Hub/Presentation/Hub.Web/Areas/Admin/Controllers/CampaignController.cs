@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Messages;
 using Hub.Services.Helpers;
 using Hub.Services.Localization;
@@ -14,6 +11,9 @@ using Hub.Web.Areas.Admin.Models.Messages;
 using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -31,7 +31,7 @@ public partial class CampaignController : BaseAdminController
    private readonly INotificationService _notificationService;
    private readonly INewsLetterSubscriptionService _newsLetterSubscriptionService;
    private readonly IPermissionService _permissionService;
-   
+
 
    #endregion
 

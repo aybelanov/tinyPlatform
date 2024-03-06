@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Domain.Common;
+using Hub.Core.Domain.Directory;
+using Hub.Core.Domain.Users;
+using Hub.Web.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Web.Models.Common;
-using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Users;
-using Hub.Core.Domain.Directory;
 
 namespace Hub.Web.Factories
 {

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.Domain.Directory;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Directory;
 
 namespace Hub.Services.Directory
 {

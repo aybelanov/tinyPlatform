@@ -1,6 +1,5 @@
 ﻿using Hub.Core.Domain.Messages;
 using Hub.Services.Caching;
-using System.Threading.Tasks;
 
 namespace Hub.Services.Messages.Caching
 {

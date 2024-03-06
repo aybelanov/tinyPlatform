@@ -1,15 +1,14 @@
 ﻿using Hub.Core.Infrastructure;
-using Hub.Web.Framework.Factories;
-using Hub.Web.Infrastructure.Installation;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Hub.Services.Clients;
 using Hub.Web.Areas.Admin.Factories;
 using Hub.Web.Areas.Admin.Helpers;
 using Hub.Web.Areas.OpenId.Factories;
-using Hub.Core;
+using Hub.Web.Framework.Factories;
+using Hub.Web.Infrastructure.Installation;
 using Hub.Web.Services;
-using Hub.Services.Clients;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hub.Web.Infrastructure;
 
@@ -66,7 +65,7 @@ public class AppliedServicesStartup : IAppStartup
       services.AddScoped<IDeviceModelFactory, DeviceModelFactory>();
 
       //openid factories
-      services.AddScoped<IOpenIdModelFactory, OpenIdModelFactory>(); 
+      services.AddScoped<IOpenIdModelFactory, OpenIdModelFactory>();
 
       //factories
       services.AddScoped<Factories.IAddressModelFactory, Factories.AddressModelFactory>();
@@ -96,7 +95,7 @@ public class AppliedServicesStartup : IAppStartup
    /// <param name="application">Builder for configuring an application's request pipeline</param>
    public void Configure(IApplicationBuilder application)
    {
-      
+
    }
 
    /// <summary>

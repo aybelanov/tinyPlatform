@@ -57,7 +57,7 @@ public class CommonGrpcService : CommonRpc.CommonRpcBase
       ILocalizationService localizationService,
       IDeviceService deviceService,
       IPictureService pictureService,
-      UserSettings userSettings, 
+      UserSettings userSettings,
       ICommunicator communicator)
    {
       _deviceRegistrationService = deviceRegistrationService;
@@ -89,8 +89,8 @@ public class CommonGrpcService : CommonRpc.CommonRpcBase
       if (!isAdmin && !(request.MonitorId > 0 || request.DeviceId > 0))
          throw new RpcException(new(StatusCode.PermissionDenied, "You cannot get not your users"));
 
-      if(!isAdmin)
-         filter.UserId = user.Id;   
+      if (!isAdmin)
+         filter.UserId = user.Id;
 
       var users = await _userService.GetUsersByFilterAsync(filter);
 
@@ -100,12 +100,12 @@ public class CommonGrpcService : CommonRpc.CommonRpcBase
          var proto = Auto.Mapper.Map<UserProto>(user);
          proto.AvatarUrl = await _pictureService.GetPictureUrlAsync(user.AvatarPictureId, 0, _userSettings.DefaultAvatarEnabled, defaultPictureType: PictureType.Avatar);
 
-         return proto;  
-         
+         return proto;
+
       }).ToListAsync();
 
       userProtos.Users.AddRange(protos);
-      return userProtos;   
+      return userProtos;
    }
 
 
@@ -158,8 +158,8 @@ public class CommonGrpcService : CommonRpc.CommonRpcBase
 
       // security
       if (!await _userService.IsAdminAsync(user))
-        _ = (await _deviceService.GetOwnDevicesAsync(new() { UserId = user.Id, DeviceId = filter.DeviceId })).FirstOrDefault()
-            ?? throw new RpcException(new(StatusCode.PermissionDenied, "It's not your device."));
+         _ = (await _deviceService.GetOwnDevicesAsync(new() { UserId = user.Id, DeviceId = filter.DeviceId })).FirstOrDefault()
+             ?? throw new RpcException(new(StatusCode.PermissionDenied, "It's not your device."));
 
       var records = await _deviceActivityService.GetActivitiesByDynamicFilterAsync(filter);
       var protos = new ActivityLogRecordProtos();
@@ -179,7 +179,7 @@ public class CommonGrpcService : CommonRpc.CommonRpcBase
       }
 
       var user = _userSettings.UsernamesEnabled ? await _userService.GetUserByUsernameAsync(request.SystemName) : await _userService.GetUserBySystemNameAsync(request.SystemName);
-      if (user is null || user.IsDeleted || !user.IsActive) 
+      if (user is null || user.IsDeleted || !user.IsActive)
       {
          var error = await _localizationService.GetResourceAsync("Account.Register.Errors.UserNotExists");
          return new CommonResponse() { Error = error };

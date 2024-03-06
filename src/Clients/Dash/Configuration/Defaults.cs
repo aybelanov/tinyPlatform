@@ -1,13 +1,8 @@
 ﻿using Clients.Dash.Infrastructure;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
-using Shared.Common.Helpers;
 using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
 
 namespace Clients.Dash.Configuration;
 
@@ -24,7 +19,7 @@ public static class Defaults
    /// To get form assembly: 
    /// System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()
    /// </remarks>
-   public const string ClientVersion = "0.20.01-beta"; 
+   public const string ClientVersion = "0.20.01-beta";
 
    /// <summary>
    /// Gets or sets the default cache time in minutes
@@ -35,7 +30,7 @@ public static class Defaults
    /// Gets or sets the short term cache time in minutes
    /// </summary>
    public static int ShortTermCacheTime { get; private set; } = 3;
-   
+
    /// <summary>
    /// name of http client for m2m api
    /// </summary>

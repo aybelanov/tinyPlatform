@@ -51,7 +51,7 @@ public partial class Localizer : ILocalizer
    {
       ArgumentNullException.ThrowIfNull(entity);
 
-      await SaveLocaleAsync(new List<T> { entity }, lang);   
+      await SaveLocaleAsync(new List<T> { entity }, lang);
    }
 
 
@@ -72,7 +72,7 @@ public partial class Localizer : ILocalizer
 
       var properties = entities[0].GetLocalizablePropertyNames();
       var entityIds = entities.Select(x => x.Id);
-     
+
       var localizedPropertyQuery =
          from p in _localizedPropertyRepository.Table
          where p.LocaleKeyGroup == typeof(T).Name && entityIds.Contains(p.EntityId)

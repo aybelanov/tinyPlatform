@@ -3,7 +3,6 @@ using Clients.Dash.Services.EntityServices;
 using Clients.Dash.Services.Localization;
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using Shared.Clients.Proto;
 using System;
 using System.Threading.Tasks;
 

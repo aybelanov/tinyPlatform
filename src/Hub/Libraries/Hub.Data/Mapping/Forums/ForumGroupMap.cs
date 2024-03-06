@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Blogs;
-using Hub.Core.Domain.Forums;
+﻿using Hub.Core.Domain.Forums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,7 +16,7 @@ public class ForumGroupMap : AppEntityTypeConfiguration<ForumGroup>
    public override void Configure(EntityTypeBuilder<ForumGroup> builder)
    {
       builder.ToTable("ForumGroups");
-      builder.Property(p => p.Name).HasMaxLength(200).IsRequired();  
+      builder.Property(p => p.Name).HasMaxLength(200).IsRequired();
 
       base.Configure(builder);
    }

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Hub.Core;
+using Hub.Core.Security;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Infrastructure;
-using Hub.Core.Security;
-using Hub.Core;
-using Microsoft.IdentityModel.Tokens;
-using System.IO;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Hub.Services.Security;
 

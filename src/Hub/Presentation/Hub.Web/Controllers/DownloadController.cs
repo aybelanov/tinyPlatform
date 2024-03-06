@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Users;
 using Hub.Services.Localization;
 using Hub.Services.Media;
-using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 

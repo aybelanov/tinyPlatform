@@ -42,7 +42,7 @@ public class SensorWidget : BaseEntity, ILocalizedEntity
    /// Mapping name
    /// </summary>
    [NotMapped, Localizable]
-   public string Name {  get; set; }
+   public string Name { get; set; }
 
    /// <summary>
    /// Mapping description

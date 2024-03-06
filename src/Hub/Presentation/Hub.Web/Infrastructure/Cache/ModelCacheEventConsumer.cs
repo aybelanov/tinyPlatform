@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Caching;
+﻿using Hub.Core.Caching;
 using Hub.Core.Domain.Configuration;
-using Hub.Core.Domain.Localization;
-using Hub.Core.Domain.Media;
 using Hub.Core.Events;
 using Hub.Services.Cms;
 using Hub.Services.Events;
 using Hub.Services.Plugins;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Infrastructure.Cache
 {
@@ -35,7 +33,7 @@ namespace Hub.Web.Infrastructure.Cache
       #endregion
 
       #region Methods
-      
+
       #region Setting
 
       /// <returns>A task that represents the asynchronous operation</returns>

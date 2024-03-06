@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
 using Hub.Services.Messages;
@@ -11,6 +8,9 @@ using Hub.Web.Areas.Admin.Models.Logging;
 using Hub.Web.Framework.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -30,7 +30,7 @@ public partial class DeviceActivityLogController : BaseAdminController
    #region Ctor
 
    public DeviceActivityLogController(IActivityLogModelFactory activityLogModelFactory,
-       IUserActivityService userActivityService, 
+       IUserActivityService userActivityService,
        IDeviceActivityService deviceActivityService,
        ILocalizationService localizationService,
        INotificationService notificationService,

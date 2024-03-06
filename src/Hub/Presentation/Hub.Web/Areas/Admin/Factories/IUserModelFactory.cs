@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Users;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Users;
 using Hub.Web.Areas.Admin.Models.Gdpr;
+using Hub.Web.Areas.Admin.Models.Users;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 
@@ -53,7 +53,7 @@ public partial interface IUserModelFactory
    /// A task that represents the asynchronous operation
    /// The task result contains the user own device list model
    /// </returns>
-   Task<UserOwnDeviceListModel> PrepareUserOwnDeviceListModelAsync(UserDeviceSearchModel  searchModel, User user);
+   Task<UserOwnDeviceListModel> PrepareUserOwnDeviceListModelAsync(UserDeviceSearchModel searchModel, User user);
 
    /// <summary>
    /// Prepare paged user shared device list model

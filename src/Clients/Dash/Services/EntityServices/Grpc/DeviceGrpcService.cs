@@ -98,7 +98,7 @@ public class DeviceGrpcService : IDeviceService
          var query = await _grpcClient.GetOwnDevicesAsync(filterProto);
 
          var devices = Auto.Mapper.Map<FilterableList<Device>>(query.Devices);
-         devices.TotalCount = query.TotalCount ?? 0;   
+         devices.TotalCount = query.TotalCount ?? 0;
 
          foreach (var device in devices)
          {
@@ -129,7 +129,7 @@ public class DeviceGrpcService : IDeviceService
 
          var devices = Auto.Mapper.Map<FilterableList<Device>>(query.Devices);
          devices.TotalCount = query.TotalCount ?? 0;
-         
+
          foreach (var device in devices)
          {
             var monitorCacheKey = _staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Device>.ByIdCacheKey, device.Id);
@@ -247,7 +247,7 @@ public class DeviceGrpcService : IDeviceService
    public async Task<Device> GetByIdAsync(long id)
    {
       ArgumentOutOfRangeException.ThrowIfLessThan(id, 1);
-     
+
       var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Device>.ByIdCacheKey, id);
 
       Func<Task<Device>> acquire = async () =>
@@ -381,7 +381,7 @@ public class DeviceGrpcService : IDeviceService
    /// <returns></returns>
    /// <exception cref="ArgumentException"></exception>
    /// <exception cref="ArgumentOutOfRangeException"></exception>
-   public async Task ChangePassword(long deviceId, string password) 
+   public async Task ChangePassword(long deviceId, string password)
    {
       ArgumentException.ThrowIfNullOrWhiteSpace(password);
       ArgumentOutOfRangeException.ThrowIfLessThan(deviceId, 1);
@@ -404,7 +404,7 @@ public class DeviceGrpcService : IDeviceService
    {
       ArgumentNullException.ThrowIfNull(model);
       ArgumentOutOfRangeException.ThrowIfNotEqual(model.Id, 0);
-      
+
       // insert in data base
       var proto = Auto.Mapper.Map<DeviceProto>(model);
       var reply = await _grpcClient.InsertAsync(proto);

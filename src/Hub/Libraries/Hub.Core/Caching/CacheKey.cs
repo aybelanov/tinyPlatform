@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Hub.Core.Configuration;
+using Hub.Core.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hub.Core.Configuration;
-using Hub.Core.Infrastructure;
 
 namespace Hub.Core.Caching;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Topics;
+﻿using Hub.Core.Domain.Topics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +16,7 @@ public class TopicMap : AppEntityTypeConfiguration<Topic>
    public override void Configure(EntityTypeBuilder<Topic> builder)
    {
       builder.ToTable("Topics");
-      builder.HasOne<TopicTemplate>().WithMany().HasForeignKey(p=>p.TopicTemplateId); 
+      builder.HasOne<TopicTemplate>().WithMany().HasForeignKey(p => p.TopicTemplateId);
 
       base.Configure(builder);
    }

@@ -241,7 +241,7 @@ public static partial class AppLinksDefaults
       /// Gets parameters used on admin area 'choose a theme' page
       /// </summary>
       public static string OnAdminThemes => "?utm_source=admin-panel&utm_medium=menu&utm_campaign=marketplace&utm_content=general-common-theme";
-     
+
       /// <summary>
       /// Gets parameters used on install
       /// </summary>

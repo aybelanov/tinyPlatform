@@ -115,5 +115,5 @@ public class AppInfoSettings : ISettings
    /// <summary>
    /// Copyright
    /// </summary>
-   public bool HidePoweredBy {get; set;}
+   public bool HidePoweredBy { get; set; }
 }

@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Hub.Core;
+﻿using Hub.Core;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using System.Linq;
 
 namespace Hub.Web.Framework.Mvc.ModelBinding
 {

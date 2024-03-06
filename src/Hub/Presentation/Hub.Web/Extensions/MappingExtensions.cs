@@ -1,5 +1,5 @@
-﻿using Hub.Web.Models.Common;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
+using Hub.Web.Models.Common;
 
 namespace Hub.Web.Extensions
 {

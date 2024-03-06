@@ -29,7 +29,7 @@ public partial record OnlineUserSearchModel : BaseSearchModel
    [AppResourceDisplayName("Admin.Users.Online.List.SearchLastActivityFrom")]
    [UIHint("DateTimeNullable")]
    public DateTime? SearchLastActivityFrom { get; set; }
-   
+
    [AppResourceDisplayName("Admin.Users.Online.List.SearchLastActivityTo")]
    [UIHint("DateTimeNullable")]
    public DateTime? SearchLastActivityTo { get; set; }

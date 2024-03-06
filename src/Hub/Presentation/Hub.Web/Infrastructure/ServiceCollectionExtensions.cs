@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Hub.Core.Configuration;
+﻿using Hub.Core.Configuration;
 using Hub.Core.Infrastructure;
 using Hub.Web.Grpc.Clients;
 using Hub.Web.Grpc.Devices;
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace Hub.Web.Infrastructure;
 
@@ -34,7 +33,7 @@ public static class ServiceCollectionExtensions
          o.AddFilter<SubscribeGroupsFilter>();
       })
       .AddHubOptions<DeviceHub>(o => o.AddFilter<SubscribeGroupsFilter>());
-      
+
       services.AddResponseCompression(opts => opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" }));
    }
 
@@ -42,7 +41,7 @@ public static class ServiceCollectionExtensions
    /// Adds Grpc services
    /// </summary>
    /// <param name="services">Service collection</param>
-   public static void AddAppGrpc(this IServiceCollection services) 
+   public static void AddAppGrpc(this IServiceCollection services)
    {
       var commonConfig = Singleton<AppSettings>.Instance.Get<CommonConfig>();
       services.AddGrpc(c => c.EnableDetailedErrors = commonConfig.DisplayFullErrorStack)

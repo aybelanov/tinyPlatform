@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Events;
+﻿using Hub.Core.Events;
 using Hub.Core.Infrastructure;
 using Hub.Services.Logging;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Events;
 

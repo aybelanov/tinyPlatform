@@ -1,8 +1,7 @@
-﻿using Clients.Dash.Infrastructure;
+﻿using Clients.Dash.Configuration;
+using Clients.Dash.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Shared.Clients;
-using Clients.Dash.Configuration;
 
 namespace Clients.Dash.Services.Authentication;
 

@@ -16,7 +16,6 @@ using Hub.Web.Framework.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Shared.Clients;
 using Shared.Clients.Configuration;
@@ -41,7 +40,6 @@ public class DeviceGrpcService(IDeviceService deviceService,
   DeviceSettings deviceSettings,
   UserSettings userSettings,
   IDeviceActivityService deviceActivityService,
-  IHttpContextAccessor httpContextAccessor,
   IDeviceRegistrationService deviceRegistrationService,
   IUserService userService) : DeviceRpc.DeviceRpcBase
 {
@@ -51,7 +49,7 @@ public class DeviceGrpcService(IDeviceService deviceService,
    private readonly IHubDeviceService _hubDeviceService = hubDeviceService;
    private readonly IPictureService _pictureService = pictureService;
    private readonly IWorkContext _workContext = workContext;
-   private readonly ICommunicator _communicator = communicator;   
+   private readonly ICommunicator _communicator = communicator;
    private readonly DeviceSettings _deviceSettings = deviceSettings;
    private readonly UserSettings _userSettings = userSettings;
    private readonly IUserService _userService = userService;
@@ -70,7 +68,7 @@ public class DeviceGrpcService(IDeviceService deviceService,
    /// <param name="request">Inbound request</param>
    /// <param name="device">Checking device</param>
    /// <returns>Bool result (true, false)</returns>
-   private bool IsConfigurationChanged(DeviceProto request, Device device)
+   private static bool IsConfigurationChanged(DeviceProto request, Device device)
    {
       return !request.SystemName.Equals(device.SystemName)
           || request.ClearDataDelay != device.ClearDataDelay
@@ -89,10 +87,10 @@ public class DeviceGrpcService(IDeviceService deviceService,
    {
       // add subscriptions to device message (status and others)
       var connectionId = await _workContext.GetCurrentConncetionIdAsync();
-     
+
       if (string.IsNullOrEmpty(connectionId))
          return;
-     
+
       var groups = devices.Select(x => $"{nameof(Device)}_{x.Id}");
       await _communicator.AddClientToGroupsAsync(connectionId, groups);
    }
@@ -148,7 +146,7 @@ public class DeviceGrpcService(IDeviceService deviceService,
       var user = await _workContext.GetCurrentUserAsync();
       var device = await _hubDeviceService.GetDeviceByIdAsync(request.Id);
 
-      if(device == null)
+      if (device == null)
          return new Empty();
 
       if (user.Id != device.OwnerId && !await _userService.IsAdminAsync(user))
@@ -178,7 +176,7 @@ public class DeviceGrpcService(IDeviceService deviceService,
    {
       var user = await _workContext.GetCurrentUserAsync();
       var filter = Auto.Mapper.Map<DynamicFilter>(request);
-      filter.UserId = user.Id;   
+      filter.UserId = user.Id;
 
       var devices = await _deviceService.GetOwnDevicesAsync(filter);
       var protos = await PrepareDeviceProtosAsync(devices);
@@ -281,10 +279,10 @@ public class DeviceGrpcService(IDeviceService deviceService,
 
          // save device configuration for further syncronization with the dispatcher
          await _gaService.SaveAttributeAsync(device, ClientDefaults.DeviceConfigurationVersion, DateTime.UtcNow.Ticks);
-         
+
          var deviceProto = Auto.Mapper.Map<DeviceProto>(device);
          deviceProto.PictureUrl = await _pictureService.GetPictureUrlAsync(device.PictureId);
-         
+
          await SubscribeToDeviceMessages(new[] { device });
 
          return deviceProto;
@@ -401,8 +399,8 @@ public class DeviceGrpcService(IDeviceService deviceService,
       if (!await _userService.IsAdminAsync(subject) && !await _deviceService.IsUserDeviceAsync(subject.Id, request.EntityId))
          throw new RpcException(new(StatusCode.PermissionDenied, "You cannot share not your own device"));
 
-      var user = _userSettings.UsernamesEnabled 
-         ? await _userService.GetUserByUsernameAsync(request.UserName) 
+      var user = _userSettings.UsernamesEnabled
+         ? await _userService.GetUserByUsernameAsync(request.UserName)
          : await _userService.GetUserByEmailAsync(request.UserName);
 
       await _deviceService.ShareDeviceAsync(user.Id, request.EntityId);

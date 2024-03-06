@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Web.Models.User;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 

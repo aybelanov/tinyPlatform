@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Configuration;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Blogs;
@@ -34,6 +30,10 @@ using Hub.Web.Areas.Admin.Models.Settings;
 using Hub.Web.Framework.Configuration;
 using Hub.Web.Framework.Factories;
 using Hub.Web.Framework.Models.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 
@@ -599,7 +599,7 @@ public partial class SettingModelFactory : ISettingModelFactory
       model ??= new AppSettingsModel
       {
          CacheConfigModel = _appSettings.Get<CacheConfig>().ToConfigModel<CacheConfigModel>(),
-         SecurityConfigModel = _appSettings.Get<SecurityConfig>().ToConfigModel<SecurityConfigModel>(),  
+         SecurityConfigModel = _appSettings.Get<SecurityConfig>().ToConfigModel<SecurityConfigModel>(),
          HostingConfigModel = _appSettings.Get<HostingConfig>().ToConfigModel<HostingConfigModel>(),
          DistributedCacheConfigModel = _appSettings.Get<DistributedCacheConfig>().ToConfigModel<DistributedCacheConfigModel>(),
          AzureBlobConfigModel = _appSettings.Get<AzureBlobConfig>().ToConfigModel<AzureBlobConfigModel>(),

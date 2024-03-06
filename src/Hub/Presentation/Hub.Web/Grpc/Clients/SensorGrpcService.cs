@@ -39,9 +39,9 @@ public class SensorGrpcService(IWorkContext workContext,
 
    #region Utils
 
-   private Task<bool> IsConfigurationChanged(SensorProto request, Sensor sensor) 
+   private Task<bool> IsConfigurationChanged(SensorProto request, Sensor sensor)
    {
-      var result = 
+      var result =
       !(string.IsNullOrWhiteSpace(request.Configuration) && string.IsNullOrWhiteSpace(sensor.Configuration))
       || JToken.DeepEquals(request.Configuration?.Trim() ?? "{}", sensor.Configuration?.Trim() ?? "{}")
       || request.SystemName != sensor.SystemName
@@ -55,7 +55,7 @@ public class SensorGrpcService(IWorkContext workContext,
 
    #region Methods
 
-   [Authorize( Roles = UserDefaults.TelemetryAdminRoles)]
+   [Authorize(Roles = UserDefaults.TelemetryAdminRoles)]
    public override async Task<Empty> Delete(IdProto request, ServerCallContext context)
    {
       var sensor = await hubSensorService.GetSensorByIdAsync(request.Id);
@@ -76,11 +76,11 @@ public class SensorGrpcService(IWorkContext workContext,
 
    [Authorize(nameof(StandardPermissionProvider.AllowGetData))]
    public override async Task<SensorProtos> GetSensors(FilterProto request, ServerCallContext context)
-   {     
+   {
       var user = await workContext.GetCurrentUserAsync();
-      
+
       // security
-      if(!await userService.IsAdminAsync(user))
+      if (!await userService.IsAdminAsync(user))
          request.UserId = user.Id;
 
       var filter = Auto.Mapper.Map<DynamicFilter>(request);
@@ -136,7 +136,7 @@ public class SensorGrpcService(IWorkContext workContext,
 
       var user = await workContext.GetCurrentUserAsync();
 
-      var device = await hubDeviceService.GetDeviceByIdAsync(request.DeviceId) 
+      var device = await hubDeviceService.GetDeviceByIdAsync(request.DeviceId)
          ?? throw new RpcException(new(StatusCode.NotFound, "Device not found"));
 
       if (device.OwnerId != user.Id && !await userService.IsAdminAsync(user))
@@ -154,7 +154,7 @@ public class SensorGrpcService(IWorkContext workContext,
       return sensorProto;
    }
 
-   [Authorize( Roles = UserDefaults.TelemetryAdminRoles)]
+   [Authorize(Roles = UserDefaults.TelemetryAdminRoles)]
    public override async Task<SensorProto> Update(SensorProto request, ServerCallContext context)
    {
       ArgumentOutOfRangeException.ThrowIfLessThan(request.DeviceId, 1);
@@ -170,7 +170,7 @@ public class SensorGrpcService(IWorkContext workContext,
       var sensor = await hubSensorService.GetSensorByIdAsync(request.Id)
          ?? throw new RpcException(new(StatusCode.NotFound, "Sensor not found"));
 
-      if(sensor.DeviceId != device.Id)
+      if (sensor.DeviceId != device.Id)
          throw new RpcException(new(StatusCode.Aborted, "Bad request"));
 
       var isConfigChanged = await IsConfigurationChanged(request, sensor);
@@ -178,7 +178,7 @@ public class SensorGrpcService(IWorkContext workContext,
       Auto.Mapper.Map(request, sensor);
       await sensorService.UpdateAsync(sensor);
 
-      if(isConfigChanged)
+      if (isConfigChanged)
          await genericAttributeService.SaveAttributeAsync(device, ClientDefaults.DeviceConfigurationVersion, DateTime.UtcNow.Ticks);
 
       var response = Auto.Mapper.Map<SensorProto>(sensor);
@@ -187,7 +187,7 @@ public class SensorGrpcService(IWorkContext workContext,
       return response;
    }
 
-   [Authorize( Roles = UserDefaults.TelemetryAdminRoles)]
+   [Authorize(Roles = UserDefaults.TelemetryAdminRoles)]
    public override async Task<CommonResponse> CheckSystemNameAvailability(SystemNameAvailabilityRequest request, ServerCallContext context)
    {
       ArgumentException.ThrowIfNullOrWhiteSpace(request.SystemName);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.News;
@@ -22,6 +19,9 @@ using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.Filters;
 using Hub.Web.Models.News;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -59,8 +59,8 @@ public partial class NewsController : BasePublicController
        INewsModelFactory newsModelFactory,
        INewsService newsService,
        IPermissionService permissionService,
-       
-       
+
+
        IUrlRecordService urlRecordService,
        IWebHelper webHelper,
        IWorkContext workContext,
@@ -77,8 +77,8 @@ public partial class NewsController : BasePublicController
       _newsModelFactory = newsModelFactory;
       _newsService = newsService;
       _permissionService = permissionService;
-      
-      
+
+
       _urlRecordService = urlRecordService;
       _webHelper = webHelper;
       _workContext = workContext;

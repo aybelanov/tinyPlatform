@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Topics;
 using Hub.Data.Extensions;
 using Hub.Services.Localization;
@@ -14,6 +11,9 @@ using Hub.Web.Framework.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

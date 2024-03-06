@@ -3,7 +3,6 @@ using Shared.Clients;
 using Shared.Clients.Proto;
 using Shared.Common;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -27,7 +26,7 @@ public static class Extensions
    {
       if (!string.IsNullOrWhiteSpace(filter.Query))
       {
-         var lambda = DynamicExpressionParser.ParseLambda<IQueryable<T>, IQueryable<T>>(new ParsingConfig(), true, 
+         var lambda = DynamicExpressionParser.ParseLambda<IQueryable<T>, IQueryable<T>>(new ParsingConfig(), true,
             filter.Query, filter.Ids, filter.UserIds, filter.DeviceIds, filter.SensorIds, filter.MonitorIds, filter.WidgetIds);
 
          var func = lambda.Compile();
@@ -85,7 +84,7 @@ public static class Extensions
    {
       if (!string.IsNullOrWhiteSpace(filter.Filter))
          query = query.Where(filter.Filter);
-      
+
       var totalCount = await query.CountAsync();
 
       if (filter.CountOnly || totalCount == 0)
@@ -105,8 +104,8 @@ public static class Extensions
       if (filter.Top.HasValue)
          query = query.Take(filter.Top.Value);
 
-      if(postQuery != null)
-         query = postQuery(query);  
+      if (postQuery != null)
+         query = postQuery(query);
 
       return new FilterableList<T>(query, totalCount);
    }
@@ -118,7 +117,7 @@ public static class Extensions
    /// <returns></returns>
    public static DynamicFilter ToFilter(this FilterProto protoFilter)
    {
-      return Auto.Mapper.Map<DynamicFilter>(protoFilter);   
+      return Auto.Mapper.Map<DynamicFilter>(protoFilter);
    }
 
    /// <summary>

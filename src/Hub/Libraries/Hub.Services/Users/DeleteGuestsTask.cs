@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Services.ScheduleTasks;
+using System;
 
 namespace Hub.Services.Users;
 

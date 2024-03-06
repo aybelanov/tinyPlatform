@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Hub.Web.Areas.Admin.Models.Users;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
-using Shared.Clients.Domain;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Areas.Admin.Models.Devices;
 

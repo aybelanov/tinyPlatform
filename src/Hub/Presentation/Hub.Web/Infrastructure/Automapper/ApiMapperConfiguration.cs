@@ -31,12 +31,12 @@ public class ApiMapperConfiguration : Profile, IOrderedMapperProfile
          .ForMember(dest => dest.To, opt => opt.MapFrom(src => src.To.ToDateTimeFromUinxEpoch()))
          .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.From.ToDateTimeFromUinxEpoch()))
          .ForMember(dest => dest.TimeSpan, opt => opt.MapFrom(src => src.TimeSpan.ToNullableTimeSpan()))
-         .ForMember(dest => dest.ConnectionStatuses, opt=> opt.MapFrom(source=> source.ConnectionStatuses.Select(x=> (OnlineStatus)x)));
+         .ForMember(dest => dest.ConnectionStatuses, opt => opt.MapFrom(source => source.ConnectionStatuses.Select(x => (OnlineStatus)x)));
 
       CreateMap<User, UserProto>()
          .ForMember(dest => dest.LastActivityUtc, opt => opt.MapFrom(source => source.LastActivityUtc.ToUnixEpochTime()));
-      
-      CreateMap<ActivityLog, ActivityLogRecordProto>().ForMember(dest=>dest.CreatedOnUtc, opt=> opt.MapFrom(source => source.CreatedOnUtc.ToUnixEpochTime()));
+
+      CreateMap<ActivityLog, ActivityLogRecordProto>().ForMember(dest => dest.CreatedOnUtc, opt => opt.MapFrom(source => source.CreatedOnUtc.ToUnixEpochTime()));
 
       CreateMap<Monitor, MonitorProto>();
       CreateMap<MonitorProto, Monitor>();
@@ -58,7 +58,7 @@ public class ApiMapperConfiguration : Profile, IOrderedMapperProfile
 
       CreateMap<Device, Shared.Clients.Proto.DeviceProto>()
          .ForMember(dest => dest.Password, opt => opt.Ignore())
-         .ForMember(dest=>dest.LastActivityDate, opt=>opt.MapFrom(source => source.LastActivityOnUtc.ToUnixEpochTime()));
+         .ForMember(dest => dest.LastActivityDate, opt => opt.MapFrom(source => source.LastActivityOnUtc.ToUnixEpochTime()));
 
       CreateMap<Shared.Clients.Proto.DeviceProto, Device>()
          .ForMember(dest => dest.CreatedOnUtc, opt => opt.Ignore())
@@ -72,7 +72,7 @@ public class ApiMapperConfiguration : Profile, IOrderedMapperProfile
          .ForMember(dest => dest.AdminComment, opt => opt.Ignore())
          .ForMember(dest => dest.OwnerName, opt => opt.Ignore())
          .ForMember(dest => dest.ConnectionStatus, opt => opt.Ignore())
-         .ForMember(dest => dest.LastActivityOnUtc, opt=>opt.Ignore());
+         .ForMember(dest => dest.LastActivityOnUtc, opt => opt.Ignore());
 
       CreateMap<DeviceSelectItem, DeviceSelectItemProto>();
       CreateMap<DeviceMapItem, DeviceMapItemProto>();
@@ -100,13 +100,13 @@ public class ApiMapperConfiguration : Profile, IOrderedMapperProfile
          .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.From.ToDateTimeFromUinxEpoch()));
 
       CreateMap<ChartRequestProto, ChartRequest>()
-         .ForMember(dest=>dest.From, opt=>opt.MapFrom(src => src.From.ToDateTimeFromUinxEpoch()))
-         .ForMember(dest=>dest.To, opt=>opt.MapFrom(src => src.To.ToDateTimeFromUinxEpoch()));
+         .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.From.ToDateTimeFromUinxEpoch()))
+         .ForMember(dest => dest.To, opt => opt.MapFrom(src => src.To.ToDateTimeFromUinxEpoch()));
       CreateMap<ChartSet, ChartSetProto>();
       CreateMap<ChartPoint, ChartPointProto>();
 
       CreateMap<DataStaticticsItem, DataStatisticsProto>()
-         .ForMember(dest=> dest.Value, opt=>opt.MapFrom(source => source.RecordCount));
+         .ForMember(dest => dest.Value, opt => opt.MapFrom(source => source.RecordCount));
 
       CreateMap<VideoSegment, VideoSegmentProto>()
         .ForMember(dest => dest.OnCreatedUtc, opt => opt.MapFrom(src => src.OnCreatedUtc.ToUnixEpochTime()))

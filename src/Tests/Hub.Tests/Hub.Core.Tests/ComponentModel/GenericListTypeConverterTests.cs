@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.ComponentModel;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Hub.Core.Tests.ComponentModel;
 

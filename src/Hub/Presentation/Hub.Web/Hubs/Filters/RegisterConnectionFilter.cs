@@ -14,7 +14,7 @@ namespace Hub.Web.Hubs.Filters;
 /// Represents a signalr filter 
 /// that register connection with the communicator
 /// </summary>
-public class RegisterConnectionFilter(ICommunicator communicator, IWorkContext workContext,  IUserService userService,
+public class RegisterConnectionFilter(ICommunicator communicator, IWorkContext workContext, IUserService userService,
    IUserActivityService userActivityService, AppSettings appSetiing) : IHubFilter
 {
    #region fields
@@ -49,7 +49,7 @@ public class RegisterConnectionFilter(ICommunicator communicator, IWorkContext w
       var userConnections = await _communicator.GetUserConnectionsInfoAsync(user.Id);
       if (!await _userService.IsAdminAsync(user) && userConnections.Count + 1 > _commonConfig.ConnectionPerUser)
       {
-         var ips = string.Join(", ", userConnections.Select(x=>x.IpAddressV4.ToString()));
+         var ips = string.Join(", ", userConnections.Select(x => x.IpAddressV4.ToString()));
          throw new AppException($"Connection error. User {user.Email} has already connected from IP(s): {ips}.");
          //context.Hub.Context.Abort();
          //return;

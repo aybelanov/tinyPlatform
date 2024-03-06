@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Users;
 using Hub.Data.Extensions;
 using Hub.Services.Seo;
@@ -10,6 +6,9 @@ using Hub.Services.Users;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Users;
 using Hub.Web.Framework.Models.Extensions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {
@@ -122,7 +121,7 @@ namespace Hub.Web.Areas.Admin.Factories
          return Task.FromResult(model);
       }
 
-     
+
       #endregion
    }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Localization;
 using Shared.Common;
 
@@ -40,11 +38,11 @@ public partial class UserAttribute : BaseEntity, ILocalizedEntity
       set => AttributeControlTypeId = (int)value;
    }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<UserAttributeValue> UserAttributeValues { get; set; } = new();
+   //   public List<UserAttributeValue> UserAttributeValues { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

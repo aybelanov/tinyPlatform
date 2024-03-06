@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Configuration;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Blogs;
@@ -47,6 +41,12 @@ using Hub.Web.Framework.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -548,7 +548,7 @@ public partial class SettingController : BaseAdminController
          newsSettings = model.ToSettings(newsSettings);
 
          await _settingService.SaveSettingAsync(newsSettings);
-         
+
          //now clear settings cache
          await _settingService.ClearCacheAsync();
 
@@ -612,7 +612,7 @@ public partial class SettingController : BaseAdminController
          mediaSettings = model.ToSettings(mediaSettings);
 
          await _settingService.SaveSettingAsync(mediaSettings);
-         
+
          //now clear settings cache
          await _settingService.ClearCacheAsync();
 
@@ -639,7 +639,7 @@ public partial class SettingController : BaseAdminController
          return AccessDeniedView();
 
       await _pictureService.SetIsStoreInDbAsync(!await _pictureService.IsStoreInDbAsync());
-     
+
       //activity log
       await _userActivityService.InsertActivityAsync("EditSettings", await _localizationService.GetResourceAsync("ActivityLog.EditSettings"));
 
@@ -899,7 +899,7 @@ public partial class SettingController : BaseAdminController
          seoSettings.CustomHeadTags = model.SeoSettings.CustomHeadTags;
 
          await _settingService.SaveSettingAsync(seoSettings);
-         
+
          //security settings
          var securitySettings = await _settingService.LoadSettingAsync<SecuritySettings>();
          if (securitySettings.AdminAreaAllowedIpAddresses == null)
@@ -944,7 +944,7 @@ public partial class SettingController : BaseAdminController
          pdfSettings.InvoiceFooterTextColumn2 = model.PdfSettings.InvoiceFooterTextColumn2;
 
          await _settingService.SaveSettingAsync(pdfSettings);
-         
+
          //localization settings
          var localizationSettings = await _settingService.LoadSettingAsync<LocalizationSettings>();
          localizationSettings.UseImagesForLanguageSelection = model.LocalizationSettings.UseImagesForLanguageSelection;
@@ -987,7 +987,7 @@ public partial class SettingController : BaseAdminController
          displayDefaultFooterItemSettings.DisplayForumsFooterItem = model.DisplayDefaultFooterItemSettings.DisplayForumsFooterItem;
 
          await _settingService.SaveSettingAsync(displayDefaultFooterItemSettings);
-        
+
          //admin area
          var adminAreaSettings = await _settingService.LoadSettingAsync<AdminAreaSettings>();
 

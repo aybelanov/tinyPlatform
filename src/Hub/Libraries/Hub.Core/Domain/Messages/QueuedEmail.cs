@@ -1,6 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Common;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Messages;
 
@@ -113,11 +112,11 @@ public partial class QueuedEmail : BaseEntity
       set => PriorityId = (int)value;
    }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public EmailAccount EmailAccount { get; set; }
+   //   public EmailAccount EmailAccount { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

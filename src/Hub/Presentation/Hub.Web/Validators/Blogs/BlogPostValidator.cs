@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.Blogs;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.Blogs;
 
 namespace Hub.Web.Validators.Blogs;
 

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Users;
 using Shared.Clients;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Users;
 
@@ -43,7 +43,7 @@ public partial interface IUserService
    /// </returns>
    Task<IPagedList<User>> GetAllUsersAsync(DateTime? createdFromUtc = null, DateTime? createdToUtc = null, long[] userRoleIds = null, long[] deviceIds = null,
       string email = null, string username = null, string firstName = null, string lastName = null, int dayOfBirth = 0, int monthOfBirth = 0, string company = null,
-      string phone = null, string zipPostalCode = null, string ipAddress = null, DateTime? lastActivityFromUtc = null, DateTime? lastActivityToUtc = null, 
+      string phone = null, string zipPostalCode = null, string ipAddress = null, DateTime? lastActivityFromUtc = null, DateTime? lastActivityToUtc = null,
       int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false);
 
    /// <summary>
@@ -66,8 +66,8 @@ public partial interface IUserService
    /// A task that represents the asynchronous operation
    /// The task result contains the users
    /// </returns>
-   Task<IPagedList<User>> GetOnlineUsersAsync(long[] onlineIds, DateTime? lastActivityFromUtc = null, DateTime? lastActivityToUtc = null, long[] userRoleIds = null, 
-      string email = null, string company = null, string ipAddress = null, bool online = false,  bool beenRecently = false, bool offline = false, DateTime? utcNow = null,
+   Task<IPagedList<User>> GetOnlineUsersAsync(long[] onlineIds, DateTime? lastActivityFromUtc = null, DateTime? lastActivityToUtc = null, long[] userRoleIds = null,
+      string email = null, string company = null, string ipAddress = null, bool online = false, bool beenRecently = false, bool offline = false, DateTime? utcNow = null,
       int pageIndex = 0, int pageSize = int.MaxValue);
 
    /// <summary>

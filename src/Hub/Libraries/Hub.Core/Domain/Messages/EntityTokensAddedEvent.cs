@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
+using System.Collections.Generic;
 
 namespace Hub.Core.Domain.Messages
 {

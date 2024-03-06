@@ -1,6 +1,5 @@
 ﻿using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Directory;
-using Hub.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

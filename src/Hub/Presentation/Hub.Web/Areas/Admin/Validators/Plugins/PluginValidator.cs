@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using Hub.Web.Areas.Admin.Models.Plugins;
 using Hub.Services.Localization;
+using Hub.Web.Areas.Admin.Models.Plugins;
 using Hub.Web.Framework.Validators;
 
 namespace Hub.Web.Areas.Admin.Validators.Plugins

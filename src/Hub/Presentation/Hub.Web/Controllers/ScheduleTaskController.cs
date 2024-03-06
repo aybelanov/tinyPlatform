@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Services.ScheduleTasks;
 using Microsoft.AspNetCore.Mvc;
-using Hub.Services.ScheduleTasks;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 

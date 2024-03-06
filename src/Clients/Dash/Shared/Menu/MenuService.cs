@@ -217,7 +217,7 @@ public class MenuService
          monitors = (await _monitorService.GetOwnMonitorsAsync(_menuQuery)).OrderBy(x => x.DisplayOrder);
 
          if (!string.IsNullOrWhiteSpace(term))
-            monitors = monitors.Where(x=>x.Name.Contains(term));
+            monitors = monitors.Where(x => x.Name.Contains(term));
       }
       catch (Exception ex)
       {

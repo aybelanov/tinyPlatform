@@ -1,8 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Forums;
-using System.Collections.Generic;
-using Shared.Common;
-using Hub.Core.Domain.Users;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Gdpr;
 
@@ -50,12 +47,12 @@ public partial class GdprLog : BaseEntity
       set => RequestTypeId = (int)value;
    }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
-//   public GdprConsent GdprConsent { get; set; }
+   //   public User User { get; set; }
+   //   public GdprConsent GdprConsent { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

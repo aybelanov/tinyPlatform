@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Seo;
 using Hub.Data;
 using Hub.Data.Extensions;
-using Hub.Services.Common;
 using Hub.Services.Localization;
 using Shared.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Seo;
 

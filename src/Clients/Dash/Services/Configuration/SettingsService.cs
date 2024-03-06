@@ -1,10 +1,5 @@
-﻿using Clients.Dash.Infrastructure;
-using Google.Protobuf.WellKnownTypes;
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using Shared.Common.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Clients.Dash.Services.Configuration;
@@ -66,7 +61,7 @@ public class SettingsService
       {
          var value = ((IJSInProcessRuntime)_js).Invoke<string>("appjs.getSettings", key);
          var result = CommonHelper.To<T>(value);
-         return result;   
+         return result;
       }
       catch { }
 

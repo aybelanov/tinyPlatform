@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Directory;
 
@@ -23,12 +17,12 @@ public class CurrencyStateProvince : BaseEntity
    /// </summary>
    public long StateProvinceId { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Currency Currency { get; set; }
-//   public StateProvince StateProvince { get; set; }
+   //   public Currency Currency { get; set; }
+   //   public StateProvince StateProvince { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

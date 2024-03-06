@@ -1,16 +1,7 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Hub.Core;
-using Hub.Core.Caching;
-using Hub.Core.Configuration;
+﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
-using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Users;
 using Hub.Data;
-using Hub.Services.Common;
-using Hub.Services.Configuration;
-using Hub.Services.Localization;
-using Hub.Services.Logging;
-using Hub.Services.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -145,6 +136,6 @@ public class HubSensorRecordService(IRepository<Device> deviceRepository,
    }
 
    #endregion
- 
+
    #endregion
 }

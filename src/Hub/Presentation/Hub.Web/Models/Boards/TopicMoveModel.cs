@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Web.Framework.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Models.Boards;
 

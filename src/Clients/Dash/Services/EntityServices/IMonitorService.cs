@@ -1,8 +1,6 @@
 ﻿using Clients.Dash.Domain;
 using Clients.Dash.Pages.Configuration.Monitors;
 using Shared.Clients;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Monitor = Clients.Dash.Domain.Monitor;
 

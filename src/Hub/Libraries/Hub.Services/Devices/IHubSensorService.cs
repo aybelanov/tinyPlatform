@@ -1,9 +1,7 @@
 ﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
-using Hub.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hub.Services.Devices;

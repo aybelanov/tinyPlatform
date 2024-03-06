@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Polls;
+﻿using Hub.Core.Domain.Polls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,7 +17,7 @@ public class PollAnswerMap : AppEntityTypeConfiguration<PollAnswer>
    {
       builder.ToTable("PollAnswers");
       builder.Property(p => p.Name).IsRequired();
-      builder.HasOne<Poll>().WithMany().HasForeignKey(p=>p.PollId); 
+      builder.HasOne<Poll>().WithMany().HasForeignKey(p => p.PollId);
 
       base.Configure(builder);
    }

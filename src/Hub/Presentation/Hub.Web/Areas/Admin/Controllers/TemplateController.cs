@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Topics;
+﻿using Hub.Core.Domain.Topics;
 using Hub.Services.Localization;
 using Hub.Services.Security;
 using Hub.Services.Topics;
@@ -10,6 +8,8 @@ using Hub.Web.Areas.Admin.Models.Templates;
 using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers
 {

@@ -1,7 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
-using System;
-
-namespace Hub.Web.Configuration;
+﻿namespace Hub.Web.Configuration;
 
 
 /// <summary>
@@ -10,5 +7,5 @@ namespace Hub.Web.Configuration;
 public static class AppWebDefaults
 {
 
-  
+
 }

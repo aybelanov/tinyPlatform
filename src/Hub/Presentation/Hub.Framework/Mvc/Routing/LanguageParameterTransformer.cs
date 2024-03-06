@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using Hub.Core;
+using Hub.Core.Infrastructure;
+using Hub.Services.Localization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Hub.Core.Infrastructure;
-using Hub.Core;
-using Hub.Services.Localization;
+using System;
+using System.Linq;
 
 namespace Hub.Web.Framework.Mvc.Routing
 {

@@ -144,9 +144,9 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
-#############
-## Windows detritus
-#############
+####################№№
+## Windows detritus ##
+######################
 
 # Windows image file caches
 Thumbs.db
@@ -162,9 +162,9 @@ $RECYCLE.BIN/
 .DS_Store
 
 
-#########################
-## iotPlatform specific #
-#########################
+##########################
+## iotPlatform specific ##
+##########################
 glob:*.user
 *.patch
 *.hg
@@ -212,3 +212,8 @@ src/Device/Dispatchers/Disp/.config/*
 src/Device/Dispatchers/Disp/node_modules/*
 src/Device/Dispatchers/Disp/packages/*
 src/Device/Dispatchers/Disp.Tests/Connections.resx
+
+##########################
+##        docs          ##
+##########################
+docs/_*/

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Topics;
 
@@ -23,11 +22,11 @@ public partial class TopicTemplate : BaseEntity
    /// </summary>
    public int DisplayOrder { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<Topic> Topics { get; set; } = new();
+   //   public List<Topic> Topics { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

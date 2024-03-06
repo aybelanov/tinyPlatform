@@ -10,7 +10,6 @@ using Shared.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using static Clients.Widgets.VideoPlayer;
 using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
@@ -115,7 +114,7 @@ public class SensorRecordGrpcService : ISensorRecordService
       var filterProto = Auto.Mapper.Map<FilterProto>(filter);
       var dataProtos = await _grpcClient.GetUserDataStatisticsAsync(filterProto);
       var data = Auto.Mapper.Map<List<TimelineChart.Point>>(dataProtos.Data);
-      
+
       return data;
    }
 
@@ -130,7 +129,7 @@ public class SensorRecordGrpcService : ISensorRecordService
 
       var baseKey = new CacheKey($"GeoPoints.ByFilter.{{0}}", "TrackerMapPrefix");
       var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(baseKey, filter);
-      
+
       return await _staticCacheManager.GetAsync(cacheKey, aquire);
 
       async Task<IList<OpenLayerBase.GeoPoint>> aquire()
@@ -170,7 +169,7 @@ public class SensorRecordGrpcService : ISensorRecordService
    /// <returns>Geo point</returns>
    public async Task<OpenLayerBase.GeoPoint> GetLastRecordAsync(long sensorId)
    {
-      var records = await GetRecordsAsync(new() { SensorId = sensorId, OrderBy= "EventTimestamp desc", Top = 1 });
+      var records = await GetRecordsAsync(new() { SensorId = sensorId, OrderBy = "EventTimestamp desc", Top = 1 });
       var geopoint = ClientHelper.ParseGeoRecord(records.FirstOrDefault());
       return geopoint;
    }
@@ -184,7 +183,7 @@ public class SensorRecordGrpcService : ISensorRecordService
    public async Task<IList<Segment>> GetVideoSegmentsAsync(DynamicFilter filter)
    {
       ArgumentNullException.ThrowIfNull(filter);
-      
+
       var filterProto = Auto.Mapper.Map<FilterProto>(filter);
       var protos = await _grpcClient.GetVideoSegmentsAsync(filterProto);
       var segments = protos.Segments.Select(x => new Segment()
@@ -197,7 +196,7 @@ public class SensorRecordGrpcService : ISensorRecordService
 
       }).ToList();
 
-      return segments;  
+      return segments;
    }
 
    #endregion

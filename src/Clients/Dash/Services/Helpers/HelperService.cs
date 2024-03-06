@@ -1,10 +1,7 @@
-﻿using Clients.Dash.Configuration;
-using Clients.Dash.Services.Localization;
-using Microsoft.AspNetCore.Components;
+﻿using Clients.Dash.Services.Localization;
 using Microsoft.JSInterop;
 using Radzen;
 using Shared.Clients;
-using System;
 using System.Threading.Tasks;
 
 namespace Clients.Dash.Services.Helpers;

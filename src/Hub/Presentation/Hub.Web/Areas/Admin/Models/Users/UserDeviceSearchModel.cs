@@ -10,5 +10,5 @@ public partial record UserDeviceSearchModel : BaseSearchModel
    /// <summary>
    /// User identifier
    /// </summary>
-   public long UserId { get; set; } 
+   public long UserId { get; set; }
 }

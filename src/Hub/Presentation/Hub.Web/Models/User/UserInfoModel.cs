@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Models.User
 {

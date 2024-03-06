@@ -1,23 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Users;
 using Hub.Core.Http;
 using Hub.Services.Common;
 using Hub.Web.Framework.Components;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Components;
 
 public class EuCookieLawViewComponent : AppViewComponent
 {
-   private readonly IGenericAttributeService _genericAttributeService;     
+   private readonly IGenericAttributeService _genericAttributeService;
    private readonly IWorkContext _workContext;
    private readonly AppInfoSettings _appInformationSettings;
 
    public EuCookieLawViewComponent(IGenericAttributeService genericAttributeService,
-       
+
        IWorkContext workContext,
        AppInfoSettings appInformationSettings)
    {

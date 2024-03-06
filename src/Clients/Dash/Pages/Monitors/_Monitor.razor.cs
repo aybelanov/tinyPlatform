@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using System;
-using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
+﻿using Clients.Dash.Services.EntityServices;
 using Microsoft.AspNetCore.Components;
-using Clients.Dash.Services.EntityServices;
+using System.Threading.Tasks;
+using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
 
 namespace Clients.Dash.Pages.Monitors;
 
@@ -22,8 +21,8 @@ public partial class _Monitor
    async Task<MonitorViewModel> PrepareMonitorViewModelAsync(long monitorId)
    {
       var view = await MonitorService.GetMonitorViewAsync(monitorId);
-      var model = Auto.Mapper.Map<MonitorViewModel>(view);  
-      
+      var model = Auto.Mapper.Map<MonitorViewModel>(view);
+
       return model;
    }
 

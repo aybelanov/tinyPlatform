@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Events;
+﻿using Hub.Core.Events;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Events
 {

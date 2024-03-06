@@ -1,10 +1,4 @@
-﻿using Hub.Core.Domain.Users;
-using Shared.Devices.Proto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Hub.Services.Media;
 

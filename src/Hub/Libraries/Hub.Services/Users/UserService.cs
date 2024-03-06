@@ -115,7 +115,7 @@ public partial class UserService : IUserService
    /// A task that represents the asynchronous operation
    /// The task result contains the users
    /// </returns>
-   public virtual async Task<IPagedList<User>> GetAllUsersAsync(DateTime? createdFromUtc = null, DateTime? createdToUtc = null, long[] userRoleIds = null, 
+   public virtual async Task<IPagedList<User>> GetAllUsersAsync(DateTime? createdFromUtc = null, DateTime? createdToUtc = null, long[] userRoleIds = null,
       long[] deviceIds = null, string email = null, string username = null, string firstName = null, string lastName = null, int dayOfBirth = 0, int monthOfBirth = 0,
       string company = null, string phone = null, string zipPostalCode = null, string ipAddress = null, DateTime? lastActivityFromUtc = null,
       DateTime? lastActivityToUtc = null, int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false)
@@ -124,7 +124,7 @@ public partial class UserService : IUserService
       {
          if (createdFromUtc.HasValue)
             query = query.Where(c => createdFromUtc.Value <= c.CreatedOnUtc);
-        
+
          if (createdToUtc.HasValue)
             query = query.Where(c => createdToUtc.Value >= c.CreatedOnUtc);
 
@@ -306,7 +306,7 @@ public partial class UserService : IUserService
       var now = utcNow ?? DateTime.UtcNow;
 
       var beenRecentlyLimit = now.AddMinutes(-_userSettings.BeenRecentlyMinutes);
-      
+
       // https://stackoverflow.com/questions/2691392/enumerable-emptyt-equivalent-for-iqueryable
       // https://stackoverflow.com/questions/11067226/how-should-i-initialize-iqueryable-variables-before-use-a-union-expression
       var query = _userRepository.Table.AsNoTracking().Take(0);
@@ -469,7 +469,7 @@ public partial class UserService : IUserService
                   orderby u.Id
                   where u.Email == email
                   select u;
-      
+
       var key = _staticCacheManager.PrepareKeyForShortTermCache(AppUserServicesDefaults.UserByEmailCacheKey, email);
       return await _staticCacheManager.GetAsync(key, async () => await query.FirstOrDefaultAsync());
    }
@@ -617,7 +617,7 @@ public partial class UserService : IUserService
 
       //add to 'Guests' role
       var guestRole = await GetUserRoleBySystemNameAsync(UserDefaults.GuestsRoleName) ?? throw new AppException("'Guests' role could not be loaded");
-     
+
       await _userRepository.InsertAsync(user);
 
       await AddUserRoleMappingAsync(new UserUserRole { UserId = user.Id, UserRoleId = guestRole.Id });
@@ -781,7 +781,7 @@ public partial class UserService : IUserService
                   where userIds.Contains(u.Id) && r.SystemName == UserDefaults.RegisteredRoleName
                   select u.Id;
 
-      return await query.ToListAsync();  
+      return await query.ToListAsync();
    }
 
 
@@ -1473,7 +1473,7 @@ public partial class UserService : IUserService
 
          if (filter.UserId.HasValue)
          {
-            deviceQuery  =
+            deviceQuery =
             from d in deviceQuery
             join ud in _userDeviceRepository.Table.AsNoTracking() on d.Id equals ud.DeviceId into udgroup
             from g in udgroup.DefaultIfEmpty()

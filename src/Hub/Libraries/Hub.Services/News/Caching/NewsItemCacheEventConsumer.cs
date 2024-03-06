@@ -1,5 +1,4 @@
-﻿using Hub.Services.News;
-using Hub.Core.Domain.News;
+﻿using Hub.Core.Domain.News;
 using Hub.Services.Caching;
 using System.Threading.Tasks;
 

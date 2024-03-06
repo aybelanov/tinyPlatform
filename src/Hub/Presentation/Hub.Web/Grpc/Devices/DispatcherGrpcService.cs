@@ -65,7 +65,7 @@ public class DispatcherGrpcService : DeviceCalls.DeviceCallsBase
       ISensorRecordService sensorRecordService,
       IGenericAttributeService genericAttributeService,
       IWorkContext workContext,
-      DeviceSettings deviceSettings,   
+      DeviceSettings deviceSettings,
       AppDbContext dbContext,
       IVideoStreamService videoStreamService,
       ILogger logger,
@@ -113,7 +113,7 @@ public class DispatcherGrpcService : DeviceCalls.DeviceCallsBase
       var device = await _workContext.GetCurrentDeviceAsync();
       await _communicator.RegisterDeviceChannelAsync(device.Id, context);
       await _deviceActivityService.InsertActivityAsync(device, "Device.Connect", $"Device \"{device.SystemName}\" has connected to Hub.");
-      
+
       device.LastActivityOnUtc = DateTime.UtcNow;
       device.LastIpAddress = _webHelper.GetCurrentIpAddress();
       await _deviceService.UpdateDeviceAsync(device);
@@ -170,9 +170,9 @@ public class DispatcherGrpcService : DeviceCalls.DeviceCallsBase
       finally
       {
          await _communicator.UnregisterDeviceChannelAsync(device.Id);
-         
+
          await _deviceActivityService.InsertActivityAsync(device, "Device.Disconnect", $"Device \"{device.SystemName}\" has disconnected from Hub.");
-       
+
          device.LastActivityOnUtc = DateTime.UtcNow;
          await _deviceService.UpdateDeviceAsync(device);
 
@@ -187,7 +187,7 @@ public class DispatcherGrpcService : DeviceCalls.DeviceCallsBase
       var device = await _workContext.GetCurrentDeviceAsync();
       var sensors = await _sensorService.GetSensorsByDeviceIdAsync(device.Id);
       var sensorIds = sensors.Where(x => x.Enabled).Select(x => x.Id);
-      var now = DateTime.UtcNow; 
+      var now = DateTime.UtcNow;
 
       // only records for registered and enabled sensors will be stored
       var allowedProtoRecords = request.Records.Where(x => sensorIds.Contains(x.SensorId));
@@ -232,8 +232,8 @@ public class DispatcherGrpcService : DeviceCalls.DeviceCallsBase
 
             await dbContext.AddAsync(videoSegment);
             await dbContext.SaveChangesAsync();
-            
-            await dbContext.AddAsync<VideoSegmentBinary>(new() { Binary = segment.Bytes.ToByteArray(), VideoSegmentId  = videoSegment.Id });
+
+            await dbContext.AddAsync<VideoSegmentBinary>(new() { Binary = segment.Bytes.ToByteArray(), VideoSegmentId = videoSegment.Id });
             await dbContext.SaveChangesAsync();
 
             // TODO save new segments to the disk. It will reduce db requests.

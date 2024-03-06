@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Messages;
+﻿using Hub.Core.Domain.Messages;
 using Hub.Core.Events;
 using Shared.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Messages
 {

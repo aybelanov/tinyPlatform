@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Localization;
+﻿using Hub.Core.Domain.Localization;
 using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Directory;
 
@@ -70,17 +68,17 @@ public partial class Currency : BaseEntity, ILocalizedEntity
       set => RoundingTypeId = (int)value;
    }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<Country> Countries { get; set; } = new();
+   //   public List<Country> Countries { get; set; } = new();
 
-//   public List<Address> Addresses { get; set; } = new();
+   //   public List<Address> Addresses { get; set; } = new();
 
-//   public List<StateProvince> StateProvinces { get; set; } = new();
+   //   public List<StateProvince> StateProvinces { get; set; } = new();
 
-//   public List<CurrencyStateProvince> CurrencyStateProvinces { get; set; } = new();
+   //   public List<CurrencyStateProvince> CurrencyStateProvinces { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

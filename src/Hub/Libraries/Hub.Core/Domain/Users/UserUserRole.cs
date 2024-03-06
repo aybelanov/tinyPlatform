@@ -18,12 +18,12 @@ public partial class UserUserRole : BaseEntity
    public long UserRoleId { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
-//   public UserRole UserRole { get; set; }
+   //   public User User { get; set; }
+   //   public UserRole UserRole { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

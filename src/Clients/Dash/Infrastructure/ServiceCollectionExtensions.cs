@@ -165,12 +165,12 @@ public static class ServiceCollectionExtensions
          var navmanager = sp.GetRequiredService<NavigationManager>();
          var handler = new AuthorizationMessageHandler(tokenProvider, navmanager);
 
-         handler.ConfigureHandler(authorizedUrls: new[]
-         {
+         handler.ConfigureHandler(authorizedUrls:
+         [
                 Singleton<ServerConfig>.Instance.WebapiEndpoint,
                 Singleton<ServerConfig>.Instance.SignalrEndpoint,
                 Singleton<ServerConfig>.Instance.GrpcHost
-         });
+         ]);
 
          return handler;
       });
@@ -282,10 +282,7 @@ public static class ServiceCollectionExtensions
    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
    {
       //create AutoMapper configuration
-      var config = new MapperConfiguration(cfg =>
-      {
-         cfg.AddProfile<ModelMapperConfiguration>();
-      });
+      var config = new MapperConfiguration(cfg => cfg.AddProfile<ModelMapperConfiguration>());
 
       //register
       AutoMapperConfiguration.Init(config);
@@ -301,7 +298,7 @@ public static class ServiceCollectionExtensions
    public static void InitializeGlobalVariables(this WebAssemblyHost host)
    {
       Singleton<IServiceProvider>.Instance = host.Services;
-      
+
       CultureInfo.DefaultThreadCurrentCulture =
       CultureInfo.DefaultThreadCurrentUICulture =
       Defaults.Culture != null

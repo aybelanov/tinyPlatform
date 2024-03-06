@@ -1,16 +1,13 @@
 ﻿using Clients.Dash.Caching;
 using Clients.Dash.Domain;
-using Clients.Dash.Infrastructure.AutoMapper.Extensions;
 using Clients.Dash.Pages.Configuration.Widgets;
 using Clients.Dash.Services.Security;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
 using Shared.Clients;
 using Shared.Clients.Proto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
 
@@ -22,7 +19,7 @@ namespace Clients.Dash.Services.EntityServices.Grpc;
 /// <remarks>
 /// IoC Ctor
 /// </remarks>
-public class WidgetGrpcService(WidgetRpc.WidgetRpcClient grpcClient, 
+public class WidgetGrpcService(WidgetRpc.WidgetRpcClient grpcClient,
    IStaticCacheManager staticCacheManager,
    IMemoryCache memoryCache,
    PermissionService permissionService,
@@ -39,7 +36,7 @@ public class WidgetGrpcService(WidgetRpc.WidgetRpcClient grpcClient,
    /// <returns>All monitor entity collection</returns>
    public async Task<IFilterableList<Widget>> GetAllWidgetsAsync(DynamicFilter filter)
    {
-      var cacheKey = staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Widget>.ByDynamicFilterCacheKey, "all",filter);
+      var cacheKey = staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Widget>.ByDynamicFilterCacheKey, "all", filter);
 
       Func<Task<FilterableList<Widget>>> acquire = async () =>
       {
@@ -234,7 +231,7 @@ public class WidgetGrpcService(WidgetRpc.WidgetRpcClient grpcClient,
    public async Task InsertAsync(WidgetModel model)
    {
       ArgumentNullException.ThrowIfNull(model);
-      ArgumentOutOfRangeException.ThrowIfNotEqual(model.Id,0);
+      ArgumentOutOfRangeException.ThrowIfNotEqual(model.Id, 0);
 
       // insert in data base
       var proto = Auto.Mapper.Map<WidgetProto>(model);

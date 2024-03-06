@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Blogs;
 using Hub.Web.Models.Blogs;
-using Hub.Core.Domain.Blogs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

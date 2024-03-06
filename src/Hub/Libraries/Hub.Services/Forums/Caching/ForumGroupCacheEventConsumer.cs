@@ -1,5 +1,4 @@
-﻿using Hub.Services.Forums;
-using Hub.Core.Domain.Forums;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Services.Caching;
 using System.Threading.Tasks;
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using Hub.Web.Framework.TagHelpers.Shared;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Areas.Admin.Models.Devices;
 
@@ -24,7 +22,7 @@ public partial record DeviceSearchModel : BaseSearchModel
 
    [AppResourceDisplayName("Admin.Devices.Devices.List.SearchDeviceEnabled")]
    public BooleanNullable SearchDeviceEnabled { get; set; }
-  
+
    [AppResourceDisplayName("Admin.Devices.Devices.List.SearchDeviceActive")]
    public BooleanNullable SearchDeviceActive { get; set; }
 
@@ -52,7 +50,7 @@ public partial record DeviceSearchModel : BaseSearchModel
 
    [AppResourceDisplayName("Admin.Devices.Devices.List.UpdatedFrom")]
    [UIHint("DateNullable")]
-   public DateTime? UpdatedFrom { get;set; }
+   public DateTime? UpdatedFrom { get; set; }
 
    [AppResourceDisplayName("Admin.Devices.Devices.List.UpdatedTo")]
    [UIHint("DateNullable")]

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Models.Common;
 

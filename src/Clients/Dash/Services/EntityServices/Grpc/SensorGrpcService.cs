@@ -1,7 +1,5 @@
 ﻿using Clients.Dash.Caching;
 using Clients.Dash.Domain;
-using Clients.Dash.Infrastructure.AutoMapper.Extensions;
-using Clients.Dash.Models;
 using Clients.Dash.Pages.Configuration.Sensors;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -198,7 +196,7 @@ public class SensorGrpcService : ISensorService
       var sensor = Auto.Mapper.Map<Sensor>(reply);
       Auto.Mapper.Map(sensor, model);
 
-    
+
       var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Sensor>.ByIdCacheKey, model.Id);
       if (_memoryCache.TryGetValue(cacheKey.Key, out object value) && value is not null && value is Sensor savedSensor)
          Auto.Mapper.Map(model, savedSensor);

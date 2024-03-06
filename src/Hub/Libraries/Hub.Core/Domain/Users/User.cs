@@ -10,7 +10,7 @@ namespace Hub.Core.Domain.Users;
 /// <summary>
 /// Represents a user
 /// </summary>
-public partial class User : BaseEntity, IClientUser ,ISoftDeletedEntity, IModifiedEntity
+public partial class User : BaseEntity, IClientUser, ISoftDeletedEntity, IModifiedEntity
 {
    /// <summary>
    /// Default Ctor
@@ -134,5 +134,5 @@ public partial class User : BaseEntity, IClientUser ,ISoftDeletedEntity, IModifi
    /// User online connection status
    /// </summary>
    [NotMapped]
-   public OnlineStatus OnlineStatus {  get; set; }
+   public OnlineStatus OnlineStatus { get; set; }
 }

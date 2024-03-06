@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Hub.Core;
+using Hub.Core.Domain.Users;
+using Hub.Data;
+using Hub.Services.Authentication.MultiFactor;
+using Hub.Services.Common;
+using Hub.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Hub.Core;
-using Hub.Core.Domain.Users;
-using Hub.Data;
-using Hub.Services.Common;
-using Hub.Services.Users;
-using Hub.Services.Authentication.MultiFactor;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Mvc.Filters
 {

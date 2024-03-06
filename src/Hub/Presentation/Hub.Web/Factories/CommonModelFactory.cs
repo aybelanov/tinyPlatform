@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Blogs;
@@ -24,7 +18,6 @@ using Hub.Services.Forums;
 using Hub.Services.Localization;
 using Hub.Services.Media;
 using Hub.Services.News;
-using Hub.Services.Plugins;
 using Hub.Services.Security;
 using Hub.Services.Seo;
 using Hub.Services.Themes;
@@ -38,6 +31,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 
@@ -71,7 +70,7 @@ public partial class CommonModelFactory : ICommonModelFactory
    private readonly IPermissionService _permissionService;
    private readonly IPictureService _pictureService;
    private readonly ISitemapGenerator _sitemapGenerator;
-   private readonly IStaticCacheManager _staticCacheManager;   
+   private readonly IStaticCacheManager _staticCacheManager;
    private readonly IThemeContext _themeContext;
    private readonly IThemeProvider _themeProvider;
    private readonly ITopicService _topicService;
@@ -113,7 +112,7 @@ public partial class CommonModelFactory : ICommonModelFactory
        IPermissionService permissionService,
        IPictureService pictureService,
        ISitemapGenerator sitemapGenerator,
-       IStaticCacheManager staticCacheManager,  
+       IStaticCacheManager staticCacheManager,
        IThemeContext themeContext,
        IThemeProvider themeProvider,
        ITopicService topicService,
@@ -151,7 +150,7 @@ public partial class CommonModelFactory : ICommonModelFactory
       _permissionService = permissionService;
       _pictureService = pictureService;
       _sitemapGenerator = sitemapGenerator;
-      _staticCacheManager = staticCacheManager;       
+      _staticCacheManager = staticCacheManager;
       _themeContext = themeContext;
       _themeProvider = themeProvider;
       _topicService = topicService;
@@ -338,7 +337,7 @@ public partial class CommonModelFactory : ICommonModelFactory
          UnreadPrivateMessages = unreadMessage,
          AlertMessage = alertMessage,
       };
-      
+
       return model;
    }
 
@@ -428,11 +427,11 @@ public partial class CommonModelFactory : ICommonModelFactory
          DisplayNewsFooterItem = _displayDefaultFooterItemSettings.DisplayNewsFooterItem,
 
          DisplayBlogFooterItem = _displayDefaultFooterItemSettings.DisplayBlogFooterItem,
-       
+
          DisplayForumsFooterItem = _displayDefaultFooterItemSettings.DisplayForumsFooterItem,
 
          DisplayDocumentationFooterItem = _displayDefaultFooterItemSettings.DisplayDocumentationFooterItem,
-        
+
          DisplayUserInfoFooterItem = _displayDefaultFooterItemSettings.DisplayUserInfoFooterItem,
          DisplayUserAddressesFooterItem = _displayDefaultFooterItemSettings.DisplayUserAddressesFooterItem,
          DisplayWishlistFooterItem = _displayDefaultFooterItemSettings.DisplayWishlistFooterItem,
@@ -469,7 +468,7 @@ public partial class CommonModelFactory : ICommonModelFactory
       return model;
    }
 
-   
+
    /// <summary>
    /// Prepare the sitemap model
    /// </summary>
@@ -811,7 +810,7 @@ public partial class CommonModelFactory : ICommonModelFactory
    /// The task result contains the op menu model
    /// </returns>
    public virtual async Task<TopMenuModel> PrepareTopMenuModelAsync()
-   { 
+   {
       //top menu topics
       var topicModel = await (await _topicService.GetAllTopicsAsync(onlyIncludedInTopMenu: true))
           .SelectAwait(async t => new TopMenuModel.TopicModel

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Services.Common;
+﻿using Hub.Services.Common;
 using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.Common;
 

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+﻿using Hub.Core.Domain.Users;
 using Hub.Core.Infrastructure;
-using Hub.Core.Domain.Users;
 using Hub.Data;
 using Hub.Services.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Authentication;
 

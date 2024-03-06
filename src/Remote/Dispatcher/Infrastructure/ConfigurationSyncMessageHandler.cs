@@ -1,11 +1,9 @@
 ﻿using Devices.Dispatcher.Configuration;
 using Devices.Dispatcher.Data;
 using Devices.Dispatcher.Domain;
-using Devices.Dispatcher.Services.Authentication;
 using Devices.Dispatcher.Services.Settings;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Media;
 using Microsoft.AspNetCore.Http;
-using Hub.Core.Domain.Media;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Media
 {

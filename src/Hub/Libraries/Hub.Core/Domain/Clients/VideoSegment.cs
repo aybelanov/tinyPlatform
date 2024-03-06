@@ -1,9 +1,5 @@
 ﻿using Shared.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hub.Core.Domain.Clients;
 
@@ -17,7 +13,7 @@ public class VideoSegment : BaseEntity
    /// </summary>
    public VideoSegment()
    {
-      Guid = Guid.NewGuid();  
+      Guid = Guid.NewGuid();
    }
 
    /// <summary>
@@ -26,12 +22,12 @@ public class VideoSegment : BaseEntity
    /// <remarks>
    /// <see href="https://datatracker.ietf.org/doc/html/rfc8216#section-4.3.2.1"/>
    /// </remarks>
-   public double Extinf {  get; set; } 
+   public double Extinf { get; set; }
 
    /// <summary>
    /// Inbound (from device) segment file name
    /// </summary>
-   public string InboundName {get;set;}
+   public string InboundName { get; set; }
 
    /// <summary>
    /// Guid uses as an outbound segment name (for cleint stream's playlist)
@@ -41,8 +37,8 @@ public class VideoSegment : BaseEntity
    /// <summary>
    /// IP cam identifier
    /// </summary>
-   public long IpcamId { get; set; } 
-   
+   public long IpcamId { get; set; }
+
    /// <summary>
    /// Segment creation datetime UTC
    /// </summary>
@@ -51,7 +47,7 @@ public class VideoSegment : BaseEntity
    /// <summary>
    /// Segment receiver datetime UTC
    /// </summary>
-   public DateTime OnReceivedUtc { get; set; }  
+   public DateTime OnReceivedUtc { get; set; }
 
    /// <summary>
    /// Segment resolution

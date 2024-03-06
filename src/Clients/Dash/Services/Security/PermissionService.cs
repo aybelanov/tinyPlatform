@@ -3,7 +3,6 @@ using Clients.Dash.Services.Configuration;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shared.Clients.Configuration;
 using System;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -55,7 +54,7 @@ public class PermissionService
 
          return _cashedEnabledValue.Value;
       }
-      
+
       return false;
    }
 
@@ -118,7 +117,7 @@ public class PermissionService
       {
          _settingsService.SetOrUpdateSetting(Defaults.IsAdminModeEnabled, isAdminModeEnabled);
          _cashedEnabledValue = isAdminModeEnabled;
-          AdminModeChanged?.Invoke(null, isAdminModeEnabled);
+         AdminModeChanged?.Invoke(null, isAdminModeEnabled);
       }
    }
 

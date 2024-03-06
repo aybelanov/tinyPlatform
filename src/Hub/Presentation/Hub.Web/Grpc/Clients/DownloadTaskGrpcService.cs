@@ -35,7 +35,7 @@ public class DownloadTaskGrpcService : DownloadTaskRpc.DownloadTaskRpcBase
    private readonly IUserService _userService;
    private readonly UserSettings _userSettings;
    private readonly ICommunicator _communicator;
-   private readonly IDeviceService _deviceService; 
+   private readonly IDeviceService _deviceService;
 
    #endregion
 
@@ -46,7 +46,7 @@ public class DownloadTaskGrpcService : DownloadTaskRpc.DownloadTaskRpcBase
       IWorkContext workContext,
       IUserService userService,
       IDeviceService deviceService,
-      UserSettings userSettings, 
+      UserSettings userSettings,
       ICommunicator communicator)
    {
       _downloadTaskService = downloadTaskService;
@@ -169,7 +169,7 @@ public class DownloadTaskGrpcService : DownloadTaskRpc.DownloadTaskRpcBase
 
       await _downloadTaskService.InsertDownloadTaskAsync(downloadTask);
 
-      var filter = new DynamicFilter() { Top = download.Top, UserId = user.Id, OrderBy= "TaskDateTimeUtc desc" };
+      var filter = new DynamicFilter() { Top = download.Top, UserId = user.Id, OrderBy = "TaskDateTimeUtc desc" };
       var tasks = await _downloadTaskService.GetDownloadTasksAsync(filter);
 
       var reply = new DownloadTaskProtos();
@@ -185,7 +185,7 @@ public class DownloadTaskGrpcService : DownloadTaskRpc.DownloadTaskRpcBase
    [Authorize(nameof(StandardPermissionProvider.AllowManageReports))]
    public override async Task<Empty> DeleteDownloadTask(IdProto request, ServerCallContext context)
    {
-      if(request.Id < 1)
+      if (request.Id < 1)
          throw new ArgumentOutOfRangeException(nameof(request.Id));
 
       var user = await _workContext.GetCurrentUserAsync();
@@ -197,7 +197,7 @@ public class DownloadTaskGrpcService : DownloadTaskRpc.DownloadTaskRpcBase
          if (!await _userService.IsAdminAsync(user) && deletingTask.UserId != user.Id)
             throw new RpcException(new Status(StatusCode.PermissionDenied, "You cannot delete not your own dowload tasks"));
 
-         if(deletingTask.CurrentState != DownloadFileState.InTheQueue)
+         if (deletingTask.CurrentState != DownloadFileState.InTheQueue)
             throw new RpcException(new Status(StatusCode.PermissionDenied, "The download task is already precessing or canceled."));
 
          await _downloadTaskService.DeleteDownloadTaskAsync(deletingTask);

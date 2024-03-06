@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core;
+using Hub.Services.Authentication.External;
+using Hub.Web.Models.User;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Web.Models.User;
-using Hub.Core;
-using Hub.Services.Authentication.External;
 
 namespace Hub.Web.Factories;
 

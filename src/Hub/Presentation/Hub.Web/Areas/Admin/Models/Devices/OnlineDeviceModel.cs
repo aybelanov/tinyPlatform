@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
+using System;
 
 namespace Hub.Web.Areas.Admin.Models.Devices;
 

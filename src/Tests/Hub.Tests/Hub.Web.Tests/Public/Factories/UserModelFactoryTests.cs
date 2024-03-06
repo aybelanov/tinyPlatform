@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Users;
@@ -9,6 +7,8 @@ using Hub.Tests;
 using Hub.Web.Factories;
 using Hub.Web.Models.User;
 using NUnit.Framework;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Tests.Public.Factories
 {
@@ -19,6 +19,7 @@ namespace Hub.Web.Tests.Public.Factories
       private User _user;
       private IUserAttributeService _userAttributeService;
       private UserAttribute[] _userAttributes;
+      private UserSettings _userSettings;
 
 
       [OneTimeSetUp]
@@ -26,6 +27,7 @@ namespace Hub.Web.Tests.Public.Factories
       {
          _userModelFactory = GetService<IUserModelFactory>();
          _user = await GetService<IWorkContext>().GetCurrentUserAsync();
+         _userSettings = GetService<UserSettings>();
 
          _userAttributeService = GetService<IUserAttributeService>();
 
@@ -98,7 +100,10 @@ namespace Hub.Web.Tests.Public.Factories
          model = await _userModelFactory.PrepareUserInfoModelAsync(new UserInfoModel(), _user, true);
 
          model.Email.Should().BeNullOrEmpty();
-         model.Username.Should().BeNullOrEmpty();
+         
+         if(_userSettings.UsernamesEnabled) model.Username.Should().Be(_user.Email);
+         else model.Username.Should().BeNullOrEmpty();
+         
          model.FirstName.Should().BeNullOrEmpty();
          model.LastName.Should().BeNullOrEmpty();
       }

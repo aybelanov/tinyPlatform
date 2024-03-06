@@ -1,6 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Polls;
 
@@ -24,12 +23,12 @@ public partial class PollVotingRecord : BaseEntity
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public PollAnswer PollAnswer { get; set; }
-//   public User User { get; set; }   
+   //   public PollAnswer PollAnswer { get; set; }
+   //   public User User { get; set; }   
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

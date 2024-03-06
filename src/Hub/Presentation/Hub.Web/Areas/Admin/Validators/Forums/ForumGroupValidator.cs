@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Hub.Web.Areas.Admin.Models.Forums;
 using Hub.Core.Domain.Forums;
 using Hub.Data.Mapping;
 using Hub.Services.Localization;
+using Hub.Web.Areas.Admin.Models.Forums;
 using Hub.Web.Framework.Validators;
 
 namespace Hub.Web.Areas.Admin.Validators.Forums;

@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
+using Hub.Tests;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
-using Hub.Core;
-using Hub.Tests;
 
 namespace Hub.Core.Tests;
 

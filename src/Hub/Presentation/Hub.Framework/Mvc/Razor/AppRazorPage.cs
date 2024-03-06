@@ -26,7 +26,7 @@ public abstract class AppRazorPage<TModel> : RazorPage<TModel>
          _localizer ??= (format, args) =>
          {
             var resFormat = _localizationService.GetResourceAsync(format).Result;
-           
+
             return string.IsNullOrEmpty(resFormat)
             ? new LocalizedString(format)
             : new LocalizedString(args == null || args.Length == 0 ? resFormat : string.Format(resFormat, args));

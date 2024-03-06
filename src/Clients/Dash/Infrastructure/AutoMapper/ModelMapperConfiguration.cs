@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Clients.Dash.Domain;
-using Clients.Dash.Models;
 using Clients.Dash.Pages.Configuration.Devices;
 using Clients.Dash.Pages.Configuration.Monitors;
 using Clients.Dash.Pages.Configuration.Sensors;
 using Clients.Dash.Pages.Configuration.Widgets;
 using Clients.Dash.Pages.Monitors;
 using Clients.Widgets;
-using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Radzen;
 using Shared.Clients;
@@ -16,7 +14,6 @@ using Shared.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using static Clients.Dash.Pages.Configuration.Users.UserActivityTable;
 using static Clients.Dash.Pages.Configuration.Users.UserTable;
 using static Clients.Dash.Pages.Reports.Charts.ChartRequest;
@@ -63,7 +60,7 @@ public class ModelMapperConfiguration : Profile
 
       CreateMap<DeviceMapItemProto, DeviceMapItem>();
       CreateMap<DeviceMapItem, Marker>()
-         .ForMember(dest=> dest.EntityId, op=>op.MapFrom(source => source.Id));
+         .ForMember(dest => dest.EntityId, op => op.MapFrom(source => source.Id));
 
       #endregion
 
@@ -100,7 +97,7 @@ public class ModelMapperConfiguration : Profile
       CreateMap<MonitorViewProto, MonitorView>();
       CreateMap<MonitorView, MonitorViewModel>();
       CreateMap<PresentationViewProto, PresentationView>();
-      CreateMap<PresentationView, PresentationViewModel>();  
+      CreateMap<PresentationView, PresentationViewModel>();
 
       CreateMap<Presentation, PresentationProto>();
       CreateMap<PresentationProto, Presentation>();
@@ -117,7 +114,7 @@ public class ModelMapperConfiguration : Profile
       CreateMap<UserProto, User>()
         .ForMember(dest => dest.LastActivityUtc, opt => opt.MapFrom(source => source.LastActivityUtc.ToDateTimeFromUinxEpoch()));
 
-      CreateMap<UserSelectItemProto, UserSelectItem>();  
+      CreateMap<UserSelectItemProto, UserSelectItem>();
 
       #endregion
 
@@ -163,8 +160,8 @@ public class ModelMapperConfiguration : Profile
 
       CreateMap<ChartRequestModel, ChartRequest>();
       CreateMap<ChartRequest, ChartRequestProto>()
-         .ForMember(dest => dest.From, opt=>opt.MapFrom(src => src.From.ToUnixEpochTime()))
-         .ForMember(dest => dest.To, opt=>opt.MapFrom(src => src.To.ToUnixEpochTime()));
+         .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.From.ToUnixEpochTime()))
+         .ForMember(dest => dest.To, opt => opt.MapFrom(src => src.To.ToUnixEpochTime()));
 
       CreateMap<ChartPointProto, ChartPoint>();
       CreateMap<ChartSetProto, ChartSet>();

@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using Devices.Dispatcher.Services.Settings;
+﻿using Devices.Dispatcher.Services.Settings;
+using System.Text.Json.Serialization;
 
 namespace Devices.Dispatcher.Services.Authentication;
 

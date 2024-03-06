@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Blogs;
+﻿using Hub.Core.Domain.Blogs;
 using Hub.Core.Domain.Users;
 using Hub.Data.Extensions;
 using Hub.Services.Blogs;
@@ -14,9 +9,13 @@ using Hub.Services.Seo;
 using Hub.Services.Users;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Blogs;
-using Hub.Web.Framework.Extensions;
 using Hub.Web.Framework.Models.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 
@@ -27,7 +26,7 @@ public partial class BlogModelFactory : IBlogModelFactory
 {
    #region Fields
 
-   
+
    private readonly IBaseAdminModelFactory _baseAdminModelFactory;
    private readonly IBlogService _blogService;
    private readonly IUserService _userService;

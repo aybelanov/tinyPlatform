@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Hub.Services.Authentication;
+﻿using Hub.Services.Authentication;
 using Hub.Web.Framework.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -14,5 +13,5 @@ namespace Hub.Web.Framework.Hubs;
 [Authorize(Roles = UserDefaults.TelemetryRoles, Policy = AuthDefaults.AuthClientPolicy)]
 public abstract class BaseHub : Microsoft.AspNetCore.SignalR.Hub
 {
-   
+
 }

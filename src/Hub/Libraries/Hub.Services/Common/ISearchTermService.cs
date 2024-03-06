@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Common
 {

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.ComponentModel;
@@ -21,12 +13,18 @@ using Hub.Data.Configuration;
 using Hub.Data.Migrations;
 using Hub.Services.Authentication.External;
 using Hub.Services.Authentication.MultiFactor;
+using Hub.Services.Blogs;
+using Hub.Services.Clients;
+using Hub.Services.Clients.Devices;
 using Hub.Services.Cms;
 using Hub.Services.Common;
 using Hub.Services.Configuration;
+using Hub.Services.Devices;
 using Hub.Services.Directory;
 using Hub.Services.Events;
 using Hub.Services.ExportImport;
+using Hub.Services.Forums;
+using Hub.Services.Gdpr;
 using Hub.Services.Helpers;
 using Hub.Services.Html;
 using Hub.Services.Installation;
@@ -34,21 +32,25 @@ using Hub.Services.Localization;
 using Hub.Services.Logging;
 using Hub.Services.Media;
 using Hub.Services.Messages;
+using Hub.Services.News;
 using Hub.Services.Plugins;
+using Hub.Services.Polls;
 using Hub.Services.ScheduleTasks;
 using Hub.Services.Security;
 using Hub.Services.Seo;
 using Hub.Services.Tests.ScheduleTasks;
 using Hub.Services.Themes;
+using Hub.Services.Topics;
 using Hub.Services.Users;
 using Hub.Web.Factories;
 using Hub.Web.Framework;
 using Hub.Web.Framework.Factories;
-using Hub.Web.Framework.Infrastructure.Extensions;
 using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Themes;
 using Hub.Web.Framework.UI;
+using Hub.Web.Hubs;
 using Hub.Web.Infrastructure.Installation;
+using Hub.Web.Services;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -58,6 +60,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,6 +69,14 @@ using Microsoft.Net.Http.Headers;
 using Moq;
 using Shared.Common;
 using SkiaSharp;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Resources;
+using System.Threading;
+using System.Threading.Tasks;
 using IAuthenticationService = Hub.Services.Authentication.IAuthenticationService;
 using Task = System.Threading.Tasks.Task;
 
@@ -246,7 +257,7 @@ public partial class BaseAppTest
       services.AddDbContext<AppDbContext>(options =>
       {
          //options.UseSqlite("Data Source = appTestDb.sqlite;").UseLinqToDb();
-         options.UseSqlite("Data Source=applicationTest.sqlite;Mode=Memory;Cache=Shared").UseLinqToDB();
+         options.UseSqlite("Data Source=applicationTest.sqlite;Mode=Memory;Cache=Shared").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking).UseLinqToDB();
 
       }, ServiceLifetime.Scoped);
 
@@ -302,6 +313,13 @@ public partial class BaseAppTest
       services.AddTransient<IUrlRecordService, UrlRecordService>();
       services.AddTransient<ILogger, DefaultLogger>();
       services.AddTransient<IUserActivityService, UserActivityService>();
+      services.AddTransient<IDeviceActivityService, DeviceActivityService>();
+      services.AddTransient<IForumService, ForumService>();
+      services.AddTransient<IGdprService, GdprService>();
+      services.AddTransient<IPollService, PollService>();
+      services.AddTransient<IBlogService, BlogService>();
+      services.AddTransient<ITopicService, TopicService>();
+      services.AddTransient<INewsService, NewsService>();
       services.AddTransient<IDateTimeHelper, DateTimeHelper>();
       services.AddTransient<ISitemapGenerator, SitemapGenerator>();
       services.AddTransient<IScheduleTaskService, ScheduleTaskService>();
@@ -313,6 +331,16 @@ public partial class BaseAppTest
       services.AddTransient<IExternalAuthenticationService, ExternalAuthenticationService>();
       services.AddScoped<IBBCodeHelper, BBCodeHelper>();
       services.AddScoped<IHtmlFormatter, HtmlFormatter>();
+      
+      services.AddSingleton<ICommunicator, HubCommunicator>();
+      services.AddTransient<IHubDeviceService, HubDeviceService>();
+      services.AddTransient<IDeviceService, DeviceService>();
+      services.AddTransient<IDeviceRegistrationService, DeviceRegistrationService>();
+      services.AddTransient<ILocalizer, Localizer>();
+
+      var hubContext = new Mock<IHubContext<DashboardHub>>();
+      hubContext.Setup(p => p.Clients).Returns(hubContext.Object.Clients);
+      services.AddSingleton(hubContext.Object);
 
       //slug route transformer
       services.AddSingleton<IEventPublisher, EventPublisher>();

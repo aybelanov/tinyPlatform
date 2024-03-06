@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Security;
 
@@ -24,13 +22,13 @@ public partial class PermissionRecord : BaseEntity
    /// </summary>
    public string Category { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<UserRole> UserRoles { get; set; } = new();
+   //   public List<UserRole> UserRoles { get; set; } = new();
 
-//   public List<PermissionRecordUserRole> PermissionRecordUserRoles { get; set; } = new();
+   //   public List<PermissionRecordUserRole> PermissionRecordUserRoles { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

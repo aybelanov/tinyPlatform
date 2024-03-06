@@ -1,6 +1,5 @@
 ﻿using Clients.Dash.Models;
 using Microsoft.JSInterop;
-using System.Threading.Tasks;
 
 namespace Clients.Dash.Shared.Components;
 

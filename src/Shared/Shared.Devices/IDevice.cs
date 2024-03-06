@@ -9,7 +9,7 @@ public interface IDevice
    /// Device identifier
    /// </summary>
    long Id { get; set; }
-   
+
    /// <summary>
    /// JSON configuration of the device
    /// </summary>

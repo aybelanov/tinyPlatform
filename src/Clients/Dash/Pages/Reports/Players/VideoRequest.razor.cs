@@ -1,8 +1,6 @@
 ﻿using Clients.Dash.Domain;
 using Clients.Dash.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Clients.Dash.Pages.Reports.Players;

@@ -152,7 +152,7 @@ namespace Hub.Services.Tests.Messages
              await _workflowMessageService.SendContactUsMessageAsync(1, AppTestsDefaults.AdminEmail, "sender name", "subject", "body"));
       }
 
-      
+
       #endregion
    }
 }

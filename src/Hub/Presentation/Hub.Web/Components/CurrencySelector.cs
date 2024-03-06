@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Web.Factories;
 using Hub.Web.Framework.Components;
-using Hub.Core.Domain.Directory;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Components;
 

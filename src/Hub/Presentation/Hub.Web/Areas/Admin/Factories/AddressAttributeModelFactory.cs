@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Data.Extensions;
 using Hub.Services.Common;
 using Hub.Services.Localization;
@@ -10,6 +6,10 @@ using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Common;
 using Hub.Web.Framework.Factories;
 using Hub.Web.Framework.Models.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

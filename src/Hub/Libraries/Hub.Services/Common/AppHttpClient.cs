@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Common;
 using Hub.Services.Localization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Common
 {

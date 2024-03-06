@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.ScheduleTasks;
+﻿using Hub.Core.Domain.ScheduleTasks;
+using System.Threading.Tasks;
 
 namespace Hub.Services.ScheduleTasks
 {

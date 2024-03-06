@@ -73,8 +73,6 @@ public static class ApplicationBuilderExtensions
          await pluginService.InstallPluginsAsync();
          await pluginService.UpdatePluginsAsync();
 
-         
-
          //update application db
          using (var serviceScope = application.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
          {
@@ -108,29 +106,29 @@ public static class ApplicationBuilderExtensions
       application.UseExceptionHandler(handler =>
       {
          handler.Run(async context =>
+         {
+            var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+            if (exception == null)
+               return;
+
+            try
             {
-               var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-               if (exception == null)
-                  return;
-
-               try
+               //check whether database is installed
+               if (DataSettingsManager.IsDatabaseInstalled())
                {
-                  //check whether database is installed
-                  if (DataSettingsManager.IsDatabaseInstalled())
-                  {
-                     //get current user
-                     var currentUser = await EngineContext.Current.Resolve<IWorkContext>().GetCurrentUserAsync();
+                  //get current user
+                  var currentUser = await EngineContext.Current.Resolve<IWorkContext>().GetCurrentUserAsync();
 
-                     //log error
-                     await EngineContext.Current.Resolve<ILogger>().ErrorAsync(exception.Message, exception, currentUser);
-                  }
+                  //log error
+                  await EngineContext.Current.Resolve<ILogger>().ErrorAsync(exception.Message, exception, currentUser);
                }
-               finally
-               {
-                  //rethrow the exception to show the error page
-                  ExceptionDispatchInfo.Throw(exception);
-               }
-            });
+            }
+            finally
+            {
+               //rethrow the exception to show the error page
+               ExceptionDispatchInfo.Throw(exception);
+            }
+         });
       });
    }
 
@@ -400,7 +398,7 @@ public static class ApplicationBuilderExtensions
             context.Response.Headers.Append("X-Frame-Options", new($"ALLOW-FROM {originsString}"));
             context.Response.Headers.Append("Content-Security-Policy", new($"frame-ancestors 'self' {originsString}"));
             //context.Response.Headers.Add("Access-Control-Allow-Origin", originsString);
-            await  next.Invoke();
+            await next.Invoke();
          });
       }
 
@@ -494,12 +492,12 @@ public static class ApplicationBuilderExtensions
       {
          var options = new ForwardedHeadersOptions
          {
-            ForwardedHeaders = ForwardedHeaders.All, 
+            ForwardedHeaders = ForwardedHeaders.All,
             // IIS already serves as a reverse proxy and will add X-Forwarded headers to all requests,
             // so we need to increase this limit, otherwise, passed forwarding headers will be ignored.
             ForwardLimit = 2
          };
-         
+
          if (!string.IsNullOrEmpty(appSettings.Get<HostingConfig>().ForwardedForHeaderName))
             options.ForwardedForHeaderName = appSettings.Get<HostingConfig>().ForwardedForHeaderName;
 
@@ -566,7 +564,7 @@ public static class ApplicationBuilderExtensions
    /// Adds demo mode middleware
    /// </summary>
    /// <param name="application"></param>
-   public static void UseDemoMode(this IApplicationBuilder application) 
+   public static void UseDemoMode(this IApplicationBuilder application)
    {
       if (DataSettingsManager.IsDatabaseInstalled())
       {

@@ -21,7 +21,7 @@ public class PermissionRecordUserRoleMap : AppEntityTypeConfiguration<Permission
       builder.HasKey(x => new { x.UserRoleId, x.PermissionRecordId });
 
       builder.HasOne<PermissionRecord>().WithMany().HasForeignKey(x => x.PermissionRecordId);
-      builder.HasOne<UserRole>().WithMany().HasForeignKey(x=> x.UserRoleId);  
+      builder.HasOne<UserRole>().WithMany().HasForeignKey(x => x.UserRoleId);
 
       base.Configure(builder);
    }

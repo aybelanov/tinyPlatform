@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.Common;
-using System.Threading;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Infrastructure;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
@@ -9,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 using Npgsql;
+using System;
+using System.Data.Common;
+using System.Threading;
 
 namespace Hub.Data;
 
@@ -391,7 +391,7 @@ public static class DataProviderManager
    public static void InitializeDatabase()
    {
       using var scope = EngineContext.Current.Resolve<IServiceScopeFactory>().CreateScope();
-      using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>(); 
+      using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
       dbContext.Database.Migrate();
    }
 
@@ -404,7 +404,7 @@ public static class DataProviderManager
       try
       {
          var settings = DataSettingsManager.LoadSettings();
-        
+
          using DbConnection connection = (settings.DataProvider) switch
          {
             DataProviderType.SqlServer => new SqlConnection(settings.ConnectionString),
@@ -416,7 +416,7 @@ public static class DataProviderManager
 
          //just try to connect
          connection.Open();
-         
+
          return true;
       }
       catch

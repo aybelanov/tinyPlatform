@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Events;
 using Hub.Data;
@@ -10,6 +6,10 @@ using Hub.Services.Events;
 using Hub.Services.Localization;
 using Humanizer;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.Localization
 {
@@ -25,7 +25,7 @@ namespace Hub.Services.Tests.Localization
       [OneTimeSetUp]
       public async Task SetUp()
       {
-         langugaCount = (await GetService<ILanguageService>().GetAllLanguagesAsync(true)).Count;  
+         langugaCount = (await GetService<ILanguageService>().GetAllLanguagesAsync(true)).Count;
          _localizationService = GetService<ILocalizationService>();
          _lsrRepository = GetService<IRepository<LocaleStringResource>>();
 

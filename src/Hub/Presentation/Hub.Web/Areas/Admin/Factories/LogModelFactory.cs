@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Logging;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Logging;
-using Hub.Services.Users;
+using Hub.Core.Domain.Users;
+using Hub.Data.Extensions;
+using Hub.Services.Devices;
 using Hub.Services.Helpers;
 using Hub.Services.Html;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
+using Hub.Services.Users;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
+using Hub.Web.Areas.Admin.Models.Logging;
 using Hub.Web.Framework.Models.Extensions;
-using Hub.Data.Extensions;
-using Hub.Core.Domain.Users;
-using Hub.Services.Devices;
-using Hub.Core.Domain.Clients;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 
@@ -122,11 +122,11 @@ public partial class LogModelFactory : ILogModelFactory
                logModel.LogLevel = await _localizationService.GetLocalizedEnumAsync(logItem.LogLevel);
                logModel.ShortMessage = _htmlFormatter.FormatText(logItem.ShortMessage, false, true, false, false, false, false);
                logModel.FullMessage = string.Empty;
-               
+
                if (logItem.EntityName == typeof(User).Name)
                   logModel.Subject = (await _userService.GetUserByIdAsync(logItem.EntityId ?? 0))?.Email ?? string.Empty;
 
-               if(logItem.EntityName == typeof(Device).Name)
+               if (logItem.EntityName == typeof(Device).Name)
                   logModel.Subject = (await _deviceService.GetDeviceByIdAsync(logItem.EntityId ?? 0))?.SystemName ?? string.Empty;
 
                return logModel;
@@ -158,7 +158,7 @@ public partial class LogModelFactory : ILogModelFactory
             model.ShortMessage = _htmlFormatter.FormatText(log.ShortMessage, false, true, false, false, false, false);
             model.FullMessage = _htmlFormatter.FormatText(log.FullMessage, false, true, false, false, false, false);
             model.CreatedOn = await _dateTimeHelper.ConvertToUserTimeAsync(log.CreatedOnUtc, DateTimeKind.Utc);
-           
+
             if (log.EntityName == typeof(User).Name)
                model.Subject = (await _userService.GetUserByIdAsync(log.EntityId ?? 0))?.Email ?? string.Empty;
 

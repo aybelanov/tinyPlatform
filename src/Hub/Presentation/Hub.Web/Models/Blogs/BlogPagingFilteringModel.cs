@@ -1,5 +1,5 @@
-﻿using System;
-using Hub.Web.Framework.UI.Paging;
+﻿using Hub.Web.Framework.UI.Paging;
+using System;
 
 namespace Hub.Web.Models.Blogs;
 

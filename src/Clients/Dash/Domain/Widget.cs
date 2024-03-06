@@ -1,6 +1,5 @@
 ﻿using Shared.Clients.Domain;
 using Shared.Common;
-using System;
 
 namespace Clients.Dash.Domain;
 
@@ -58,5 +57,5 @@ public class Widget : BaseEntity, IWidget
    /// <summary>
    /// Iser-owner name
    /// </summary>
-   public string OwnerName { get;set; }
+   public string OwnerName { get; set; }
 }

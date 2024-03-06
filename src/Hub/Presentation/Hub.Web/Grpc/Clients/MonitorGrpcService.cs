@@ -3,7 +3,6 @@ using Grpc.Core;
 using Hub.Core;
 using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Users;
-using Hub.Services.Clients;
 using Hub.Services.Clients.Monitors;
 using Hub.Services.Media;
 using Hub.Services.Security;
@@ -16,10 +15,7 @@ using Shared.Clients;
 using Shared.Clients.Configuration;
 using Shared.Clients.Domain;
 using Shared.Clients.Proto;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Auto = Hub.Core.Infrastructure.Mapper.AutoMapperConfiguration;
 
@@ -41,19 +37,19 @@ public class MonitorGrpcService(IMonitorService monitorService,
    [Authorize(nameof(StandardPermissionProvider.AllowGetData))]
    public override async Task<MonitorViewProto> GetMonitorView(IdProto request, ServerCallContext context)
    {
-      var user = await workContext.GetCurrentUserAsync();         
+      var user = await workContext.GetCurrentUserAsync();
 
       var view = await monitorService.GetMonitorViewAsync(request.Id, await userService.IsAdminAsync(user) ? null : user.Id);
-      
-      if  (view?.Presentations is not null) foreach (var p in view.Presentations) 
-      {
-         p.Sensor.PictureUrl = await pictureService.GetPictureUrlAsync(p.Sensor.PictureId);
-         p.Device.PictureUrl = await pictureService.GetPictureUrlAsync(p.Device.PictureId);
-         p.Widget.PictureUrl = await pictureService.GetPictureUrlAsync(p.Widget.PictureId);
 
-         if(p.Widget.WidgetType == WidgetType.LiveScheme)
-            p.Widget.LiveSchemeUrl = await pictureService.GetPictureUrlAsync(p.Widget.LiveSchemePictureId);
-      }
+      if (view?.Presentations is not null) foreach (var p in view.Presentations)
+         {
+            p.Sensor.PictureUrl = await pictureService.GetPictureUrlAsync(p.Sensor.PictureId);
+            p.Device.PictureUrl = await pictureService.GetPictureUrlAsync(p.Device.PictureId);
+            p.Widget.PictureUrl = await pictureService.GetPictureUrlAsync(p.Widget.PictureId);
+
+            if (p.Widget.WidgetType == WidgetType.LiveScheme)
+               p.Widget.LiveSchemeUrl = await pictureService.GetPictureUrlAsync(p.Widget.LiveSchemePictureId);
+         }
 
       var reply = Auto.Mapper.Map<MonitorViewProto>(view);
       return reply;
@@ -63,7 +59,7 @@ public class MonitorGrpcService(IMonitorService monitorService,
 
    #region Monitor
 
-   
+
 
    [Authorize(Roles = UserDefaults.AdministratorsRoleName)]
    public override async Task<MonitorProtos> GetAllMonitors(FilterProto request, ServerCallContext context)
@@ -225,7 +221,7 @@ public class MonitorGrpcService(IMonitorService monitorService,
       if (user == null || user.IsDeleted || !user.IsActive)
          throw new RpcException(new(StatusCode.Aborted, "User does not exist or blocked"));
 
-      if(!await userService.IsAdminAsync(user) && !await userService.IsOperatorAsync(user) && !await userService.IsOwnerAsync(user))
+      if (!await userService.IsAdminAsync(user) && !await userService.IsOperatorAsync(user) && !await userService.IsOwnerAsync(user))
          throw new RpcException(new(StatusCode.Aborted, "You cannot share the monitor to not telemetry user."));
 
       await monitorService.ShareMonitorAsync(request.EntityId, user.Id);

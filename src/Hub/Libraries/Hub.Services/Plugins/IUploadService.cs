@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.AspNetCore.Http;
 
 namespace Hub.Services.Plugins
 {

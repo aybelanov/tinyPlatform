@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Web.Models.Topics;
-using Hub.Core;
-using Hub.Core.Domain.Topics;
+﻿using Hub.Core.Domain.Topics;
 using Hub.Services.Localization;
 using Hub.Services.Security;
 using Hub.Services.Seo;
 using Hub.Services.Topics;
+using Hub.Web.Models.Topics;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 

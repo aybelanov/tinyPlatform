@@ -12,7 +12,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Transactions;
-using static Grpc.Core.Metadata;
 
 namespace Hub.Data;
 
@@ -347,7 +346,7 @@ public partial class EntityRepository<TEntity> : IRepository<TEntity> where TEnt
 
       await _dataProvider.AddRangeAsync(entities);
       await _dataProvider.SaveChangesAsync();
-      
+
       foreach (var entity in entities)
          _dataProvider.Entry(entity).State = EntityState.Detached;
 
@@ -423,7 +422,7 @@ public partial class EntityRepository<TEntity> : IRepository<TEntity> where TEnt
 
       if (entities.Count == 0)
          return;
-      
+
       _dataProvider.UpdateRange(entities);
       await _dataProvider.SaveChangesAsync();
 
@@ -445,7 +444,7 @@ public partial class EntityRepository<TEntity> : IRepository<TEntity> where TEnt
    public virtual async Task DeleteAsync(TEntity entity, bool publishEvent = true)
    {
       ArgumentNullException.ThrowIfNull(entity);
-      
+
       _dataProvider.Remove(entity);
       await _dataProvider.SaveChangesAsync();
       _dataProvider.Entry(entity).State = EntityState.Detached;
@@ -467,10 +466,10 @@ public partial class EntityRepository<TEntity> : IRepository<TEntity> where TEnt
 
       if (entities.Count == 0)
          return;
-      
+
       _dataProvider.RemoveRange(entities);
       await _dataProvider.SaveChangesAsync();
-      
+
       foreach (var entity in entities)
          _dataProvider.Entry(entity).State = EntityState.Detached;
 
@@ -534,7 +533,7 @@ public partial class EntityRepository<TEntity> : IRepository<TEntity> where TEnt
       _disposed = true;
    }
 
-  
+
    #endregion
 
    #region Properties

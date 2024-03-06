@@ -64,11 +64,11 @@ public static class ServiceCollectionExtensions
    {
       services.AddTransient<ConfigurationSyncMessageHandler>();
       services.AddTransient<AuthMessageHandler>();
-     
+
       var hubConnections = config.GetSection(nameof(HubConnections)).Get<HubConnections>();
 
       // http cleint for token requests
-      var authClientBuilder = services.AddHttpClient(Defaults.TokenHttpClient, (sp, c) => 
+      var authClientBuilder = services.AddHttpClient(Defaults.TokenHttpClient, (sp, c) =>
       {
          c.BaseAddress = new Uri($"{hubConnections.HubEndpoint.Trim('/')}/connect/token");
          c.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
@@ -87,7 +87,7 @@ public static class ServiceCollectionExtensions
       var grpcClientBuilder = services.AddHttpClient(Defaults.HubGrpcHttpClient, (sp, c) =>
       {
          c.BaseAddress = new Uri(hubConnections.HubGrpcEndpoint.Trim('/'));
-         
+
          // This timeout value is used for streaming methods by default.
          // It should be overridden for unary methods with deadline value
          c.Timeout = TimeSpan.FromMilliseconds(int.MaxValue);
@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
              new HttpClientHandler { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator });
       }
 #endif
-      
+
       services.AddScoped(sp =>
       {
          var hubConnections = sp.GetRequiredService<HubConnections>();
@@ -114,7 +114,7 @@ public static class ServiceCollectionExtensions
                  HttpClient = sp.GetRequiredService<IHttpClientFactory>().CreateClient(Defaults.HubGrpcHttpClient),
                  MaxReceiveMessageSize = null,
                  MaxSendMessageSize = null,
-                 DisposeHttpClient = false,   
+                 DisposeHttpClient = false,
               });
 
          var client = new DeviceCalls.DeviceCallsClient(channel);

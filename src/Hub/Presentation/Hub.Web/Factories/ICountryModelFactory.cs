@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Web.Models.Directory;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Web.Models.Directory;
 
 namespace Hub.Web.Factories
 {

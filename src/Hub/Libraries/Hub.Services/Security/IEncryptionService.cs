@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace Hub.Services.Security;
+﻿namespace Hub.Services.Security;
 
 /// <summary>
 /// Encryption service

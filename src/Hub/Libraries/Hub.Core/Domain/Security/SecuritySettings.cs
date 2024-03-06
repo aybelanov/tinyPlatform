@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Configuration;
+﻿using Hub.Core.Configuration;
+using System.Collections.Generic;
 
 namespace Hub.Core.Domain.Security;
 

@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Services.Caching;
-using Hub.Services.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Common.Caching
 {

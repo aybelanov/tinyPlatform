@@ -29,7 +29,7 @@ public partial class MixedAuthenticationService : IAuthenticationService
    private readonly IHubDeviceService _deviceService;
    private readonly IHttpContextAccessor _httpContextAccessor;
    private readonly string _claimIssuer;
- 
+
    private User _cachedUser;
    private Device _cachedDevice;
 
@@ -80,7 +80,7 @@ public partial class MixedAuthenticationService : IAuthenticationService
       if (!string.IsNullOrEmpty(user.Email))
          claims.Add(new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email, _claimIssuer));
 
-      var roles = (await _userService.GetUserRolesAsync(user)).Where(x=>!x.SystemName.Equals(UserDefaults.RegisteredRoleName));
+      var roles = (await _userService.GetUserRolesAsync(user)).Where(x => !x.SystemName.Equals(UserDefaults.RegisteredRoleName));
       foreach (var role in roles)
          claims.Add(new Claim(ClaimTypes.Role, role.SystemName, _claimIssuer));
 
@@ -133,13 +133,13 @@ public partial class MixedAuthenticationService : IAuthenticationService
       if (!authenticateResult.Succeeded)
          return null;
 
-      User user = null;      
+      User user = null;
       //try to get user by email
       var emailClaim = authenticateResult.Principal.FindFirst(claim => (claim.Type == JwtRegisteredClaimNames.Email || claim.Type == ClaimTypes.Email)
             && claim.Issuer.Equals(_claimIssuer, StringComparison.InvariantCultureIgnoreCase));
       if (emailClaim != null)
          user = await _userService.GetUserByEmailAsync(emailClaim.Value);
-     
+
       //whether the found user is available
       if (user == null || !user.IsActive || user.RequireReLogin || user.IsDeleted || !await _userService.IsRegisteredAsync(user))
          return null;

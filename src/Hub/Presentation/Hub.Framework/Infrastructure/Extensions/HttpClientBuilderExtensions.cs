@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using Hub.Core.Domain.Security;
 using Microsoft.Extensions.DependencyInjection;
-using Hub.Core.Domain.Security;
+using System.Net;
+using System.Net.Http;
 
 namespace Hub.Web.Framework.Infrastructure.Extensions;
 

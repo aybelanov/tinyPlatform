@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Hub.Core.Domain.Seo;
+﻿using Hub.Core.Domain.Seo;
+using Microsoft.AspNetCore.Routing;
 
 namespace Hub.Web.Framework.Seo
 {

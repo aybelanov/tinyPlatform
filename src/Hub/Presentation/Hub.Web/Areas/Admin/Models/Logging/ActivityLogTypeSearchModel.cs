@@ -10,7 +10,7 @@ public partial record ActivityLogTypeSearchModel : BaseSearchModel
 {
    #region Properties       
 
-   public string Subject { get; set; } 
+   public string Subject { get; set; }
 
    public IList<ActivityLogTypeModel> ActivityLogTypeListModel { get; set; }
 

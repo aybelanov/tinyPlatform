@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Localization;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Localization;
 using Shared.Common;
 
 namespace Hub.Core.Domain.Gdpr;
@@ -40,11 +38,11 @@ public partial class GdprConsent : BaseEntity, ILocalizedEntity
    /// </summary>
    public int DisplayOrder { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<GdprLog> GdprLogRecords { get; set; } = new();
+   //   public List<GdprLog> GdprLogRecords { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

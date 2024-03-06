@@ -1,7 +1,6 @@
 ﻿using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Security;
-using Hub.Core.Domain.Users;
 using Shared.Clients.Domain;
 using Shared.Common;
 using System;

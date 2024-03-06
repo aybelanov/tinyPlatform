@@ -36,7 +36,7 @@ public class DownloadRequest
    /// <summary>
    /// File compression
    /// </summary>
-   public FileCompressionType Compression { get; set; }  
+   public FileCompressionType Compression { get; set; }
 
    /// <summary>
    /// Current page size (need after added to show firsy page)

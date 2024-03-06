@@ -10,7 +10,7 @@ namespace Clients.Dash.Pages.Reports.Charts;
 /// Represents a request data for charts rendering
 /// </summary>
 public partial class ChartRequest
-{  
+{
    #region Methods
 
    /// <summary>

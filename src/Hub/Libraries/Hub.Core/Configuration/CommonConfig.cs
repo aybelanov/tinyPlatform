@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-
-namespace Hub.Core.Configuration;
+﻿namespace Hub.Core.Configuration;
 
 /// <summary>
 /// Represents common configuration parameters

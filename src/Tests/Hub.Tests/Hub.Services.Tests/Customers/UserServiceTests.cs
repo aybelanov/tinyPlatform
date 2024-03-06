@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using FluentAssertions;
-using NUnit.Framework;
-using Hub.Core.Domain.Users;
+﻿using FluentAssertions;
 using Hub.Services.Users;
 using Hub.Tests;
+using NUnit.Framework;
 using Shared.Clients.Configuration;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.Users;
 

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Domain.Common;
+using Hub.Core.Domain.Logging;
+using Hub.Core.Domain.Users;
+using Hub.Data;
+using Microsoft.EntityFrameworkCore;
+using Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Logging;
-using Hub.Core;
-using Hub.Core.Domain.Users;
-using Hub.Core.Domain.Common;
-using Hub.Data;
-using Shared.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hub.Services.Logging;
 

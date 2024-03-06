@@ -1,6 +1,5 @@
 ﻿using Hub.Core.Domain.Localization;
 using Hub.Services.Caching;
-using Hub.Services.Localization;
 using System.Threading.Tasks;
 
 namespace Hub.Services.Localization.Caching;

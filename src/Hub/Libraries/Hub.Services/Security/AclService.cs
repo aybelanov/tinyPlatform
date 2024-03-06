@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Security;
@@ -11,6 +7,10 @@ using Hub.Data;
 using Hub.Data.Extensions;
 using Hub.Services.Users;
 using Shared.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Security;
 

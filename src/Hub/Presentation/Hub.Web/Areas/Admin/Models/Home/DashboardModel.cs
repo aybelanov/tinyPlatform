@@ -1,5 +1,4 @@
 ﻿using Hub.Web.Areas.Admin.Models.Common;
-using Hub.Web.Areas.Admin.Models.Reports;
 using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Areas.Admin.Models.Home;

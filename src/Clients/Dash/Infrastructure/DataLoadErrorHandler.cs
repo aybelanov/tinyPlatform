@@ -46,7 +46,7 @@ public class DataLoadErrorHandler : DelegatingHandler, IDisposable
       try
       {
          _progressBar.On();
-         
+
          var response = await base.SendAsync(request, cancellationToken);
          await response.HandleInternalServerError();
          response.HandleNotSuccesResponse();

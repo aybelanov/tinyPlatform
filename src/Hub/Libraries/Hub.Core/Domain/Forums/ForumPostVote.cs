@@ -1,7 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Users;
-using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Forums;
 
@@ -30,12 +28,12 @@ public partial class ForumPostVote : BaseEntity
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
-//   public ForumPost ForumPost { get; set; }
+   //   public User User { get; set; }
+   //   public ForumPost ForumPost { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

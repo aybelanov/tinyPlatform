@@ -50,10 +50,10 @@ using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Areas.Admin.Infrastructure.Mapper
 {
-    /// <summary>
-    /// AutoMapper configuration for admin area models
-    /// </summary>
-    public class AdminMapperConfiguration : Profile, IOrderedMapperProfile
+   /// <summary>
+   /// AutoMapper configuration for admin area models
+   /// </summary>
+   public class AdminMapperConfiguration : Profile, IOrderedMapperProfile
    {
       #region Ctor
 
@@ -444,7 +444,7 @@ namespace Hub.Web.Areas.Admin.Infrastructure.Mapper
          CreateMap<ActivityLog, DeviceActivityLogModel>()
             .ForMember(model => model.CreatedOn, options => options.Ignore())
             .ForMember(model => model.ActivityLogTypeName, options => options.Ignore());
-         ;  
+         ;
       }
 
       /// <summary>
@@ -504,7 +504,7 @@ namespace Hub.Web.Areas.Admin.Infrastructure.Mapper
 
          CreateMap<ForumSettings, ForumSettingsModel>()
              .ForMember(model => model.ForumEditorValues, options => options.Ignore());
-             
+
          CreateMap<ForumSettingsModel, ForumSettings>()
              .ForMember(settings => settings.ForumSearchTermMinimumLength, options => options.Ignore())
              .ForMember(settings => settings.ForumSubscriptionsPageSize, options => options.Ignore())

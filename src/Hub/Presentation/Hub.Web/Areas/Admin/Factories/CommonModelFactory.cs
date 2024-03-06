@@ -6,7 +6,6 @@ using Hub.Core.Domain.Directory;
 using Hub.Core.Domain.Security;
 using Hub.Core.Events;
 using Hub.Core.Infrastructure;
-using Hub.Data;
 using Hub.Data.Extensions;
 using Hub.Services.Authentication.External;
 using Hub.Services.Authentication.MultiFactor;

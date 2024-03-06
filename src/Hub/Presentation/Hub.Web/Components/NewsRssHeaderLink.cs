@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core.Domain.News;
-using Hub.Web.Framework.Components;
+﻿using Hub.Core.Domain.News;
 using Hub.Services.Security;
+using Hub.Web.Framework.Components;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Components;
 
@@ -14,7 +14,7 @@ public class NewsRssHeaderLinkViewComponent : AppViewComponent
    public NewsRssHeaderLinkViewComponent(NewsSettings newsSettings, IPermissionService permissionService)
    {
       _newsSettings = newsSettings;
-      _permissionService = permissionService;   
+      _permissionService = permissionService;
    }
 
    public async Task<IViewComponentResult> InvokeAsync()

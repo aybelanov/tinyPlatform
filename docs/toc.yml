@@ -1,0 +1,64 @@
+- name: Introduction
+  href: index.md
+- name: Getting Started
+  href: getting-started.md
+- name: Deployment
+  items:
+  - name: Hub deployment
+    href: Installation/hub.md
+  - name: Client deployment
+    href: Installation/client.md
+  - name: Dispatcher deployment
+    href: Installation/dispatcher.md
+- name: Dashboard 
+  items:
+  - name: Common info
+    href: Dashboard/dashboard.md 
+  - name: Devices (dispatchers)
+    href: Dashboard/devices.md
+  - name: Widgets
+    href: Dashboard/widgets.md
+  - name: Monitors
+    href: Dashboard/monitors.md
+  - name: Sharing
+    href: Dashboard/sharing.md
+  - name: Reports
+    href: Dashboard/reports.md
+- name: Dispatcher
+  items:
+  - name: Common info
+    href: Dispatcher/dispatcher.md
+  - name: Configuration and settings
+    href: Dispatcher/settings.md
+  - name: Connect to Hub
+    href: Dispatcher/connect-to-hub.md
+  - name: Data source's connect
+    href: Dispatcher/data-source-connect.md
+- name: Hub
+  items:
+  - name: Common info
+    href: Hub/hub.md
+  - name: Configuration and settings
+    href: Hub/settings.md
+  - name: Admin panel
+    href: Hub/admin-panel.md
+  - name: User management
+    href: Hub/users.md
+  - name: Device management
+    href: Hub/devices.md
+  - name: Logging
+    href: Hub/logging.md
+  - name: Schedule tasks
+    href: Hub/schedule-tasks.md
+  - name: Maintenance
+    href: Hub/maintenance.md
+  - name: Plugins
+    href: Hub/plugins.md
+  - name: Other features
+    href: Hub/other-features.md
+  - name: Public pages
+    href: Hub/publicpages.md
+- name: Developer guide
+  href: Development/development.md
+- name: GitHub
+  href: https://github.com/aybelanov/tinyPlatform

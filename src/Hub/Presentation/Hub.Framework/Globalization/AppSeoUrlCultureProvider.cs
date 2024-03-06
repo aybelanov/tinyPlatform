@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Localization;
+﻿using Hub.Core.Domain.Localization;
 using Hub.Core.Infrastructure;
 using Hub.Services.Localization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Globalization;
 

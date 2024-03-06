@@ -16,7 +16,7 @@ public class UserNameValidator : ValidatorAwaitBase
    [Inject] ICommonService CommonService { get; set; }
    [Inject] NotificationService NotificationService { get; set; }
    [Inject] Localizer Localizer { get; set; }
-   [Inject] AuthenticationStateProvider AuthProvider {  get; set; }  
+   [Inject] AuthenticationStateProvider AuthProvider { get; set; }
 
    /// <summary>
    /// Specifies the message displayed when the validator is invalid.
@@ -41,9 +41,9 @@ public class UserNameValidator : ValidatorAwaitBase
             throw new Exception(Localizer["Validation.RequireValue"]);
 
          var state = await AuthProvider.GetAuthenticationStateAsync();
-         if(state.User?.Identity.IsAuthenticated != true)
+         if (state.User?.Identity.IsAuthenticated != true)
             throw new Exception(Localizer["Validation.NotAuthenticated"]);
-         
+
          value = value.Trim();
 
          if (state.User?.Identity.Name.Equals(value, StringComparison.InvariantCultureIgnoreCase) == true)

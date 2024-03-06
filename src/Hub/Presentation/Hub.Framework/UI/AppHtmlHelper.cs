@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
+﻿using Hub.Core;
+using Hub.Core.Configuration;
+using Hub.Core.Domain.Seo;
+using Hub.Services.Localization;
+using Hub.Web.Framework.Configuration;
+using Hub.Web.Framework.Mvc.Routing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -16,14 +16,13 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using WebOptimizer;
-using Hub.Core.Configuration;
-using Hub.Core.Domain.Seo;
-using Hub.Core;
-using Hub.Services.Localization;
-using Hub.Web.Framework.Mvc.Routing;
-using Hub.Web.Framework.Configuration;
-using System.Net.Http;
 
 namespace Hub.Web.Framework.UI
 {

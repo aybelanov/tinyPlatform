@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.RateLimiting;
-using System.Threading.Tasks;
 
 namespace Hub.Core.Configuration;
 
@@ -20,7 +16,7 @@ public class RateLimitConfig : IConfig
    /// <summary>
    /// SignalR rate limit config
    /// </summary>
-   public Config SignalrRateLimit { get; private set; } = new() 
+   public Config SignalrRateLimit { get; private set; } = new()
    {
       Enabled = false,
       AutoReplenishment = true,
@@ -33,7 +29,7 @@ public class RateLimitConfig : IConfig
    /// <summary>
    /// Grpc rate limit config
    /// </summary>
-   public Config GrpcClientReadRateLimit {  get; private set; } = new()
+   public Config GrpcClientReadRateLimit { get; private set; } = new()
    {
       Enabled = false,
       AutoReplenishment = true,
@@ -59,7 +55,7 @@ public class RateLimitConfig : IConfig
    /// <summary>
    /// Grpc rate limit config
    /// </summary>
-   public Config GrpcDeviceRateLimit {  get; private set; } = new()
+   public Config GrpcDeviceRateLimit { get; private set; } = new()
    {
       Enabled = true,
       AutoReplenishment = true,
@@ -85,10 +81,10 @@ public class RateLimitConfig : IConfig
    /// <summary>
    /// html form (login/register, contactus and etc) rate limit config
    /// </summary>
-   public Config FormRateLimit {  get; private set; } = new()
+   public Config FormRateLimit { get; private set; } = new()
    {
       Enabled = true,
-      AutoReplenishment = true, 
+      AutoReplenishment = true,
       PermitLimit = 1,
       QueueLimit = 0,
       Window = 5,

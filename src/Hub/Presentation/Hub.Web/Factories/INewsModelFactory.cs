@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.News;
 using Hub.Web.Models.News;
-using Hub.Core.Domain.News;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

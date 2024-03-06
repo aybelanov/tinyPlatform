@@ -85,7 +85,7 @@ public class Device : BaseEntity, IDevice, Shared.Devices.IDevice, IModifiedEnti
    /// If a device has a GNSS sensor
    /// GNNS location will be shown
    /// </remarks>
-   public double Lon {  get; set; }
+   public double Lon { get; set; }
 
    /// <summary>
    /// Device location's latitude

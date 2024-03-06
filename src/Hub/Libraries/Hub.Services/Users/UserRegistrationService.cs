@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Users;
 using Hub.Core.Events;
 using Hub.Services.Authentication;
@@ -15,6 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Shared.Clients.Configuration;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Users;
 
@@ -419,7 +419,7 @@ public partial class UserRegistrationService : IUserRegistrationService
 
       //user activity
       user.LastActivityUtc = DateTime.UtcNow;
-      await _userService.UpdateUserAsync(user); 
+      await _userService.UpdateUserAsync(user);
 
       var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
 

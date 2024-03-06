@@ -22,7 +22,7 @@ public class AppTokenProvider : ITokenProvider
    private readonly IServiceScopeFactory _scopeFactory;
    private readonly HubConnections _hubConnections;
    private readonly IHttpClientFactory _clientFactory;
-   private readonly ILogger<AppTokenProvider> _logger;   
+   private readonly ILogger<AppTokenProvider> _logger;
 
    private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
@@ -80,7 +80,7 @@ public class AppTokenProvider : ITokenProvider
       response.EnsureSuccessStatusCode();
       using var stream = await response.Content.ReadAsStreamAsync();
       var token = await JsonSerializer.DeserializeAsync<TokenStore>(stream);
-      
+
       if (string.IsNullOrWhiteSpace(token.Error))
       {
          return token;

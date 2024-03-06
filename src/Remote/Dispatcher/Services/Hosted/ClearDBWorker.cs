@@ -112,7 +112,7 @@ public class ClearDBWorker : BackgroundService
             try
             {
                if (x.Exists)
-                 File.Delete(x.FullName);
+                  File.Delete(x.FullName);
             }
             catch { }
          });

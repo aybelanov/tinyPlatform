@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-using static Clients.Widgets.Core.OpenLayerBase;
-using System;
+﻿using Clients.Dash.Caching;
 using Clients.Dash.Configuration;
 using Clients.Dash.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using Clients.Dash.Services.Localization;
-using System.Threading.Tasks;
-using Shared.Clients;
-using Microsoft.AspNetCore.Components;
 using Clients.Dash.Services.EntityServices;
-using Radzen;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Clients.Dash.Caching;
+using Clients.Dash.Services.Localization;
 using Clients.Widgets;
-using static Clients.Dash.Pages.Reports.Trackers.TrackRequest;
 using Clients.Widgets.Core;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Shared.Clients;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using static Clients.Dash.Pages.Reports.Trackers.TrackRequest;
+using static Clients.Widgets.Core.OpenLayerBase;
 
 namespace Clients.Dash.Pages.Reports.Trackers;
 
@@ -124,7 +123,7 @@ public partial class TrackerMap : IAsyncDisposable
    {
       _isLoading = true;
       await IsLoadingChanged.InvokeAsync(_isLoading);
-      await Task.Yield();  
+      await Task.Yield();
 
       try
       {
@@ -159,31 +158,31 @@ public partial class TrackerMap : IAsyncDisposable
       await CacheManager.RemoveByPrefixAsync("TrackerMapPrefix");
    }
 
-   private void SetSegmentColor(OpenLayerBase.GeoPoint[] track) 
+   private void SetSegmentColor(OpenLayerBase.GeoPoint[] track)
    {
-      for (int i = 0; i< track.Count(); i++)
+      for (int i = 0; i < track.Count(); i++)
       {
          var color = track[i].Speed switch
          {
             // blue
-                      < 10  => "rgba(0, 0, 130, 0.9)",
-            >= 10 and < 20  => "rgba(0, 99, 255, 0.9)",
-            >= 20 and < 30  => "rgba(0, 160, 255, 0.9)",
+            < 10 => "rgba(0, 0, 130, 0.9)",
+            >= 10 and < 20 => "rgba(0, 99, 255, 0.9)",
+            >= 20 and < 30 => "rgba(0, 160, 255, 0.9)",
 
             // green
-            >= 30 and < 40  => "rgba(0, 123, 0, 0.9)",
-            >= 40 and < 50  => "rgba(0, 172, 0, 0.9)",
-            >= 50 and < 60  => "rgba(15, 255, 0, 0.9)",
+            >= 30 and < 40 => "rgba(0, 123, 0, 0.9)",
+            >= 40 and < 50 => "rgba(0, 172, 0, 0.9)",
+            >= 50 and < 60 => "rgba(15, 255, 0, 0.9)",
 
             // yellow
-            >= 60 and < 70  => "rgba(255, 255, 0, 0.9)",
-            >= 70 and < 80  => "rgba(255, 200, 0, 0.9)",
-            >= 80 and < 90  => "rgba(255, 125, 0, 0.9)",
+            >= 60 and < 70 => "rgba(255, 255, 0, 0.9)",
+            >= 70 and < 80 => "rgba(255, 200, 0, 0.9)",
+            >= 80 and < 90 => "rgba(255, 125, 0, 0.9)",
 
             // red
             >= 90 and < 100 => "rgba(255, 60, 0, 0.9)",
-                     >= 110 => "rgba(255, 0, 0, 0.9 )",
-                          _ => "rgba(59, 0, 199, 0.9)"
+            >= 110 => "rgba(255, 0, 0, 0.9 )",
+            _ => "rgba(59, 0, 199, 0.9)"
          };
 
          track[i].Color = color;

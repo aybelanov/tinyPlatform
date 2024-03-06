@@ -1,11 +1,4 @@
-﻿using Hub.Core.Domain.Security;
-using Hub.Core.Domain.Users;
-using Microsoft.AspNetCore.Http;
-using Shared.Common;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-
-namespace Hub.Web.Framework.Configuration;
+﻿namespace Hub.Web.Framework.Configuration;
 
 /// <summary>
 /// Defaults for Web.Framework

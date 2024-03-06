@@ -1,7 +1,7 @@
-﻿using System;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Infrastructure;
+using NUnit.Framework;
+using System;
 
 namespace Hub.Core.Tests.Infrastructure;
 

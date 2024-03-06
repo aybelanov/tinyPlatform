@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Web.Factories;
-using Hub.Web.Models.Blogs;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core;
+﻿using Hub.Core;
+using Hub.Core.Domain;
 using Hub.Core.Domain.Blogs;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Security;
 using Hub.Core.Events;
 using Hub.Core.Rss;
 using Hub.Services.Blogs;
-using Hub.Services.Users;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
 using Hub.Services.Messages;
 using Hub.Services.Security;
 using Hub.Services.Seo;
+using Hub.Services.Users;
+using Hub.Web.Factories;
 using Hub.Web.Framework;
 using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.Filters;
-using Hub.Core.Domain;
+using Hub.Web.Models.Blogs;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -68,7 +68,7 @@ public partial class BlogController : BasePublicController
    {
       _blogSettings = blogSettings;
       _captchaSettings = captchaSettings;
-      _appSettings = appSettings;   
+      _appSettings = appSettings;
       _blogModelFactory = blogModelFactory;
       _blogService = blogService;
       _userActivityService = userActivityService;

@@ -1,5 +1,5 @@
-﻿using System;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.ScheduleTasks
 {

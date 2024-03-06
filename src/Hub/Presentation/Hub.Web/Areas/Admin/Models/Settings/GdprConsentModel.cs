@@ -1,5 +1,5 @@
-﻿using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using Hub.Web.Framework.Mvc.ModelBinding;
 using System.Collections.Generic;
 
 namespace Hub.Web.Areas.Admin.Models.Settings;

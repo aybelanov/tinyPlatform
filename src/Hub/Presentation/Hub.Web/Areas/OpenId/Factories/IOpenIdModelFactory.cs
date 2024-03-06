@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Web.Areas.OpenId.Domain;
+﻿using Hub.Web.Areas.OpenId.Domain;
 using Hub.Web.Areas.OpenId.Models;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.OpenId.Factories;
 

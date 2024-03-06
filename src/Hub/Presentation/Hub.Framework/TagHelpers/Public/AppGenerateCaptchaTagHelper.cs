@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Security;
+using Hub.Web.Framework.Security.Captcha;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Hub.Core.Domain.Security;
-using Hub.Web.Framework.Security.Captcha;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.TagHelpers.Public
 {

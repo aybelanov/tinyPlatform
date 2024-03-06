@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.Domain.Localization;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Localization;
 
 namespace Hub.Services.Localization;
 

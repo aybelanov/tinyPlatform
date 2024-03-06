@@ -4,11 +4,8 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
-using System.Text;
 using System.Threading.Tasks;
-using static Clients.Widgets.VideoPlayer;
 
 namespace Clients.Widgets;
 
@@ -22,7 +19,7 @@ public partial class VideoPlayer : VideojsBase
    [Parameter]
    public string TokenKey { get; set; }
 
-   [Parameter]   
+   [Parameter]
    public bool IsLive { get; set; }
 
    [Parameter, EditorRequired]
@@ -77,10 +74,10 @@ public partial class VideoPlayer : VideojsBase
    public async Task Play(IEnumerable<Segment> segments)
    {
       await _jsImportReady.Task;
-     
+
       if (segments?.Any() != true)
          return;
-      
+
       var targetDuration = (int)Math.Round(segments.Max(x => x.Extinf), 0, MidpointRounding.ToPositiveInfinity);
 
       var res = new List<object>()
@@ -89,7 +86,7 @@ public partial class VideoPlayer : VideojsBase
          segments.Select(x=>x.SegmentName).ToArray(),
 
       }.ToArray();
-      
+
 
       Play(Id, res, targetDuration);
    }
@@ -120,7 +117,7 @@ public partial class VideoPlayer : VideojsBase
       Pause(Id);
    }
 
-   public async Task Stop() 
+   public async Task Stop()
    {
       await _jsImportReady.Task;
       Stop(Id);
@@ -178,7 +175,7 @@ public partial class VideoPlayer : VideojsBase
 
    protected virtual async ValueTask DisposeAsyncCore()
    {
-      if (_jsModule is not null) 
+      if (_jsModule is not null)
          await _jsModule.InvokeVoidAsync("destroyPlayer", Element).ConfigureAwait(false);
 
       if (_player != null)
@@ -251,7 +248,7 @@ public partial class VideoPlayer : VideojsBase
       /// <summary>
       /// Date time to in seconds of UNIX epoch
       /// </summary>
-      public long? To { get; set; } 
+      public long? To { get; set; }
    }
 
    /// <summary>

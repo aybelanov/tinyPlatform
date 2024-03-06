@@ -1,11 +1,9 @@
-﻿using System;
-using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
-using Hub.Core;
-using Hub.Core.Configuration;
+﻿using Hub.Core.Configuration;
 using Hub.Core.Infrastructure.Mapper;
 using Hub.Services.Plugins;
 using Hub.Web.Framework.Models;
 using Shared.Common;
+using System;
 
 namespace Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions
 {
@@ -183,7 +181,7 @@ namespace Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions
          if (config == null)
             throw new ArgumentNullException(nameof(config));
 
-         return config.MapTo<IConfig,TModel>(model);
+         return config.MapTo<IConfig, TModel>(model);
       }
 
       /// <summary>

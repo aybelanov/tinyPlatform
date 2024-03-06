@@ -1,4 +1,20 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using Hub.Core;
+using Hub.Core.Domain.Clients;
+using Hub.Core.Domain.Common;
+using Hub.Core.Domain.Directory;
+using Hub.Core.Domain.Messages;
+using Hub.Core.Domain.Users;
+using Hub.Services.Common;
+using Hub.Services.Devices;
+using Hub.Services.Directory;
+using Hub.Services.ExportImport.Help;
+using Hub.Services.Helpers;
+using Hub.Services.Localization;
+using Hub.Services.Logging;
+using Hub.Services.Media;
+using Hub.Services.Users;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -6,24 +22,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using ClosedXML.Excel;
-using Hub.Core;
-using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Directory;
-using Hub.Core.Domain.Messages;
-using Hub.Core.Domain.Users;
-using Hub.Services.Common;
-using Hub.Services.Directory;
-using Hub.Services.ExportImport.Help;
-using Hub.Services.Helpers;
-using Hub.Services.Localization;
-using Hub.Services.Media;
-using Hub.Services.Messages;
-using Hub.Services.Seo;
-using Hub.Services.Users;
-using Hub.Services.Logging;
-using Hub.Services.Devices;
-using Hub.Core.Domain.Clients;
 
 namespace Hub.Services.ExportImport;
 
@@ -632,7 +630,7 @@ public partial class ExportManager : IExportManager
          await xmlWriter.WriteElementStringAsync("CountDataRows", null, device.CountDataRows.ToString());
          await xmlWriter.WriteElementStringAsync("DataflowReconnectDelay", null, device.DataflowReconnectDelay.ToString());
          await xmlWriter.WriteElementStringAsync("DataSendingDelay", null, device.DataSendingDelay.ToString());
-         
+
          // TODO get IPAddress from communicator
          //await xmlWriter.WriteElementStringAsync("IPAddress", null, device.IPAddress?.ToString() ?? "");
 

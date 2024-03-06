@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Services.Plugins;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Services.Plugins;
 
 namespace Hub.Services.Cms
 {

@@ -1,5 +1,5 @@
-﻿using System;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
+using System;
 
 namespace Hub.Web.Framework.Validators
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.News;
+﻿using Hub.Core.Domain.News;
 using Hub.Core.Domain.Users;
 using Hub.Data.Extensions;
 using Hub.Services.Helpers;
@@ -12,9 +9,11 @@ using Hub.Services.Seo;
 using Hub.Services.Users;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.News;
-using Hub.Web.Framework.Extensions;
 using Hub.Web.Framework.Models.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

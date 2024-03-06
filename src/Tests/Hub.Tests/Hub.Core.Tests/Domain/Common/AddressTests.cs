@@ -1,9 +1,9 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core.Domain.Common;
 using Hub.Services.Common;
 using Hub.Tests;
 using NUnit.Framework;
+using System;
 
 namespace Hub.Core.Tests.Domain.Common;
 

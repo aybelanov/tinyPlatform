@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain;
+﻿using Hub.Core;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Forums;
 using Hub.Core.Domain.Gdpr;
 using Hub.Core.Domain.Media;
 using Hub.Core.Domain.Security;
 using Hub.Core.Domain.Users;
-using Hub.Data.Extensions;
 using Hub.Services.Authentication.External;
 using Hub.Services.Authentication.MultiFactor;
 using Hub.Services.Common;
@@ -26,6 +19,11 @@ using Hub.Services.Users;
 using Hub.Web.Models.Common;
 using Hub.Web.Models.User;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {
@@ -164,11 +162,8 @@ namespace Hub.Web.Factories
       public virtual async Task<UserInfoModel> PrepareUserInfoModelAsync(UserInfoModel model, User user,
           bool excludeProperties, string overrideCustomUserAttributesXml = "")
       {
-         if (model == null)
-            throw new ArgumentNullException(nameof(model));
-
-         if (user == null)
-            throw new ArgumentNullException(nameof(user));
+         ArgumentNullException.ThrowIfNull(model);
+         ArgumentNullException.ThrowIfNull(user);
 
          model.AllowUsersToSetTimeZone = _dateTimeSettings.AllowUsersToSetTimeZone;
          foreach (var tzi in _dateTimeHelper.GetSystemTimeZones())
@@ -603,9 +598,9 @@ namespace Hub.Web.Factories
       {
          var user = await _workContext.GetCurrentUserAsync();
 
-         var addresses =  (await _userService.GetAddressesByUserIdAsync(user.Id))
-            //TODO country district via the country list 
-            //.Where(a => a.CountryId == null)
+         var addresses = (await _userService.GetAddressesByUserIdAsync(user.Id))
+             //TODO country district via the country list 
+             //.Where(a => a.CountryId == null)
              .ToList();
 
          var model = new UserAddressListModel();

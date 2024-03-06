@@ -1,7 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Users;
-using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Forums;
 
@@ -50,12 +48,12 @@ public partial class PrivateMessage : BaseEntity
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User FromUser { get; set; }
-//   public User ToUser { get; set; }
-  
-//#pragma warning restore CS1591
-//   #endregion
+   //   public User FromUser { get; set; }
+   //   public User ToUser { get; set; }
+
+   //#pragma warning restore CS1591
+   //   #endregion
 }

@@ -1,6 +1,5 @@
 ﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
-using Hub.Data;
 using Hub.Services.Clients;
 using Hub.Services.Clients.Devices;
 using Hub.Services.Clients.Sensors;
@@ -133,7 +132,7 @@ public class DashboardHub : BaseHub
       var user = await _workContext.GetCurrentUserAsync();
 
       var sensorIds = await _sensorService.GetCommonLogSensorIdsAsync(user.Id);
-     
+
       //if (!sensorIds.Any())
       //   return;
 
@@ -157,10 +156,10 @@ public class DashboardHub : BaseHub
       var user = await _workContext?.GetCurrentUserAsync();
 
       var sensorIds = await _sensorService.GetCommonLogSensorIdsAsync(user.Id);
-     
+
       //if (!sensorIds.Any())
       //   return;
-      
+
       await _communicator.RemoveClientFromGroupsAsync(Context.ConnectionId, sensorIds.Select(x => $"{nameof(Sensor)}_{x}"));
 
       var devices = await _deviceService.GetAllDevicesAsync(new() { UserId = user.Id });
@@ -202,8 +201,8 @@ public class DashboardHub : BaseHub
          return;
 
       var user = await _workContext.GetCurrentUserAsync();
-      var sensors = await _sensorService.GetSensorsAsync(new() 
-      { 
+      var sensors = await _sensorService.GetSensorsAsync(new()
+      {
          UserId = await _userService.IsAdminAsync(user) ? null : user.Id,
          SensorIds = sensorIds
       });

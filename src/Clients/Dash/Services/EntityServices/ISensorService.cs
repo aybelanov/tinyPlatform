@@ -1,5 +1,4 @@
 ﻿using Clients.Dash.Domain;
-using Clients.Dash.Models;
 using Clients.Dash.Pages.Configuration.Sensors;
 using Shared.Clients;
 using Shared.Clients.Proto;

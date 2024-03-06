@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Models.Newsletter;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Services.Localization;
+using Hub.Web.Models.Newsletter;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Shared.Common;
+﻿using Shared.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Devices.Dispatcher.Domain;
 
@@ -12,12 +12,12 @@ public class SensoRecord : BaseEntity, ISensorRecord
    /// Sensor data in byte format
    /// </summary>
    public byte[] Bytes { get; set; }
-   
+
    /// <summary>
    /// Complex sensor data as json object
    /// </summary>
    public string JsonValue { get; set; }
-   
+
    /// <summary>
    /// ShortDescription of the data values
    /// </summary>

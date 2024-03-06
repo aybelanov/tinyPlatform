@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,7 +7,7 @@ namespace Hub.Data.Mapping.Users;
 /// <summary>
 /// Mapping class
 /// </summary>
-public class ExternalAuthenticationRecordMap: AppEntityTypeConfiguration<ExternalAuthenticationRecord>
+public class ExternalAuthenticationRecordMap : AppEntityTypeConfiguration<ExternalAuthenticationRecord>
 {
    /// <summary>
    /// Configures a mapping

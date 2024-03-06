@@ -86,7 +86,7 @@ public class ExportDataHostedService : BackgroundService
          await LogErrorAsync(task, ex);
       }
    }
-  
+
    /// <summary>
    /// Clears expired report files
    /// </summary>
@@ -114,7 +114,7 @@ public class ExportDataHostedService : BackgroundService
          .Where(x => x.CreationTimeUtc <= expiredTime && x.Extension != ".htm")
          .ToList();
 
-      foreach(var file in files)
+      foreach (var file in files)
       {
          try
          {
@@ -143,7 +143,7 @@ public class ExportDataHostedService : BackgroundService
       catch { }
    }
 
-   
+
    /// <summary>
    /// Gets next download task
    /// </summary>
@@ -162,7 +162,7 @@ public class ExportDataHostedService : BackgroundService
          await _communuicator.ClientsNotifyAsync($"{nameof(DownloadTask)}_{task.Id}", SignalRDefaults.DownloadTaskStatusChanged, task);
       }
 
-      return task; 
+      return task;
    }
 
    /// <summary>

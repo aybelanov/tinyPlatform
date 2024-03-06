@@ -1,12 +1,4 @@
-﻿using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Web.Models.Boards;
-using Hub.Web.Models.Common;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core;
-using Hub.Core.Infrastructure;
+﻿using Hub.Core.Infrastructure;
 using Hub.Services.Localization;
 using Hub.Services.Seo;
 using Hub.Services.Themes;
@@ -14,6 +6,13 @@ using Hub.Services.Topics;
 using Hub.Web.Framework.Extensions;
 using Hub.Web.Framework.Themes;
 using Hub.Web.Framework.UI.Paging;
+using Hub.Web.Models.Boards;
+using Hub.Web.Models.Common;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Extensions
 {

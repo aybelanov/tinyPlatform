@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using Hub.Core;
+using Hub.Core.Domain.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Logging;
-using Hub.Core;
-using Hub.Core.Domain.Security;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Mvc.Routing
 {

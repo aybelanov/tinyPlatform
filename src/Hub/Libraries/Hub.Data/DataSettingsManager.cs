@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Configuration;
+﻿using Hub.Core.Configuration;
 using Hub.Core.Infrastructure;
 using Hub.Data.Configuration;
+using System.Collections.Generic;
 
 namespace Hub.Data
 {
@@ -30,7 +30,7 @@ namespace Hub.Data
       {
          if (!reload && Singleton<DataConfig>.Instance is not null)
             return Singleton<DataConfig>.Instance;
-         
+
          Singleton<DataConfig>.Instance = Singleton<AppSettings>.Instance.Get<DataConfig>();
 
          return Singleton<DataConfig>.Instance;

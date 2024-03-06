@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Security;
+﻿using Hub.Web.Areas.Admin.Models.Security;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Domain.ScheduleTasks;
+using Hub.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core.Domain.ScheduleTasks;
-using Hub.Data;
-using Hub.Data.Extensions;
 
 namespace Hub.Services.ScheduleTasks
 {
@@ -66,7 +66,7 @@ namespace Hub.Services.ScheduleTasks
          if (string.IsNullOrWhiteSpace(type))
             return null;
 
-         var query = _taskRepository.Table;
+         var query = _taskRepository.Table.AsNoTracking();
          query = query.Where(st => st.Type == type);
          query = query.OrderByDescending(t => t.Id);
 
@@ -87,6 +87,8 @@ namespace Hub.Services.ScheduleTasks
       {
          var tasks = await _taskRepository.GetAllAsync(query =>
          {
+            query = query.AsNoTracking();
+
             if (!showHidden)
                query = query.Where(t => t.Enabled);
 

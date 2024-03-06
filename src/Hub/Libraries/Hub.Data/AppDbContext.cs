@@ -11,8 +11,6 @@ using Shared.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
-
-//using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
@@ -32,7 +30,7 @@ public class AppDbContext : DbContext, IMappingEntityAccessor
    /// </summary>
    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
    {
-      SavingChanges += SavingChanges_SoftDeleteAndModifiedControl;  
+      SavingChanges += SavingChanges_SoftDeleteAndModifiedControl;
    }
 
    #endregion
@@ -119,7 +117,7 @@ public class AppDbContext : DbContext, IMappingEntityAccessor
          entity.UpdatedOnUtc = DateTime.UtcNow;
 
       ChangeTracker.Clear();
-      
+
       using var dataContext = this.CreateLinqToDBConnection();
 
       // TODO update for SQLite from Blazor.Orbital example

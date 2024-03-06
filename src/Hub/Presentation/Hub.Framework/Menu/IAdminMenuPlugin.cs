@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Services.Plugins;
+﻿using Hub.Services.Plugins;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Menu;
 

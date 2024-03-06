@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Shared.Common;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace Hub.Services.Authentication;
 

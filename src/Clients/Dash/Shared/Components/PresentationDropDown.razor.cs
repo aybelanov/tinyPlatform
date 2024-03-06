@@ -108,17 +108,17 @@ public partial class PresentationDropDown
                   $" || (DeviceName == null ? \"\" : DeviceName).ToLower().Contains(\"{args.Filter.ToLower()}\")";
 
 
-            Func<DynamicFilter, Task<IFilterableList<PresentationSelectItem>>> getData = 
+            Func<DynamicFilter, Task<IFilterableList<PresentationSelectItem>>> getData =
                await PermissionService.IsAdminModeAsync() ? PresentationService.GetAllPresentationSelectListAsync : PresentationService.GetOwnPresentationSelectListAsync;
 
             _availablePresentations = await getData(_filter);
-            
+
             if (Presentation != null)
             {
                var item = _availablePresentations.FirstOrDefault(x => x.Id == Presentation.Id);
                if (item != null)
                   _availablePresentations.Remove(item);
-             
+
                _availablePresentations.Add(Presentation);
                _availablePresentations = new FilterableList<PresentationSelectItem>(_availablePresentations.OrderBy(x => x.Id), _availablePresentations.TotalCount);
             }

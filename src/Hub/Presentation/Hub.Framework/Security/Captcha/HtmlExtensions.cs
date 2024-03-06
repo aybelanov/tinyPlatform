@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core;
+using Hub.Core.Domain.Security;
+using Hub.Core.Infrastructure;
+using Hub.Services.Localization;
+using Hub.Services.Security;
+using Hub.Web.Framework.Extensions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core.Infrastructure;
-using Hub.Core;
-using Hub.Core.Domain.Security;
-using Hub.Services.Security;
-using Hub.Services.Localization;
-using Hub.Web.Framework.Extensions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Security.Captcha
 {

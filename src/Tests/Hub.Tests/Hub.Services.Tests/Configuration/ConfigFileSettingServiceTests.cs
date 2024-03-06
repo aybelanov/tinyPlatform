@@ -1,10 +1,9 @@
-﻿using System;
+﻿using FluentAssertions;
+using Hub.Services.Configuration;
+using NUnit.Framework;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
-using NUnit.Framework;
-using Hub.Services.Configuration;
-using Hub.Services.Tests.Configuration;
 
 namespace Hub.Services.Tests.Configuration;
 

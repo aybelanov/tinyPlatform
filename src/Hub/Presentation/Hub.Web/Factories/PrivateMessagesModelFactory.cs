@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Web.Models.PrivateMessages;
-using Hub.Core;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core;
 using Hub.Core.Domain.Forums;
-using Hub.Services.Users;
+using Hub.Core.Domain.Users;
 using Hub.Services.Forums;
 using Hub.Services.Helpers;
 using Hub.Services.Localization;
+using Hub.Services.Users;
 using Hub.Web.Models.Common;
+using Hub.Web.Models.PrivateMessages;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 
@@ -46,7 +46,7 @@ public partial class PrivateMessagesModelFactory : IPrivateMessagesModelFactory
       _dateTimeHelper = dateTimeHelper;
       _forumService = forumService;
       _localizationService = localizationService;
-      
+
       _workContext = workContext;
    }
 

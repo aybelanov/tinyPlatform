@@ -1,6 +1,5 @@
 ﻿using Hub.Core;
 using Hub.Core.Domain.Users;
-using Hub.Services.Clients;
 using Hub.Services.Devices;
 using Hub.Services.Localization;
 using Hub.Services.Media;
@@ -9,7 +8,6 @@ using Hub.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Webapi;
@@ -51,7 +49,7 @@ public class DeviceController(ILocalizationService localizationService,
       var contentType = uploadedFile?.ContentType.ToLowerInvariant();
 
       if (contentType is null || (!contentType.Equals("image/jpeg") && !contentType.Equals("image/gif") && !contentType.Equals("image/png")))
-         return BadRequest(new { Error = await localizationService.GetResourceAsync("Account.Avatar.UploadRules")});
+         return BadRequest(new { Error = await localizationService.GetResourceAsync("Account.Avatar.UploadRules") });
 
       try
       {
@@ -66,7 +64,7 @@ public class DeviceController(ILocalizationService localizationService,
 
             var seoFileName = Path.GetFileNameWithoutExtension(uploadedFile.FileName); //Guid.NewGuid().ToString("N")); //HashHelper.CreateHash(iconPictureBinary, "SHA1"));
             if (deviceIcon != null)
-               deviceIcon = await pictureService.UpdatePictureAsync(deviceIcon.Id, iconPictureBinary, contentType, seoFileName); 
+               deviceIcon = await pictureService.UpdatePictureAsync(deviceIcon.Id, iconPictureBinary, contentType, seoFileName);
             else
                deviceIcon = await pictureService.InsertPictureAsync(iconPictureBinary, contentType, seoFileName);
          }

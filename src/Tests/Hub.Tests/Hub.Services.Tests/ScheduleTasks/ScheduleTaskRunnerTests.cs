@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Domain.ScheduleTasks;
 using Hub.Services.ScheduleTasks;
+using NUnit.Framework;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.ScheduleTasks
 {

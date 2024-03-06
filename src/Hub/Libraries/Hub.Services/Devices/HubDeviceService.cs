@@ -53,11 +53,11 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
          join s in sensors on sw.SensorId equals s.Id
          select sw;
 
-      var presentations = 
+      var presentations =
          from p in monitorSensorWidgetRepository.Table.AsNoTracking()
          join sw in sensorWidgets on p.SensorWidgetId equals sw.Id
          select p;
-     
+
       await presentations.ExecuteDeleteAsync();
       await sensorWidgets.ExecuteDeleteAsync();
 
@@ -65,7 +65,7 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
       //await _sensorWidgetRepository.DeleteAsync(await sensorWidgets.ToListAsync());
 
       // soft delete
-      await sensorRepository.DeleteAsync(await sensors.ToListAsync());   
+      await sensorRepository.DeleteAsync(await sensors.ToListAsync());
       await deviceRepository.DeleteAsync(device);
    }
 
@@ -216,10 +216,10 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
       {
          var noActivityDeviceQuery =
             (from d in deviceRepository.Table.AsNoTracking()
-            join alr in deviceActivityQuery on d.Id equals alr.SubjectId into attributes
-            from alr in attributes.DefaultIfEmpty()
-            where alr == default && !onlineIds.Contains(d.Id)
-            select d).Distinct();
+             join alr in deviceActivityQuery on d.Id equals alr.SubjectId into attributes
+             from alr in attributes.DefaultIfEmpty()
+             where alr == default && !onlineIds.Contains(d.Id)
+             select d).Distinct();
 
          query = query.Union(noActivityDeviceQuery);
       }
@@ -230,10 +230,10 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
          // exclude online devices
          var offlineDeviceQuery =
            (from d in deviceRepository.Table.AsNoTracking()
-           join ga in deviceActivityQuery on d.Id equals ga.SubjectId
-           //where (DateTime)(object)ga.Value < now.AddMinutes(-_deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
-           where ga.CreatedOnUtc < now.AddMinutes(-deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
-           select d).Distinct();
+            join ga in deviceActivityQuery on d.Id equals ga.SubjectId
+            //where (DateTime)(object)ga.Value < now.AddMinutes(-_deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
+            where ga.CreatedOnUtc < now.AddMinutes(-deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
+            select d).Distinct();
 
          query = query.Union(offlineDeviceQuery);
       }
@@ -243,10 +243,10 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
       {
          var beenRecentlyQuery =
             (from d in deviceRepository.Table.AsNoTracking()
-            join ga in deviceActivityQuery on d.Id equals ga.SubjectId
-            //where (DateTime)(object)ga.Value >= now.AddMinutes(-_deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
-            where ga.CreatedOnUtc >= now.AddMinutes(-deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
-            select d).Distinct();
+             join ga in deviceActivityQuery on d.Id equals ga.SubjectId
+             //where (DateTime)(object)ga.Value >= now.AddMinutes(-_deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
+             where ga.CreatedOnUtc >= now.AddMinutes(-deviceSettings.BeenRecentlyMinutes) && !onlineIds.Contains(d.Id)
+             select d).Distinct();
 
          query = query.Union(beenRecentlyQuery);
       }
@@ -409,7 +409,7 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
    public virtual async Task<long> InsertDeviceAsync(Device entity)
    {
       await deviceRepository.InsertAsync(entity);
-      return entity.Id; 
+      return entity.Id;
    }
 
    #endregion
@@ -484,7 +484,7 @@ public class HubDeviceService(IRepository<Device> deviceRepository,
    /// <returns>Task (async operation)</returns>
    public virtual async Task UnmapDeviceFromUserAsync(long deviceId, long userId)
    {
-      var map = deviceUserRepository.Table.FirstOrDefault(x=>x.DeviceId == deviceId && x.UserId == userId);
+      var map = deviceUserRepository.Table.FirstOrDefault(x => x.DeviceId == deviceId && x.UserId == userId);
 
       if (map != null)
          await deviceUserRepository.DeleteAsync(map);

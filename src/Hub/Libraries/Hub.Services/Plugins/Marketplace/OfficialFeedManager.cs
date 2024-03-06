@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Services.Common;
+using Hub.Services.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
-using Hub.Core;
-using Hub.Services.Common;
-using Hub.Services.Logging;
 
 namespace Hub.Services.Plugins.Marketplace
 {

@@ -1,9 +1,4 @@
 ﻿using Shared.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hub.Services.Clients.Widgets;
 
@@ -12,13 +7,13 @@ namespace Hub.Services.Clients.Widgets;
 /// </summary>
 public class WidgetSelectItem : BaseEntity
 {
-    /// <summary>
-    /// Widget name
-    /// </summary>
-    public string Name { get; set; }
+   /// <summary>
+   /// Widget name
+   /// </summary>
+   public string Name { get; set; }
 
-    /// <summary>
-    /// Widget owner name
-    /// </summary>
-    public string OwnerName { get; set; }
+   /// <summary>
+   /// Widget owner name
+   /// </summary>
+   public string OwnerName { get; set; }
 }

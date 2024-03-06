@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using Hub.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Data;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Models.Install
 {

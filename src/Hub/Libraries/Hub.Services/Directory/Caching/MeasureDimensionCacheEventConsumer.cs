@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Services.Caching;
 
 namespace Hub.Services.Directory.Caching

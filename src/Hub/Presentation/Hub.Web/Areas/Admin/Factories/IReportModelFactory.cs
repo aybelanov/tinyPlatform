@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Reports;
+﻿using Hub.Web.Areas.Admin.Models.Reports;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

@@ -9,7 +9,7 @@ public partial record UserStatisticsModel : BaseAppModel
 {
    public string Status { get; set; }
 
-   public string StatusValue { get; set; }  
+   public string StatusValue { get; set; }
 
    public int NumberOfOnlineOwnDevices { get; set; }
 

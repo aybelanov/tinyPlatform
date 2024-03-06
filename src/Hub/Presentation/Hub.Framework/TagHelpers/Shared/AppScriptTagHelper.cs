@@ -1,6 +1,8 @@
-﻿using System;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Hub.Core;
+using Hub.Core.Configuration;
+using Hub.Web.Framework.Configuration;
+using Hub.Web.Framework.Extensions;
+using Hub.Web.Framework.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -11,13 +13,10 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using WebOptimizer;
-using Hub.Core;
-using Hub.Core.Configuration;
-using Hub.Web.Framework.UI;
-using Hub.Web.Framework.Extensions;
-using Hub.Web.Framework.Configuration;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Hub.Web.Framework.TagHelpers.Shared
 {

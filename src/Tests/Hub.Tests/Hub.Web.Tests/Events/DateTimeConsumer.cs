@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Hub.Services.Events;
+using System;
 using System.Threading.Tasks;
-using Hub.Services.Events;
 
 namespace Hub.Web.Tests.Events;
 

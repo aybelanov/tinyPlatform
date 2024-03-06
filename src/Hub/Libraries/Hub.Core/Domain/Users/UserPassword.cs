@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Users;
 
@@ -55,14 +55,14 @@ public partial class UserPassword : BaseEntity, ISoftDeletedEntity, IModifiedEnt
    }
 
    /// <inheritdoc/>
-   public bool IsDeleted { get ; set; }
+   public bool IsDeleted { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
+   //   public User User { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

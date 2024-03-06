@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Hub.Core.Domain.Users;
+using Hub.Services.Localization;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
-using Hub.Core.Domain.Users;
-using Hub.Services.Localization;
 
 namespace Hub.Services.Users
 {

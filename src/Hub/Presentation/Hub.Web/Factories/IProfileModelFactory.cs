@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Users;
 using Hub.Web.Models.Profile;
-using Hub.Core.Domain.Users;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

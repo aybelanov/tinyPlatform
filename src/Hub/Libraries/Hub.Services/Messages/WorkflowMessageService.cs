@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Blogs;
 using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Common;
@@ -16,6 +11,11 @@ using Hub.Data.Extensions;
 using Hub.Services.Common;
 using Hub.Services.Localization;
 using Hub.Services.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Messages;
 
@@ -297,7 +297,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (user == null)
          throw new ArgumentNullException(nameof(user));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.UserEmailValidationMessage);
@@ -340,7 +340,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (user == null)
          throw new ArgumentNullException(nameof(user));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.UserEmailRevalidationMessage);
@@ -384,7 +384,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (user == null)
          throw new ArgumentNullException(nameof(user));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.UserPasswordRecoveryMessage);
@@ -431,7 +431,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (subscription == null)
          throw new ArgumentNullException(nameof(subscription));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.NewsletterSubscriptionActivationMessage);
@@ -471,7 +471,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (subscription == null)
          throw new ArgumentNullException(nameof(subscription));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.NewsletterSubscriptionDeactivationMessage);
@@ -513,7 +513,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
    /// A task that represents the asynchronous operation
    /// The task result contains the queued email identifier
    /// </returns>
-   public virtual async Task<IList<long>> SendEmailAFriendMessageAsync(User user, long languageId,string userEmail, string friendsEmail, string personalMessage)
+   public virtual async Task<IList<long>> SendEmailAFriendMessageAsync(User user, long languageId, string userEmail, string friendsEmail, string personalMessage)
    {
       if (user == null)
          throw new ArgumentNullException(nameof(user));
@@ -563,7 +563,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (user == null)
          throw new ArgumentNullException(nameof(user));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.WishlistToFriendMessage);
@@ -748,7 +748,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
    {
       if (user == null)
          throw new ArgumentNullException(nameof(user));
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.NewVatSubmittedPlatformOwnerNotification);
@@ -792,7 +792,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (blogComment == null)
          throw new ArgumentNullException(nameof(blogComment));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.BlogCommentNotification);
@@ -836,7 +836,7 @@ public partial class WorkflowMessageService : IWorkflowMessageService
       if (newsComment == null)
          throw new ArgumentNullException(nameof(newsComment));
 
-      
+
       languageId = await EnsureLanguageIsActiveAsync(languageId);
 
       var messageTemplates = await GetActiveMessageTemplatesAsync(MessageTemplateSystemNames.NewsCommentNotification);

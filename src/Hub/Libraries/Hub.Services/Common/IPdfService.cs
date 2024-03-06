@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Hub.Services.Common;
+﻿namespace Hub.Services.Common;
 
 /// <summary>
 /// User service interface

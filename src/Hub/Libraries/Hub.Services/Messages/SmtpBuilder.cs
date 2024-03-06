@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Domain.Messages;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using System;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Messages;
-using MailKit.Net.Smtp;
-using MailKit.Security;
 
 namespace Hub.Services.Messages
 {

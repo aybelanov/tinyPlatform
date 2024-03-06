@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Factories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Hub.Web.Factories;
 using Hub.Web.Framework.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 

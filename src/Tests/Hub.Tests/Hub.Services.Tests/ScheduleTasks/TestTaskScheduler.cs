@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Configuration;
 using Hub.Services.ScheduleTasks;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Net.Http;
 
 namespace Hub.Services.Tests.ScheduleTasks;
 

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core;
 using Hub.Core.Domain.Gdpr;
+using Hub.Core.Domain.Users;
 using Hub.Core.Events;
 using Hub.Data;
 using Hub.Services.Authentication.External;
 using Hub.Services.Blogs;
 using Hub.Services.Common;
-using Hub.Services.Users;
 using Hub.Services.Forums;
 using Hub.Services.Messages;
 using Hub.Services.News;
+using Hub.Services.Users;
 using Shared.Clients.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Gdpr
 {
@@ -285,9 +285,9 @@ namespace Hub.Services.Gdpr
             await _forumService.DeletePrivateMessageAsync(pm);
 
          //newsletter
-            var newsletter = await _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAsync(user.Email);
-            if (newsletter != null)
-               await _newsLetterSubscriptionService.DeleteNewsLetterSubscriptionAsync(newsletter);
+         var newsletter = await _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAsync(user.Email);
+         if (newsletter != null)
+            await _newsLetterSubscriptionService.DeleteNewsLetterSubscriptionAsync(newsletter);
 
          //addresses
          foreach (var address in await _userService.GetAddressesByUserIdAsync(user.Id))

@@ -18,11 +18,11 @@ public partial class PictureBinary : BaseEntity
    public long PictureId { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Picture Picture { get; set; }
+   //   public Picture Picture { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

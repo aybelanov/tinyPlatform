@@ -1,6 +1,4 @@
 ﻿using Clients.Dash.Domain;
-using Clients.Dash.Services.Security;
-using Grpc.Core;
 using Shared.Clients;
 using Shared.Clients.Proto;
 using System;
@@ -45,7 +43,7 @@ public class DownloadTaskGrpcService : IDownloadTaskService
       var taskProtos = await _client.AddDownloadTaskAsync(requestProto);
       var tasks = Auto.Mapper.Map<FilterableList<DownloadTask>>(taskProtos.Items);
       tasks.TotalCount = taskProtos.TotalCount ?? 0;
-      
+
       return tasks;
    }
 
@@ -68,7 +66,7 @@ public class DownloadTaskGrpcService : IDownloadTaskService
    /// <param name="filter">Dynamic filter</param>
    /// <returns>Download task collection</returns>
    public async Task<IFilterableList<DownloadTask>> GetDownloadTasksAsync(DynamicFilter filter)
-   {     
+   {
       var filterProto = Auto.Mapper.Map<FilterProto>(filter);
       var taskProtos = await _client.GetDownloadTasksAsync(filterProto);
       var tasks = Auto.Mapper.Map<FilterableList<DownloadTask>>(taskProtos.Items);

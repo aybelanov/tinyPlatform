@@ -1,8 +1,5 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Configuration;
-using Hub.Core.Domain;
-using Hub.Core.Domain.Clients;
 using Hub.Core.Infrastructure;
 using Hub.Services.Clients;
 using Hub.Services.Clients.Records;
@@ -10,13 +7,9 @@ using Hub.Services.Devices;
 using Hub.Services.Users;
 using Shared.Clients;
 using Shared.Common;
-using Shared.Devices;
-using Shared.Devices.Proto;
 using System;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -55,8 +48,8 @@ public partial class VideoStreamService : IVideoStreamService
       _deviceService = deviceService;
       _userService = userService;
       _sensorService = sensorService;
-      _appSettings = appSettings;   
-      _sensorRecordService = sensorRecordService;  
+      _appSettings = appSettings;
+      _sensorRecordService = sensorRecordService;
       _fileProvider = fileProvider;
       _workContext = workContext;
    }
@@ -153,12 +146,12 @@ public partial class VideoStreamService : IVideoStreamService
       };
       var user = await _workContext.GetCurrentUserAsync();
       if (!await _userService.IsAdminAsync(user))
-         filter.UserId = user.Id;   
+         filter.UserId = user.Id;
 
       var segments = await _sensorRecordService.GetSegmentsByFilterAsync(filter);
-      
-      if(!segments.Any())
-         return string.Empty; 
+
+      if (!segments.Any())
+         return string.Empty;
 
       var targetDuration = (int)Math.Round(segments.Max(x => x.Extinf), 0, MidpointRounding.ToPositiveInfinity);
 

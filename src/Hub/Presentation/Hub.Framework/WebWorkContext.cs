@@ -158,9 +158,9 @@ public partial class WebWorkContext : IWorkContext
       string cultureName;
       if (_httpContextAccessor.HttpContext?.User?.HasClaim(x => x.Type == "client_id" && x.Value == AuthDefaults.ClientApp) ?? false)
       {
-         cultureName = _httpContextAccessor.HttpContext?.Request.Headers.AcceptLanguage.FirstOrDefault() ?? "en-US"; 
+         cultureName = _httpContextAccessor.HttpContext?.Request.Headers.AcceptLanguage.FirstOrDefault() ?? "en-US";
       }
-      else 
+      else
       {
          var requestCultureFeature = _httpContextAccessor.HttpContext?.Features.Get<IRequestCultureFeature>();
          if (requestCultureFeature is null)
@@ -219,7 +219,7 @@ public partial class WebWorkContext : IWorkContext
 
          //check whether request is made by a search engine, in this case return built-in user record for search engines
          if ((user == null || user.IsDeleted || !user.IsActive || user.RequireReLogin) && _userAgentHelper.IsSearchEngine())
-               user = await _userService.GetOrCreateSearchEngineUserAsync();
+            user = await _userService.GetOrCreateSearchEngineUserAsync();
 
          //try to get registered user
          if (user == null || user.IsDeleted || !user.IsActive || user.RequireReLogin)
@@ -469,12 +469,12 @@ public partial class WebWorkContext : IWorkContext
       if (device == null)
       {
          device = await _authenticationService.GetAuthenticatedDeviceAsync();
-         
+
          if (device == null || device.IsDeleted || !device.IsActive)
             return;
       }
 
-      _cachedDevice = device; 
+      _cachedDevice = device;
    }
 
    #endregion

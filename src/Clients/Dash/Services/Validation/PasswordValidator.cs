@@ -3,7 +3,6 @@ using Clients.Dash.Services.EntityServices;
 using Clients.Dash.Services.Localization;
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using Radzen.Blazor;
 using System;
 using System.Threading.Tasks;
 
@@ -41,7 +40,7 @@ public class PasswordValidator : ValidatorAwaitBase
             throw new Exception(Localizer["Validation.RequireValue"]);
 
          var model = (DeviceModel)EditContext.Model ?? throw new ArgumentNullException();
-         
+
          var result = await DeviceService.CheckPasswordFormatAsync(value, model.Id);
 
          if (!string.IsNullOrEmpty(result.Error))

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Hub.Services.Tests.Directory;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Infrastructure;
 using Hub.Data.Configuration;
 using Hub.Services.Plugins;
+using Hub.Services.Tests.Directory;
+using Hub.Tests;
 using Microsoft.AspNetCore.Hosting;
 using Moq;
 using NUnit.Framework;
-using Hub.Tests;
+using System;
+using System.Collections.Generic;
 
 namespace Hub.Services.Tests;
 

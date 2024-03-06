@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Shared.Common;
+using System;
 using System.Collections.Generic;
-using Hub.Core;
-using Shared.Common;
 
 namespace Hub.Tests;
 

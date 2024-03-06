@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shared.Common;
 
@@ -11,7 +7,7 @@ namespace Shared.Common;
 /// </summary>
 public static class Extensions
 {
-   private static readonly DateTime _jsBaseDatetime = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); 
+   private static readonly DateTime _jsBaseDatetime = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
    /// <summary>
    /// Converts the given UTC date value to epoch time in seconds.
@@ -24,7 +20,7 @@ public static class Extensions
    /// <returns>A long UNIX epoch secon value of the DateTime</returns>
    public static long ToUnixEpochTime(this DateTime dateTime)
    {
-      if(dateTime.Kind== DateTimeKind.Unspecified)
+      if (dateTime.Kind == DateTimeKind.Unspecified)
          dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
 
       var date = dateTime.ToUniversalTime();
@@ -47,7 +43,7 @@ public static class Extensions
       if (dateTime.HasValue)
          return dateTime.Value.ToUnixEpochTime();
 
-      return null;   
+      return null;
    }
 
    /// <summary>
@@ -75,7 +71,7 @@ public static class Extensions
    /// </summary>
    /// <param name="timeSpan">Time span</param>
    /// <returns>Nullable ticks</returns>
-   public static long? ToNullableTicks(this TimeSpan? timeSpan) 
+   public static long? ToNullableTicks(this TimeSpan? timeSpan)
    {
       if (timeSpan.HasValue)
          return timeSpan.Value.Ticks;
@@ -105,7 +101,7 @@ public static class Extensions
    public static double ToJsTicks(this DateTime date)
    {
       var ticks = date.Ticks;
-      var jsTicks = (double)(ticks - _jsBaseDatetime.Ticks) / TimeSpan.TicksPerMillisecond; 
+      var jsTicks = (double)(ticks - _jsBaseDatetime.Ticks) / TimeSpan.TicksPerMillisecond;
       return jsTicks;
    }
 

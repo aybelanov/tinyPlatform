@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.Boards;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.Boards;
 
 namespace Hub.Web.Validators.Boards;
 

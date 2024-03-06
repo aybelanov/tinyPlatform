@@ -23,5 +23,5 @@ public class ServerConfig
    /// <summary>
    /// Webapi endpoint url
    /// </summary>
-   public string WebapiEndpoint { get; set; }   
+   public string WebapiEndpoint { get; set; }
 }

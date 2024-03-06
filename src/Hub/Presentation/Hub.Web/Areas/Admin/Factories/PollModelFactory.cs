@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Polls;
+﻿using Hub.Core.Domain.Polls;
 using Hub.Data.Extensions;
 using Hub.Services.Helpers;
 using Hub.Services.Localization;
@@ -9,6 +6,9 @@ using Hub.Services.Polls;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Polls;
 using Hub.Web.Framework.Models.Extensions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

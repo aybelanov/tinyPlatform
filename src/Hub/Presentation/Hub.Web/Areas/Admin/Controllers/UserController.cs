@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Forums;
@@ -35,6 +29,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Shared.Clients.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -1109,15 +1109,15 @@ public partial class UserController : BaseAdminController
             else if (button.ToString().Equals("btnRefresUserSharedDevices"))
             {
                var existingSharedDeviceIds = (await _deviceService.GetSharedDeviceByUserIdAsync(model.UserId)).Select(x => x.Id);
-               var newSharedDeviceIds =  model.SelectedDeviceIds.Where(x => !existingSharedDeviceIds.Contains(x));
+               var newSharedDeviceIds = model.SelectedDeviceIds.Where(x => !existingSharedDeviceIds.Contains(x));
 
-               if(newSharedDeviceIds.Any())
+               if (newSharedDeviceIds.Any())
                {
                   await _deviceService.MapDeviceToUserAsync(newSharedDeviceIds, model.UserId);
 
                   var newSharedDevices = await _deviceService.GetDevicesByIdsAsync(newSharedDeviceIds.ToList());
 
-                  foreach(var device in newSharedDevices)
+                  foreach (var device in newSharedDevices)
                      await _deviceActivityService.InsertActivityAsync(device, "Device.AddMap", $"Device {device.SystemName} has been mapped to user {user.Email} by {subject.Email}");
                }
             }

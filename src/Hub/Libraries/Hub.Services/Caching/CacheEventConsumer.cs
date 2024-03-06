@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Caching;
+﻿using Hub.Core.Caching;
 using Hub.Core.Events;
 using Hub.Core.Infrastructure;
 using Hub.Services.Events;
 using Shared.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Caching
 {

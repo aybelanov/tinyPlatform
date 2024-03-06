@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
-using Hub.Core.Domain.Users;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Authentication.External
 {

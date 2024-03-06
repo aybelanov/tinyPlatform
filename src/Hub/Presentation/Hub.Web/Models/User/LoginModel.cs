@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Hub.Core.Domain.Users;
-using Hub.Web.Framework.Mvc.ModelBinding;
+﻿using Hub.Core.Domain.Users;
 using Hub.Web.Framework.Models;
+using Hub.Web.Framework.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Models.User;
 

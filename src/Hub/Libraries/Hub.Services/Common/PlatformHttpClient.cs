@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Hub.Core;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Hub.Core;
 
 namespace Hub.Services.Common;
 
@@ -27,7 +27,7 @@ public partial class PlatformHttpClient
    {
       //configure client
       httpClient.BaseAddress = new Uri(webHelper.GetAppLocation());
-      
+
       _httpClient = httpClient;
    }
 

@@ -1,5 +1,4 @@
-﻿using Shared.Clients.Domain;
-using Shared.Common;
+﻿using Shared.Common;
 
 namespace Clients.Dash.Domain;
 

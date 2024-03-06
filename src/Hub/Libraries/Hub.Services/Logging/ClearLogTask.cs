@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Hub.Services.ScheduleTasks;
+using System;
 
 namespace Hub.Services.Logging
 {

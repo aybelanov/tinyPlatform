@@ -1,4 +1,16 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Caching;
+using Hub.Core.Configuration;
+using Hub.Core.Domain.Localization;
+using Hub.Core.Domain.Security;
+using Hub.Data;
+using Hub.Services.Configuration;
+using Hub.Services.ExportImport;
+using Hub.Services.Logging;
+using Hub.Services.Plugins;
+using Microsoft.EntityFrameworkCore;
+using Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,18 +19,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Hub.Core;
-using Hub.Core.Configuration;
-using Hub.Core.Domain.Localization;
-using Hub.Core.Domain.Security;
-using Hub.Core.Caching;
-using Hub.Data;
-using Hub.Services.Logging;
-using Hub.Services.Plugins;
-using Hub.Services.Configuration;
-using Hub.Services.ExportImport;
-using Shared.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hub.Services.Localization;
 
@@ -283,7 +283,7 @@ public partial class LocalizationService : ILocalizationService
                         orderby l.ResourceName
                         where l.LanguageId == languageId
                         select l;
-                        
+
             return ResourceValuesToDictionary(query);
          });
 

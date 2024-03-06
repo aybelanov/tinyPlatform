@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Hub.Core.ComponentModel;
+using Hub.Core.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Hub.Core.ComponentModel;
-using Hub.Core.Infrastructure;
 
 namespace Hub.Data.Mapping
 {

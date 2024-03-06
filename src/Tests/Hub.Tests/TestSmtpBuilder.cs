@@ -1,10 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Messages;
+using Hub.Services.Messages;
 using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
-using Hub.Core.Domain.Messages;
-using Hub.Services.Messages;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hub.Tests;
 

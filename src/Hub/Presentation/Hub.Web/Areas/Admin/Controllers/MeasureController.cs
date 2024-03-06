@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Services.Configuration;
 using Hub.Services.Directory;
 using Hub.Services.Localization;
@@ -12,6 +10,8 @@ using Hub.Web.Areas.Admin.Models.Directory;
 using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 

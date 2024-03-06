@@ -1,10 +1,4 @@
-﻿using Hub.Core.Domain.Blogs;
-using Hub.Core.Domain.Directory;
-using Hub.Core.Domain.News;
-using Hub.Core.Domain.Polls;
-using Hub.Core.Domain.Seo;
-using Shared.Common;
-using System.Collections.Generic;
+﻿using Shared.Common;
 
 namespace Hub.Core.Domain.Localization;
 
@@ -54,17 +48,17 @@ public partial class Language : BaseEntity
    public int DisplayOrder { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   //public Currency DefaultCurrency { get; set; }
-//   public List<LocaleStringResource> LocaleStringResources { get; set; } = new();
-//   public List<LocalizedProperty> LocalizedProperties { get; set; } = new();
-//   //public List<UrlRecord> UrlRecords { get; set; }
-//   public List<BlogPost> BlogPosts { get; set; } = new();   
-//   public List<NewsItem> NewsItems { get; set; } = new(); 
-//   public List<Poll> Polls { get; set; } = new();  
+   //   //public Currency DefaultCurrency { get; set; }
+   //   public List<LocaleStringResource> LocaleStringResources { get; set; } = new();
+   //   public List<LocalizedProperty> LocalizedProperties { get; set; } = new();
+   //   //public List<UrlRecord> UrlRecords { get; set; }
+   //   public List<BlogPost> BlogPosts { get; set; } = new();   
+   //   public List<NewsItem> NewsItems { get; set; } = new(); 
+   //   public List<Poll> Polls { get; set; } = new();  
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

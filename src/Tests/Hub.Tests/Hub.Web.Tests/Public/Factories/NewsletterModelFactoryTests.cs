@@ -1,39 +1,39 @@
-﻿using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core.Domain.Users;
 using Hub.Tests;
 using Hub.Web.Factories;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Tests.Public.Factories
 {
-    [TestFixture]
-    public class NewsletterModelFactoryTests : BaseAppTest
-    {
-        private INewsletterModelFactory _newsletterModelFactory;
+   [TestFixture]
+   public class NewsletterModelFactoryTests : BaseAppTest
+   {
+      private INewsletterModelFactory _newsletterModelFactory;
 
-        [OneTimeSetUp]
-        public void SetUp()
-        {
-            _newsletterModelFactory = GetService<INewsletterModelFactory>();
-        }
+      [OneTimeSetUp]
+      public void SetUp()
+      {
+         _newsletterModelFactory = GetService<INewsletterModelFactory>();
+      }
 
-        [Test]
-        public async Task CanPrepareNewsletterBoxModel()
-        {
-            var model = await _newsletterModelFactory.PrepareNewsletterBoxModelAsync();
+      [Test]
+      public async Task CanPrepareNewsletterBoxModel()
+      {
+         var model = await _newsletterModelFactory.PrepareNewsletterBoxModelAsync();
 
-            model.AllowToUnsubscribe.Should().Be(GetService<UserSettings>().NewsletterBlockAllowToUnsubscribe);
-        }
+         model.AllowToUnsubscribe.Should().Be(GetService<UserSettings>().NewsletterBlockAllowToUnsubscribe);
+      }
 
-        [Test]
-        public async Task CanPrepareSubscriptionActivationModel()
-        {
-            var activated = (await _newsletterModelFactory.PrepareSubscriptionActivationModelAsync(true)).Result;
+      [Test]
+      public async Task CanPrepareSubscriptionActivationModel()
+      {
+         var activated = (await _newsletterModelFactory.PrepareSubscriptionActivationModelAsync(true)).Result;
 
-            var deactivated = (await _newsletterModelFactory.PrepareSubscriptionActivationModelAsync(false)).Result;
+         var deactivated = (await _newsletterModelFactory.PrepareSubscriptionActivationModelAsync(false)).Result;
 
-            activated.Should().NotBe(deactivated);
-        }
-    }
+         activated.Should().NotBe(deactivated);
+      }
+   }
 }

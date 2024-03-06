@@ -98,11 +98,11 @@ public class CommandService : ICommandService
          _dbContext.Sensors.AddRange(sensors);
          await _dbContext.SaveChangesAsync();
          _p2p.AddServerNotification(new ClientMsg()
-         { 
+         {
             Receiver = sender,
             CommandResponse = new() { Notification = "Configuration has updated. Unit is restarting..." },
          });
-       
+
          _applicationLifetime.StopApplication();
       }
       catch (Exception ex)

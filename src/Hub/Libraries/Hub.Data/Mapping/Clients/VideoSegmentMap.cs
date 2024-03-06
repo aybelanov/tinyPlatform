@@ -1,11 +1,6 @@
 ﻿using Hub.Core.Domain.Clients;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hub.Data.Mapping.Clients;
 
@@ -24,7 +19,7 @@ public class VideoSegmentMap : AppEntityTypeConfiguration<VideoSegment>
       builder.ToTable("VideoSegments");
       builder.Property(p => p.InboundName).HasMaxLength(200).IsRequired();
       builder.HasOne<Sensor>().WithMany().HasForeignKey(p => p.IpcamId);
-      builder.HasOne<VideoSegmentBinary>().WithOne().HasForeignKey<VideoSegmentBinary>(p=>p.VideoSegmentId).OnDelete(DeleteBehavior.Cascade);
+      builder.HasOne<VideoSegmentBinary>().WithOne().HasForeignKey<VideoSegmentBinary>(p => p.VideoSegmentId).OnDelete(DeleteBehavior.Cascade);
 
       base.Configure(builder);
    }

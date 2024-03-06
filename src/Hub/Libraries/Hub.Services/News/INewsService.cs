@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Domain.News;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.News;
 
 namespace Hub.Services.News;
 

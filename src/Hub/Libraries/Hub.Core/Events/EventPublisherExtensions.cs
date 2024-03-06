@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Shared.Common;
+﻿using Shared.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Core.Events;
 

@@ -1,8 +1,7 @@
-﻿using Grpc.Core.Interceptors;
-using Grpc.Core;
-using static Grpc.Core.Interceptors.Interceptor;
-using System.Threading.Tasks;
+﻿using Grpc.Core;
+using Grpc.Core.Interceptors;
 using System;
+using System.Threading.Tasks;
 
 namespace Devices.Dispatcher.Services;
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Directory;
 using Hub.Services.Configuration;
 using Hub.Services.Directory;
@@ -15,6 +12,9 @@ using Hub.Web.Areas.Admin.Models.Directory;
 using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -30,7 +30,7 @@ public partial class CurrencyController : BaseAdminController
    private readonly ILocalizedEntityService _localizedEntityService;
    private readonly INotificationService _notificationService;
    private readonly IPermissionService _permissionService;
-   private readonly ISettingService _settingService;      
+   private readonly ISettingService _settingService;
 
    #endregion
 

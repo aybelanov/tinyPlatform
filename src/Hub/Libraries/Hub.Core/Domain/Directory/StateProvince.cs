@@ -1,7 +1,5 @@
-﻿using Hub.Core.Domain.Common;
-using Hub.Core.Domain.Localization;
+﻿using Hub.Core.Domain.Localization;
 using Shared.Common;
-using System.Collections.Generic;
 
 namespace Hub.Core.Domain.Directory;
 
@@ -35,17 +33,17 @@ public partial class StateProvince : BaseEntity, ILocalizedEntity
    /// </summary>
    public int DisplayOrder { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Country Country { get; set; }
+   //   public Country Country { get; set; }
 
-//   public List<Address> Addresses { get; set; } = new();
+   //   public List<Address> Addresses { get; set; } = new();
 
-//   public List<Currency> Currencies { get; set; } = new();
+   //   public List<Currency> Currencies { get; set; } = new();
 
-//   public List<CurrencyStateProvince> CurrencyStateProvinces { get; set; } = new();
+   //   public List<CurrencyStateProvince> CurrencyStateProvinces { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

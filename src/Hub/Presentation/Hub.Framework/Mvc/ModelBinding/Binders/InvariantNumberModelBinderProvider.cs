@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace Hub.Web.Framework.Mvc.ModelBinding.Binders
 {

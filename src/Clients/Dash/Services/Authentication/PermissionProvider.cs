@@ -30,7 +30,7 @@ public class PermissionProvider
    /// <param name="options">Authorization options</param>
    public static void PreparePolicies(AuthorizationOptions options)
    {
-      foreach(var permission in _permissions)
+      foreach (var permission in _permissions)
       {
          options.AddPolicy(permission, policy =>
          {

@@ -1,5 +1,4 @@
 ﻿using Hub.Core.Domain.Media;
-using Hub.Data.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

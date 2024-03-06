@@ -1,6 +1,5 @@
 ﻿using Radzen;
 using Radzen.Blazor;
-using System;
 using System.Text.Json;
 
 namespace Clients.Dash.Services.Validation;
@@ -33,7 +32,7 @@ public class JsonFormatValidator : ValidatorBase
          return true;
       }
       catch { }
-      
+
       return false;
    }
 }

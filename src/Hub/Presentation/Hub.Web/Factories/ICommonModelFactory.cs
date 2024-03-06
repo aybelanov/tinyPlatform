@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Models.Common;
+﻿using Hub.Web.Models.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories
 {

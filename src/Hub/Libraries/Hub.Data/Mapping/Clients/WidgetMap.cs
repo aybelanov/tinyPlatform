@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,17 +10,17 @@ namespace Hub.Data.Mapping.Clients;
 /// </summary>
 public class WidgetMap : AppEntityTypeConfiguration<Widget>
 {
-    /// <summary>
-    /// Configures a mapping
-    /// </summary>
-    /// <param name="builder">Entity type builder</param>
-    public override void Configure(EntityTypeBuilder<Widget> builder)
-    {
-        builder.ToTable("Widgets");
-        builder.Property(p=>p.Adjustment).HasMaxLength(5000).IsRequired(false);
+   /// <summary>
+   /// Configures a mapping
+   /// </summary>
+   /// <param name="builder">Entity type builder</param>
+   public override void Configure(EntityTypeBuilder<Widget> builder)
+   {
+      builder.ToTable("Widgets");
+      builder.Property(p => p.Adjustment).HasMaxLength(5000).IsRequired(false);
 
-        builder.HasOne<User>().WithMany().HasForeignKey(p => p.UserId);
+      builder.HasOne<User>().WithMany().HasForeignKey(p => p.UserId);
 
-        base.Configure(builder);
-    }
+      base.Configure(builder);
+   }
 }

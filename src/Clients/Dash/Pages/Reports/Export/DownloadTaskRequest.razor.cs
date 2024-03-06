@@ -1,17 +1,12 @@
 ﻿using Clients.Dash.Domain;
 using Clients.Dash.Infrastructure;
-using Clients.Dash.Models;
-using Clients.Dash.Services.EntityServices;
 using Clients.Dash.Services.Localization;
-using Clients.Dash.Services.Security;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Clients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
 
 namespace Clients.Dash.Pages.Reports.Export;
 
@@ -44,7 +39,7 @@ public partial class DownloadTaskRequest
    /// </summary>
    public DownloadTaskRequest()
    {
-      
+
    }
 
    #endregion

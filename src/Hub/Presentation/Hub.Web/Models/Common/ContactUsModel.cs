@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hub.Web.Models.Common;
 

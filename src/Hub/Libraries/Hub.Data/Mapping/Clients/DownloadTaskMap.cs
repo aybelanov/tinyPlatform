@@ -2,7 +2,6 @@
 using Hub.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Hub.Data.Mapping.Clients;
 

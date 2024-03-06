@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.Domain.ScheduleTasks;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hub.Core.Domain.ScheduleTasks;
 
 namespace Hub.Services.ScheduleTasks
 {

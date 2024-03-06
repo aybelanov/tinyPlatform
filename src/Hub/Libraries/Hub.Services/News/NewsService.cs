@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.News;
 using Hub.Data;
 using Hub.Data.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.News
 {
@@ -174,7 +174,7 @@ namespace Hub.Services.News
             if (userId > 0)
                query = query.Where(comment => comment.UserId == userId);
 
-            
+
             if (fromUtc.HasValue)
                query = query.Where(comment => fromUtc.Value <= comment.CreatedOnUtc);
 

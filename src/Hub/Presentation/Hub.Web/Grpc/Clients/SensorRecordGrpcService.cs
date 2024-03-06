@@ -101,7 +101,7 @@ public class SensorRecordGrpcService(IUserService userService,
       var user = await workContext.GetCurrentUserAsync();
       request.UserId = user.Id;
 
-      return await GetAllDataStatistics(request, context);  
+      return await GetAllDataStatistics(request, context);
    }
 
    [Authorize(nameof(StandardPermissionProvider.AllowGetData))]
@@ -110,7 +110,7 @@ public class SensorRecordGrpcService(IUserService userService,
       var user = await workContext.GetCurrentUserAsync();
       if (!await userService.IsAdminAsync(user))
          request.UserId = user.Id;
-      
+
       var filter = Auto.Mapper.Map<DynamicFilter>(request);
       var track = await sensorRecordService.GetTrackAsync(filter);
 

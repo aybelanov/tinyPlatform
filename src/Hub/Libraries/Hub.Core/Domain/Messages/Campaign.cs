@@ -1,5 +1,4 @@
-﻿using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
 using System;
 
 namespace Hub.Core.Domain.Messages;
@@ -39,11 +38,11 @@ public partial class Campaign : BaseEntity
    /// </summary>
    public DateTime? DontSendBeforeDateUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public UserRole UserRole { get; set; }
+   //   public UserRole UserRole { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

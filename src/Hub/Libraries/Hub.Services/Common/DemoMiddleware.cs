@@ -1,5 +1,4 @@
-﻿using Hub.Data;
-using Hub.Services.Localization;
+﻿using Hub.Services.Localization;
 using Hub.Services.Messages;
 using Microsoft.AspNetCore.Http;
 using Shared.Clients.Configuration;

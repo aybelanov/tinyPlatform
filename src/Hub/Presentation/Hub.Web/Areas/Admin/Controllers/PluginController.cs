@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Cms;
 using Hub.Core.Domain.Users;
 using Hub.Core.Events;
@@ -24,6 +20,10 @@ using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -368,7 +368,7 @@ public partial class PluginController : BaseAdminController
          //we allow editing of 'friendly name', 'display order'
          pluginDescriptor.FriendlyName = model.FriendlyName;
          pluginDescriptor.DisplayOrder = model.DisplayOrder;
-         
+
          pluginDescriptor.LimitedToUserRoles.Clear();
          if (model.SelectedUserRoleIds.Any())
             pluginDescriptor.LimitedToUserRoles = model.SelectedUserRoleIds;

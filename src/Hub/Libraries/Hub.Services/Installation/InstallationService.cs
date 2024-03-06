@@ -33,6 +33,7 @@ using Hub.Services.Media;
 using Hub.Services.News;
 using Hub.Services.Seo;
 using Hub.Services.Users;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Clients.Configuration;
@@ -1163,7 +1164,7 @@ public partial class InstallationService : IInstallationService
       };
 
       await InsertInstallationDataAsync(userRoles);
-      
+
       var pictureService = EngineContext.Current.Resolve<IPictureService>();
       var sampleImagesPath = GetSamplesPath();
 
@@ -1310,7 +1311,7 @@ public partial class InstallationService : IInstallationService
           new UserUserRole { UserId = demoUser.Id, UserRoleId = urOperators.Id },
           new UserUserRole { UserId = demoUser.Id, UserRoleId = urRegistered.Id },
           new UserUserRole { UserId = demoUser.Id, UserRoleId = urDemo.Id });
-   
+
       //set default user name
       await InsertInstallationDataAsync(
       new GenericAttribute
@@ -1710,7 +1711,7 @@ public partial class InstallationService : IInstallationService
             Title = "Welcome to tinyPlatform",
             Body =
             "<p>It is a <a href=\"https://github.com/aybelanov/tinyPlatform?tab=GPL-3.0-1-ov-file\" target=\"_blank\">free</a> and <a href=\"https://github.com/aybelanov/tinyPlatform\" target=\"_blank\">open source</a> simple Web IoT platform for data acquisition, remote control and online monitoring, where you can register devices, creates widgets and monitors and share them to other users.</p>" +
-            "<p>You are on the main public page. <a href=\"/login?returnUrl=%2F\">Login</a> as a demo user (username: demo, password: demo) and then learn <a href=\"/dashboard\">the telemetry dashboard</a> and <a href=\"/admin\">the hub admin panel</a>.</p>" + 
+            "<p>You are on the main public page. <a href=\"/login?returnUrl=%2F\">Login</a> as a demo user (username: demo, password: demo) and then learn <a href=\"/dashboard\">the telemetry dashboard</a> and <a href=\"/admin\">the hub admin panel</a>.</p>" +
             "<p>If you have questions, see the <a href=\"http://docs.tinyplat.com/\">Documentation</a>, or open a disscussion on <a href=\"https://github.com/aybelanov/tinyPlatform/discussions\">GitHub</a></p>" +
             "<p>You can edit this content in the admin panel.</p>",
             TopicTemplateId = defaultTopicTemplate.Id
@@ -1777,7 +1778,7 @@ public partial class InstallationService : IInstallationService
 
       var homePageTopic = topics.First(x => x.SystemName == "HomepageText");
       var aboutLoginTopic = topics.First(x => x.SystemName == "LoginRegistrationInfo");
-      await InsertInstallationDataAsync(new List<LocalizedProperty>() 
+      await InsertInstallationDataAsync(new List<LocalizedProperty>()
       {
          new()
          {
@@ -1859,7 +1860,7 @@ public partial class InstallationService : IInstallationService
          },
       });
 
-      
+
    }
 
 
@@ -2069,7 +2070,7 @@ public partial class InstallationService : IInstallationService
          SystemNameMaxLength = 20,
          DeviceRegistrationType = DeviceRegistrationType.Standard,
          BlockDevicesIfOwnerNotActive = true,
-         DefaultPasswordFormat = PasswordFormat.Hashed, 
+         DefaultPasswordFormat = PasswordFormat.Hashed,
          NotifyNewDeviceRegistration = true,
          FailedPasswordAllowedAttempts = 3,
          FailedPasswordLockoutMinutes = 5,
@@ -3033,8 +3034,7 @@ public partial class InstallationService : IInstallationService
       var lastEnabledUtc = DateTime.UtcNow;
       var tasks = new List<ScheduleTask>
       {
-         new ScheduleTask
-         {
+         new() {
             Name = "Send emails",
             Seconds = 60,
             Type = typeof(Hub.Services.Messages.QueuedMessagesSendTask).AssemblyQualifiedName, //"Hub.Services.Messages.QueuedMessagesSendTask, Hub.Services",
@@ -3042,8 +3042,7 @@ public partial class InstallationService : IInstallationService
             LastEnabledUtc = lastEnabledUtc,
             StopOnError = false
          },
-         new ScheduleTask
-         {
+         new() {
             Name = "Keep alive",
             Seconds = 300,
             Type = typeof(Hub.Services.Common.KeepAliveTask).AssemblyQualifiedName,
@@ -3051,34 +3050,30 @@ public partial class InstallationService : IInstallationService
             LastEnabledUtc = lastEnabledUtc,
             StopOnError = false
          },
-         new ScheduleTask
-         {
+         new() {
             Name = "Delete guests",
             Seconds = 600,
-            Type = typeof(Hub.Services.Users.DeleteGuestsTask).AssemblyQualifiedName, 
+            Type = typeof(Hub.Services.Users.DeleteGuestsTask).AssemblyQualifiedName,
             Enabled = true,
             LastEnabledUtc = lastEnabledUtc,
             StopOnError = false
          },
-         new ScheduleTask
-         {
+         new() {
             Name = "Clear cache",
             Seconds = 600,
             Type = typeof(Hub.Services.Caching.ClearCacheTask).AssemblyQualifiedName,
             Enabled = false,
             StopOnError = false
          },
-         new ScheduleTask
-         {
+         new() {
             Name = "Clear log",
             //60 minutes
             Seconds = 3600,
-            Type = typeof(Hub.Services.Logging.ClearLogTask).AssemblyQualifiedName, 
+            Type = typeof(Hub.Services.Logging.ClearLogTask).AssemblyQualifiedName,
             Enabled = false,
             StopOnError = false
          },
-         new ScheduleTask
-         {
+         new() {
             Name = "Clear sensor data",
             Seconds = 3600,
             Type = typeof(Hub.Services.Common.ClearSensorDatasTask).AssemblyQualifiedName,
@@ -3156,11 +3151,7 @@ public partial class InstallationService : IInstallationService
    /// <returns>A task that represents the asynchronous operation</returns>
    protected virtual async Task InstallBlogPostsAsync(string defaultUserEmail)
    {
-      var defaultLanguage = _languageRepository.Table.FirstOrDefault();
-
-      if (defaultLanguage == null)
-         throw new Exception("Default language could not be loaded");
-
+      var defaultLanguage = _languageRepository.Table.FirstOrDefault() ?? throw new Exception("Default language could not be loaded");
       var blogService = EngineContext.Current.Resolve<IBlogService>();
 
       var blogPosts = new List<BlogPost>
@@ -3554,10 +3545,10 @@ public partial class InstallationService : IInstallationService
    protected async Task InstallSampleTelemetry(string defaultUserEmail)
    {
       var users = (from u in _userRepository.Table
-                  join ur in _userUserRoleRepository.Table on u.Id equals ur.UserId
-                  join r in _userRoleRepository.Table on ur.UserRoleId equals r.Id
-                  where r.SystemName == UserDefaults.RegisteredRoleName
-                  select u).Distinct();
+                   join ur in _userUserRoleRepository.Table on u.Id equals ur.UserId
+                   join r in _userRoleRepository.Table on ur.UserRoleId equals r.Id
+                   where r.SystemName == UserDefaults.RegisteredRoleName
+                   select u).Distinct();
 
       //var user = users.FirstOrDefault(x => x.Email == defaultUserEmail) ?? throw new Exception("Default user does not exist.");
       var user = users.FirstOrDefault(x => x.Email == "demo@yourplatform.com") ?? throw new Exception("Default user does not exist.");
@@ -3603,7 +3594,7 @@ public partial class InstallationService : IInstallationService
             Lat = deviceLocations[i][0],
             Lon = deviceLocations[i][1],
             ShowOnMain = true,
-            AdminComment = $"Controller #{i+1} admin comment.",
+            AdminComment = $"Controller #{i + 1} admin comment.",
 
             Name = $"Controller #{i + 1} | Контроллер #{i + 1}",
             Description = $"Controller #{i + 1} description | Контроллер #{i + 1} описание"
@@ -3615,10 +3606,11 @@ public partial class InstallationService : IInstallationService
       await InsertInstallationDataAsync(deviceList);
 
       //set hashed device password
-      var deviceRegistrationService = EngineContext.Current.Resolve<IDeviceRegistrationService>();
+      using var serviceScope = EngineContext.Current.Resolve<IServiceScopeFactory>().CreateScope();
+      var deviceRegistrationService = serviceScope.ServiceProvider.GetRequiredService<IDeviceRegistrationService>();
       foreach (var systemName in deviceSystemNames)
       {
-         var result  = await deviceRegistrationService.ChangePasswordAsync(new ChangePasswordRequest(systemName, false, PasswordFormat.Hashed, "Secret123!", null, AppUserServicesDefaults.DefaultHashedPasswordFormat));
+         var result = await deviceRegistrationService.ChangePasswordAsync(new ChangePasswordRequest(systemName, false, PasswordFormat.Hashed, "Secret123!", null, AppUserServicesDefaults.DefaultHashedPasswordFormat));
 
          if (!result.Success)
          {
@@ -4052,7 +4044,7 @@ public partial class InstallationService : IInstallationService
       #region users
 
       var junkUsersCount = _appSettings.Get<InstallationConfig>().InstallSampleData.SampleUsersCount;
-      
+
       // users
       var junkUsers = new List<User>();
       for (var i = 0; i < junkUsersCount; i++)
@@ -4201,7 +4193,7 @@ public partial class InstallationService : IInstallationService
          userMonitorMaps.Add(mapMonitorToUser);
       }
 
-      await InsertInstallationDataAsync(userMonitorMaps.DistinctBy(x=>new { x.UserId, x.MonitorId }).ToList());
+      await InsertInstallationDataAsync(userMonitorMaps.DistinctBy(x => new { x.UserId, x.MonitorId }).ToList());
 
       foreach (var monitor in monitors)
       {
@@ -4342,7 +4334,7 @@ public partial class InstallationService : IInstallationService
          deviceToUserMaps.Add(mapDeviceToUser);
       }
       await InsertInstallationDataAsync(deviceToUserMaps);
-     
+
       foreach (var device in devices)
       {
          foreach (var language in _languageRepository.Table)
@@ -4371,7 +4363,7 @@ public partial class InstallationService : IInstallationService
                   LocaleValue = isEng ? $"Device #{device.Id} short description" : $"Устройство #{device.Id} краткое описание"
                };
 
-               locales.Add(localeDescription);         
+               locales.Add(localeDescription);
             }
          }
       }
@@ -4477,7 +4469,7 @@ public partial class InstallationService : IInstallationService
             UserId = users[index].Id,
             WidgetType = (WidgetType)Random.Shared.Next(1, widgetTypeEnumLenght),
             SubjectToAcl = false,
-            Adjustment = JsonSerializer.Serialize(new 
+            Adjustment = JsonSerializer.Serialize(new
             {
                HistoryPointsCount = 120,
                MaxCriticalValue = 120,
@@ -4492,7 +4484,7 @@ public partial class InstallationService : IInstallationService
                UseValueConstraint = true,
                ShowAsAreachart = true,
                ShowNotificationForAll = false,
-            }), 
+            }),
          };
 
          widgets.Add(widget);
@@ -4591,7 +4583,7 @@ public partial class InstallationService : IInstallationService
          DisplayNewsFooterItem = true,
          DisplayContactUsFooterItem = true,
          DisplaySearchFooterItem = false,
-         DisplaySitemapFooterItem = true, 
+         DisplaySitemapFooterItem = true,
          DisplayUserAddressesFooterItem = true,
          DisplayUserInfoFooterItem = true,
          DisplayWishlistFooterItem = false,

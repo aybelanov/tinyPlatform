@@ -1,5 +1,5 @@
-﻿using Hub.Web.Models.Common;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using Hub.Web.Models.Common;
 
 namespace Hub.Web.Models.User
 {

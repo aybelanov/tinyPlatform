@@ -1,10 +1,10 @@
-﻿using System.Globalization;
-using FluentValidation;
-using Hub.Web.Areas.Admin.Models.Directory;
+﻿using FluentValidation;
 using Hub.Core.Domain.Directory;
 using Hub.Data.Mapping;
 using Hub.Services.Localization;
+using Hub.Web.Areas.Admin.Models.Directory;
 using Hub.Web.Framework.Validators;
+using System.Globalization;
 
 namespace Hub.Web.Areas.Admin.Validators.Directory;
 

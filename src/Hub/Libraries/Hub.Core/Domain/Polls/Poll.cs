@@ -1,8 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Localization;
-using Hub.Core.Domain.News;
-using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Polls;
 
@@ -56,12 +53,12 @@ public partial class Poll : BaseEntity
    /// </summary>
    public DateTime? EndDateUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Language Language { get; set; }
-//   public List<PollAnswer> Answers { get; set; } = new();
+   //   public Language Language { get; set; }
+   //   public List<PollAnswer> Answers { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

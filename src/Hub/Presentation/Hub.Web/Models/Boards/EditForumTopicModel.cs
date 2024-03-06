@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core.Domain.Forums;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Web.Framework.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace Hub.Web.Models.Boards;
 

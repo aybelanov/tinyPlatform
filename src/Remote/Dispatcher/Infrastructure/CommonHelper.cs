@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Devices.Dispatcher.Domain;
+using Devices.Dispatcher.Services.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
-using Devices.Dispatcher.Domain;
-using Devices.Dispatcher.Services.Settings;
 
 namespace Devices.Dispatcher.Infrastructure;
 

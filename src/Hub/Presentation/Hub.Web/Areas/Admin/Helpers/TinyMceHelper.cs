@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Infrastructure;
+using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Helpers
 {

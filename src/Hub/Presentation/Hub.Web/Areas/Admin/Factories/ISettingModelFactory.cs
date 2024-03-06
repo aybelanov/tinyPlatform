@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Gdpr;
+﻿using Hub.Core.Domain.Gdpr;
 using Hub.Web.Areas.Admin.Models.Settings;
+using System.Threading.Tasks;
 
 
 namespace Hub.Web.Areas.Admin.Factories;

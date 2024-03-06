@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices.JavaScript;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Clients.Widgets;
@@ -20,7 +18,7 @@ public partial class OpenMap : OpenLayerBase
    public RenderFragment Header { get; set; }
 
    [Parameter]
-   public string ScrollbarId {  get; set; }
+   public string ScrollbarId { get; set; }
 
    [Parameter]
    public string PlayButtonId { get; set; }
@@ -56,7 +54,7 @@ public partial class OpenMap : OpenLayerBase
    /// <summary>
    /// 
    /// </summary>
-   static OpenMap() 
+   static OpenMap()
    {
 
    }
@@ -66,7 +64,7 @@ public partial class OpenMap : OpenLayerBase
    /// </summary>
    public OpenMap() : base()
    {
-      
+
    }
 
    #endregion
@@ -93,7 +91,7 @@ public partial class OpenMap : OpenLayerBase
    public Task Fit()
    {
       Fit(Id);
-      return Task.CompletedTask; 
+      return Task.CompletedTask;
    }
 
    public async Task ShowTrack(IEnumerable<GeoPoint> track)
@@ -109,7 +107,7 @@ public partial class OpenMap : OpenLayerBase
             track.Select(x=>x.Course).ToArray(),
 
          }.ToArray();
-        
+
          await _jsImportReady.Task;
          ShowTrack(Id, data.ToArray());
       }
@@ -201,7 +199,7 @@ public partial class OpenMap : OpenLayerBase
 
    [JSImport("showPath", "OpenMap.razor.js")]
    internal static partial void ShowTrack(
-      [JSMarshalAs<JSType.String>] string containerId, 
+      [JSMarshalAs<JSType.String>] string containerId,
       [JSMarshalAs<JSType.Array<JSType.Any>>] object[] data);
 
    [JSImport("updateOnlinePath", "OpenMap.razor.js")]
@@ -263,7 +261,7 @@ public partial class OpenMap : OpenLayerBase
 
    protected virtual async ValueTask DisposeAsyncCore()
    {
-      if(_jsModule is not null)
+      if (_jsModule is not null)
          await _jsModule.InvokeVoidAsync("destroyOlMap", Element).ConfigureAwait(false); ;
 
       if (_olMap != null)

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Hub.Web.Areas.Admin.Models.Localization;
+﻿using Hub.Web.Areas.Admin.Models.Localization;
 using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Areas.Admin.Models.Common;
 

@@ -2,7 +2,6 @@
 using Clients.Widgets;
 using Clients.Widgets.Core;
 using Shared.Clients;
-using Shared.Clients.Proto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static Clients.Widgets.VideoPlayer;
@@ -68,5 +67,5 @@ public interface ISensorRecordService
    /// </summary>
    /// <param name="filter">Dynamic filter</param>
    /// <returns>Video segment collection</returns>
-   Task<IList<Segment>> GetVideoSegmentsAsync (DynamicFilter filter);
+   Task<IList<Segment>> GetVideoSegmentsAsync(DynamicFilter filter);
 }

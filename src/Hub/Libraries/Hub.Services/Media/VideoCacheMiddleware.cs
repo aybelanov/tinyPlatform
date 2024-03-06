@@ -1,17 +1,11 @@
 ﻿using Hub.Core;
-using Hub.Data;
 using Hub.Services.Clients;
 using Hub.Services.Clients.Records;
-using Hub.Services.Common;
 using Hub.Services.Security;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.StaticFiles;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hub.Services.Media;
@@ -22,7 +16,7 @@ namespace Hub.Services.Media;
 public class VideoCacheMiddleware
 {
    #region fields
-  
+
    private readonly RequestDelegate _next;
    private static readonly string storageDir = CommonHelper.DefaultFileProvider.GetAbsolutePath(ClientDefaults.VideoStorageDirectory);
 

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
-using Hub.Services.Installation;
+﻿using Hub.Services.Installation;
 using Hub.Web.Framework.Mvc.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 
 namespace Hub.Web.Infrastructure;
 

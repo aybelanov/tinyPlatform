@@ -2,7 +2,6 @@
 using Hub.Core.Caching;
 using Hub.Core.Domain.Logging;
 using Hub.Core.Domain.Users;
-using Hub.Data;
 using Hub.Tests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -251,7 +250,7 @@ public class EntityRepositoryTests : BaseAppTest
       await userRepository.InsertAsync(user);
       await userRepository.DeleteAsync(user);
       var softDeletedUser = await dbContext.GetTable<User>().IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Email == "softdelete@user.com");
-      softDeletedUser.Should().NotBeNull();  
+      softDeletedUser.Should().NotBeNull();
    }
 
    [Test]

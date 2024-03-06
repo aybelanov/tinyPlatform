@@ -41,5 +41,5 @@ public class GNSS
    /// <summary>
    /// GNSS Course
    /// </summary>
-   public double Course { get; set; }  
+   public double Course { get; set; }
 }

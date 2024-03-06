@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Common;
+﻿using Hub.Core.Domain.Common;
 using Shared.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Common
 {

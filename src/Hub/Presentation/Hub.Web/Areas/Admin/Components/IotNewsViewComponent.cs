@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Factories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Hub.Web.Areas.Admin.Factories;
 using Hub.Web.Framework.Components;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Components
 {

@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Domain.Messages;
 using Hub.Data;
 using Hub.Services.Messages;
 using Hub.Tests;
+using NUnit.Framework;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.Messages
 {

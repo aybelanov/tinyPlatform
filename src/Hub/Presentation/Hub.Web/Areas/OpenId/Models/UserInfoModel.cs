@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Hub.Web.Areas.OpenId.Models;
 
@@ -15,5 +15,5 @@ public partial record UserInfoModel
    public string SubjectId { get; set; }
 
    [JsonProperty(PropertyName = "scope")]
-   public IEnumerable<string> Scope { get; set; }  
+   public IEnumerable<string> Scope { get; set; }
 }

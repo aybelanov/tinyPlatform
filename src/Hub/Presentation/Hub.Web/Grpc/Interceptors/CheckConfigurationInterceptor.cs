@@ -1,13 +1,9 @@
 ﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Hub.Core;
-using Hub.Core.Domain.Clients;
 using Hub.Services.Clients;
 using Hub.Services.Common;
-using Hub.Services.Devices;
 using Hub.Web.Grpc.Devices;
-using Shared.Clients.Domain;
-using Shared.Common;
 using Shared.Devices;
 using System.Net;
 using System.Threading.Tasks;

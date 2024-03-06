@@ -17,7 +17,7 @@ public static class ApplicationBuilderExtensions
    /// </summary>
    /// <param name="application">Application builder</param>
    public static void UseApiEndpoinst(this IApplicationBuilder application)
-   {   
+   {
       // https://docs.microsoft.com/ru-ru/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-6.0&tabs=visual-studio&pivots=webassembly
       application.UseEndpoints(endpoints =>
       {

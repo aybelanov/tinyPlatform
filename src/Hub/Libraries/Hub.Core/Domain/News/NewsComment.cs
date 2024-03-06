@@ -1,8 +1,5 @@
-﻿using System;
-using Hub.Core.Domain.Forums;
-using System.Collections.Generic;
-using Shared.Common;
-using Hub.Core.Domain.Users;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.News;
 
@@ -41,12 +38,12 @@ public partial class NewsComment : BaseEntity
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
-//   public NewsItem NewsItem { get; set; }
+   //   public User User { get; set; }
+   //   public NewsItem NewsItem { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

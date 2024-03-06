@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Hub.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core;
 
 namespace Hub.Web.Framework.Models.Extensions;
 

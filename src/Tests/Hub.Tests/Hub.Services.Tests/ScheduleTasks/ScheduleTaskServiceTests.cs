@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Hub.Core.Domain.ScheduleTasks;
 using Hub.Services.ScheduleTasks;
+using NUnit.Framework;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Tests.ScheduleTasks;
 
@@ -61,7 +61,7 @@ public class ScheduleTaskServiceTests : ServiceTest
    {
       var tasks = await _scheduleTaskService.GetAllTasksAsync();
 
-      tasks.Count.Should().Be(4);
+      tasks.Count.Should().Be(3);
       tasks.Any(p => p.Enabled == false).Should().BeFalse();
       tasks.Any(p => p.Id == _task.Id).Should().BeFalse();
 

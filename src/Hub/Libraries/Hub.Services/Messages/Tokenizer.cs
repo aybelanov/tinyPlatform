@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Domain.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Net;
 using System.Text.RegularExpressions;
-using Hub.Core.Domain.Messages;
 
 namespace Hub.Services.Messages
 {

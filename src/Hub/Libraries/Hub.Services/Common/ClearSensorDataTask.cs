@@ -27,10 +27,10 @@ public class ClearSensorDatasTask(ILogger logger, AppDbContext dataProvider, IAp
          try
          {
             var count = await dataProvider.GetTable<SensorRecord>().AsNoTracking()
-               .OrderByDescending(x=>x.EventTimestamp)
+               .OrderByDescending(x => x.EventTimestamp)
                .Skip(deviceSettings.MaxSensorDatasInDb)
                .ExecuteDeleteAsync();
-            
+
             await logger.InformationAsync($"{count} surplus sensor data records were deleted successfully.");
          }
          catch (Exception ex)
@@ -47,7 +47,7 @@ public class ClearSensorDatasTask(ILogger logger, AppDbContext dataProvider, IAp
 
             // clear database
             var count = await dataProvider.GetTable<VideoSegment>().AsNoTracking()
-               .Where(x=> x.OnCreatedUtc < expirationDate)
+               .Where(x => x.OnCreatedUtc < expirationDate)
                .ExecuteDeleteAsync();
 
             await logger.InformationAsync($"{count} videosegments were deleted successfully.");

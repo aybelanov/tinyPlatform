@@ -1,8 +1,8 @@
 ﻿//Contributor : MVCContrib
 
-using System;
 using Hub.Core;
 using Hub.Web.Framework.Models;
+using System;
 
 namespace Hub.Web.Framework.UI.Paging
 {

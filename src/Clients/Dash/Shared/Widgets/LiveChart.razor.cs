@@ -1,11 +1,4 @@
-﻿using Clients.Dash.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Auto = Clients.Dash.Infrastructure.AutoMapper.AutoMapperConfiguration;
-
-namespace Clients.Dash.Shared.Widgets;
+﻿namespace Clients.Dash.Shared.Widgets;
 
 /// <summary>
 /// Component partial chart

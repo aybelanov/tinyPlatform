@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Infrastructure;
-using Hub.Services.Localization;
+﻿using Hub.Services.Localization;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Models.Common;
 

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Caching;
+﻿using Hub.Core.Caching;
+using System.Collections.Generic;
 
 namespace Hub.Services.Plugins
 {

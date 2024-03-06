@@ -1,6 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Validators;
+using System;
 
 namespace Hub.Web.Framework.Validators;
 

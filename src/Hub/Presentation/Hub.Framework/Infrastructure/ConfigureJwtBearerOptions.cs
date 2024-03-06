@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Configuration;
-using Hub.Core.Infrastructure;
-using Hub.Services.Clients;
-using Hub.Web.Framework.Configuration;
+﻿using Hub.Services.Clients;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Shared.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Infrastructure;
 #pragma warning disable CS1591

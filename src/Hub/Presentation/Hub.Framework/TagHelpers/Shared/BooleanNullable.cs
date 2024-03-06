@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hub.Web.Framework.TagHelpers.Shared;
+﻿namespace Hub.Web.Framework.TagHelpers.Shared;
 
 /// <summary>
 /// Uses for tri-state checkbox

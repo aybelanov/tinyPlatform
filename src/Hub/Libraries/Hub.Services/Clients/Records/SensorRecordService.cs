@@ -66,7 +66,7 @@ public class SensorRecordService(IRepository<Device> deviceRepository,
 
       if (userId.HasValue)
       {
-         query = 
+         query =
             from r in query
             join s in _sensorService.UserScope(userId) on r.SensorId equals s.Id
             join d in _deviceService.UserScope(userId) on s.DeviceId equals d.Id
@@ -212,7 +212,7 @@ public class SensorRecordService(IRepository<Device> deviceRepository,
    {
       ArgumentNullException.ThrowIfNull(filter?.SensorId);
 
-      var sensorQuery = _sensorService.UserScope(filter.UserId).Where(x=>x.Id == filter.SensorId);
+      var sensorQuery = _sensorService.UserScope(filter.UserId).Where(x => x.Id == filter.SensorId);
 
       // query
       var recordQuery =
@@ -232,13 +232,13 @@ public class SensorRecordService(IRepository<Device> deviceRepository,
 
       var set = await query.ToListAsync();
 
-      if(set.Count < 1)
+      if (set.Count < 1)
       {
-         set = 
+         set =
             await (from r in _sensorRecordRepository.Table.AsNoTracking()
-            join s in sensorQuery on r.SensorId equals s.Id
-            orderby r.EventTimestamp descending
-            select r.Bytes).Take(1).ToListAsync();
+                   join s in sensorQuery on r.SensorId equals s.Id
+                   orderby r.EventTimestamp descending
+                   select r.Bytes).Take(1).ToListAsync();
       }
 
       // zip data to transfer for clients app
@@ -273,7 +273,7 @@ public class SensorRecordService(IRepository<Device> deviceRepository,
 
       if (filter.SensorId.HasValue)
       {
-         query = query.Where(x=>x.SensorId == filter.SensorId);
+         query = query.Where(x => x.SensorId == filter.SensorId);
       }
 
       query = query.ApplyClientQuery(filter);

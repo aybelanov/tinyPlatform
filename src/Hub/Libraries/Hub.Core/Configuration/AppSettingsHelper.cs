@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Hub.Core.Infrastructure;
-using AutoMapper.Internal;
 
 namespace Hub.Core.Configuration;
 
@@ -58,7 +57,7 @@ public partial class AppSettingsHelper
          else
          {
             var props = config.GetType().GetProperties();
-            foreach (var prop in props) 
+            foreach (var prop in props)
                configuration[prop.Name] = JToken.FromObject(prop.GetValue(config));
          }
       }

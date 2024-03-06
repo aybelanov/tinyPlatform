@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Messages;
 using Hub.Web.Areas.Admin.Models.Messages;
-using Hub.Core.Domain.Messages;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Forums;
 using Hub.Core.Domain.Users;
 using Hub.Services.Common;
@@ -13,6 +11,8 @@ using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Forums;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -35,7 +35,7 @@ public partial class ForumController : BaseAdminController
    public ForumController(IForumModelFactory forumModelFactory,
        IForumService forumService,
        IGenericAttributeService genericAttributeService,
-       ILocalizationService localizationService, 
+       ILocalizationService localizationService,
        IWorkContext workContext,
        INotificationService notificationService,
        IPermissionService permissionService)
@@ -46,7 +46,7 @@ public partial class ForumController : BaseAdminController
       _localizationService = localizationService;
       _notificationService = notificationService;
       _permissionService = permissionService;
-      _workContext = workContext;   
+      _workContext = workContext;
    }
 
    #endregion

@@ -102,7 +102,7 @@ public partial class DispatcherController : ControllerBase
       var sensor = _dbContext.Sensors.FirstOrDefault(x => x.Id == sensorId);
       if (sensor == null)
          return;
-     
+
       var filePath = Path.Combine(Defaults.VideoSegmentsPath, segmentFileName + ".tmp");
 
       if (Defaults.SegmentTypes.Contains(Path.GetExtension(segmentFileName)))

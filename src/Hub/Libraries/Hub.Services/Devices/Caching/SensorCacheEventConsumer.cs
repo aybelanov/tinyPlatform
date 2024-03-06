@@ -38,8 +38,8 @@ namespace Hub.Services.Devices.Caching
          await RemoveAsync(ClientCacheDefaults<Sensor>.ByDeviceIdCacheKey, entity.DeviceId);
          await RemoveAsync(ClientCacheDefaults<Sensor>.BySensorSystemNameCacheKey, entity.SystemName, entity.DeviceId);
          await RemoveAsync(ClientCacheDefaults<Sensor>.ByIdCacheKey, entity.Id);
-        
-         if(entityEventType != EntityEventType.Insert)
+
+         if (entityEventType != EntityEventType.Insert)
             await RemoveAsync(AppEntityCacheDefaults<Sensor>.ByIdCacheKey, entity);
       }
    }

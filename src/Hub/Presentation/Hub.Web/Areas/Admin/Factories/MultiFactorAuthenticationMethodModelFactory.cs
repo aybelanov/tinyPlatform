@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Services.Authentication.MultiFactor;
+using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
+using Hub.Web.Areas.Admin.Models.MultiFactorAuthentication;
+using Hub.Web.Framework.Models.Extensions;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.MultiFactorAuthentication;
-using Hub.Services.Authentication.MultiFactor;
-using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
-using Hub.Web.Framework.Models.Extensions;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

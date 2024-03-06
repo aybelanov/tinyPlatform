@@ -16,13 +16,13 @@ builder.Services.AddHubGrpcClient(builder.Configuration);
 builder.Services.AddAutoMapper();
 builder.Services.AddSwagerTools();
 builder.Services.AddAppLogicServices();
-builder.Services.AddOptions();   
+builder.Services.AddOptions();
 builder.Services.AddControllers();
 var app = builder.Build();
 
 app.UseAppSwagger();
 app.MapControllers();
 
-app.StartAplicationAsync();  
+app.StartAplicationAsync();
 
 app.Run();

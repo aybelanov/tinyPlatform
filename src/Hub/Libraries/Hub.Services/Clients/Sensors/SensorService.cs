@@ -37,7 +37,7 @@ public class SensorService(IRepository<Device> deviceRepository,
       sensorRepository,
       sensorWidgetRepository,
       monitorSensorWidgetRepository,
-      staticCacheManager, 
+      staticCacheManager,
       userRepository), ISensorService
 {
    #region Fields
@@ -116,7 +116,7 @@ public class SensorService(IRepository<Device> deviceRepository,
       return sensorQuery;
    }
 
-  
+
 
    #endregion
 
@@ -202,7 +202,7 @@ public class SensorService(IRepository<Device> deviceRepository,
          where filter.WidgetIds.Contains(sw.WidgetId)
          select s;
 
-      if(filter.MonitorId.HasValue)
+      if (filter.MonitorId.HasValue)
          sensorQuery =
          from s in sensorQuery
          join sw in _sensorWidgetRepository.Table.AsNoTracking() on s.Id equals sw.SensorId
@@ -210,7 +210,7 @@ public class SensorService(IRepository<Device> deviceRepository,
          where msw.MonitorId == filter.MonitorId.Value
          select s;
 
-      if(filter.MonitorIds?.Any() == true)
+      if (filter.MonitorIds?.Any() == true)
          sensorQuery =
          from s in sensorQuery
          join sw in _sensorWidgetRepository.Table.AsNoTracking() on s.Id equals sw.SensorId

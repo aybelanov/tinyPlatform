@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.News;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.News;
 
 namespace Hub.Web.Validators.News;
 

@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Validators;
 using Hub.Core.Domain.Users;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Hub.Web.Framework.Validators
 {
@@ -41,7 +41,7 @@ namespace Hub.Web.Framework.Validators
       /// <returns>Result</returns>
       public static bool IsValid(string username, UserSettings userSettings)
       {
-         if (userSettings.UsernameMinLenght > 0 && username.Length < userSettings.UsernameMinLenght)
+         if (userSettings.UsernameMinLenght > 0 && username?.Length < userSettings.UsernameMinLenght)
             return false;
 
          if (!userSettings.UsernameValidationEnabled || string.IsNullOrEmpty(userSettings.UsernameValidationRule))

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Hub.Core.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Hub.Core.Infrastructure;
-using Hub.Web.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hub.Web.Framework.Themes
 {

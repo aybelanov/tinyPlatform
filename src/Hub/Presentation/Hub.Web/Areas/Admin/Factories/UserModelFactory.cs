@@ -56,7 +56,7 @@ public partial class UserModelFactory : IUserModelFactory
    private readonly IUserAttributeParser _userAttributeParser;
    private readonly IUserAttributeService _userAttributeService;
    private readonly IUserService _userService;
-   private readonly IDeviceActivityService _deviceActivityService;  
+   private readonly IDeviceActivityService _deviceActivityService;
    private readonly IHubSensorRecordService _sensorDataService;
    private readonly Hub.Services.Devices.IHubSensorService _sensorService;
    private readonly Hub.Services.Devices.IHubDeviceService _deviceService;
@@ -81,14 +81,14 @@ public partial class UserModelFactory : IUserModelFactory
       AddressSettings addressSettings,
       UserSettings userSettings,
       DateTimeSettings dateTimeSettings,
-      GdprSettings gdprSettings, 
+      GdprSettings gdprSettings,
       ForumSettings forumSettings,
       IAclSupportedModelFactory aclSupportedModelFactory,
       IAddressAttributeFormatter addressAttributeFormatter,
       IAddressModelFactory addressModelFactory,
       IAuthenticationPluginManager authenticationPluginManager,
       IBaseAdminModelFactory baseAdminModelFactory,
-      ICountryService countryService, 
+      ICountryService countryService,
       IUserActivityService userActivityService,
       IDeviceActivityService deviceActivityService,
       IUserAttributeParser userAttributeParser,
@@ -102,11 +102,11 @@ public partial class UserModelFactory : IUserModelFactory
       IGdprService gdprService,
       IGenericAttributeService genericAttributeService,
       IGeoLookupService geoLookupService,
-      ILocalizationService localizationService, 
+      ILocalizationService localizationService,
       INewsLetterSubscriptionService newsLetterSubscriptionService,
       IPictureService pictureService,
       IStateProvinceService stateProvinceService,
-      MediaSettings mediaSettings, 
+      MediaSettings mediaSettings,
       ICommunicator communicator)
    {
       _addressSettings = addressSettings;
@@ -127,7 +127,7 @@ public partial class UserModelFactory : IUserModelFactory
       _userService = userService;
       _deviceService = deviceService;
       _sensorDataService = sensorDataService;
-      _sensorService = sensorService;  
+      _sensorService = sensorService;
       _dateTimeHelper = dateTimeHelper;
       _externalAuthenticationService = externalAuthenticationService;
       _gdprService = gdprService;
@@ -495,7 +495,7 @@ public partial class UserModelFactory : IUserModelFactory
       await _aclSupportedModelFactory.PrepareModelUserRolesAsync(searchModel);
 
       //prepare page parameters
-      if(!popup)
+      if (!popup)
          searchModel.SetGridPageSize();
       else
          searchModel.SetPopupGridPageSize();
@@ -633,10 +633,10 @@ public partial class UserModelFactory : IUserModelFactory
             if (!string.IsNullOrEmpty(user.Email))
             {
                var subscriptoion = await _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAsync(user.Email);
-               model.NewsletterSubscribed = subscriptoion == null ? false : true;   
+               model.NewsletterSubscribed = subscriptoion == null ? false : true;
             }
          }
-        
+
          PrepareUserDeviceSearchModel(model.UserDeviceSearchModel, user);
          PrepareUserAddressSearchModel(model.UserAddressSearchModel, user);
          PrepareUserActivityLogSearchModel(model.UserActivityLogSearchModel, user);
@@ -927,7 +927,7 @@ public partial class UserModelFactory : IUserModelFactory
 
       //prepare available user roles
       var availableRoles = await _userService.GetAllUserRolesAsync(showHidden: true);
-      searchModel.AvailableUserRoles = availableRoles.Where(x=>x.SystemName != UserDefaults.DevicesRoleName).Select(role => new SelectListItem
+      searchModel.AvailableUserRoles = availableRoles.Where(x => x.SystemName != UserDefaults.DevicesRoleName).Select(role => new SelectListItem
       {
          Text = role.Name,
          Value = role.Id.ToString(),
@@ -940,7 +940,7 @@ public partial class UserModelFactory : IUserModelFactory
       searchModel.SearchOffline = false;
 
       searchModel.SetGridPageSize();
-     
+
       return searchModel;
    }
 
@@ -957,8 +957,8 @@ public partial class UserModelFactory : IUserModelFactory
       if (searchModel == null)
          throw new ArgumentNullException(nameof(searchModel));
 
-       var now = DateTime.UtcNow;
-      
+      var now = DateTime.UtcNow;
+
       var activityStart = searchModel.SearchLastActivityFrom.HasValue
          ? (DateTime?)_dateTimeHelper.ConvertToUtcTime(searchModel.SearchLastActivityFrom.Value, await _dateTimeHelper.GetCurrentTimeZoneAsync())
          : null;
@@ -973,11 +973,11 @@ public partial class UserModelFactory : IUserModelFactory
          utcNow: now,
          online: searchModel.SearchOnline,
          onlineIds: onlineUserIds.ToArray(),
-         beenRecently: searchModel.SearchBeenRecently,   
+         beenRecently: searchModel.SearchBeenRecently,
          offline: searchModel.SearchOffline,
          userRoleIds: searchModel.SelectedUserRoleIds.ToArray(),
          email: searchModel.SearchEmail,
-         ipAddress: searchModel.SearchIpAddress, 
+         ipAddress: searchModel.SearchIpAddress,
          company: searchModel.SearchCompany,
          lastActivityFromUtc: activityStart,
          lastActivityToUtc: activityEnd);
@@ -990,7 +990,7 @@ public partial class UserModelFactory : IUserModelFactory
             //fill in model values from the entity
             var userModel = new OnlineUserModel();
 
-            userModel.Id = user.Id;               
+            userModel.Id = user.Id;
 
             //fill in additional values (not existing in the entity)
             userModel.UserInfo = await _userService.IsRegisteredAsync(user)

@@ -139,7 +139,7 @@ public class DeviceRegistrationService : IDeviceRegistrationService
       else if (await _hubDeviceService.GetDeviceBySystemNameAsync(systemName) != null)
          result.AddError(string.Format(await _localizationService.GetResourceAsync("Account.Register.Errors.SystemNameAlreadyExists"), systemName));
 
-      return result; 
+      return result;
    }
 
    /// <summary>
@@ -169,7 +169,7 @@ public class DeviceRegistrationService : IDeviceRegistrationService
           _deviceSettings.PasswordRequireDigit ? await _localizationService.GetResourceAsync("Validation.Password.RequireDigit") : "",
           _deviceSettings.PasswordRequireNonAlphanumeric ? await _localizationService.GetResourceAsync("Validation.Password.RequireNonAlphanumeric") : ""));
       }
-      
+
       return result;
    }
 
@@ -257,7 +257,7 @@ public class DeviceRegistrationService : IDeviceRegistrationService
 
       var result = new DeviceRegistrationResult();
 
-      if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageDevices) 
+      if (!await _permissionService.AuthorizeAsync(StandardPermissionProvider.ManageDevices)
          && !await _permissionService.AuthorizeAsync(StandardPermissionProvider.AllowManageDevices))
       {
          result.AddError(await _localizationService.GetResourceAsync("Account.Register.Errors.CannotRegisterDevice"));
@@ -310,11 +310,11 @@ public class DeviceRegistrationService : IDeviceRegistrationService
       if (!systenNameValidateResult.Success)
       {
          systenNameValidateResult.Errors.ToList().ForEach(result.AddError);
-         return result; 
+         return result;
       }
 
       var passwordValidateResult = await ValidatePasswordFormatAsync(request.Password);
-      if(!passwordValidateResult.Success)
+      if (!passwordValidateResult.Success)
       {
          passwordValidateResult.Errors.ToList().ForEach(result.AddError);
          return result;
@@ -416,7 +416,7 @@ public class DeviceRegistrationService : IDeviceRegistrationService
       if (_deviceSettings.UnduplicatedPasswordNumber > 0)
       {
          var previousPasswords = await _hubDeviceService.GetDeviceCredentialsAsync(device.Id, credentialsToReturn: _deviceSettings.UnduplicatedPasswordNumber);
-         
+
          var newPasswordMatchesWithPrevious = previousPasswords.Any(password => PasswordsMatch(password, request.NewPassword));
          if (newPasswordMatchesWithPrevious)
          {

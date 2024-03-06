@@ -1,11 +1,7 @@
-﻿using Hub.Core.Domain.Common;
-using Hub.Core.Infrastructure;
-using Hub.Web.Framework.Configuration;
+﻿using Hub.Web.Framework.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace Hub.Web.Framework.Controllers;
 
@@ -18,5 +14,5 @@ namespace Hub.Web.Framework.Controllers;
 [Authorize(AuthenticationSchemes = "Bearer")]
 public abstract class BaseWebapiController : ControllerBase
 {
-  
+
 }

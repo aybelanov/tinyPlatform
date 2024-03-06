@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Hub.Web.Areas.Admin.Models.Localization;
 using Hub.Core.Domain.Localization;
 using Hub.Data.Mapping;
 using Hub.Services.Localization;
+using Hub.Web.Areas.Admin.Models.Localization;
 using Hub.Web.Framework.Validators;
 
 namespace Hub.Web.Areas.Admin.Validators.Localization;

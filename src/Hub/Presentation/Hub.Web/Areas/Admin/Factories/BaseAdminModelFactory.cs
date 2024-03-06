@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Caching;
+﻿using Hub.Core.Caching;
 using Hub.Core.Domain.Gdpr;
 using Hub.Core.Domain.Logging;
 using Hub.Services;
@@ -14,8 +10,11 @@ using Hub.Services.Messages;
 using Hub.Services.Plugins;
 using Hub.Services.Topics;
 using Hub.Services.Users;
-using Hub.Web.Areas.Admin.Infrastructure.Cache;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

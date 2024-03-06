@@ -56,17 +56,17 @@ public partial class TimelineChart
    }
 
 
-   public async Task Update(ChangeEventArgs args) 
+   public async Task Update(ChangeEventArgs args)
    {
       _isCumulative = Convert.ToBoolean(args.Value);
       await _jsImportReady.Task;
-      Update(Id, _isCumulative); 
+      Update(Id, _isCumulative);
    }
 
    public async Task Draw(IEnumerable<Point> series)
    {
 
-      var config = JsonSerializer.Serialize(new 
+      var config = JsonSerializer.Serialize(new
       {
          SeriesColor = "rgb(54, 162, 235, 0.75)",
          AreaColor = "rgb(54, 162, 235, 0.5)",
@@ -78,7 +78,7 @@ public partial class TimelineChart
       var unixEpoche = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
       var xValues = series.Select(x => (double)(x.Moment - unixEpoche) / TimeSpan.TicksPerMillisecond).ToArray();
       var yValues = series.Select(x => x.Value).ToArray();
-      
+
       await _jsImportReady.Task;
       Draw(Id, config, xValues, yValues);
    }
@@ -96,7 +96,7 @@ public partial class TimelineChart
    [JSImport("drawChart", "TimelineChart.razor.js")]
    internal static partial void Draw(
       [JSMarshalAs<JSType.String>] string id,
-      [JSMarshalAs<JSType.String>] string config, 
+      [JSMarshalAs<JSType.String>] string config,
       [JSMarshalAs<JSType.Array<JSType.Number>>] double[] xValues,
       [JSMarshalAs<JSType.Array<JSType.Number>>] double[] yValues);
 

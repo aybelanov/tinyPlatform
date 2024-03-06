@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Forums;
 
@@ -74,13 +72,13 @@ public partial class ForumTopic : BaseEntity
       set => TopicTypeId = (int)value;
    }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public User User { get; set; }
-//   public Forum Forum { get; set; }
-//   public List<ForumPost> ForumPosts { get; set; } = new();
+   //   public User User { get; set; }
+   //   public Forum Forum { get; set; }
+   //   public List<ForumPost> ForumPosts { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

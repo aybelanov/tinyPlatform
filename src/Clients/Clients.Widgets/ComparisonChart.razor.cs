@@ -1,23 +1,19 @@
-﻿using Clients.Widgets.Core;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Runtime.Versioning;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 
 namespace Clients.Widgets;
 
 [SupportedOSPlatform("browser")]
 public partial class ComparisonChart
-{ 
+{
    #region Propertires & Parameters
 
    /// <summary>
@@ -36,7 +32,7 @@ public partial class ComparisonChart
    /// Initial clear chart text
    /// </summary>
    [Parameter]
-   public string InitChartText { get; set;}
+   public string InitChartText { get; set; }
 
    [Parameter]
    public EventCallback<int> Callback { get; set; }
@@ -120,7 +116,7 @@ public partial class ComparisonChart
          chart.TitleY,
          chart.TitleY2
 
-       }, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+      }, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
       var series1 = new List<List<object>>();
       if (chart.Series is not null)
@@ -180,8 +176,8 @@ public partial class ComparisonChart
    public override async ValueTask DisposeAsync()
    {
       await DisposeAsyncCore().ConfigureAwait(false);
-      await base.DisposeAsync().ConfigureAwait(false); 
-      
+      await base.DisposeAsync().ConfigureAwait(false);
+
       Dispose(disposing: false);
       GC.SuppressFinalize(this);
    }

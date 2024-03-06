@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Hub.Web.Framework.Events;
+﻿namespace Hub.Web.Framework.Events;
 
 /// <summary>
 /// Site search event

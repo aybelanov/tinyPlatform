@@ -106,7 +106,7 @@ public class OpenIdModelFactory : IOpenIdModelFactory
          Expires = now.AddSeconds(AuthDefaults.ClientJWTlifetime),
          TokenType = "at+jwt",
          SigningCredentials = new SigningCredentials(
-            EncryptionHelper.RsaSecurityKey, 
+            EncryptionHelper.RsaSecurityKey,
             SecurityAlgorithms.RsaSha256),
 
          //https://datatracker.ietf.org/doc/html/rfc7518#section-4.1
@@ -125,7 +125,7 @@ public class OpenIdModelFactory : IOpenIdModelFactory
             { "name", _userSettiings.UsernamesEnabled ? user.Username : user.Email },
             { "role", roles.Select(x=>x.SystemName).ToList() },
             { "scope", accesTokenScope },
-         }         
+         }
       };
 
       var securityHandler = new JwtSecurityTokenHandler();
@@ -240,19 +240,19 @@ public class OpenIdModelFactory : IOpenIdModelFactory
          return tokenInfoModel;
       }
       else switch (loginResult)
-      {
-         case DeviceLoginResults.DeviceDeleted: throw new AppException("Device is deleted.");
-         case DeviceLoginResults.DeviceNotExist: throw new AppException("Device does not exist.");
-         case DeviceLoginResults.DeviceNotActive: throw new AppException("Device is not active.");
-         case DeviceLoginResults.DeviceLockedOut: throw new AppException("Device is locked out.");
-         case DeviceLoginResults.WrongPassword: throw new AppException("Wrong credentials.");
-         case DeviceLoginResults.UserDeleted: throw new AppException("Devie owner is deleted.");
-         case DeviceLoginResults.UserNotExist: throw new AppException("Device owner is not exist.");
-         case DeviceLoginResults.UserNotActive: throw new AppException("Device owner is not active");
-         case DeviceLoginResults.UserNotRegistered: throw new AppException("Device owner is not registered.");
-         case DeviceLoginResults.UserLockedOut: throw new AppException("Device owner is locked out");
-         default: throw new AppException("Unknown device login error");
-      }
+         {
+            case DeviceLoginResults.DeviceDeleted: throw new AppException("Device is deleted.");
+            case DeviceLoginResults.DeviceNotExist: throw new AppException("Device does not exist.");
+            case DeviceLoginResults.DeviceNotActive: throw new AppException("Device is not active.");
+            case DeviceLoginResults.DeviceLockedOut: throw new AppException("Device is locked out.");
+            case DeviceLoginResults.WrongPassword: throw new AppException("Wrong credentials.");
+            case DeviceLoginResults.UserDeleted: throw new AppException("Devie owner is deleted.");
+            case DeviceLoginResults.UserNotExist: throw new AppException("Device owner is not exist.");
+            case DeviceLoginResults.UserNotActive: throw new AppException("Device owner is not active");
+            case DeviceLoginResults.UserNotRegistered: throw new AppException("Device owner is not registered.");
+            case DeviceLoginResults.UserLockedOut: throw new AppException("Device owner is locked out");
+            default: throw new AppException("Unknown device login error");
+         }
    }
 
 

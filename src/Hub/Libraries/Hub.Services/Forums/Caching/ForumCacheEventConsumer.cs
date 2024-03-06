@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Forums;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Services.Caching;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Forums.Caching
 {

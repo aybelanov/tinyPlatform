@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Areas.Admin.Models.Settings;
 
@@ -22,14 +22,14 @@ public partial record AppSettingsModel : BaseAppModel
       CommonConfigModel = new CommonConfigModel();
       WebOptimizerConfigModel = new WebOptimizerConfigModel();
       EnvironmentVariables = new List<string>();
-      SecurityConfigModel = new SecurityConfigModel();   
+      SecurityConfigModel = new SecurityConfigModel();
    }
 
    #endregion
 
    #region Properties
 
-   public SecurityConfigModel SecurityConfigModel { get; set; }   
+   public SecurityConfigModel SecurityConfigModel { get; set; }
 
    public DataConfigModel DataConfigModel { get; set; }
 

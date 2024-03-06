@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Domain.Localization;
+using Hub.Core.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Hub.Core.Infrastructure;
-using Hub.Core.Domain.Localization;
 
 namespace Hub.Services.Localization
 {

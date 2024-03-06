@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Hub.Core.Domain.Messages;
+using Hub.Data;
+using Hub.Services.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Messages;
-using Hub.Data;
-using Hub.Services.Users;
 
 namespace Hub.Services.Messages;
 

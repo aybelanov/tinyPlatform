@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Security;
+﻿using Hub.Core.Domain.Security;
 using Hub.Core.Domain.Users;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Security;
 

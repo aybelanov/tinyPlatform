@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using System.Collections.Generic;
 
 namespace Hub.Web.Models.Common;
 
@@ -34,7 +34,7 @@ public partial record FooterModel : BaseAppModel
    public bool DisplayUserAddressesFooterItem { get; set; }
    public bool DisplayWishlistFooterItem { get; set; }
 
-   public bool DisplaySearchFooterItem { get;set; }
+   public bool DisplaySearchFooterItem { get; set; }
 
    #region Nested classes
 

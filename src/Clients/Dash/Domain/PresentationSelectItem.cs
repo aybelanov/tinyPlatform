@@ -1,5 +1,4 @@
 ﻿using Shared.Common;
-using System.Runtime.CompilerServices;
 
 namespace Clients.Dash.Domain;
 
@@ -26,12 +25,12 @@ public class PresentationSelectItem : BaseEntity
    /// <summary>
    /// Widget name
    /// </summary>
-   public string WidgetName { get; set; } 
+   public string WidgetName { get; set; }
 
    /// <summary>
    /// Device identifier
    /// </summary>
-   public long DeviceId { get; set; }  
+   public long DeviceId { get; set; }
 
    /// <summary>
    /// Device name

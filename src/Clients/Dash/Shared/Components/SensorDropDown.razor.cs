@@ -7,7 +7,6 @@ using Shared.Clients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Clients.Dash.Shared.Components;
@@ -31,7 +30,7 @@ public partial class SensorDropDown
 
    [Parameter]
    public EventCallback<SensorSelectItem> SensorChanged { get; set; }
-  
+
    [Parameter]
    public bool IsLoading { get; set; }
 
@@ -53,7 +52,7 @@ public partial class SensorDropDown
    [Parameter]
    public string Name { get; set; }
 
-   [Parameter] 
+   [Parameter]
    public string Placeholder { get; set; }
 
    /// <summary>
@@ -97,7 +96,7 @@ public partial class SensorDropDown
          _currentDeviceId = Device.Id;
          await LoadSensors();
       }
-      
+
       await base.OnParametersSetAsync();
    }
 

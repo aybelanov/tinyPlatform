@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Devices.Dispatcher.Configuration;
+using Devices.Dispatcher.Services.Settings;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
 using Shared.Devices;
-using Devices.Dispatcher.Services.Settings;
-using Devices.Dispatcher.Configuration;
-using System.Threading.Tasks;
 using System;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Devices.Dispatcher.Infrastructure;
 

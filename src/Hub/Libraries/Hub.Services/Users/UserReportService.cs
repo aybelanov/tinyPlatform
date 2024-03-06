@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Data;
 using Hub.Services.Helpers;
 using Shared.Clients.Configuration;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Users
 {

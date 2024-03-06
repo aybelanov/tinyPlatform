@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Caching;
 using Hub.Core.Domain.Security;
 using Hub.Core.Domain.Users;
@@ -10,6 +6,10 @@ using Hub.Data;
 using Hub.Data.Extensions;
 using Hub.Services.Localization;
 using Hub.Services.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Security;
 
@@ -147,14 +147,14 @@ public partial class PermissionService : IPermissionService
                  where uur.UserId == user.Id
                  select pr;
 
-         if(category != null)
-            query = query.Where(x=>x.Category == category);
+         if (category != null)
+            query = query.Where(x => x.Category == category);
 
          return query.Distinct();
 
       }, default);
 
-      return permission;   
+      return permission;
    }
 
    /// <summary>

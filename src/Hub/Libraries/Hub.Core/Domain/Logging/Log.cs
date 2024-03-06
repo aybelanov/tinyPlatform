@@ -1,5 +1,4 @@
-﻿using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
 using System;
 
 namespace Hub.Core.Domain.Logging;

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-using Hub.Web.Factories;
-using Hub.Web.Models.PrivateMessages;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Hub.Core;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core;
 using Hub.Core.Domain.Forums;
-using Hub.Services.Users;
+using Hub.Core.Domain.Users;
 using Hub.Services.Forums;
 using Hub.Services.Localization;
 using Hub.Services.Logging;
+using Hub.Services.Users;
+using Hub.Web.Factories;
 using Hub.Web.Framework.Controllers;
+using Hub.Web.Models.PrivateMessages;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -26,7 +26,7 @@ public partial class PrivateMessagesController : BasePublicController
    private readonly IForumService _forumService;
    private readonly ILocalizationService _localizationService;
    private readonly IPrivateMessagesModelFactory _privateMessagesModelFactory;
-   
+
    private readonly IWorkContext _workContext;
 
    #endregion
@@ -39,7 +39,7 @@ public partial class PrivateMessagesController : BasePublicController
        IForumService forumService,
        ILocalizationService localizationService,
        IPrivateMessagesModelFactory privateMessagesModelFactory,
-       
+
        IWorkContext workContext)
    {
       _forumSettings = forumSettings;
@@ -48,7 +48,7 @@ public partial class PrivateMessagesController : BasePublicController
       _forumService = forumService;
       _localizationService = localizationService;
       _privateMessagesModelFactory = privateMessagesModelFactory;
-      
+
       _workContext = workContext;
    }
 

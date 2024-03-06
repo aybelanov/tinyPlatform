@@ -1,46 +1,37 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Caching;
+using Hub.Core.Domain.Configuration;
+using Hub.Data;
+using Hub.Services.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Configuration;
-using Hub.Core.Caching;
-using Hub.Data;
-using Hub.Services.Configuration;
 
 namespace Hub.Services.Tests.Configuration
 {
-   public class ConfigFileSettingService : SettingService
+   public class ConfigFileSettingService(IRepository<Setting> settingRepository, IStaticCacheManager staticCacheManager) : SettingService(settingRepository, staticCacheManager)
    {
-      public ConfigFileSettingService(IRepository<Setting> settingRepository, IStaticCacheManager staticCacheManager) : base(settingRepository, staticCacheManager)
+      public override Task<Setting> GetSettingByIdAsync(long settingId)
       {
+         throw new InvalidOperationException("Get setting by id is not supported");
       }
 
-      //public override Task<Setting> GetSettingByIdAsync(int settingId)
-      //{
-      //   throw new InvalidOperationException("Get setting by id is not supported");
-      //}
+      public override async Task<T> GetSettingByKeyAsync<T>(string key, T defaultValue = default)
+      {
+         if (string.IsNullOrEmpty(key))
+            return defaultValue;
 
-      //public override async Task<T> GetSettingByKeyAsync<T>(string key, T defaultValue = default, bool loadSharedValueIfNotFound = false)
-      //{
-      //   if (string.IsNullOrEmpty(key))
-      //      return defaultValue;
+         var settings = await GetAllSettingsAsync();
+         key = key.Trim().ToLowerInvariant();
 
-      //   var settings = await GetAllSettingsAsync();
-      //   key = key.Trim().ToLowerInvariant();
+         var setting = settings.FirstOrDefault(x => x.Name.Equals(key, StringComparison.InvariantCultureIgnoreCase));
 
-      //   var setting = settings.FirstOrDefault(x => x.Name.Equals(key, StringComparison.InvariantCultureIgnoreCase));
+         if (setting != null)
+            return Shared.Common.Helpers.CommonHelper.To<T>(setting.Value);
 
-      //   //load shared value?
-      //   if (setting == null && loadSharedValueIfNotFound)
-      //      setting = settings.FirstOrDefault(x =>
-      //          x.Name.Equals(key, StringComparison.InvariantCultureIgnoreCase));
-
-      //   if (setting != null)
-      //      return CommonHelper.To<T>(setting.Value);
-
-      //   return defaultValue;
-      //}
+         return defaultValue;
+      }
 
       public override Task DeleteSettingAsync(Setting setting)
       {

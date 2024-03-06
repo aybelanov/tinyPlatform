@@ -5,18 +5,18 @@
 /// </summary>
 public enum DeviceRegistrationType
 {
-    /// <summary>
-    /// Standard account creation
-    /// </summary>
-    Standard = 1,
+   /// <summary>
+   /// Standard account creation
+   /// </summary>
+   Standard = 1,
 
-    /// <summary>
-    /// A user should be approved by administrator
-    /// </summary>
-    AdminApproval = 3,
+   /// <summary>
+   /// A user should be approved by administrator
+   /// </summary>
+   AdminApproval = 3,
 
-    /// <summary>
-    /// Registration is disabled
-    /// </summary>
-    Disabled = 4
+   /// <summary>
+   /// Registration is disabled
+   /// </summary>
+   Disabled = 4
 }

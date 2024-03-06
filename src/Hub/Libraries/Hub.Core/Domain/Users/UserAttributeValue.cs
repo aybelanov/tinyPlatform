@@ -29,11 +29,11 @@ public partial class UserAttributeValue : BaseEntity, ILocalizedEntity
    public int DisplayOrder { get; set; }
 
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public UserAttribute UserAttribute { get; set; }
+   //   public UserAttribute UserAttribute { get; set; }
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

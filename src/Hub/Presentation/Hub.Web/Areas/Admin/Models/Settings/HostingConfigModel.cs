@@ -1,5 +1,5 @@
-﻿using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using Hub.Web.Framework.Mvc.ModelBinding;
 
 namespace Hub.Web.Areas.Admin.Models.Settings;
 
@@ -9,7 +9,7 @@ namespace Hub.Web.Areas.Admin.Models.Settings;
 public partial record HostingConfigModel : BaseAppModel, IConfigModel
 {
    #region Properties
-   
+
    [AppResourceDisplayName("Admin.Configuration.AppSettings.Hosting.HubHostUrl")]
    public string HubHostUrl { get; set; }
 

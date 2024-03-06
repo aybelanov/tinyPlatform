@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Security;
+﻿using Hub.Core.Domain.Security;
 using Hub.Web.Framework.Models;
 using Shared.Common;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Factories;
 

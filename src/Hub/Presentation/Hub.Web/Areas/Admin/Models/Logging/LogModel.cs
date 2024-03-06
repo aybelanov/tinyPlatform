@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
+using System;
 
 namespace Hub.Web.Areas.Admin.Models.Logging;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Media;
 using Hub.Core.Domain.Users;
@@ -14,6 +9,11 @@ using Hub.Services.Localization;
 using Hub.Services.Logging;
 using Hub.Services.Users;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Plugins
 {

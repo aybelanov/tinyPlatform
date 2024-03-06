@@ -25,7 +25,7 @@ public class SubscribeGroupsFilter(IUserService userService, ICommunicator commu
    /// <param name="invocationContext">The context for the method invocation that holds all the important information about the invoke.</param>
    /// <param name="next">The next filter to run, and for the final one, the Hub invocation.</param>
    /// <returns>Returns the result of the Hub method invoke.</returns>
-   public ValueTask<object> InvokeMethodAsync(HubInvocationContext invocationContext, Func<HubInvocationContext, ValueTask<object>> next)=> next(invocationContext);
+   public ValueTask<object> InvokeMethodAsync(HubInvocationContext invocationContext, Func<HubInvocationContext, ValueTask<object>> next) => next(invocationContext);
 
    /// <summary>
    /// Allows handling of the <see cref="Hub.OnConnectedAsync"/> method.
@@ -62,7 +62,7 @@ public class SubscribeGroupsFilter(IUserService userService, ICommunicator commu
          await _communicator.RemoveUserFromGroupsAsync(user.Id, [$"{nameof(User)}_{user.Id}"]);
          await next(context, exception);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
          await _logger.ErrorAsync("Default unsubscriptions are failed", ex);
       }

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Hub.Services.Plugins;
+﻿using Hub.Services.Plugins;
+using Newtonsoft.Json;
 
 namespace Hub.Services.Themes
 {

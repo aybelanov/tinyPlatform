@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Configuration;
+using Hub.Core.Domain.ScheduleTasks;
+using Hub.Core.Http;
+using Hub.Core.Infrastructure;
+using Hub.Data;
+using Hub.Services.Localization;
+using Hub.Services.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Hub.Core.Infrastructure;
-using Hub.Core;
-using Hub.Core.Domain.ScheduleTasks;
-using Hub.Core.Configuration;
-using Hub.Core.Http;
-using Hub.Data;
-using Hub.Services.Logging;
-using Hub.Services.Localization;
 
 namespace Hub.Services.ScheduleTasks
 {

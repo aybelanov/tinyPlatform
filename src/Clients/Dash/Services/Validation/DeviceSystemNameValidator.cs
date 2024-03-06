@@ -3,7 +3,6 @@ using Clients.Dash.Services.EntityServices;
 using Clients.Dash.Services.Localization;
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using Shared.Clients.Proto;
 using System;
 using System.Threading.Tasks;
 
@@ -41,7 +40,7 @@ public class DeviceSystemNameValidator : ValidatorAwaitBase
             throw new Exception(Localizer["Validation.RequireValue"]);
 
          var model = (DeviceModel)EditContext.Model ?? throw new ArgumentNullException();
-         
+
          if (model.Id > 0)
          {
             var device = await DeviceService.GetByIdAsync(model.Id);

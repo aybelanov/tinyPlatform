@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Hub.Web.Framework.Models
 {

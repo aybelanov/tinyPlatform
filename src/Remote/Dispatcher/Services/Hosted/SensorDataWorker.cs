@@ -7,8 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shared.Devices.Proto;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Auto = Devices.Dispatcher.Infrastructure.AutoMapperConfiguration;
@@ -90,9 +90,9 @@ public class SensorDataWorker : BackgroundService
 
                var dataSet =
                    (from d in dbContext.SensorRecords.Where(x => !x.IsSent)
-                   join s in dbContext.Sensors on d.SensorId equals s.Id
-                   orderby s.PriorityType, d.EventTimestamp descending
-                   select d).Take(_packetSize);
+                    join s in dbContext.Sensors on d.SensorId equals s.Id
+                    orderby s.PriorityType, d.EventTimestamp descending
+                    select d).Take(_packetSize);
 
                if (dataSet.Any())
                {

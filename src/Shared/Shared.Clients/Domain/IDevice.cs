@@ -82,7 +82,7 @@ public interface IDevice
    /// Gets or sets the date and time of last activity
    /// </summary>
    DateTime? LastActivityOnUtc { get; set; }
-  
+
    /// <summary>
    /// If it be set true
    /// the device location will be shown

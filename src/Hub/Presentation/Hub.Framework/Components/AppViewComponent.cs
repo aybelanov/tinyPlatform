@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Events;
+﻿using Hub.Core.Events;
 using Hub.Core.Infrastructure;
 using Hub.Web.Framework.Events;
 using Hub.Web.Framework.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using System.Collections.Generic;
 
 namespace Hub.Web.Framework.Components;
 

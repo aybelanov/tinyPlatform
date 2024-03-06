@@ -1,6 +1,5 @@
 ﻿using Hub.Core.Domain.Security;
 using Hub.Services.Caching;
-using Hub.Services.Security;
 using System.Threading.Tasks;
 
 namespace Hub.Services.Security.Caching

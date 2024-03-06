@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using Hub.Core.Infrastructure;
 using Microsoft.AspNetCore.Routing;
-using Hub.Core.Infrastructure;
+using System;
+using System.Linq;
 
 namespace Hub.Web.Framework.Mvc.Routing
 {

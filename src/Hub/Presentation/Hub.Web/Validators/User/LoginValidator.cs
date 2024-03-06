@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.User;
 using Hub.Core.Domain.Users;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.User;
 
 namespace Hub.Web.Validators.User;
 

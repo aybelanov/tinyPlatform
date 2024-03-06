@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Users;
 using Hub.Core.Events;
 using Hub.Services.Authentication.External;
 using Hub.Services.Authentication.MultiFactor;
@@ -11,6 +10,7 @@ using Hub.Web.Areas.Admin.Models.ExternalAuthentication;
 using Hub.Web.Areas.Admin.Models.MultiFactorAuthentication;
 using Hub.Web.Framework.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -95,13 +95,13 @@ public partial class AuthenticationController : BaseAdminController
             _externalAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Remove(method.PluginDescriptor.SystemName);
             await _settingService.SaveSettingAsync(_externalAuthenticationSettings);
          }
-      else
+         else
          if (model.IsActive)
-      {
-         //mark as active
-         _externalAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Add(method.PluginDescriptor.SystemName);
-         await _settingService.SaveSettingAsync(_externalAuthenticationSettings);
-      }
+         {
+            //mark as active
+            _externalAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Add(method.PluginDescriptor.SystemName);
+            await _settingService.SaveSettingAsync(_externalAuthenticationSettings);
+         }
 
       var pluginDescriptor = method.PluginDescriptor;
       pluginDescriptor.DisplayOrder = model.DisplayOrder;
@@ -157,13 +157,13 @@ public partial class AuthenticationController : BaseAdminController
             _multiFactorAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Remove(method.PluginDescriptor.SystemName);
             await _settingService.SaveSettingAsync(_multiFactorAuthenticationSettings);
          }
-      else
+         else
          if (model.IsActive)
-      {
-         //mark as active
-         _multiFactorAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Add(method.PluginDescriptor.SystemName);
-         await _settingService.SaveSettingAsync(_multiFactorAuthenticationSettings);
-      }
+         {
+            //mark as active
+            _multiFactorAuthenticationSettings.ActiveAuthenticationMethodSystemNames.Add(method.PluginDescriptor.SystemName);
+            await _settingService.SaveSettingAsync(_multiFactorAuthenticationSettings);
+         }
 
       var pluginDescriptor = method.PluginDescriptor;
       pluginDescriptor.DisplayOrder = model.DisplayOrder;

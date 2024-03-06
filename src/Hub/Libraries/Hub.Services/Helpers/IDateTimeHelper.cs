@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Hub.Core.Domain.Users;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Hub.Core.Domain.Users;
 
 namespace Hub.Services.Helpers
 {

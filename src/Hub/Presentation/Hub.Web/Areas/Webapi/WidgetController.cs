@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Clients.Configuration;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Webapi;
@@ -117,7 +116,7 @@ public class WidgetController(ILocalizationService localizationService,
          return BadRequest(new { Error = await localizationService.GetResourceAsync("Account.Avatar.UploadRules") });
 
       var widgetLiveScheme = await pictureService.GetPictureByIdAsync(widget.LiveSchemePictureId);
-      
+
       if (uploadedFile != null && !string.IsNullOrEmpty(uploadedFile.FileName))
       {
          // TODO settings for SVG live schemes
@@ -128,7 +127,7 @@ public class WidgetController(ILocalizationService localizationService,
          var svgPictureBinary = await downloadService.GetDownloadBitsAsync(uploadedFile);
 
          var seoFileName = Path.GetFileNameWithoutExtension(uploadedFile.FileName);
-        
+
          if (widgetLiveScheme != null)
             widgetLiveScheme = await pictureService.UpdatePictureAsync(widgetLiveScheme.Id, svgPictureBinary, contentType, seoFileName);
          else

@@ -1,6 +1,5 @@
 ﻿using Clients.Dash.Domain;
 using Clients.Dash.Models;
-using Shared.Clients.Domain;
 
 namespace Clients.Dash.Pages.Configuration.Monitors;
 

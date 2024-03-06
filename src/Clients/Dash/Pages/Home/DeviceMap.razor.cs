@@ -146,7 +146,7 @@ public partial class DeviceMap : IAsyncDisposable, IDisposable
 
       return items;
    }
-  
+
    private bool GetVisible(OnlineStatus onlineStatus)
    {
       return onlineStatus switch

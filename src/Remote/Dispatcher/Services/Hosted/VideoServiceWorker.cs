@@ -1,5 +1,4 @@
 ﻿using Devices.Dispatcher.Configuration;
-using Devices.Dispatcher.Data;
 using Devices.Dispatcher.Services.Settings;
 using Google.Protobuf;
 using Microsoft.AspNetCore.Hosting;
@@ -141,7 +140,7 @@ public class VideoServiceWorker : BackgroundService
 
    private static bool CheckFile(FileInfo file)
    {
-      var result = file is not null &&  file.Exists && file.Length > 0 && Defaults.SegmentTypes.Contains(file.Extension);
+      var result = file is not null && file.Exists && file.Length > 0 && Defaults.SegmentTypes.Contains(file.Extension);
       return result;
    }
 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Hub.Core.Domain.Localization;
-using Hub.Core.Domain.Seo;
+﻿using Hub.Core.Domain.Seo;
 using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Blogs;
 
@@ -76,12 +74,12 @@ public partial class BlogPost : BaseEntity, ISlugSupported
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Language Language { get; set; }
-//   public List<BlogComment> BlogComments { get; set; } = new();
+   //   public Language Language { get; set; }
+   //   public List<BlogComment> BlogComments { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

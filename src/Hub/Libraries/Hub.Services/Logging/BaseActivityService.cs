@@ -1,24 +1,22 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Domain.Clients;
+using Hub.Core.Domain.Logging;
+using Hub.Data;
+using Hub.Services.Clients;
+using Microsoft.EntityFrameworkCore;
+using Shared.Clients;
+using Shared.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hub.Core;
-using Hub.Core.Domain.Users;
-using Hub.Core.Domain.Logging;
-using Hub.Data;
-using Shared.Common;
-using Microsoft.EntityFrameworkCore;
-using Hub.Core.Domain.Clients;
-using Hub.Services.Clients;
-using Shared.Clients;
-using Shared.Clients.Proto;
 
 namespace Hub.Services.Logging;
 
 /// <summary>
 /// User activity service
 /// </summary>
-public class BaseActivityService 
+public class BaseActivityService
 {
    #region Fields
 
@@ -89,7 +87,7 @@ public class BaseActivityService
       return await _activityLogTypeRepository.GetByIdAsync(activityLogTypeId, cache => default);
    }
 
- 
+
    /// <summary>
    /// Inserts an activity log item
    /// </summary>
@@ -183,7 +181,7 @@ public class BaseActivityService
             query = subjectName == typeof(Device).Name
             ? query.Where(logItem => logItem.SubjectName.Equals(typeof(Device).Name))
             : query.Where(logItem => !logItem.SubjectName.Equals(typeof(Device).Name));
-         }   
+         }
 
          //filter by subject identifier
          if (subjectId.HasValue && subjectId.Value > 0)
@@ -212,8 +210,8 @@ public class BaseActivityService
    {
       var query = _activityLogRepository.Table.AsNoTracking();
 
-      if(subject != null)
-         query  = query.Where(x=>x.SubjectId == subject.Id && x.SubjectName == subject.GetType().Name);
+      if (subject != null)
+         query = query.Where(x => x.SubjectId == subject.Id && x.SubjectName == subject.GetType().Name);
 
       if (!string.IsNullOrWhiteSpace(systemKeyword))
          query = from al in query
@@ -222,7 +220,7 @@ public class BaseActivityService
                  select al;
 
       query = query.OrderByDescending(x => x.CreatedOnUtc);
-      var result = await query.FirstOrDefaultAsync();   
+      var result = await query.FirstOrDefaultAsync();
 
       return result;
    }
@@ -286,7 +284,7 @@ public class BaseActivityService
             Comment = r.Comment,
             CreatedOnUtc = r.CreatedOnUtc,
             EntityName = r.EntityName,
-            IpAddress = r.IpAddress   
+            IpAddress = r.IpAddress
          };
 
       var result = await query.FilterAsync(filter);

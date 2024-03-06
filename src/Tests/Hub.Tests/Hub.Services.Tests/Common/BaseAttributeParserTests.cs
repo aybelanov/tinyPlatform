@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using Hub.Services.Common;
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using FluentAssertions;
-using NUnit.Framework;
-using Hub.Services.Common;
 
 namespace Hub.Services.Tests.Common;
 

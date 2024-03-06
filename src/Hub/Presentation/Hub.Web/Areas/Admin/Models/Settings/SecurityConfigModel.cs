@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
 using Hub.Web.Framework.Mvc.ModelBinding;
 using LinqToDB.Common;
+using System.Linq;
 
 namespace Hub.Web.Areas.Admin.Models.Settings;
 
@@ -23,7 +23,7 @@ public partial record SecurityConfigModel : BaseAppModel, IConfigModel
    public string CorsOriginString
    {
       get => string.Join(';', CorsOrigins);
-      set => CorsOrigins = string.IsNullOrWhiteSpace(value) ? Array<string>.Empty : value.Split(';').Select(x=>x.Trim().Trim('/')).ToArray();
+      set => CorsOrigins = string.IsNullOrWhiteSpace(value) ? Array<string>.Empty : value.Split(';').Select(x => x.Trim().Trim('/')).ToArray();
    }
 
    /// <summary>

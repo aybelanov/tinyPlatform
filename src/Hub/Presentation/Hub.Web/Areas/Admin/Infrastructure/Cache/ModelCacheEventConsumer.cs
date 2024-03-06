@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Caching;
-
+﻿using Hub.Core.Caching;
 using Hub.Core.Domain.Configuration;
-
 using Hub.Core.Events;
 using Hub.Services.Events;
 using Hub.Services.Plugins;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Infrastructure.Cache
 {

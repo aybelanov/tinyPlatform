@@ -16,7 +16,7 @@ public partial class UserTable
 {
    #region fields
 
-   [Inject] ICommonService CommonService {  get; set; }
+   [Inject] ICommonService CommonService { get; set; }
    [Inject] IHelperService HelperService { get; set; }
 
    #endregion

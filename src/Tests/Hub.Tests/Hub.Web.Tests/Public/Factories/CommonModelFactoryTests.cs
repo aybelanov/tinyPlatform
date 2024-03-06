@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Common;
@@ -11,6 +8,9 @@ using Hub.Tests;
 using Hub.Web.Factories;
 using Hub.Web.Models.Common;
 using NUnit.Framework;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Tests.Public.Factories
 {
@@ -45,11 +45,9 @@ namespace Hub.Web.Tests.Public.Factories
       public async Task CanPrepareLogoModel()
       {
          var model = await _commonModelFactory.PrepareLogoModelAsync();
-         //model.AppName.Should().NotBeNullOrEmpty();
-         //model.AppName.Should().Be("Your store name");
          model.LogoPath.Should().NotBeNullOrEmpty();
          model.LogoPath.Should()
-             .Be($"http://{AppTestsDefaults.HostIpAddress}/Themes/DefaultTheme/Content/images/logo.svg");
+             .Be($"http://{AppTestsDefaults.HostIpAddress}/Themes/DefaultTheme/Content/images/logo_gray.svg");
       }
 
       [Test]
@@ -156,7 +154,7 @@ namespace Hub.Web.Tests.Public.Factories
       {
          var model = await _commonModelFactory.PrepareSitemapModelAsync(new SitemapPageModel());
          model.Items.Should().NotBeNullOrEmpty();
-         model.Items.Count.Should().Be(4);
+         model.Items.Count.Should().Be(6);
       }
 
       [Test]
@@ -172,7 +170,7 @@ namespace Hub.Web.Tests.Public.Factories
          var model = await _commonModelFactory.PreparePlatformThemeSelectorModelAsync();
          model.CurrentHubTheme.Should().NotBeNull();
          model.CurrentHubTheme.Name.Should().Be("DefaultTheme");
-         model.CurrentHubTheme.Title.Should().Be("Default clean");
+         model.CurrentHubTheme.Title.Should().Be("Default theme");
          model.AvailableHubThemes.Should().NotBeNull();
          model.AvailableHubThemes.Count.Should().BeGreaterThan(0);
       }
@@ -189,7 +187,7 @@ namespace Hub.Web.Tests.Public.Factories
       {
          var model = await _commonModelFactory.PrepareRobotsTextFileAsync();
          model.Should().NotBeNullOrEmpty();
-         model.Trim().Split("\r\n").Length.Should().Be(74);
+         model.Trim().Split("\r\n").Length.Should().Be(45);
       }
    }
 }

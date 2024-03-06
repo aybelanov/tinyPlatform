@@ -44,7 +44,7 @@ public partial class DataStatistics : IDisposable
    public DataStatistics()
    {
       _filter = new DynamicFilter() { TimeInterval = TimeIntervalType.Day };
-      _adminModeChangedHandler = async (o, e) => await PermissionService_AdminModeChanged( o, e);
+      _adminModeChangedHandler = async (o, e) => await PermissionService_AdminModeChanged(o, e);
    }
 
    #endregion
@@ -59,7 +59,7 @@ public partial class DataStatistics : IDisposable
 
    protected override async Task OnAfterRenderAsync(bool firstRender)
    {
-      if (firstRender) 
+      if (firstRender)
       {
          await ChartUpdate();
       }
@@ -71,7 +71,7 @@ public partial class DataStatistics : IDisposable
 
    private async Task PermissionService_AdminModeChanged(object sender, bool e)
    {
-      await chart.Clear(); 
+      await chart.Clear();
    }
 
    private async Task ChartUpdate()

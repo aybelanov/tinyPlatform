@@ -6,7 +6,6 @@ using Shared.Clients;
 using Shared.Common;
 using Shared.Common.Helpers;
 using System;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -64,10 +63,10 @@ public class ClientHelper : CommonHelper
    /// </summary>
    /// <typeparam name="T"></typeparam>
    /// <param name="dataGridColumn"></param>
-   public static void ConvertColumnFilterToUtc<T>(RadzenDataGridColumn<T> dataGridColumn) where T : class 
+   public static void ConvertColumnFilterToUtc<T>(RadzenDataGridColumn<T> dataGridColumn) where T : class
    {
       var firstValue = dataGridColumn.GetFilterValue();
-      if(firstValue != null)
+      if (firstValue != null)
       {
          var localTime = DateTime.Parse(firstValue.ToString());
          var utc = DateTime.SpecifyKind(ConvertBrowserTimeToUtc(localTime), DateTimeKind.Unspecified);
@@ -124,7 +123,7 @@ public class ClientHelper : CommonHelper
    /// <returns>Openlayer geopoint</returns>
    public static OpenLayerBase.GeoPoint ParseGeoRecord(SensorRecord record)
    {
-      if(record == null)
+      if (record == null)
          return null;
 
       var ticks = new DateTime(BitConverter.ToInt64(record.Bytes.AsSpan()[0..8])).ToUnixEpochTime() * 1000;

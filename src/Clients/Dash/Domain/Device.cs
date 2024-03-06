@@ -139,15 +139,15 @@ public class Device : BaseEntity, IDevice
    /// <summary>
    /// Device connection status
    /// </summary>
-   public OnlineStatus ConnectionStatus { get;set; }
+   public OnlineStatus ConnectionStatus { get; set; }
 
    /// <summary>
    /// Device user-owner
    /// </summary>
-   public long OwnerId { get; set; } 
-   
+   public long OwnerId { get; set; }
+
    /// <summary>
    /// User-owner name
    /// </summary>
-   public string OwnerName { get; set; }  
+   public string OwnerName { get; set; }
 }

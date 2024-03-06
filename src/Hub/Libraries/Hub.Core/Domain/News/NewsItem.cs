@@ -1,9 +1,6 @@
-﻿using System;
-using Hub.Core.Domain.Forums;
-using System.Collections.Generic;
-using Hub.Core.Domain.Seo;
+﻿using Hub.Core.Domain.Seo;
 using Shared.Common;
-using Hub.Core.Domain.Localization;
+using System;
 
 namespace Hub.Core.Domain.News;
 
@@ -72,12 +69,12 @@ public partial class NewsItem : BaseEntity, ISlugSupported
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Language Language { get; set; }
-//   public List<NewsComment> NewsComments { get; set; } = new();
+   //   public Language Language { get; set; }
+   //   public List<NewsComment> NewsComments { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

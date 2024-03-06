@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Web.Areas.Admin.Models.Directory;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Core.Domain.Directory;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Services.Directory;
 using Hub.Services.Helpers;
 using Hub.Services.Localization;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
+using Hub.Web.Areas.Admin.Models.Directory;
 using Hub.Web.Framework.Factories;
 using Hub.Web.Framework.Models.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

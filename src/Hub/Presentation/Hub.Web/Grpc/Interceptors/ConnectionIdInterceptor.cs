@@ -4,7 +4,6 @@ using Hub.Core;
 using Hub.Core.Configuration;
 using Hub.Services.Clients;
 using Hub.Services.Users;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Hub.Web.Grpc.Interceptors;
@@ -16,7 +15,7 @@ public class ConnectionIdInterceptor(IUserService userService, IWorkContext work
    private readonly IUserService _userService = userService;
    private readonly IWorkContext _workContext = workContext;
    private readonly ICommunicator _communicator = communicator;
-   private readonly SecurityConfig _securityConfig = appSettings.Get<SecurityConfig>();   
+   private readonly SecurityConfig _securityConfig = appSettings.Get<SecurityConfig>();
 
    #endregion
 

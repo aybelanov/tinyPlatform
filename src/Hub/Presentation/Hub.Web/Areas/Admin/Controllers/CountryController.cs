@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Directory;
 using Hub.Services.Common;
 using Hub.Services.Directory;
@@ -19,6 +14,11 @@ using Hub.Web.Framework.Mvc;
 using Hub.Web.Framework.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Controllers;
 
@@ -37,7 +37,7 @@ public partial class CountryController : BaseAdminController
    private readonly INotificationService _notificationService;
    private readonly IPermissionService _permissionService;
    private readonly IStateProvinceService _stateProvinceService;
-  
+
    #endregion
 
    #region Ctor

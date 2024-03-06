@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using Hub.Core;
 
 namespace Hub.Core.Tests;
 

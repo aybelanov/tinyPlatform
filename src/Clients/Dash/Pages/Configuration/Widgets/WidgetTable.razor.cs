@@ -33,7 +33,7 @@ public partial class WidgetTable
       Func<DynamicFilter, Task<IFilterableList<Widget>>> getData = await PermissionService.IsAdminModeAsync()
          ? WidgetService.GetAllWidgetsAsync
          : WidgetService.GetUserWidgetsAsync;
-      
+
       var widgets = await getData(filter);
       var model = Auto.Mapper.Map<FilterableList<WidgetModel>>(widgets);
       model.TotalCount = widgets.TotalCount;

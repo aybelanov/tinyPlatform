@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Hub.Web.Models.PrivateMessages;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Core.Domain.Users;
-using Hub.Core.Domain.Forums;
+using Hub.Web.Models.PrivateMessages;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Factories;
 

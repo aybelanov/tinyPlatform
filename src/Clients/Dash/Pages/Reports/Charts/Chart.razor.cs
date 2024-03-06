@@ -1,7 +1,6 @@
 ﻿using Clients.Dash.Services.EntityServices;
 using Clients.Widgets;
 using Microsoft.AspNetCore.Components;
-using Shared.Clients;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

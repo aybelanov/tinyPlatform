@@ -20,7 +20,7 @@ public class UserMonitor : BaseEntity
    /// <summary>
    /// Show shared monitor in the main menu
    /// </summary>
-   public bool ShowInMenu { get; set; }  
+   public bool ShowInMenu { get; set; }
 
    /// <summary>
    /// Display order (in main menu)

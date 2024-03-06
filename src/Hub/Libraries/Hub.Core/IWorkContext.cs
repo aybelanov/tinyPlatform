@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Core.Domain.Directory;
 using Hub.Core.Domain.Localization;
 using Hub.Core.Domain.Users;
+using System.Threading.Tasks;
 
 namespace Hub.Core;
 

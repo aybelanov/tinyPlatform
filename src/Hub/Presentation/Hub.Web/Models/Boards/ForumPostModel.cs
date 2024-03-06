@@ -1,5 +1,5 @@
-﻿using System;
-using Hub.Web.Framework.Models;
+﻿using Hub.Web.Framework.Models;
+using System;
 
 namespace Hub.Web.Models.Boards;
 

@@ -20,7 +20,7 @@ public partial class UserDropDown : IDisposable
    #region Services
 
    [Inject] ICommonService CommonService { get; set; }
-   [Inject] PermissionService PermissionService { get; set; }  
+   [Inject] PermissionService PermissionService { get; set; }
 
    #endregion
 
@@ -79,7 +79,7 @@ public partial class UserDropDown : IDisposable
 
    #endregion
 
-   
+
 
    protected override void OnInitialized()
    {
@@ -90,7 +90,7 @@ public partial class UserDropDown : IDisposable
 
    private async Task PermissionService_AdminModeChanged(object sender, bool e)
    {
-      await UserChange(e ? _selectedUser : null);  
+      await UserChange(e ? _selectedUser : null);
    }
 
    #region Methods

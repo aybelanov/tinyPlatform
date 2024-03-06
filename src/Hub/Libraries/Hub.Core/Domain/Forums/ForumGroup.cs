@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Shared.Common;
+﻿using Shared.Common;
+using System;
 
 namespace Hub.Core.Domain.Forums;
 
@@ -29,11 +28,11 @@ public partial class ForumGroup : BaseEntity
    /// </summary>
    public DateTime UpdatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public List<Forum> Forums { get; set; } = new ();
+   //   public List<Forum> Forums { get; set; } = new ();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //#pragma warning restore CS1591
+   //   #endregion
 }

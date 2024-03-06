@@ -1,6 +1,6 @@
-﻿using System;
-using Hub.Services.Logging;
+﻿using Hub.Services.Logging;
 using Hub.Services.ScheduleTasks;
+using System;
 
 namespace Hub.Services.Messages
 {

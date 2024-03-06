@@ -19,7 +19,7 @@ public class LogMap : AppEntityTypeConfiguration<Log>
       builder.Property(p => p.IpAddress).HasMaxLength(200).IsRequired(false);
       builder.Property(p => p.FullMessage).HasMaxLength(int.MaxValue).IsRequired();
       //builder.HasIndex(p => p.IpAddress);
-      builder.HasIndex(p => p.LogLevelId);  
+      builder.HasIndex(p => p.LogLevelId);
 
 
       base.Configure(builder);

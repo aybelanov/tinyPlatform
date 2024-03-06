@@ -1,7 +1,6 @@
 ﻿using Clients.Dash.Domain;
 using Clients.Dash.Services.ErrorServices;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Http.Connections.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;

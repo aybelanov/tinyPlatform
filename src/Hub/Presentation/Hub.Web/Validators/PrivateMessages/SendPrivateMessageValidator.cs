@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Hub.Web.Models.PrivateMessages;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.PrivateMessages;
 
 namespace Hub.Web.Validators.PrivateMessages;
 

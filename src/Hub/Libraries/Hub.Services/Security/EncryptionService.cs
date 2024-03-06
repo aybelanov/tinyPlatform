@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Hub.Core;
+using Hub.Core.Domain.Security;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Hub.Core;
-using Hub.Core.Domain.Security;
-using Hub.Core.Infrastructure;
-using Hub.Core.Security;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Hub.Services.Security;
 

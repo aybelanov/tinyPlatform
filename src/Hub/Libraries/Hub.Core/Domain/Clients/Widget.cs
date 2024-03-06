@@ -55,7 +55,7 @@ public class Widget : BaseEntity, IWidget, ILocalizedEntity, IAclSupported, ISof
    /// A type of the sensor presentation 
    /// </summary>
    public WidgetType WidgetType { get; set; }
-   
+
    /// <summary>
    /// Live scheme picture identifier
    /// </summary>

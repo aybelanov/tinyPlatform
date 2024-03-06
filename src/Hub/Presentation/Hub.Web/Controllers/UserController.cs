@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain;
 using Hub.Core.Domain.Common;
 using Hub.Core.Domain.Forums;
@@ -41,6 +35,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Controllers;
 
@@ -298,10 +297,10 @@ public partial class UserController : BasePublicController
                //agree
                if (!previousConsentValue.HasValue || !previousConsentValue.Value)
                   await _gdprService.InsertLogAsync(user, consent.Id, GdprRequestType.ConsentAgree, consent.Message);
-            else
+               else
                //disagree
                if (!previousConsentValue.HasValue || previousConsentValue.Value)
-               await _gdprService.InsertLogAsync(user, consent.Id, GdprRequestType.ConsentDisagree, consent.Message);
+                  await _gdprService.InsertLogAsync(user, consent.Id, GdprRequestType.ConsentDisagree, consent.Message);
          }
 
          //newsletter subscriptions
@@ -786,7 +785,7 @@ public partial class UserController : BasePublicController
             //properties
             if (_dateTimeSettings.AllowUsersToSetTimeZone)
                await _genericAttributeService.SaveAttributeAsync(user, AppUserDefaults.TimeZoneIdAttribute, model.TimeZoneId);
-            
+
             //form fields
             if (_userSettings.GenderEnabled)
                await _genericAttributeService.SaveAttributeAsync(user, AppUserDefaults.GenderAttribute, model.Gender);
@@ -838,21 +837,21 @@ public partial class UserController : BasePublicController
                      if (_gdprSettings.GdprEnabled && _gdprSettings.LogNewsletterConsent)
                         await _gdprService.InsertLogAsync(user, 0, GdprRequestType.ConsentAgree, await _localizationService.GetResourceAsync("Gdpr.Consent.Newsletter"));
                   }
-               else
+                  else
                   if (model.Newsletter)
-               {
-                  await _newsLetterSubscriptionService.InsertNewsLetterSubscriptionAsync(new NewsLetterSubscription
                   {
-                     NewsLetterSubscriptionGuid = Guid.NewGuid(),
-                     Email = userEmail,
-                     Active = isNewsletterActive,
-                     CreatedOnUtc = DateTime.UtcNow
-                  });
+                     await _newsLetterSubscriptionService.InsertNewsLetterSubscriptionAsync(new NewsLetterSubscription
+                     {
+                        NewsLetterSubscriptionGuid = Guid.NewGuid(),
+                        Email = userEmail,
+                        Active = isNewsletterActive,
+                        CreatedOnUtc = DateTime.UtcNow
+                     });
 
-                  //GDPR
-                  if (_gdprSettings.GdprEnabled && _gdprSettings.LogNewsletterConsent)
-                     await _gdprService.InsertLogAsync(user, 0, GdprRequestType.ConsentAgree, await _localizationService.GetResourceAsync("Gdpr.Consent.Newsletter"));
-               }
+                     //GDPR
+                     if (_gdprSettings.GdprEnabled && _gdprSettings.LogNewsletterConsent)
+                        await _gdprService.InsertLogAsync(user, 0, GdprRequestType.ConsentAgree, await _localizationService.GetResourceAsync("Gdpr.Consent.Newsletter"));
+                  }
             }
 
             if (_userSettings.AcceptPrivacyPolicyEnabled)

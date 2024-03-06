@@ -47,7 +47,7 @@ public class Sensor : BaseEntity, ISensor
    /// Type of measured value
    /// </summary>
    public SensorType SensorType { get; set; }
-   
+
    /// <summary>
    /// Measure unit
    /// </summary>

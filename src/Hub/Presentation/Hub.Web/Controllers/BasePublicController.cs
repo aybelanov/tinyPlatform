@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Hub.Web.Framework.Controllers;
+﻿using Hub.Web.Framework.Controllers;
 using Hub.Web.Framework.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hub.Web.Controllers
 {

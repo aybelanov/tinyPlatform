@@ -2,11 +2,11 @@
 
 namespace Hub.Core.Domain.Common;
 
- /// <summary>
- /// Display default menu item settings
- /// </summary>
- public class DisplayDefaultFooterItemSettings : ISettings
- {
+/// <summary>
+/// Display default menu item settings
+/// </summary>
+public class DisplayDefaultFooterItemSettings : ISettings
+{
    /// <summary>
    /// Gets or sets a value indicating whether to display "sitemap" footer item
    /// </summary>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Forums;
+﻿using Hub.Core.Domain.Forums;
 using Hub.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -25,7 +19,7 @@ public class ForumPostMap : AppEntityTypeConfiguration<ForumPost>
       builder.ToTable("ForumPosts");
       builder.Property(p => p.Text).IsRequired();
       builder.Property(p => p.IPAddress).HasMaxLength(100).IsRequired(false);
-    
+
       builder.HasOne<User>().WithMany().HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Restrict);
       builder.HasOne<ForumTopic>().WithMany().HasForeignKey(p => p.ForumTopicId);
 

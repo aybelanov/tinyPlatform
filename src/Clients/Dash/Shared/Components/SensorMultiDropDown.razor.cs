@@ -33,7 +33,7 @@ public partial class SensorMultiDropDown
    public EventCallback<IEnumerable<SensorSelectItem>> SensorsChanged { get; set; }
 
    [Parameter]
-   public int MaxSelectedLabels { get; set; }   
+   public int MaxSelectedLabels { get; set; }
 
    [Parameter, EditorRequired]
    public DeviceSelectItem Device { get; set; }

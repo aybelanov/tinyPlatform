@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using FluentValidation;
-using Hub.Web.Models.User;
+﻿using FluentValidation;
 using Hub.Core;
 using Hub.Core.Domain.Users;
 using Hub.Services.Directory;
 using Hub.Services.Localization;
 using Hub.Web.Framework.Validators;
+using Hub.Web.Models.User;
+using System;
+using System.Linq;
 
 namespace Hub.Web.Validators.User
 {

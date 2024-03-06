@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Services.Directory;
 using Hub.Services.Helpers;
 using Hub.Services.Localization;
 using Hub.Services.Users;
 using Hub.Web.Areas.Admin.Models.Reports;
 using Hub.Web.Framework.Models.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

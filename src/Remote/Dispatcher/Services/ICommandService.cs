@@ -1,5 +1,4 @@
-﻿using Shared.Common;
-using Shared.Devices.Proto;
+﻿using Shared.Devices.Proto;
 using System;
 using System.Threading.Tasks;
 

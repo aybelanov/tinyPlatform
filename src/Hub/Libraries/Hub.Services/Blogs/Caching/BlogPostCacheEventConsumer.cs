@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Hub.Services.Blogs;
-using Hub.Core.Domain.Blogs;
+﻿using Hub.Core.Domain.Blogs;
 using Hub.Services.Caching;
+using System.Threading.Tasks;
 
 namespace Hub.Services.Blogs.Caching
 {

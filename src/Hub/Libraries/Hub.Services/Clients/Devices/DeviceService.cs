@@ -114,7 +114,7 @@ public class DeviceService : HubDeviceService, IDeviceService
    {
       // user query
       var userQuery = _userRepository.Table.AsNoTracking();
-      
+
       // filter user by owner name column
       if (filter.AdditionalQueries.TryGetValue(nameof(User), out var additionalUserQuery) && !string.IsNullOrEmpty(additionalUserQuery))
       {
@@ -163,7 +163,7 @@ public class DeviceService : HubDeviceService, IDeviceService
 
          ConnectionStatus = onlineDevices.Contains(d.Id)
            ? OnlineStatus.Online
-           : d.LastActivityOnUtc == null 
+           : d.LastActivityOnUtc == null
               ? OnlineStatus.NoActivities
               : d.LastActivityOnUtc >= beenRecenlyLimit
                  ? OnlineStatus.BeenRecently

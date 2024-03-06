@@ -5,17 +5,17 @@
 /// </summary>
 public class DeviceCredentialsChangedEvent
 {
-    /// <summary>
-    /// Ctor
-    /// </summary>
-    /// <param name="password">Password</param>
-    public DeviceCredentialsChangedEvent(DeviceCredential password)
-    {
-        Password = password;
-    }
+   /// <summary>
+   /// Ctor
+   /// </summary>
+   /// <param name="password">Password</param>
+   public DeviceCredentialsChangedEvent(DeviceCredential password)
+   {
+      Password = password;
+   }
 
-    /// <summary>
-    /// Device password
-    /// </summary>
-    public DeviceCredential Password { get; }
+   /// <summary>
+   /// Device password
+   /// </summary>
+   public DeviceCredential Password { get; }
 }

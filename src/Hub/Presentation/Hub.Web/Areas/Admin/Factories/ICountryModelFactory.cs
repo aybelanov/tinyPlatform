@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Hub.Core.Domain.Directory;
 using Hub.Web.Areas.Admin.Models.Directory;
-using Hub.Core.Domain.Directory;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {

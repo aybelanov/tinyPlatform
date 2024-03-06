@@ -36,7 +36,7 @@ public class DeviceModelFactory : IDeviceModelFactory
    private readonly IHubDeviceService _deviceService;
    private readonly IUserService _userService;
    private readonly IHubSensorRecordService _sensorDataService;
-   private readonly IHubSensorService _sensorService; 
+   private readonly IHubSensorService _sensorService;
    private readonly IDateTimeHelper _dateTimeHelper;
    private readonly IGeoLookupService _geoLookupService;
    private readonly ILocalizationService _localizationService;
@@ -180,7 +180,7 @@ public class DeviceModelFactory : IDeviceModelFactory
          deviceIds: new[] { device.Id }, pageIndex: 0, pageSize: 1, getOnlyTotalCount: true)).TotalCount;
 
       model.NumberOfDataRecords = (await _sensorDataService.GetAllPagedSensorDataAsync(
-         deviceIds: new[] { device.Id }, pageIndex: 0, pageSize:1, getOnlyTotalCount: true)).TotalCount;
+         deviceIds: new[] { device.Id }, pageIndex: 0, pageSize: 1, getOnlyTotalCount: true)).TotalCount;
 
       var deviceUsers = await _userService.GetAllUsersAsync(deviceIds: new[] { device.Id }, pageIndex: 0, pageSize: int.MaxValue);
 
@@ -328,7 +328,7 @@ public class DeviceModelFactory : IDeviceModelFactory
          if (lastActivityDateUtc.HasValue)
             model.LastActivityDateUtc = await _dateTimeHelper.ConvertToUserTimeAsync(lastActivityDateUtc.Value, DateTimeKind.Utc);
 
-         var lastLoginDateUtc =(await _deviceActivityService.GetLastActivityRecordAsync(device, "Device.Login"))?.CreatedOnUtc;
+         var lastLoginDateUtc = (await _deviceActivityService.GetLastActivityRecordAsync(device, "Device.Login"))?.CreatedOnUtc;
          if (lastLoginDateUtc.HasValue)
             model.LastLoginDateUtc = await _dateTimeHelper.ConvertToUserTimeAsync(lastLoginDateUtc.Value, DateTimeKind.Utc);
 
@@ -502,9 +502,9 @@ public class DeviceModelFactory : IDeviceModelFactory
          {
             //fill in model values from the entity
             var deviceModel = new OnlineDeviceModel();
-            
+
             deviceModel.Id = device.Id;
- 
+
             //fill in additional values (not existing in the entity)
             deviceModel.DeviceInfo = device.SystemName;
 
@@ -513,9 +513,9 @@ public class DeviceModelFactory : IDeviceModelFactory
             deviceModel.LastIpAddress = _deviceSettings.StoreIpAddresses
                      ? lastActivity.IpAddress
                      : await _localizationService.GetResourceAsync("Admin.Devices.Online.Fields.IPAddress.Disabled");
-          
+
             deviceModel.Location = _deviceSettings.StoreIpAddresses && string.IsNullOrEmpty(lastActivity.IpAddress)
-                     ? _geoLookupService.LookupCountryName(deviceModel.LastIpAddress) 
+                     ? _geoLookupService.LookupCountryName(deviceModel.LastIpAddress)
                      : string.Empty;
 
             if (onlineDevicesIds.Contains(deviceModel.Id))

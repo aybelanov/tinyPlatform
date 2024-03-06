@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hub.Core.ComponentModel;
+using Hub.Core.Infrastructure;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Hub.Core.ComponentModel;
-using Hub.Core.Infrastructure;
 
 namespace Hub.Core
 {

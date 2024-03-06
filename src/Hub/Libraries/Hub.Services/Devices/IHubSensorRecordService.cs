@@ -1,7 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Hub.Core;
+﻿using Hub.Core;
 using Hub.Core.Domain.Clients;
-using Hub.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

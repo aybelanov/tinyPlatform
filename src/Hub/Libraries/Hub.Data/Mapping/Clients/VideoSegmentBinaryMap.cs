@@ -1,11 +1,6 @@
 ﻿using Hub.Core.Domain.Clients;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hub.Data.Mapping.Clients;
 
@@ -22,7 +17,7 @@ public class VideoSegmentBinaryMap : AppEntityTypeConfiguration<VideoSegmentBina
    public override void Configure(EntityTypeBuilder<VideoSegmentBinary> builder)
    {
       builder.ToTable("VideoSegmentBinaries");
-      
+
       base.Configure(builder);
    }
 }

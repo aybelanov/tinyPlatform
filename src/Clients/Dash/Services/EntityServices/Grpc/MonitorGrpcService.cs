@@ -1,6 +1,5 @@
 ﻿using Clients.Dash.Caching;
 using Clients.Dash.Domain;
-using Clients.Dash.Infrastructure.AutoMapper.Extensions;
 using Clients.Dash.Pages.Configuration.Monitors;
 using Clients.Dash.Services.Security;
 using Microsoft.Extensions.Caching.Memory;
@@ -132,7 +131,7 @@ public class MonitorGrpcService(MonitorRpc.MonitorRpcClient grpcClient,
             return monitors;
          }
 
-         return await _staticCacheManager.GetAsync(cacheKey, acquire); 
+         return await _staticCacheManager.GetAsync(cacheKey, acquire);
       }
       finally
       {
@@ -194,7 +193,7 @@ public class MonitorGrpcService(MonitorRpc.MonitorRpcClient grpcClient,
       {
          var filter = new DynamicFilter() { Query = $"query => query.Where(x => x.Id == {id}).Take(1)" };
          var filterProto = Auto.Mapper.Map<FilterProto>(filter);
-        
+
          var query = await _permissionService.IsAdminModeAsync()
          ? await _grpcClient.GetAllMonitorsAsync(filterProto)
          : await _grpcClient.GetOwnMonitorsAsync(filterProto);
@@ -229,9 +228,9 @@ public class MonitorGrpcService(MonitorRpc.MonitorRpcClient grpcClient,
       // update models
       var monitor = Auto.Mapper.Map<Monitor>(reply);
       Auto.Mapper.Map(monitor, model);
-     
+
       await _staticCacheManager.RemoveByPrefixAsync(CacheDefaults<MonitorView>.ByIdPrefix, model.Id);
-     
+
       var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(CacheDefaults<Monitor>.ByIdCacheKey, model.Id);
       if (_memoryCache.TryGetValue(cacheKey.Key, out object value) && value is not null && value is Monitor savedMonitor)
          Auto.Mapper.Map(model, savedMonitor);

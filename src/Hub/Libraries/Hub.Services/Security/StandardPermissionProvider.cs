@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Hub.Core.Domain.Security;
-using Hub.Core.Domain.Users;
+﻿using Hub.Core.Domain.Security;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Clients.Configuration;
+using System.Collections.Generic;
 
 namespace Hub.Services.Security;
 
@@ -224,7 +223,7 @@ public partial class StandardPermissionProvider : IPermissionProvider
             HtmlEditorManagePictures,
             ManageScheduleTasks,
             ManageAppSettings,
-            
+
             AllowManageDevices,
             AllowManageMonitors,
             AllowManageWidgets,

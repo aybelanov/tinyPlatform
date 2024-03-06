@@ -81,7 +81,7 @@ public class AppliedServicesStartup : IAppStartup
       //data layer
       //services.AddTransient<IDataProviderManager, DataProviderManager>();
       //services.AddTransient(sp => sp.GetRequiredService<IDataProviderManager>().DataProvider);
-      services.AddTransient<IMigrationManager,  MigrationManager>();
+      services.AddTransient<IMigrationManager, MigrationManager>();
       services.AddTransient<IMappingEntityAccessor, AppDbContext>();
 
       //repositories
@@ -182,7 +182,7 @@ public class AppliedServicesStartup : IAppStartup
       services.AddScoped<IDeviceActivityService, DeviceActivityService>();
       services.AddScoped<IDeviceRegistrationService, DeviceRegistrationService>();
       services.AddScoped<IHubDeviceService, HubDeviceService>();
-      services.AddScoped<ILocalizer, Localizer>(); 
+      services.AddScoped<ILocalizer, Localizer>();
       services.AddScoped<IHubSensorService, HubSensorService>();
       services.AddScoped<IHubSensorRecordService, HubSensorRecordService>();
       services.AddScoped<IVideoStreamService, VideoStreamService>();
@@ -212,7 +212,7 @@ public class AppliedServicesStartup : IAppStartup
       foreach (var setting in settings)
          services.AddScoped(setting, serviceProvider => serviceProvider.GetRequiredService<ISettingService>().LoadSettingAsync(setting).Result);
 
-         //picture service
+      //picture service
       if (appSettings.Get<AzureBlobConfig>().Enabled)
          services.AddScoped<IPictureService, AzurePictureService>();
       else

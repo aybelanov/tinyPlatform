@@ -1,5 +1,4 @@
-﻿using Hub.Core;
-using Hub.Core.Domain.Clients;
+﻿using Hub.Core.Domain.Clients;
 using Hub.Services.Caching;
 using Hub.Services.Clients;
 using System.Threading.Tasks;

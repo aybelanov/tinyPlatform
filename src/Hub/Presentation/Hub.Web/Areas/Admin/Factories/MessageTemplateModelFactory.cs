@@ -1,16 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Messages;
+﻿using Hub.Core.Domain.Messages;
 using Hub.Data.Extensions;
 using Hub.Services.Localization;
 using Hub.Services.Messages;
 using Hub.Web.Areas.Admin.Infrastructure.Mapper.Extensions;
 using Hub.Web.Areas.Admin.Models.Messages;
-using Hub.Web.Framework.Extensions;
 using Hub.Web.Framework.Factories;
 using Hub.Web.Framework.Models.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Factories
 {
@@ -153,7 +152,7 @@ namespace Hub.Web.Areas.Admin.Factories
          //prepare available email accounts
          await _baseAdminModelFactory.PrepareEmailAccountsAsync(model.AvailableEmailAccounts);
 
-         
+
          return model;
       }
 

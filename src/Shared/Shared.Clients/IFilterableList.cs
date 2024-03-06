@@ -6,7 +6,7 @@ namespace Shared.Clients;
 /// Filterable list interface
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IFilterableList<T> : IList<T>  
+public interface IFilterableList<T> : IList<T>
 {
    /// <summary>
    /// Total count of the collection

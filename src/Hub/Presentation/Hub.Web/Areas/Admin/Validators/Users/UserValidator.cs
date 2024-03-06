@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
-using Hub.Web.Areas.Admin.Models.Users;
+﻿using FluentValidation;
 using Hub.Core.Domain.Users;
 using Hub.Data.Mapping;
-using Hub.Services.Users;
 using Hub.Services.Directory;
 using Hub.Services.Localization;
+using Hub.Services.Users;
+using Hub.Web.Areas.Admin.Models.Users;
 using Hub.Web.Framework.Validators;
 using Shared.Clients.Configuration;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Areas.Admin.Validators.Users;
 

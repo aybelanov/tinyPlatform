@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Hub.Core.Domain.Localization;
+﻿using Hub.Core.Domain.Localization;
 using Hub.Core.Events;
 using Hub.Services.Localization;
 using Hub.Services.Seo;
@@ -9,6 +6,9 @@ using Hub.Web.Framework.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hub.Web.Framework.Mvc.Routing;
 

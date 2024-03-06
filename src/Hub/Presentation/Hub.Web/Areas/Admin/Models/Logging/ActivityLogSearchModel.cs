@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Hub.Web.Framework.Models;
+using Hub.Web.Framework.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hub.Web.Framework.Mvc.ModelBinding;
-using Hub.Web.Framework.Models;
 
 namespace Hub.Web.Areas.Admin.Models.Logging;
 
@@ -40,7 +40,7 @@ public partial record ActivityLogSearchModel : BaseSearchModel
    [AppResourceDisplayName("Admin.Users.ActivityLog.Fields.IpAddress")]
    public string IpAddress { get; set; }
 
-   public string SubjectType { get; set; } 
+   public string SubjectType { get; set; }
 
    #endregion
 }

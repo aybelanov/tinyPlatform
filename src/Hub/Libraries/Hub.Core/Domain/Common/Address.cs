@@ -1,8 +1,5 @@
-﻿using Hub.Core.Domain.Directory;
-using Hub.Core.Domain.Users;
-using Shared.Common;
+﻿using Shared.Common;
 using System;
-using System.Collections.Generic;
 
 namespace Hub.Core.Domain.Common;
 
@@ -86,19 +83,19 @@ public partial class Address : BaseEntity
    /// </summary>
    public DateTime CreatedOnUtc { get; set; }
 
-//   #region Navigation
-//#pragma warning disable CS1591
+   //   #region Navigation
+   //#pragma warning disable CS1591
 
-//   public Country Country { get; set; }
-   
-//   public StateProvince StateProvince { get; set; }
-   
-//   public List<Affiliate> Affiliates { get; set; } = new();
+   //   public Country Country { get; set; }
 
-//   public List<User> Users { get; set; } = new();
+   //   public StateProvince StateProvince { get; set; }
 
-//   public List<UserAddress> UsersAddresses { get; set; } = new();  
+   //   public List<Affiliate> Affiliates { get; set; } = new();
 
-//#pragma warning restore CS1591
-//   #endregion
+   //   public List<User> Users { get; set; } = new();
+
+   //   public List<UserAddress> UsersAddresses { get; set; } = new();  
+
+   //#pragma warning restore CS1591
+   //   #endregion
 }
