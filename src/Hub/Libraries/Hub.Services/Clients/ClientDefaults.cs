@@ -50,7 +50,7 @@ public static class ClientDefaults
    /// It uses to define the gRPC requests 
    /// and has to be the same as gRPC package values in proto files
    /// </summary>
-   public static string[] GrpcContracts => new[] { GrpcClientContract, GrpcDeviceContract };
+   public static string[] GrpcContracts => [GrpcClientContract, GrpcDeviceContract];
 
    /// <summary>
    /// Device configuration version (include sensors)

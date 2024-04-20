@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import './js/widgets.js';
+﻿import './js/widgets.js';
 import Chart from './lib/chart.js/auto/auto.js';
 import './lib/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.esm.js';
 import ChartStreaming from './lib/chartjs-plugin-streaming/dist/chartjs-plugin-streaming.esm.js';

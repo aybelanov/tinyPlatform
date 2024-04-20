@@ -7,13 +7,8 @@ namespace Devices.Dispatcher.Data;
 
 #pragma warning disable CS1591
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-   public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-   {
-
-   }
-
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
       modelBuilder.Entity<Sensor>(x => x.HasIndex(x => x.SystemName).IsUnique());

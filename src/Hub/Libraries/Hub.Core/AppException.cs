@@ -5,7 +5,7 @@ namespace Hub.Core;
 /// <summary>
 /// Represents errors that occur during application execution
 /// </summary>
-/// <seealso cref="https://stackoverflow.com/questions/94488/make-a-custom-net-exception-serializable"/>
+/// <seealso href="https://stackoverflow.com/questions/94488/make-a-custom-net-exception-serializable"/>
 [Serializable]
 public class AppException : Exception
 {
